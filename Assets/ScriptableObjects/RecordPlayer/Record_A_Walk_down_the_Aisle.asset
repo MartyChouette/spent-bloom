@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a04ad4e28598b46af1c9d665529791, type: 3}
+  m_Name: Record_A_Walk_down_the_Aisle
+  m_EditorClassIdentifier: Assembly-CSharp::RecordDefinition
+  title: A Walk down the Aisle
+  artist: baegel
+  genre: Wedding
+  description: 
+  labelColor: {r: 0.9, g: 0.85, b: 0.6, a: 1}
+  coverColor: {r: 0.95, g: 0.92, b: 0.85, a: 1}
+  albumArt: {fileID: 2800000, guid: 5450ced0b42412544a15916a031967bb, type: 3}
+  moodValue: 0.3
+  musicClip: {fileID: 8300000, guid: 63904bf431d7d6d4894afa5f526d89b9, type: 3}
+  musicClipPath: 
+  volume: 0.7

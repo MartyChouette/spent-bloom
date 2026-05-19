@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a168407a49d06cc4691c61bc8ef33eef, type: 3}
+  m_Name: Book_Manga
+  m_EditorClassIdentifier: Assembly-CSharp::BookDefinition
+  title: Phantom Garden Vol. 1
+  author: K. Morimoto
+  pageTexts:
+  - 'Panel 1: A girl kneels in an overgrown greenhouse, her hands deep in soil that
+    glows faintly blue. Caption: "The flowers here bloom only for the dead."'
+  - 'Panel 4: She holds a single stem, its petals black and shimmering. "If I cut
+    this one," she whispers, "will you come back?"'
+  hasHiddenItem: 0
+  hiddenItemDescription:
+  hiddenItemPage: -1
+  reactionTags:
+  - book
+  - manga
+  - comics
+  spineColor: {r: 0.15, g: 0.12, b: 0.18, a: 1}
+  heightScale: 0.78
+  thicknessScale: 0.025

@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 552067963b988e743aca45bddee9e69b, type: 3}
+  m_Name: Date_Paris
+  m_EditorClassIdentifier: Assembly-CSharp::DatePersonalDefinition
+  characterName: Paris
+  adText: Art school dropout turned florist. Looking for someone who waters their
+    plants and owns at least one record player. Vinyl snobs welcome.
+  arrivalTimeSec: 30
+  portrait: {fileID: 21300000, guid: 4c786efe386cb5d438f94d2d11165974, type: 3}
+  characterPrefab: {fileID: 919132149155446097, guid: 34ce7c7b98635114e98aa51dfb51f89d, type: 3}
+  phoneNumberRect:
+    serializedVersion: 2
+    x: 0.1
+    y: 0.05
+    width: 0.8
+    height: 0.15
+  characterModelPrefab: {fileID: 919132149155446097, guid: 1cf307e66eb6b3b4c8f704e2df0a1abd, type: 3}
+  fontSizeOverride: 0
+  keywords:
+  - keyword: Art school dropout
+    commentary: She traded brushes for bouquets. Probably still has paint under her
+      nails.
+    preparationTag: book
+  - keyword: waters their plants
+    commentary: A simple test of care. Do you keep things alive?
+    preparationTag: plant
+  - keyword: Vinyl snobs welcome
+    commentary: "She wants someone who owns real records \u2014 not just a Spotify
+      playlist."
+    preparationTag: vinyl
+  flowerPrefab: {fileID: 3126228506876650885, guid: 7582aaee248b6e149b10daac037b2334, type: 3}
+  flowerSceneName: Daisy_Flower_Scene
+  guaranteeFlowerSuccess: 1
+  forceAvailable: 0
+  preferences:
+    likedTags:
+    - vinyl
+    - plant
+    - book
+    dislikedTags:
+    - weeb
+    preferredMoodMin: 0.1
+    preferredMoodMax: 0.4
+    likedDrinks:
+    - {fileID: 11400000, guid: ba0e1e44b66c240409dc4037f9a8b120, type: 2}
+    dislikedDrinks:
+    - {fileID: 11400000, guid: 6a3a5231bffc4934784c25151316ecfb, type: 2}
+    likedOutfitTags:
+    - floral
+    - elegant
+    dislikedOutfitTags:
+    - edgy
+    likedPerfumeTags: []
+    dislikedPerfumeTags: []
+    noPerfumeReaction: 1
+    noPerfumeComment: 
+    clutterTolerance: 0.5
+    reactionStrength: 1
+    likeLines:
+    - Love that.
+    - It has charm.
+    neutralLines: []
+    dislikeLines:
+    - Yikes.
+    - Sure.
+    - "It\u2019s ugly, but it has charm."
+    bespokeReactions: []
+  itemReactions:
+  - tag: camera
+    dialogue: My ex loved photography

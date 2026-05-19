@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd3b64d3dea2614bab28047dded6af1, type: 3}
+  m_Name: CameraPreset_V9
+  m_EditorClassIdentifier: Assembly-CSharp::Iris.Apartment.CameraPresetDefinition
+  label: "V9 \u2014 Surveillance"
+  areaConfigs:
+  - areaLabel: Kitchen
+    position: {x: 4.2638726, y: 5.884564, z: -9.267714}
+    rotation: {x: 28.481256, y: 338.023, z: 357.84637}
+    lens:
+      FieldOfView: 3.122996
+      OrthographicSize: 2.521815
+      NearClipPlane: 0.02521815
+      FarClipPlane: 5043.63
+      Dutch: 0
+      ModeOverride: 1
+      PhysicalProperties:
+        GateFit: 2
+        SensorSize: {x: 21.946, y: 16.002}
+        LensShift: {x: 0, y: 0}
+        FocusDistance: 10
+        Iso: 200
+        ShutterSpeed: 0.005
+        Aperture: 16
+        BladeCount: 5
+        Curvature: {x: 2, y: 11}
+        BarrelClipping: 0.25
+        Anamorphism: 0
+    volumeProfile: {fileID: 0}
+    lightIntensityMultiplier: 0
+    lightColorTint: {r: 0, g: 0, b: 0, a: 0}
+  - areaLabel: Living Room
+    position: {x: -3.115982, y: 3.1325364, z: 1.6475875}
+    rotation: {x: 21.726215, y: 125.91757, z: 358.03458}
+    lens:
+      FieldOfView: 3.122996
+      OrthographicSize: 2.4034564
+      NearClipPlane: 0.024034565
+      FarClipPlane: 4806.913
+      Dutch: 0
+      ModeOverride: 1
+      PhysicalProperties:
+        GateFit: 2
+        SensorSize: {x: 21.946, y: 16.002}
+        LensShift: {x: 0, y: 0}
+        FocusDistance: 10
+        Iso: 200
+        ShutterSpeed: 0.005
+        Aperture: 16
+        BladeCount: 5
+        Curvature: {x: 2, y: 11}
+        BarrelClipping: 0.25
+        Anamorphism: 0
+    volumeProfile: {fileID: 0}
+    lightIntensityMultiplier: 0
+    lightColorTint: {r: 0, g: 0, b: 0, a: 0}
+  - areaLabel: Entrance
+    position: {x: 6.659839, y: 3.8682551, z: -0.58889794}
+    rotation: {x: 13.9390135, y: 255.35106, z: 358.20428}
+    lens:
+      FieldOfView: 3.122996
+      OrthographicSize: 3.3474345
+      NearClipPlane: 0.033474345
+      FarClipPlane: 6694.869
+      Dutch: 0
+      ModeOverride: 1
+      PhysicalProperties:
+        GateFit: 2
+        SensorSize: {x: 21.946, y: 16.002}
+        LensShift: {x: 0, y: 0}
+        FocusDistance: 10
+        Iso: 200
+        ShutterSpeed: 0.005
+        Aperture: 16
+        BladeCount: 5
+        Curvature: {x: 2, y: 11}
+        BarrelClipping: 0.25
+        Anamorphism: 0
+    volumeProfile: {fileID: 0}
+    lightIntensityMultiplier: 0
+    lightColorTint: {r: 0, g: 0, b: 0, a: 0}

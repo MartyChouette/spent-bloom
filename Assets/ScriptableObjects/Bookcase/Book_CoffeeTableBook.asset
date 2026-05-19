@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a168407a49d06cc4691c61bc8ef33eef, type: 3}
+  m_Name: Book_CoffeeTableBook
+  m_EditorClassIdentifier: Assembly-CSharp::BookDefinition
+  title: Arrangements in Bloom
+  author: M. Nakamura
+  pageTexts:
+  - 'Ikebana is not about filling a vase. It is about the spaces between stems,
+    the silence a single branch can hold.'
+  - 'Full-page photograph: a moss-covered stone bowl holding three white camellias,
+    their petals just beginning to loosen.'
+  hasHiddenItem: 0
+  hiddenItemDescription:
+  hiddenItemPage: -1
+  reactionTags:
+  - book
+  - art
+  - photography
+  spineColor: {r: 0.85, g: 0.82, b: 0.75, a: 1}
+  heightScale: 0.92
+  thicknessScale: 0.045

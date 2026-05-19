@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5efed0c7b7bca40822027625fe0cf5, type: 3}
+  m_Name: Mess_Lipstick_Smear
+  m_EditorClassIdentifier: Assembly-CSharp::MessBlueprint
+  messName: Lipstick Smear
+  description: "A smudge of deep red \u2014 things went well."
+  category: 0
+  messType: 0
+  spillDefinition: {fileID: 11400000, guid: c13074bb04fbd8943aa406e7ac264c90, type: 2}
+  objectPrefab: {fileID: 0}
+  objectScale: {x: 0.1, y: 0.1, z: 0.1}
+  objectColor: {r: 0.9081669, g: 0, b: 1, a: 1}
+  requireDateSuccess: 1
+  requireDateFailure: 0
+  minAffection: 70
+  maxAffection: 100
+  requireReactionTag: 
+  requireBadFlowerTrim: 0
+  requireGoodFlowerTrim: 0
+  minDay: 0
+  maxDay: 50
+  spawnPosition: {x: -1.1516838, y: 0.075029254, z: -1.3358278}
+  spawnRotation: {x: 0, y: 0, z: 0}
+  allowedAreas: 01000000
+  weight: 1
