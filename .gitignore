@@ -114,3 +114,10 @@ builds.zip
 TestReport.html
 Assets/Resources/spent_bloom_trailer_01.mp4
 Assets/Resources/spent_bloom_trailer_01.mp4.meta
+
+# Deprecated / parked code
+/_Parked/
+/old_claudefiles/
+
+# Node artifacts
+docs/node_modules/
