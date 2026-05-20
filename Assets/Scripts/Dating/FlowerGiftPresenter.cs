@@ -322,6 +322,10 @@ public class FlowerGiftPresenter : MonoBehaviour
             mat.SetFloat("_Blend", 1f); // Additive
             mat.color = new Color(1f, 0.95f, 0.75f, 1f);
             rend.material = mat;
+            // The sparkle GO is destroyed as a child of pivot (Destroy(pivot) in
+            // PresentSequence). Unity does not auto-destroy materials from new
+            // Material() calls, so track it here for cleanup on GO destruction.
+            go.AddComponent<MaterialOnDestroyCleanup>().Track(mat);
         }
 
         return go;

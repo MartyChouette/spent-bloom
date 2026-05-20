@@ -4,10 +4,11 @@ using UnityEngine;
 /// Scene-scoped singleton that aggregates per-area tidiness from four signals:
 ///   1. Stain cleanliness (CleaningManager)
 ///   2. Object mess (misplaced PlaceableObjects with non-General category)
-///   3. Smell (sum of ReactableTag.SmellAmount in area)
+///   3. Smell (sum of ReactableTag.SmellAmount in area, reduced by living plant health)
 ///   4. Floor clutter (items resting on the floor)
 ///
 /// Each area score ranges 0 (filthy) to 1 (spotless).
+/// Living plants reduce smell by up to 15%, scaled by average plant health.
 /// Uses PlaceableObject.All static registry instead of FindObjectsByType.
 /// </summary>
 public class TidyScorer : MonoBehaviour
@@ -16,16 +17,16 @@ public class TidyScorer : MonoBehaviour
 
     [Header("Weights")]
     [Tooltip("Weight for stain cleanliness in the tidiness formula.")]
-    [SerializeField] private float _stainWeight = 0.45f;
+    [SerializeField] private float _stainWeight = 0.25f;
 
     [Tooltip("Weight for object mess in the tidiness formula.")]
     [SerializeField] private float _objectWeight = 0.25f;
 
     [Tooltip("Weight for smell cleanliness in the tidiness formula.")]
-    [SerializeField] private float _smellWeight = 0.15f;
+    [SerializeField] private float _smellWeight = 0.25f;
 
     [Tooltip("Weight for floor clutter in the tidiness formula.")]
-    [SerializeField] private float _clutterWeight = 0.10f;
+    [SerializeField] private float _clutterWeight = 0.25f;
 
     [Header("Thresholds")]
     [Tooltip("Maximum expected mess items per area before objectClean = 0.")]
@@ -181,6 +182,10 @@ public class TidyScorer : MonoBehaviour
         return count;
     }
 
+    [Header("Plant Smell Reduction")]
+    [Tooltip("Maximum smell reduction from healthy living plants (0-1). Scales with average plant health.")]
+    [SerializeField] private float _plantSmellReduction = 0.15f;
+
     private float GetSmellClean(ApartmentArea area)
     {
         float totalSmell = 0f;
@@ -189,6 +194,20 @@ public class TidyScorer : MonoBehaviour
             if (tag.SmellAmount <= 0f) continue;
             if (ClassifyPosition(tag.transform.position) == area)
                 totalSmell += tag.SmellAmount;
+        }
+
+        // Living plants reduce smell by up to _plantSmellReduction, scaled by average health.
+        if (LivingFlowerPlantManager.Instance != null)
+        {
+            var plants = LivingFlowerPlantManager.Instance.ActivePlants;
+            if (plants.Count > 0)
+            {
+                float avgHealth = 0f;
+                for (int i = 0; i < plants.Count; i++)
+                    avgHealth += plants[i].Health;
+                avgHealth /= plants.Count;
+                totalSmell *= 1f - (avgHealth * _plantSmellReduction);
+            }
         }
 
         return 1f - Mathf.Clamp01(totalSmell / _smellThreshold);

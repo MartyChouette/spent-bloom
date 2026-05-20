@@ -21,6 +21,7 @@ public class PestInstance : MonoBehaviour
 
     // Host part tinting
     private Renderer _hostRenderer;
+    private Material _hostMatInstance;
     private Color _originalHostColor;
     private bool _tintApplied;
     private static readonly Color InfestTint = new Color(0.5f, 0.65f, 0.35f); // sickly green
@@ -35,10 +36,11 @@ public class PestInstance : MonoBehaviour
         if (hostPart != null)
         {
             _hostRenderer = hostPart.GetComponentInChildren<Renderer>();
-            if (_hostRenderer != null && _hostRenderer.material != null)
+            if (_hostRenderer != null)
             {
-                _originalHostColor = _hostRenderer.material.color;
-                _hostRenderer.material.color = Color.Lerp(_originalHostColor, InfestTint, 0.4f);
+                _hostMatInstance = _hostRenderer.material;
+                _originalHostColor = _hostMatInstance.color;
+                _hostMatInstance.color = Color.Lerp(_originalHostColor, InfestTint, 0.4f);
                 _tintApplied = true;
             }
         }
@@ -66,6 +68,7 @@ public class PestInstance : MonoBehaviour
     void OnDestroy()
     {
         RestoreHostTint();
+        if (_hostMatInstance != null) Destroy(_hostMatInstance);
     }
 
     private void RemoveSelf()
@@ -78,9 +81,9 @@ public class PestInstance : MonoBehaviour
 
     private void RestoreHostTint()
     {
-        if (_tintApplied && _hostRenderer != null && _hostRenderer.material != null)
+        if (_tintApplied && _hostMatInstance != null)
         {
-            _hostRenderer.material.color = _originalHostColor;
+            _hostMatInstance.color = _originalHostColor;
             _tintApplied = false;
         }
     }

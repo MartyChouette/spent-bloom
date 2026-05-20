@@ -37,6 +37,7 @@ public class PestController : MonoBehaviour
     // Runtime
     private float _spreadTimer;
     private List<PestInstance> _pests = new List<PestInstance>();
+    private Dictionary<PestInstance, Material> _pestMaterials = new Dictionary<PestInstance, Material>();
 
     public int InfestedCount => _pests.Count;
     public int CleanCount
@@ -81,6 +82,9 @@ public class PestController : MonoBehaviour
     void OnDestroy()
     {
         if (Instance == this) Instance = null;
+        foreach (var mat in _pestMaterials.Values)
+            if (mat != null) Destroy(mat);
+        _pestMaterials.Clear();
     }
 
     void Start()
@@ -199,6 +203,7 @@ public class PestController : MonoBehaviour
 
         // Create visual
         GameObject visual;
+        Material createdMat = null;
         if (pestVisualPrefab != null)
         {
             visual = Instantiate(pestVisualPrefab, part.transform);
@@ -219,10 +224,10 @@ public class PestController : MonoBehaviour
             var rend = visual.GetComponent<Renderer>();
             if (rend != null)
             {
-                var mat = new Material(Shader.Find("Universal Render Pipeline/Lit")
+                createdMat = new Material(Shader.Find("Universal Render Pipeline/Lit")
                     ?? Shader.Find("Standard"));
-                mat.color = new Color(0.15f, 0.1f, 0.08f);
-                rend.material = mat;
+                createdMat.color = new Color(0.15f, 0.1f, 0.08f);
+                rend.material = createdMat;
             }
         }
 
@@ -231,6 +236,8 @@ public class PestController : MonoBehaviour
         pest.visual = visual;
         pest.controller = this;
         _pests.Add(pest);
+        if (createdMat != null)
+            _pestMaterials[pest] = createdMat;
 
         Debug.Log($"[PestController] Infested {part.name}.");
     }
@@ -238,6 +245,12 @@ public class PestController : MonoBehaviour
     public void OnPestRemoved(PestInstance pest)
     {
         _pests.Remove(pest);
+
+        if (_pestMaterials.TryGetValue(pest, out var mat))
+        {
+            if (mat != null) Destroy(mat);
+            _pestMaterials.Remove(pest);
+        }
 
         if (AudioManager.Instance != null && removeSFX != null)
             AudioManager.Instance.PlaySFX(removeSFX);

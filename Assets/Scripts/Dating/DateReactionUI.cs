@@ -54,6 +54,14 @@ public class DateReactionUI : MonoBehaviour
     private WaitForSeconds _waitNotice;
     private WaitForSeconds _waitReaction;
 
+    // Tracked so they can be destroyed in OnDestroy — Unity does not auto-destroy
+    // materials assigned to renderer.material unless the renderer is part of a
+    // destroyed GameObject *and* Unity manages the instance (which it only does
+    // for instances it created via the .material accessor). Runtime new Material()
+    // calls must be destroyed manually.
+    private Material _iconMat;
+    private Material _itemIconMat;
+
     // Screen-space text overlay — always visible regardless of camera focus
     private static Canvas s_screenTextCanvas;
     private TMP_Text _screenText;
@@ -73,16 +81,22 @@ public class DateReactionUI : MonoBehaviour
         var spriteShader = Shader.Find("Sprites/Default");
         if (spriteShader != null)
         {
-            var spriteMat = new Material(spriteShader);
-            spriteMat.SetInt("_ZTest", (int)CompareFunction.Always);
-            spriteMat.renderQueue = 4000;
-            _iconRenderer.material = spriteMat;
+            _iconMat = new Material(spriteShader);
+            _iconMat.SetInt("_ZTest", (int)CompareFunction.Always);
+            _iconMat.renderQueue = 4000;
+            _iconRenderer.material = _iconMat;
         }
 
         _bubbleGO.SetActive(false);
 
         _waitNotice = new WaitForSeconds(noticeDuration);
         _waitReaction = new WaitForSeconds(reactionDuration);
+    }
+
+    private void OnDestroy()
+    {
+        if (_iconMat != null) Destroy(_iconMat);
+        if (_itemIconMat != null) Destroy(_itemIconMat);
     }
 
     private void LateUpdate()
@@ -406,10 +420,10 @@ public class DateReactionUI : MonoBehaviour
         var itemShader = Shader.Find("Sprites/Default");
         if (itemShader != null)
         {
-            var mat = new Material(itemShader);
-            mat.SetInt("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
-            mat.renderQueue = 4002;
-            _itemIconRenderer.material = mat;
+            _itemIconMat = new Material(itemShader);
+            _itemIconMat.SetInt("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+            _itemIconMat.renderQueue = 4002;
+            _itemIconRenderer.material = _itemIconMat;
         }
 
         go.transform.localScale = Vector3.one * 0.8f;

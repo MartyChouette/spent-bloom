@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -55,6 +56,11 @@ public class CleaningManager : MonoBehaviour
     private static bool s_hasCleanedFirstStain;
     private bool _wasPressingLastFrame;
     private const float SFX_COOLDOWN = 0.15f;
+
+    // Tracks runtime-created stain particle materials for cleanup
+    private List<Material> _stainMaterials = new List<Material>();
+    // Cached auto-created sponge material for cleanup
+    private Material _spongeMat;
 
     // ── Sponge squish (velocity-based deformation) ──────────────────
     private static readonly Vector3 SpongeBaseScale = new(0.14f, 0.07f, 0.16f);
@@ -234,6 +240,10 @@ public class CleaningManager : MonoBehaviour
     void OnDestroy()
     {
         if (Instance == this) Instance = null;
+        foreach (var mat in _stainMaterials)
+            if (mat != null) Destroy(mat);
+        _stainMaterials.Clear();
+        if (_spongeMat != null) Destroy(_spongeMat);
     }
 
     // Input managed by IrisInput singleton — no local enable/disable needed.
@@ -436,6 +446,7 @@ public class CleaningManager : MonoBehaviour
             mat.SetFloat("_Blend", 1f); // Additive
             mat.color = new Color(1f, 0.95f, 0.8f, 1f);
             renderer.material = mat;
+            _stainMaterials.Add(mat);
         }
 
         ps.Play();
@@ -480,7 +491,10 @@ public class CleaningManager : MonoBehaviour
         if (col != null) Destroy(col);
         var rend = go.GetComponent<Renderer>();
         if (rend != null)
-            rend.material.color = new Color(0.9f, 0.85f, 0.3f);
+        {
+            _spongeMat = rend.material;
+            _spongeMat.color = new Color(0.9f, 0.85f, 0.3f);
+        }
         go.SetActive(false);
         _spongeVisual = go.transform;
         Debug.Log("[CleaningManager] Auto-created sponge visual at runtime.");

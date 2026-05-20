@@ -366,7 +366,13 @@ public class AuthoredMessSpawner : MonoBehaviour
         }
         else if (isProcedural)
         {
-            go.GetComponent<Renderer>()?.material.SetColor("_Color", bp.objectColor);
+            var mpb = new MaterialPropertyBlock();
+            var rend = go.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                mpb.SetColor("_Color", bp.objectColor);
+                rend.SetPropertyBlock(mpb);
+            }
         }
 
         // Apply PSX glitch shader + render-on-top to ALL renderers in the trash

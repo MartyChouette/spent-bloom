@@ -1,24 +1,26 @@
 # Active Session State
 
 <!-- STATUS -->
-Epic:
-Feature:
-Task:
+Epic: Project Health
+Feature: Codebase Quality
+Task: Material leak fixes complete
 <!-- /STATUS -->
 
 ## Current Focus
-_No active task._
+Session complete. All planned tasks finished.
 
-## Recent Decisions
-- Removed `_Parked/` (45 shelved scripts) and `old_claudefiles/` from repo
-- Updated directory structure docs to reflect actual Unity layout
-- Added GDD skeletons for undocumented systems
-
-## Files Modified This Session
-- `.gitignore` — added ignore rules for _Parked, old_claudefiles, docs/node_modules
-- `.claude/docs/directory-structure.md` — rewritten to match actual project layout
-- `production/session-state/active.md` — created
-- `design/gdd/*.md` — 12 system GDD skeletons created
+## Session Summary (2026-05-20)
+- Reverse-documented 12 systems into full GDDs
+- Ran project stage analysis (Production, mid-to-late)
+- Reviewed codebase quality assessment
+- Fixed 11 material instance memory leaks across 10 files
+- Fixed MoodMachine volume bug (now respects AccessibilitySettings)
+- Fixed LivingFlowerPlant div-by-zero guard
+- Implemented plant smell reduction (15%) in TidyScorer
+- Equalized tidiness weights to 0.25 each
+- Created MaterialOnDestroyCleanup utility
 
 ## Open Questions
-_None._
+- Tidiness weights: equal (0.25 each) set as code defaults but scene serialization may override
+- SimpleDrinkManager: legacy, can be removed in future cleanup
+- Dormant systems (mid-date fails, ambient mood, outfit judgment): still in codebase

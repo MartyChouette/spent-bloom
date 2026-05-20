@@ -744,6 +744,8 @@ public class PlaceableObject : MonoBehaviour
     {
         if (_stinkLinesGO != null)
         {
+            var rend = _stinkLinesGO.GetComponent<Renderer>();
+            if (rend != null) Destroy(rend.material);
             Destroy(_stinkLinesGO);
             _stinkLinesGO = null;
         }

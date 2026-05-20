@@ -26,19 +26,25 @@ public class GraftableSlot : MonoBehaviour
     public Color occupiedColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
 
     private Renderer _renderer;
+    private Material _matInstance;
 
     void Awake()
     {
         _renderer = GetComponent<Renderer>();
+        _matInstance = _renderer != null ? _renderer.material : null;
         UpdateVisual();
+    }
+
+    void OnDestroy()
+    {
+        if (_matInstance != null) Destroy(_matInstance);
     }
 
     /// <summary>Update the slot's visual indicator based on occupancy.</summary>
     public void UpdateVisual()
     {
-        if (_renderer == null) return;
-        if (_renderer.material != null)
-            _renderer.material.color = isOccupied ? occupiedColor : emptyColor;
+        if (_matInstance == null) return;
+        _matInstance.color = isOccupied ? occupiedColor : emptyColor;
     }
 
     void OnDrawGizmos()

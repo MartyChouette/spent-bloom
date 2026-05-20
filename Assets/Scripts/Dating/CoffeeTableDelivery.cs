@@ -29,6 +29,7 @@ public class CoffeeTableDelivery : MonoBehaviour
 
     private GameObject _currentDrink;
     private Material _drinkMat;
+    private Material _dirtyGlassMat;
 
     private void Awake()
     {
@@ -68,6 +69,7 @@ public class CoffeeTableDelivery : MonoBehaviour
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
+        if (_dirtyGlassMat != null) Destroy(_dirtyGlassMat);
     }
 
     /// <summary>Place a drink on the coffee table and notify the date.</summary>
@@ -166,8 +168,9 @@ public class CoffeeTableDelivery : MonoBehaviour
             if (rend == null) rend = glass.GetComponentInChildren<Renderer>();
             if (rend != null && rend.sharedMaterial != null)
             {
-                rend.material.SetColor("_BaseColor", _dirtyLiquidTint);
-                rend.material.color = _dirtyLiquidTint;
+                _dirtyGlassMat = rend.material;
+                _dirtyGlassMat.SetColor("_BaseColor", _dirtyLiquidTint);
+                _dirtyGlassMat.color = _dirtyLiquidTint;
             }
         }
 

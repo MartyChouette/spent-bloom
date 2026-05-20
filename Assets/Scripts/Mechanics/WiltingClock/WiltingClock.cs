@@ -32,6 +32,7 @@ public class WiltingClock : MonoBehaviour
     // Runtime
     private float _timer;
     private Dictionary<FlowerPartRuntime, Color> _originalColors = new Dictionary<FlowerPartRuntime, Color>();
+    private Dictionary<FlowerPartRuntime, Material> _matInstances = new Dictionary<FlowerPartRuntime, Material>();
     private static readonly Color WiltTint = new Color(0.45f, 0.35f, 0.25f);
 
     /// <summary>Time remaining until the next wilt tick.</summary>
@@ -74,14 +75,28 @@ public class WiltingClock : MonoBehaviour
     {
         if (brain == null) return;
         _originalColors.Clear();
+        _matInstances.Clear();
         for (int i = 0; i < brain.parts.Count; i++)
         {
             var part = brain.parts[i];
             if (part == null) continue;
             var rend = part.GetComponentInChildren<Renderer>();
-            if (rend != null && rend.material != null)
-                _originalColors[part] = rend.material.color;
+            if (rend != null)
+            {
+                var mat = rend.material;
+                _matInstances[part] = mat;
+                _originalColors[part] = mat.color;
+            }
         }
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var mat in _matInstances.Values)
+        {
+            if (mat != null) Destroy(mat);
+        }
+        _matInstances.Clear();
     }
 
     private void DoWiltTick()
@@ -120,13 +135,10 @@ public class WiltingClock : MonoBehaviour
         part.condition = FlowerPartCondition.Withered;
 
         // Tint visual
-        var rend = part.GetComponentInChildren<Renderer>();
-        if (rend != null && rend.material != null)
+        if (_matInstances.TryGetValue(part, out var mat) && mat != null)
         {
-            rend.material.color = Color.Lerp(
-                _originalColors.ContainsKey(part) ? _originalColors[part] : rend.material.color,
-                WiltTint,
-                0.7f);
+            Color baseColor = _originalColors.ContainsKey(part) ? _originalColors[part] : mat.color;
+            mat.color = Color.Lerp(baseColor, WiltTint, 0.7f);
         }
 
         Debug.Log($"[WiltingClock] {part.name} withered.");

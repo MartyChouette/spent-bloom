@@ -1413,7 +1413,17 @@ public class DateSessionManager : MonoBehaviour
             yield return null;
         }
 
-        if (t != null) Destroy(t.gameObject);
+        if (t != null)
+        {
+            // Destroy the instanced material created in SpawnMultiplierPopup before
+            // the GO is destroyed — Unity does not auto-destroy materials assigned
+            // via sharedMaterial when the GameObject is destroyed.
+            var popupMR = t.GetComponent<MeshRenderer>();
+            if (popupMR != null && popupMR.sharedMaterial != null)
+                Destroy(popupMR.sharedMaterial);
+
+            Destroy(t.gameObject);
+        }
     }
 
     private static Vector3 GetVisualCenter(Transform t)
@@ -1567,6 +1577,11 @@ public class DateSessionManager : MonoBehaviour
         if (shader != null)
         {
             var mat = new Material(shader);
+            // The particle GO destroys itself via ParticleSystemStopAction.Destroy.
+            // Unity does not auto-destroy materials assigned via renderer.material
+            // (new Material calls) when the owning GO is destroyed, so we attach a
+            // tiny cleanup component that destroys this material instance in OnDestroy.
+            go.AddComponent<MaterialOnDestroyCleanup>().Track(mat);
             // Transparent alpha-blended so PNG transparency works
             mat.SetFloat("_Surface", 1f);
             mat.SetFloat("_Blend", 0f);

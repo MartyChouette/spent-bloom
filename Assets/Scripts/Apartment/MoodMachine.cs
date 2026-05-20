@@ -249,13 +249,15 @@ public class MoodMachine : MonoBehaviour
             emission.rateOverTime = baseRainRate;
         }
 
-        // Audio
+        // Audio — multiply by player's accessibility volume settings
         if (AudioManager.Instance != null)
         {
+            float masterVol = AccessibilitySettings.MasterVolume;
+            float ambVol = AccessibilitySettings.AmbienceVolume;
             if (AudioManager.Instance.ambienceSource != null && AudioManager.Instance.ambienceSource.isPlaying)
-                AudioManager.Instance.ambienceSource.volume = baseAmbienceVol;
+                AudioManager.Instance.ambienceSource.volume = baseAmbienceVol * masterVol * ambVol;
             if (AudioManager.Instance.weatherSource != null && AudioManager.Instance.weatherSource.isPlaying)
-                AudioManager.Instance.weatherSource.volume = baseWeatherVol;
+                AudioManager.Instance.weatherSource.volume = baseWeatherVol * masterVol * ambVol;
         }
 
         // Color filter (global shader property)

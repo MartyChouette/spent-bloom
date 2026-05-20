@@ -89,7 +89,7 @@ public class LivingFlowerPlant : MonoBehaviour
     {
         if (_isDead) return;
 
-        _health -= 1f / _totalDaysAlive;
+        _health -= 1f / Mathf.Max(1, _totalDaysAlive);
         _health = Mathf.Max(0f, _health);
 
         if (_health <= 0f)
