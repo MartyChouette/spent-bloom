@@ -44520,3 +44520,697 @@ production/session-logs/session-log.md
 production/session-logs/session-log.md
 ---
 
+## Session End: 20260519_230155
+### Commits
+55e5199 init
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+---
+
+## Session End: 20260519_232057
+### Commits
+55e5199 init
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Archived Session State: 20260520_020459
+# Active Session State
+
+<!-- STATUS -->
+Epic:
+Feature:
+Task:
+<!-- /STATUS -->
+
+## Current Focus
+_No active task._
+
+## Recent Decisions
+- Removed `_Parked/` (45 shelved scripts) and `old_claudefiles/` from repo — recoverable via git history
+- Updated directory structure docs to reflect actual Unity layout
+- Added GDD skeletons for undocumented systems
+
+## Files Modified This Session
+- `.gitignore` — added ignore rules for _Parked, old_claudefiles, docs/node_modules
+- `.claude/docs/directory-structure.md` — rewritten to match actual project layout
+- `production/session-state/active.md` — created
+- `design/gdd/*.md` — system GDD skeletons created
+
+## Open Questions
+_None._
+---
+
+## Session End: 20260520_020459
+### Uncommitted Changes
+.gitignore
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Archived Session State: 20260520_021006
+# Active Session State
+
+<!-- STATUS -->
+Epic:
+Feature:
+Task:
+<!-- /STATUS -->
+
+## Current Focus
+_No active task._
+
+## Recent Decisions
+- Removed `_Parked/` (45 shelved scripts) and `old_claudefiles/` from repo
+- Updated directory structure docs to reflect actual Unity layout
+- Added GDD skeletons for undocumented systems
+
+## Files Modified This Session
+- `.gitignore` — added ignore rules for _Parked, old_claudefiles, docs/node_modules
+- `.claude/docs/directory-structure.md` — rewritten to match actual project layout
+- `production/session-state/active.md` — created
+- `design/gdd/*.md` — 12 system GDD skeletons created
+
+## Open Questions
+_None._
+---
+
+## Session End: 20260520_021006
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260520_021805
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_022313
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_025009
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/apartment-hub.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_025457
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_025547
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_025727
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_030027
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_030100
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_030926
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_031811
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_033426
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/LivingFlowerPlant.cs
+Assets/Scripts/Apartment/MoodMachine.cs
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_034537
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/LivingFlowerPlant.cs
+Assets/Scripts/Apartment/MoodMachine.cs
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_034633
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/LivingFlowerPlant.cs
+Assets/Scripts/Apartment/MoodMachine.cs
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/Scripts/Mechanics/Grafting/GraftableSlot.cs
+Assets/Scripts/Mechanics/PestSystem/PestInstance.cs
+Assets/Scripts/Mechanics/WiltingClock/WiltingClock.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_034637
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/LivingFlowerPlant.cs
+Assets/Scripts/Apartment/MoodMachine.cs
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/Scripts/Mechanics/Grafting/GraftableSlot.cs
+Assets/Scripts/Mechanics/PestSystem/PestInstance.cs
+Assets/Scripts/Mechanics/WiltingClock/WiltingClock.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_034720
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/LivingFlowerPlant.cs
+Assets/Scripts/Apartment/MoodMachine.cs
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/Scripts/Dating/CoffeeTableDelivery.cs
+Assets/Scripts/Dating/DateReactionUI.cs
+Assets/Scripts/Mechanics/Cleaning/CleaningManager.cs
+Assets/Scripts/Mechanics/Grafting/GraftableSlot.cs
+Assets/Scripts/Mechanics/PestSystem/PestController.cs
+Assets/Scripts/Mechanics/PestSystem/PestInstance.cs
+Assets/Scripts/Mechanics/WiltingClock/WiltingClock.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_034840
+### Commits
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Apartment/AuthoredMessSpawner.cs
+Assets/Scripts/Apartment/LivingFlowerPlant.cs
+Assets/Scripts/Apartment/MoodMachine.cs
+Assets/Scripts/Apartment/PlaceableObject.cs
+Assets/Scripts/Apartment/TidyScorer.cs
+Assets/Scripts/Dating/CoffeeTableDelivery.cs
+Assets/Scripts/Dating/DateReactionUI.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/FlowerGiftPresenter.cs
+Assets/Scripts/Mechanics/Cleaning/CleaningManager.cs
+Assets/Scripts/Mechanics/Grafting/GraftableSlot.cs
+Assets/Scripts/Mechanics/PestSystem/PestController.cs
+Assets/Scripts/Mechanics/PestSystem/PestInstance.cs
+Assets/Scripts/Mechanics/WiltingClock/WiltingClock.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+design/gdd/accessibility.md
+design/gdd/apartment-hub.md
+design/gdd/dating-loop.md
+design/gdd/drink-making.md
+design/gdd/flower-trimming.md
+design/gdd/living-plants.md
+design/gdd/mood-machine.md
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.md
+design/gdd/record-player.md
+design/gdd/tidiness-system.md
+design/gdd/watering-system.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260520_035500
+# Active Session State
+
+<!-- STATUS -->
+Epic: Project Health
+Feature: Codebase Quality
+Task: Material leak fixes complete
+<!-- /STATUS -->
+
+## Current Focus
+Session complete. All planned tasks finished.
+
+## Session Summary (2026-05-20)
+- Reverse-documented 12 systems into full GDDs
+- Ran project stage analysis (Production, mid-to-late)
+- Reviewed codebase quality assessment
+- Fixed 11 material instance memory leaks across 10 files
+- Fixed MoodMachine volume bug (now respects AccessibilitySettings)
+- Fixed LivingFlowerPlant div-by-zero guard
+- Implemented plant smell reduction (15%) in TidyScorer
+- Equalized tidiness weights to 0.25 each
+- Created MaterialOnDestroyCleanup utility
+
+## Open Questions
+- Tidiness weights: equal (0.25 each) set as code defaults but scene serialization may override
+- SimpleDrinkManager: legacy, can be removed in future cleanup
+- Dormant systems (mid-date fails, ambient mood, outfit judgment): still in codebase
+---
+
+## Session End: 20260520_035500
+### Commits
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260520_040202
+### Commits
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/EntranceJudgmentSequence.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260520_040250
+# Session State
+
+## Current Task
+Design documentation — game pillars and systems index written.
+
+## Completed
+- [x] `design/game-pillars.md` — 4 pillars + anti-pillars table
+- [x] `design/systems-index.md` — 13-system registry + dependency graph + heat map
+
+## Key Decisions
+- All 13 GDD files confirmed present in `design/gdd/`
+- Systems index uses Status column values: Reverse-documented, Draft, Approved, Implemented, In Review
+- Date Phase Scoring listed as Draft (the redesign doc); all others Reverse-documented
+- Dependency heat map added as a risk-priority aid for the lead programmer
+- Anti-pillars table added to game-pillars.md — four explicit "not this" constraints
+
+## Files Written This Session
+- `D:/GitHub/spent-bloom/design/game-pillars.md`
+- `D:/GitHub/spent-bloom/design/systems-index.md`
+
+## Open Questions
+None at this time.
+
+## Next Steps (suggested)
+- Run `/design-review design/game-pillars.md` to validate pillars against the 8-section standard
+- Run design-review on individual GDDs that are Reverse-documented to catch gaps
+- Update systems-index Status column as GDDs pass review
+---
+
+## Session End: 20260520_040250
+### Commits
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/EntranceJudgmentSequence.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_040313
+### Commits
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/EntranceJudgmentSequence.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_040412
+### Commits
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/EntranceJudgmentSequence.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_040521
+### Commits
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/EntranceJudgmentSequence.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260520_041224
+# Active Session State
+
+<!-- STATUS -->
+Epic: Project Health
+Feature: Documentation + Quality
+Task: HTML docs generating
+<!-- /STATUS -->
+
+## Current Focus
+Waiting on 4 HTML generation agents to complete (12 interactive GDD documents).
+
+## Session Summary (2026-05-20)
+- Reverse-documented 12 systems into full GDDs + character-arcs spec
+- Created game-pillars.md and systems-index.md
+- Ran project stage analysis (Production, mid-to-late)
+- Fixed 11 material instance memory leaks
+- Fixed MoodMachine volume bug (respects AccessibilitySettings)
+- Fixed LivingFlowerPlant div-by-zero guard
+- Implemented plant smell reduction (15%) in TidyScorer
+- Equalized tidiness weights (0.25 each) in code + scene files
+- Cleaned up dormant systems (fail thresholds, ambient mood, outfit)
+- Added 23 NUnit tests (drink scoring + tidiness)
+- HTML interactive docs in progress (12 files)
+
+## Open Questions
+- Flower threshold: 30 (code) vs 90 (redesign draft) — needs resolution
+- Drink pour quality impact is low (~2 affection diff) — consider steeper curve
+- Character arc completion reward type TBD
+- Calendar length (7-day hard limit or loop?) TBD
+---
+
+## Session End: 20260520_041224
+### Commits
+2d21cb1 Add design docs, tests, dormant system cleanup, scene weight fix, 4 HTML GDDs
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260520_041248
+### Commits
+2d21cb1 Add design docs, tests, dormant system cleanup, scene weight fix, 4 HTML GDDs
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_041359
+### Commits
+2d21cb1 Add design docs, tests, dormant system cleanup, scene weight fix, 4 HTML GDDs
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_041450
+### Commits
+2d21cb1 Add design docs, tests, dormant system cleanup, scene weight fix, 4 HTML GDDs
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_041457
+### Commits
+2d21cb1 Add design docs, tests, dormant system cleanup, scene weight fix, 4 HTML GDDs
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_041718
+### Commits
+d87c420 Add remaining 8 interactive HTML GDD documents
+2d21cb1 Add design docs, tests, dormant system cleanup, scene weight fix, 4 HTML GDDs
+5a0f48c Reverse-document 12 systems, fix material leaks, balance tidiness, fix audio bug
+7138b3b Clean up repo: remove dead code, add GDD skeletons, fix project structure
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_124625
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_131830
+### Commits
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_132131
+### Commits
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_134742
+### Commits
+5e0390e Fix dating-loop.html character roster with real game characters
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
