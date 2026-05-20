@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSX Rendering — Spent Blooms GDD</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --card-hover: #1a2745;
+    --accent: #e94560;
+    --accent-soft: #e9456033;
+    --green: #4ecca3;
+    --yellow: #f5c542;
+    --muted: #8892a8;
+    --text: #eaeaea;
+    --text-dim: #a0a8b8;
+    --border: #2a3a5c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .subtitle span {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-content { display: none; padding-top: 1.5rem; }
+  .tab-content.active { display: block; }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: background 0.2s;
+  }
+
+  section:hover { background: var(--card-hover); }
+  section h2 { font-size: 1.1rem; color: var(--green); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  section h3 { font-size: 0.95rem; color: var(--yellow); margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text-dim); font-size: 0.9rem; }
+  p { margin-bottom: 0.5rem; }
+  ul, ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.35rem; }
+  li strong { color: var(--text); }
+
+  code {
+    background: #0f3460;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: var(--yellow);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-exists { background: #4ecca333; color: var(--green); }
+  .tag-warn   { background: #e9456033; color: var(--accent); }
+  .tag-note   { background: #f5c54233; color: var(--yellow); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  td { color: var(--text-dim); }
+  tr:hover td { color: var(--text); }
+
+  .collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .collapsible-header::before {
+    content: '>';
+    display: inline-block;
+    transition: transform 0.2s;
+    font-family: monospace;
+    color: var(--muted);
+  }
+
+  .collapsible-header.open::before { transform: rotate(90deg); }
+  .collapsible-body { display: none; margin-top: 0.75rem; }
+  .collapsible-body.open { display: block; }
+
+  .status-bar {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .badge-draft { background: #f5c54233; color: var(--yellow); }
+  .badge-dep   { background: #4ecca322; color: var(--green); }
+  .badge-rev   { background: #4682b433; color: #6aacde; }
+
+  .progress-bar { flex: 1; min-width: 200px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.5s; }
+  .progress-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── Interactive Preview Controls ── */
+  .preview-wrap {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin: 0.75rem 0;
+  }
+
+  .control-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .control-label {
+    font-size: 0.82rem;
+    color: var(--muted);
+    min-width: 140px;
+  }
+
+  .control-val {
+    font-size: 0.9rem;
+    color: var(--yellow);
+    font-weight: 700;
+    min-width: 60px;
+  }
+
+  input[type=range] {
+    flex: 1;
+    min-width: 120px;
+    max-width: 300px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  /* ── Pixel Grid (resolution demo) ── */
+  #pixelCanvas {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    image-rendering: pixelated;
+    width: 100%;
+    max-width: 480px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ── Color gradient (posterization demo) ── */
+  #gradientCanvas {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 480px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ── Dither canvas ── */
+  .dither-wrap {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 0.75rem 0;
+  }
+
+  .dither-block {
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .dither-block canvas {
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    image-rendering: pixelated;
+    display: block;
+    transition: border-color 0.2s;
+  }
+
+  .dither-block.active canvas { border-color: var(--accent); }
+
+  .dither-block .dither-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  .dither-block.active .dither-label { color: var(--accent); }
+
+  /* ── Shadow threshold diagram ── */
+  #thresholdCanvas {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 480px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* ── Override matrix ── */
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 80px);
+    gap: 4px;
+    margin: 0.75rem 0;
+    font-size: 0.82rem;
+  }
+
+  .matrix-header {
+    background: transparent;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    padding: 0.3rem 0.5rem;
+    text-align: center;
+  }
+
+  .matrix-header.obj-col { text-align: left; }
+
+  .matrix-cell {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.35rem 0.5rem;
+    text-align: center;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .matrix-cell.obj-name {
+    text-align: left;
+    cursor: default;
+    color: var(--text);
+    background: var(--card);
+  }
+
+  .matrix-cell.val-neg1 { color: var(--muted); }
+  .matrix-cell.val-0    { color: var(--yellow); background: #f5c54211; border-color: #f5c54244; }
+  .matrix-cell.val-custom { color: var(--green); background: #4ecca311; border-color: #4ecca344; }
+
+  /* ── A/B toggle ── */
+  .ab-toggle {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    width: fit-content;
+  }
+
+  .ab-btn {
+    padding: 0.4rem 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+
+  .ab-btn:first-child { border-right: 1px solid var(--border); }
+  .ab-btn.active { background: var(--accent); color: white; }
+
+  /* ── Checklist ── */
+  .checklist { list-style: none; padding-left: 0; }
+
+  .checklist li {
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    transition: background 0.15s;
+  }
+
+  .checklist li:hover { background: var(--bg); }
+
+  .checklist li .check {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-size: 0.7rem;
+    color: transparent;
+  }
+
+  .checklist li.checked .check { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+  .formula-block {
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--yellow);
+    margin: 0.75rem 0;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+
+<h1>PSX Rendering</h1>
+<div class="subtitle">
+  Spent Blooms &mdash; Game Design Document
+  <span>Reverse-Documented</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-badge badge-rev">Reverse-Documented</div>
+  <div class="status-badge badge-dep">5 dependencies</div>
+  <div class="progress-label" id="progressLabel">0 / 12 criteria met</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="layers">Layers</button>
+  <button class="tab-btn" data-tab="preview">Interactive Preview</button>
+  <button class="tab-btn" data-tab="overrides">Per-Object Overrides</button>
+  <button class="tab-btn" data-tab="formulas">Formulas</button>
+  <button class="tab-btn" data-tab="edges">Edge Cases</button>
+  <button class="tab-btn" data-tab="deps">Dependencies</button>
+  <button class="tab-btn" data-tab="tuning">Tuning</button>
+  <button class="tab-btn" data-tab="criteria">Acceptance</button>
+</div>
+
+<!-- ════════════ OVERVIEW ════════════ -->
+<div class="tab-content active" id="tab-overview">
+  <section>
+    <h2>Overview</h2>
+    <p>The PSX rendering system gives Spent Bloom its signature lo-fi aesthetic by applying three cooperative layers of retro distortion. The system is globally togglable for accessibility and performance.</p>
+    <table>
+      <tr><th>Layer</th><th>Component</th><th>Effects</th></tr>
+      <tr><td>1 &mdash; Object Shader</td><td><code>PSXLit</code> (Iris/PSXLit)</td><td>Vertex snapping, affine UV warping, shadow dithering per-geometry</td></tr>
+      <tr><td>2 &mdash; Post-Process</td><td><code>PSXPostProcessFeature</code></td><td>Resolution downscale, color depth reduction, ordered dithering, tilt-shift blur</td></tr>
+      <tr><td>3 &mdash; Per-Object Override</td><td><code>PSXObjectSettings</code></td><td>MaterialPropertyBlock overrides per-renderer; no material instances created</td></tr>
+    </table>
+    <p style="margin-top:0.5rem;"><strong>Design rule:</strong> Artist materials are <strong>never swapped to PSXLit by code</strong>. The shader is assigned at scene build time and stays as authored. This prevents runtime material leaks, unexpected shader compilation stalls, and uncontrolled visual changes. <span class="tag tag-warn">Forbidden Pattern</span></p>
+  </section>
+
+  <section>
+    <h2>Player Fantasy</h2>
+    <p>The player should feel like they are playing a game remembered imperfectly &mdash; soft edges where sharpness should be, colors that pool rather than grade, a room that feels handmade rather than rendered.</p>
+    <p>The PSX look is not nostalgia for its own sake: it flattens emotional distance, making the apartment feel warmer and more intimate than a clean render would. <strong>The aesthetic should recede into atmosphere, noticed only when absent.</strong></p>
+  </section>
+
+  <section>
+    <h2>Runtime Toggle</h2>
+    <p>The <strong>F4 key</strong> toggles <code>PSXEnabled</code> at runtime for A/B visual comparison during development. Available in editor play mode and development builds only.</p>
+    <p><span class="tag tag-warn">Release Guard Required</span> The F4 hotkey must be wrapped in <code>#if UNITY_EDITOR</code> or <code>Debug.isDebugBuild</code>. It must not ship in release builds.</p>
+  </section>
+</div>
+
+<!-- ════════════ LAYERS ════════════ -->
+<div class="tab-content" id="tab-layers">
+  <section>
+    <h2>Layer 1: Object Shader (PSXLit)</h2>
+    <p>Applied to geometry that should participate in the retro aesthetic. Operates in three modes per-vertex.</p>
+
+    <h3>Vertex Snapping</h3>
+    <p>Vertex positions in clip space are quantized to a lower-resolution grid before rasterization. Produces the characteristic swimming geometry of early 3D hardware. Grid resolution set by <code>_snapResolution</code>. Global default equivalent to a <strong>160&times;120</strong> virtual framebuffer.</p>
+
+    <h3>Affine Texture Mapping</h3>
+    <p>Standard UV interpolation is perspective-correct (divides by W). Affine mapping skips the W division, producing warped, sliding textures of PSX-era polygons. <code>_affineIntensity</code> blends between perspective-correct (0) and fully affine (1). Global default: <strong>1.0</strong> (fully affine).</p>
+
+    <h3>Shadow Dithering</h3>
+    <p>Shadow boundaries use Bayer pattern stippling rather than smooth gradients. <code>_shadowDither</code> controls intensity. At 0, shadows are unaffected. At 1, full Bayer pattern applied to shadow penumbra.</p>
+  </section>
+
+  <section>
+    <h2>Layer 2: Post-Process (PSXPostProcessFeature)</h2>
+    <p>A URP Renderer Feature that runs a fullscreen blit each frame using the PSXPost shader. Applies four effects in sequence.</p>
+
+    <h3>1. Resolution Downscale</h3>
+    <p>Screen downscaled by <code>resolutionDivisor</code> (default <strong>3.0</strong>) using point filtering, then upscaled back to native with point filtering. Produces large square pixels. At 3.0 on 1920&times;1080: renders at 640&times;360.</p>
+
+    <h3>2. Color Depth Reduction (Posterization)</h3>
+    <p>Each color channel quantized to <code>colorDepth</code> levels (default <strong>32</strong>). Values are rounded, not interpolated. Matches the limited palette of early hardware.</p>
+
+    <h3>3. Ordered Dithering</h3>
+    <p>A Bayer matrix tiled across the screen thresholds dark regions. Two Bayer patterns selected by luminance:</p>
+    <table>
+      <tr><th>Luminance Zone</th><th>Pattern</th><th>Threshold</th></tr>
+      <tr><td>Bright (above shadow)</td><td>None &mdash; no dither</td><td>&gt; 0.5</td></tr>
+      <tr><td>Mid-shadow (fine dither)</td><td>Bayer4x4 (default)</td><td>0.15 &ndash; 0.5</td></tr>
+      <tr><td>Deep shadow (coarse dither)</td><td>Bayer2x2 (default)</td><td>&lt; 0.15</td></tr>
+    </table>
+    <p>Dither intensity is also scaled by camera zoom (see Formulas).</p>
+
+    <h3>4. Tilt-Shift Blur</h3>
+    <p>A focal band defined by <code>tiltShiftCenter</code> (0&ndash;1 screen height, default 0.5) and <code>tiltShiftWidth</code> (default 0.15). Pixels outside the band blurred by <code>tiltShiftRadius</code> (default 8px). <code>tiltShiftAmount</code> (default 0) scales the overall effect &mdash; at 0, no blur applied.</p>
+  </section>
+
+  <section>
+    <h2>Accessibility Integration</h2>
+    <table>
+      <tr><th>Setting</th><th>Effect on PSX</th></tr>
+      <tr><td><code>AccessibilitySettings.PSXEnabled = false</code></td><td>Post-process blit is skipped entirely. Object shader properties remain but have minimal visual impact without the fullscreen pass.</td></tr>
+      <tr><td><code>AccessibilitySettings.ReduceMotion = true</code></td><td>Vertex snapping suppressed globally (<code>_snapResolution</code> = 0). Affine UV warping suppressed (<code>_affineIntensity</code> = 0). Shadow dithering and post-process effects remain active.</td></tr>
+    </table>
+    <p>Changes take effect within one frame via <code>OnSettingsChanged</code> callback.</p>
+  </section>
+</div>
+
+<!-- ════════════ INTERACTIVE PREVIEW ════════════ -->
+<div class="tab-content" id="tab-preview">
+
+  <section>
+    <h2>Resolution Divisor Preview</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">Drag the slider to see how <code>resolutionDivisor</code> pixelates the render. At 3.0 on 1920&times;1080, the effective render is 640&times;360.</p>
+    <div class="preview-wrap">
+      <div class="control-row">
+        <span class="control-label">resolutionDivisor</span>
+        <input type="range" id="resDivSlider" min="1" max="8" step="0.5" value="3">
+        <span class="control-val" id="resDivVal">3.0</span>
+        <span style="font-size:0.8rem;color:var(--muted);" id="resDisplay">640 &times; 360</span>
+      </div>
+      <canvas id="pixelCanvas" width="480" height="120"></canvas>
+    </div>
+  </section>
+
+  <section>
+    <h2>Color Depth (Posterization) Preview</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">Adjust <code>colorDepth</code> to see posterization applied to a full-spectrum gradient. Formula: <code>floor(channel &times; depth) / depth</code></p>
+    <div class="preview-wrap">
+      <div class="control-row">
+        <span class="control-label">colorDepth (levels)</span>
+        <input type="range" id="colorDepthSlider" min="4" max="256" step="4" value="32">
+        <span class="control-val" id="colorDepthVal">32</span>
+      </div>
+      <canvas id="gradientCanvas" width="480" height="60"></canvas>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dither Pattern Preview</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">Click a Bayer pattern to preview it at 8x scale. The pattern tiles across the screen and thresholds shadow-range pixels.</p>
+    <div class="preview-wrap">
+      <div class="dither-wrap">
+        <div class="dither-block active" id="dither2x2" onclick="selectDither('2x2')">
+          <canvas id="canvas2x2" width="64" height="64"></canvas>
+          <div class="dither-label">Bayer 2&times;2<br><small>coarse (deep shadow)</small></div>
+        </div>
+        <div class="dither-block" id="dither4x4" onclick="selectDither('4x4')">
+          <canvas id="canvas4x4" width="64" height="64"></canvas>
+          <div class="dither-label">Bayer 4&times;4<br><small>fine (mid-shadow)</small></div>
+        </div>
+        <div class="dither-block" id="dither8x8" onclick="selectDither('8x8')">
+          <canvas id="canvas8x8" width="64" height="64"></canvas>
+          <div class="dither-label">Bayer 8&times;8<br><small>finest detail</small></div>
+        </div>
+        <div style="flex:1;min-width:160px;">
+          <div style="font-size:0.82rem;color:var(--muted);margin-bottom:0.5rem;">Preview at 8&times; scale</div>
+          <canvas id="ditherPreview" width="160" height="160" style="border:1px solid var(--border);border-radius:4px;image-rendering:pixelated;display:block;"></canvas>
+          <div id="ditherInfo" style="font-size:0.78rem;color:var(--text-dim);margin-top:0.4rem;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Shadow Threshold Diagram</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">Luminance gradient (0=black, 1=white) with fine/coarse dither zone markers. Adjust thresholds to see zones shift.</p>
+    <div class="preview-wrap">
+      <div class="control-row">
+        <span class="control-label">shadowThreshold</span>
+        <input type="range" id="shadowThreshSlider" min="0.3" max="0.8" step="0.05" value="0.5">
+        <span class="control-val" id="shadowThreshVal">0.50</span>
+      </div>
+      <div class="control-row">
+        <span class="control-label">deepShadowThreshold</span>
+        <input type="range" id="deepShadowSlider" min="0" max="0.4" step="0.05" value="0.15">
+        <span class="control-val" id="deepShadowVal">0.15</span>
+      </div>
+      <canvas id="thresholdCanvas" width="480" height="80"></canvas>
+      <div style="display:flex;gap:1.5rem;margin-top:0.5rem;font-size:0.78rem;flex-wrap:wrap;">
+        <span style="color:#4ecca3;">&#9632; No dither (bright)</span>
+        <span style="color:#f5c542;">&#9632; Fine dither / Bayer4x4 (mid-shadow)</span>
+        <span style="color:#e94560;">&#9632; Coarse dither / Bayer2x2 (deep shadow)</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Accessibility Toggle</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">Toggle PSX effect on/off and ReduceMotion to understand what each removes.</p>
+    <div class="preview-wrap">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem;">
+        <div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem;">PSXEnabled</div>
+          <div class="ab-toggle">
+            <button class="ab-btn active" id="psxOn" onclick="setAccessibility('psx', true)">ON</button>
+            <button class="ab-btn" id="psxOff" onclick="setAccessibility('psx', false)">OFF</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem;">ReduceMotion</div>
+          <div class="ab-toggle">
+            <button class="ab-btn" id="rmOn" onclick="setAccessibility('rm', true)">ON</button>
+            <button class="ab-btn active" id="rmOff" onclick="setAccessibility('rm', false)">OFF</button>
+          </div>
+        </div>
+      </div>
+      <div id="accessMatrix" style="font-size:0.85rem;line-height:2;">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ PER-OBJECT OVERRIDES ════════════ -->
+<div class="tab-content" id="tab-overrides">
+  <section>
+    <h2>Per-Object Override Matrix</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:0.75rem;">Click a cell to cycle through sentinel (-1 = global), disabled (0), and custom (positive) values. <code>PSXObjectSettings</code> writes to a fresh <code>MaterialPropertyBlock</code> per renderer &mdash; <strong>no material instances are ever created</strong>.</p>
+
+    <div class="matrix-grid" id="overrideMatrix">
+      <div class="matrix-header obj-col">Object</div>
+      <div class="matrix-header">_snapResolution</div>
+      <div class="matrix-header">_affineIntensity</div>
+      <div class="matrix-header">_shadowDither</div>
+    </div>
+
+    <div style="margin-top:1rem;">
+      <table>
+        <tr><th>Sentinel Value</th><th>Meaning</th><th>Effect</th></tr>
+        <tr><td><code>-1</code></td><td>Use global</td><td>PSXLit reads the globally-set shader value</td></tr>
+        <tr><td><code>0</code> (snap)</td><td>Disabled</td><td>Vertex snapping off on this object &mdash; useful for UI or stable objects</td></tr>
+        <tr><td><code>0.0</code> (affine)</td><td>Perspective-correct</td><td>UV coordinates correct on this object while global post-process stays active</td></tr>
+        <tr><td>&gt; 0 (custom)</td><td>Override value</td><td>Custom per-object intensity regardless of global setting</td></tr>
+      </table>
+    </div>
+
+    <div style="background:var(--bg);border-radius:6px;padding:0.85rem 1rem;margin-top:0.75rem;border:1px solid var(--border);">
+      <strong style="color:var(--accent);font-size:0.85rem;">Implementation Constraint</strong>
+      <p style="margin-top:0.3rem;">Always call <code>SetPropertyBlock</code> before reading back values. <strong>Never call <code>GetPropertyBlock</code> on a fresh MPB</strong> &mdash; it returns default values, not material values. <code>PSXObjectSettings</code> initializes a fresh MPB in <code>Awake</code> and writes to it immediately.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ FORMULAS ════════════ -->
+<div class="tab-content" id="tab-formulas">
+  <section>
+    <h2>Screen Resolution After Downscale</h2>
+    <div class="formula-block">
+      renderWidth  = floor(nativeWidth  / resolutionDivisor)<br>
+      renderHeight = floor(nativeHeight / resolutionDivisor)<br><br>
+      <span style="color:var(--muted);">// Example: 1920×1080, divisor=3.0 &rarr; 640×360</span><br>
+      <span style="color:var(--muted);">// Fractional: 1920×1080, divisor=2.5 &rarr; 768×432</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Posterization Per Channel</h2>
+    <div class="formula-block">
+      quantized = floor(channel &times; colorDepth) / colorDepth<br><br>
+      <span style="color:var(--muted);">// channel &isin; [0, 1], colorDepth = 32 default</span><br>
+      <span style="color:var(--muted);">// Example: channel=0.73, depth=32</span><br>
+      <span style="color:var(--muted);">//   &rarr; floor(0.73&times;32)/32 = floor(23.36)/32 = 23/32 = 0.71875</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dither Zoom Scaling</h2>
+    <div class="formula-block">
+      ditherZoom = cameraOrthographicSize / ditherZoomReference<br>
+      scaledDitherIntensity = ditherIntensity &times; ditherZoom<br><br>
+      <span style="color:var(--muted);">// ditherZoomReference = 5.0 (authored camera size)</span><br>
+      <span style="color:var(--muted);">// cameraSize=5.0:  scaledDither = ditherIntensity &times; 1.0  (as authored)</span><br>
+      <span style="color:var(--muted);">// cameraSize=2.5:  scaledDither = ditherIntensity &times; 0.5  (finer, tiles denser)</span><br>
+      <span style="color:var(--muted);">// cameraSize=10.0: scaledDither = ditherIntensity &times; 2.0  (coarser at wide zoom)</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Bayer Luminance Threshold Decision</h2>
+    <div class="formula-block">
+      luminance = dot(color.rgb, float3(0.299, 0.587, 0.114))<br><br>
+      if luminance &gt; shadowThreshold (0.5):        pattern = none<br>
+      elif luminance &gt; deepShadowThreshold (0.15): pattern = finePattern (Bayer4x4)<br>
+      else:                                           pattern = coarsePattern (Bayer2x2)
+    </div>
+  </section>
+
+  <section>
+    <h2>Tilt-Shift Blur Falloff</h2>
+    <div class="formula-block">
+      distanceFromFocal = abs(screenUV.y &minus; tiltShiftCenter) &minus; (tiltShiftWidth / 2)<br>
+      blurWeight = saturate(distanceFromFocal / tiltShiftRadius) &times; tiltShiftAmount<br><br>
+      <span style="color:var(--muted);">// blurWeight = 0 inside focal band</span><br>
+      <span style="color:var(--muted);">// ramps to tiltShiftAmount outside focal band</span>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════ EDGE CASES ════════════ -->
+<div class="tab-content" id="tab-edges">
+  <section>
+    <h2>Edge Cases</h2>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">resolutionDivisor below 1.0</h3>
+      <div class="collapsible-body">
+        <p>Renders at higher than native resolution &mdash; wasteful, no PSX effect. The system should clamp the minimum to <strong>1.0</strong>. Fractional values between 1.0 and 2.0 are valid for subtle pixelation.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">colorDepth = 256</h3>
+      <div class="collapsible-body">
+        <p>Maximum fidelity &mdash; posterization is imperceptible. Valid as a "PSX light" mode for accessibility without full disabling.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">colorDepth = 4</h3>
+      <div class="collapsible-body">
+        <p>Extreme banding, intentional for artistic emphasis on specific scenes. No system error, but QA should verify the palette looks <em>authored</em> rather than <em>broken</em>.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">PSXObjectSettings on a SkinnedMeshRenderer</h3>
+      <div class="collapsible-body">
+        <p>The MPB must be set on <code>SkinnedMeshRenderer</code>, not <code>MeshRenderer</code>. The component type must be checked in <code>Awake</code> when fetching the renderer reference.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">Object with PSXObjectSettings and no renderer</h3>
+      <div class="collapsible-body">
+        <p><code>Awake</code> should log a warning and disable the component. No null reference propagation.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">ReduceMotion enabled mid-session</h3>
+      <div class="collapsible-body">
+        <p><code>PSXObjectSettings</code> reads <code>AccessibilitySettings.ReduceMotion</code> and updates vertex snap and affine parameters within one frame via <code>OnSettingsChanged</code> callback. No restart required.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">Camera size = 0 in dither zoom formula</h3>
+      <div class="collapsible-body">
+        <p><code>ditherZoom</code> would be 0, making dither invisible. Guard with <code>max(cameraSize, 0.01)</code> to prevent divide-by-zero if <code>ditherZoomReference</code> were ever 0.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">PSXEnabled toggled during ScreenFade</h3>
+      <div class="collapsible-body">
+        <p>The ScreenFade panel remains white (by design &mdash; see technical preferences). Toggling PSXEnabled during a fade transition does not affect the fade panel or its color.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">PSXLit materials on UI Canvas objects</h3>
+      <div class="collapsible-body">
+        <p>Canvas objects render outside the standard URP camera pass. <code>PSXPostProcessFeature</code> does not process UI canvas overlays. This is expected behavior &mdash; UI intentionally bypasses the retro effect.</p>
+      </div>
+    </section>
+
+    <section style="background:var(--bg);margin-bottom:0.75rem;">
+      <h3 class="collapsible-header" onclick="toggleCollapse(this)">F4 hotkey in release build</h3>
+      <div class="collapsible-body">
+        <p>The F4 runtime toggle must be disabled in release builds. A <code>#if UNITY_EDITOR</code> or <code>Debug.isDebugBuild</code> guard is required. Shipping the toggle would expose an unintended accessibility shortcut.</p>
+      </div>
+    </section>
+  </section>
+</div>
+
+<!-- ════════════ DEPENDENCIES ════════════ -->
+<div class="tab-content" id="tab-deps">
+  <section>
+    <h2>Dependencies</h2>
+    <table>
+      <tr><th>System</th><th>Direction</th><th>What</th></tr>
+      <tr><td><code>AccessibilitySettings.PSXEnabled</code></td><td>Read</td><td>Global on/off for the post-process pass</td></tr>
+      <tr><td><code>AccessibilitySettings.ReduceMotion</code></td><td>Read</td><td>Suppresses vertex snap and affine UV globally</td></tr>
+      <tr><td><code>VolumeManager</code></td><td>Read</td><td>URP volume stack for post-process integration</td></tr>
+      <tr><td><code>IrisQualityManager</code></td><td>Read</td><td>May adjust <code>resolutionDivisor</code> or disable the feature based on quality preset</td></tr>
+      <tr><td><code>Shader "Iris/PSXLit"</code></td><td>Write (MPB)</td><td>Object-level vertex snap, affine, shadow dither</td></tr>
+      <tr><td><code>Shader "Iris/Fullscreen/PSXPost"</code></td><td>Write (fullscreen blit)</td><td>Resolution downscale, posterization, dithering, tilt-shift</td></tr>
+      <tr><td><code>AtmosphereController</code></td><td>Depended on by</td><td>Post-process parameter adjustments assume PSX pass is active; grain &times;2.5 multiplier calibrated for PSX baseline</td></tr>
+      <tr><td><code>MoodMachine</code></td><td>Indirect</td><td>Adjusts post-process volume parameters (bloom, grain, exposure, vignette) that interact with PSX pass ordering</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════════════ TUNING ════════════ -->
+<div class="tab-content" id="tab-tuning">
+  <section>
+    <h2>Tuning Knobs</h2>
+    <table>
+      <tr><th>Knob</th><th>Default</th><th>Safe Range</th><th>Affects</th></tr>
+      <tr><td><code>resolutionDivisor</code></td><td>3.0</td><td>1.0 &ndash; 8.0</td><td>Pixel size; core aesthetic strength</td></tr>
+      <tr><td><code>colorDepth</code></td><td>32</td><td>4 &ndash; 256</td><td>Color banding intensity</td></tr>
+      <tr><td><code>ditherIntensity</code></td><td>0.5</td><td>0.0 &ndash; 1.0</td><td>Shadow texture / grain feel</td></tr>
+      <tr><td><code>shadowThreshold</code></td><td>0.5</td><td>0.3 &ndash; 0.8</td><td>Luminance above which dither is suppressed</td></tr>
+      <tr><td><code>deepShadowThreshold</code></td><td>0.15</td><td>0.0 &ndash; 0.4</td><td>Luminance below which coarse dither applies</td></tr>
+      <tr><td><code>ditherZoomReference</code></td><td>5.0</td><td>1.0 &ndash; 20.0</td><td>Camera size at which dither reads as designed</td></tr>
+      <tr><td><code>finePattern</code></td><td>Bayer4x4</td><td>Bayer2x2/4x4/8x8</td><td>Detail in mid-shadow dither</td></tr>
+      <tr><td><code>coarsePattern</code></td><td>Bayer2x2</td><td>Bayer2x2/4x4</td><td>Texture in deep-shadow dither</td></tr>
+      <tr><td><code>vertexSnapResolution</code></td><td>160&times;120</td><td>80&times;60 &ndash; 320&times;240</td><td>Geometry swim intensity; lower = more PSX</td></tr>
+      <tr><td><code>affineIntensity</code></td><td>1.0</td><td>0.0 &ndash; 1.0</td><td>UV warp strength; 0 = perspective-correct</td></tr>
+      <tr><td><code>tiltShiftAmount</code></td><td>0</td><td>0.0 &ndash; 1.0</td><td>Miniature blur enable/strength</td></tr>
+      <tr><td><code>tiltShiftCenter</code></td><td>0.5</td><td>0.0 &ndash; 1.0</td><td>Focal band vertical position</td></tr>
+      <tr><td><code>tiltShiftWidth</code></td><td>0.15</td><td>0.05 &ndash; 0.5</td><td>Focal band height (fraction of screen)</td></tr>
+      <tr><td><code>tiltShiftRadius</code></td><td>8</td><td>2 &ndash; 32</td><td>Blur kernel size in pixels outside focal band</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════════════ ACCEPTANCE ════════════ -->
+<div class="tab-content" id="tab-criteria">
+  <section>
+    <h2>Acceptance Criteria</h2>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Resolution downscale: at resolutionDivisor=3.0 on 1920&times;1080, effective render is 640&times;360. Pixel edges visible as squares at native display size.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Posterization: at colorDepth=4, color output shows no more than 4 distinct values per channel. Screenshot comparison confirms visible banding.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Dither in shadows: pixels at luminance &lt; 0.15 show Bayer2x2. Pixels at 0.15&ndash;0.5 show Bayer4x4. Pixels above 0.5 are undithered.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Dither zoom scaling: at cameraSize=5.0, dither as designed. At cameraSize=10.0, tiles coarser (2.0&times;). At cameraSize=2.5, tiles finer (0.5&times;).</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Vertex snapping: moving object with PSXLit visibly snaps to grid. At _snapResolution=0, same object moves smoothly.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Affine UV warping: large polygon with grid texture at affineIntensity=1.0 shows UV warping at corners. At 0.0, perspective-correct.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Per-object override does not create material instances: 10 PSXObjectSettings components after 60 seconds confirm Material count has not increased from baseline.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>PSXEnabled=false disables post-process: scene renders without downscale, posterization, or dithering. Object shader properties remain.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>ReduceMotion suppresses vertex snap and affine: PSXLit object moves smoothly, UV perspective-correct. Shadow dithering remains.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>F4 toggle: in editor play mode, pressing F4 toggles post-process off and on within one frame. Visual difference immediately apparent.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>ReduceMotion live update: enable ReduceMotion while in play mode. Vertex snap stops within one rendered frame, no restart required.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span>Tilt-shift at amount=1.0: pixels outside the focal band are blurred. Pixels inside are unblurred. Blur radius matches tiltShiftRadius in screen pixels.</span></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Resolution Divisor Preview ──
+const resDivSlider = document.getElementById('resDivSlider');
+const pixelCanvas = document.getElementById('pixelCanvas');
+const pctx = pixelCanvas.getContext('2d');
+
+function drawPixelPreview(divisor) {
+  const W = 480, H = 120;
+  const pw = Math.max(1, Math.round(divisor)); // visual block size
+  pctx.clearRect(0, 0, W, H);
+
+  // Draw a colorful scene at native res, then pixelate
+  for (let x = 0; x < W; x++) {
+    for (let y = 0; y < H; y++) {
+      const r = Math.round(x / W * 200 + 30);
+      const g = Math.round(100 + Math.sin(x / 40 + y / 30) * 60);
+      const b = Math.round(y / H * 180 + 40);
+      pctx.fillStyle = `rgb(${r},${g},${b})`;
+      pctx.fillRect(x, y, 1, 1);
+    }
+  }
+
+  if (pw > 1) {
+    // Pixelate: sample at block centers, fill blocks
+    const imgData = pctx.getImageData(0, 0, W, H);
+    const out = pctx.createImageData(W, H);
+
+    for (let bx = 0; bx < W; bx += pw) {
+      for (let by = 0; by < H; by += pw) {
+        const sx = Math.min(bx + Math.floor(pw / 2), W - 1);
+        const sy = Math.min(by + Math.floor(pw / 2), H - 1);
+        const srcIdx = (sy * W + sx) * 4;
+        const rv = imgData.data[srcIdx], gv = imgData.data[srcIdx+1], bv = imgData.data[srcIdx+2];
+        for (let dx = 0; dx < pw && bx+dx < W; dx++) {
+          for (let dy = 0; dy < pw && by+dy < H; dy++) {
+            const dstIdx = ((by+dy) * W + (bx+dx)) * 4;
+            out.data[dstIdx]=rv; out.data[dstIdx+1]=gv; out.data[dstIdx+2]=bv; out.data[dstIdx+3]=255;
+          }
+        }
+      }
+    }
+    pctx.putImageData(out, 0, 0);
+  }
+}
+
+resDivSlider.addEventListener('input', () => {
+  const v = parseFloat(resDivSlider.value);
+  document.getElementById('resDivVal').textContent = v.toFixed(1);
+  const rw = Math.floor(1920 / v), rh = Math.floor(1080 / v);
+  document.getElementById('resDisplay').textContent = `${rw} \u00d7 ${rh}`;
+  drawPixelPreview(v);
+});
+drawPixelPreview(3);
+
+// ── Color Depth / Posterization ──
+const colorDepthSlider = document.getElementById('colorDepthSlider');
+const gradientCanvas = document.getElementById('gradientCanvas');
+const gctx = gradientCanvas.getContext('2d');
+
+function drawGradient(depth) {
+  const W = 480, H = 60;
+  gctx.clearRect(0, 0, W, H);
+  for (let x = 0; x < W; x++) {
+    const t = x / W;
+    // Full spectrum gradient
+    const hue = t * 300;
+    const r0 = hslToRgb(hue / 360, 0.85, 0.55);
+    let r = Math.floor(r0[0] / 255 * depth) / depth * 255;
+    let g = Math.floor(r0[1] / 255 * depth) / depth * 255;
+    let b = Math.floor(r0[2] / 255 * depth) / depth * 255;
+    gctx.fillStyle = `rgb(${Math.round(r)},${Math.round(g)},${Math.round(b)})`;
+    gctx.fillRect(x, 0, 1, H);
+  }
+}
+
+function hslToRgb(h, s, l) {
+  let r, g, b;
+  if (s === 0) { r = g = b = l; }
+  else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return [r * 255, g * 255, b * 255];
+}
+
+function hue2rgb(p, q, t) {
+  if (t < 0) t += 1; if (t > 1) t -= 1;
+  if (t < 1/6) return p + (q - p) * 6 * t;
+  if (t < 1/2) return q;
+  if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+  return p;
+}
+
+colorDepthSlider.addEventListener('input', () => {
+  const v = parseInt(colorDepthSlider.value);
+  document.getElementById('colorDepthVal').textContent = v;
+  drawGradient(v);
+});
+drawGradient(32);
+
+// ── Dither Patterns ──
+const bayer2 = [[0, 2], [3, 1]];
+const bayer4 = [
+  [0,  8,  2, 10],
+  [12,  4, 14,  6],
+  [3,  11,  1,  9],
+  [15,  7, 13,  5]
+];
+const bayer8 = [
+  [0,32, 8,40, 2,34,10,42],
+  [48,16,56,24,50,18,58,26],
+  [12,44, 4,36,14,46, 6,38],
+  [60,28,52,20,62,30,54,22],
+  [3,35,11,43, 1,33, 9,41],
+  [51,19,59,27,49,17,57,25],
+  [15,47, 7,39,13,45, 5,37],
+  [63,31,55,23,61,29,53,21]
+];
+
+function drawBayer(canvasId, matrix, maxVal) {
+  const c = document.getElementById(canvasId);
+  const ctx = c.getContext('2d');
+  const size = matrix.length;
+  const cellW = c.width / size;
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const v = Math.round(matrix[y][x] / maxVal * 255);
+      ctx.fillStyle = `rgb(${v},${v},${v})`;
+      ctx.fillRect(x * cellW, y * cellW, cellW, cellW);
+    }
+  }
+}
+
+function drawBayerPreview(matrix, maxVal) {
+  const c = document.getElementById('ditherPreview');
+  const ctx = c.getContext('2d');
+  const size = matrix.length;
+  const scale = Math.floor(160 / size);
+  ctx.clearRect(0, 0, 160, 160);
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const v = Math.round(matrix[y][x] / maxVal * 255);
+      ctx.fillStyle = `rgb(${v},${v},${v})`;
+      ctx.fillRect(x * scale, y * scale, scale, scale);
+    }
+  }
+}
+
+drawBayer('canvas2x2', bayer2, 3);
+drawBayer('canvas4x4', bayer4, 15);
+drawBayer('canvas8x8', bayer8, 63);
+drawBayerPreview(bayer2, 3);
+document.getElementById('ditherInfo').textContent = 'Bayer 2x2: 4 threshold levels. Default for deep shadows.';
+
+function selectDither(key) {
+  document.querySelectorAll('.dither-block').forEach(d => d.classList.remove('active'));
+  const matrices = { '2x2': [bayer2, 3], '4x4': [bayer4, 15], '8x8': [bayer8, 63] };
+  const info = {
+    '2x2': 'Bayer 2\u00d72: 4 threshold levels. Default for deep shadows (luminance < 0.15).',
+    '4x4': 'Bayer 4\u00d74: 16 threshold levels. Default for mid-shadows (luminance 0.15\u20130.5).',
+    '8x8': 'Bayer 8\u00d78: 64 threshold levels. Finest detail; optional override for both zones.'
+  };
+  document.getElementById('dither' + key.replace('x', 'x')).classList.add('active');
+  drawBayerPreview(matrices[key][0], matrices[key][1]);
+  document.getElementById('ditherInfo').textContent = info[key];
+}
+
+// ── Shadow Threshold Diagram ──
+const threshCanvas = document.getElementById('thresholdCanvas');
+const tctx = threshCanvas.getContext('2d');
+
+function drawThreshold(shadowT, deepT) {
+  const W = 480, H = 80;
+  tctx.clearRect(0, 0, W, H);
+
+  for (let x = 0; x < W; x++) {
+    const lum = x / W;
+    let color;
+    if (lum > shadowT) {
+      color = `rgb(78,204,163)`; // green = no dither
+    } else if (lum > deepT) {
+      color = `rgb(245,197,66)`; // yellow = fine dither
+    } else {
+      color = `rgb(233,69,96)`;  // red = coarse dither
+    }
+    tctx.fillStyle = color;
+    tctx.fillRect(x, 0, 1, 40);
+    // Also draw actual luminance gradient
+    const g = Math.round(lum * 255);
+    tctx.fillStyle = `rgb(${g},${g},${g})`;
+    tctx.fillRect(x, 45, 1, 35);
+  }
+
+  // Labels
+  tctx.fillStyle = '#8892a8';
+  tctx.font = '10px sans-serif';
+  tctx.fillText('0 (black)', 2, 72);
+  tctx.fillText('1 (white)', W - 52, 72);
+  tctx.fillText('Zone color', 2, 15);
+  tctx.fillText('Luminance', 2, 58);
+
+  // Threshold markers
+  function marker(t, label, col) {
+    const x = Math.round(t * W);
+    tctx.strokeStyle = col;
+    tctx.lineWidth = 1.5;
+    tctx.setLineDash([3, 3]);
+    tctx.beginPath(); tctx.moveTo(x, 0); tctx.lineTo(x, H); tctx.stroke();
+    tctx.setLineDash([]);
+    tctx.fillStyle = col;
+    tctx.fillText(label, x + 2, 12);
+  }
+
+  marker(deepT, `deepShadow=${deepT.toFixed(2)}`, '#e94560');
+  marker(shadowT, `shadow=${shadowT.toFixed(2)}`, '#4ecca3');
+}
+
+const shadowThreshSlider = document.getElementById('shadowThreshSlider');
+const deepShadowSlider   = document.getElementById('deepShadowSlider');
+
+function updateThreshold() {
+  const st = parseFloat(shadowThreshSlider.value);
+  const dt = parseFloat(deepShadowSlider.value);
+  document.getElementById('shadowThreshVal').textContent = st.toFixed(2);
+  document.getElementById('deepShadowVal').textContent = dt.toFixed(2);
+  drawThreshold(st, dt);
+}
+
+shadowThreshSlider.addEventListener('input', updateThreshold);
+deepShadowSlider.addEventListener('input', updateThreshold);
+updateThreshold();
+
+// ── Accessibility Toggle ──
+let psxEnabled = true;
+let reduceMotion = false;
+
+function setAccessibility(type, val) {
+  if (type === 'psx') { psxEnabled = val; }
+  else { reduceMotion = val; }
+
+  document.getElementById('psxOn').className  = 'ab-btn' + (psxEnabled ? ' active' : '');
+  document.getElementById('psxOff').className = 'ab-btn' + (!psxEnabled ? ' active' : '');
+  document.getElementById('rmOn').className   = 'ab-btn' + (reduceMotion ? ' active' : '');
+  document.getElementById('rmOff').className  = 'ab-btn' + (!reduceMotion ? ' active' : '');
+
+  renderAccessMatrix();
+}
+
+function badge(active, text, trueColor, falseColor) {
+  const color = active ? trueColor : falseColor;
+  const bg = active ? trueColor + '22' : 'transparent';
+  return `<span style="display:inline-block;padding:1px 8px;border-radius:10px;font-size:0.78rem;font-weight:600;color:${color};background:${bg};border:1px solid ${color}44;">${text}</span>`;
+}
+
+function renderAccessMatrix() {
+  const effects = [
+    { name: 'Resolution Downscale',   active: psxEnabled,                        note: 'Post-process pass' },
+    { name: 'Color Posterization',    active: psxEnabled,                        note: 'Post-process pass' },
+    { name: 'Ordered Dithering',      active: psxEnabled,                        note: 'Post-process pass' },
+    { name: 'Vertex Snapping',        active: psxEnabled && !reduceMotion,       note: 'Object shader' },
+    { name: 'Affine UV Warping',      active: psxEnabled && !reduceMotion,       note: 'Object shader' },
+    { name: 'Shadow Dithering',       active: true,                              note: 'Always active' },
+    { name: 'Tilt-Shift Blur',        active: psxEnabled,                        note: 'Post-process (if amount > 0)' },
+  ];
+
+  let html = '<table><tr><th>Effect</th><th>Status</th><th>Notes</th></tr>';
+  effects.forEach(e => {
+    html += `<tr>
+      <td>${e.name}</td>
+      <td>${badge(e.active, e.active ? 'ACTIVE' : 'SUPPRESSED', '#4ecca3', '#e94560')}</td>
+      <td style="color:var(--muted);font-size:0.8rem;">${e.note}</td>
+    </tr>`;
+  });
+  html += '</table>';
+  document.getElementById('accessMatrix').innerHTML = html;
+}
+
+renderAccessMatrix();
+
+// ── Override Matrix ──
+const objects = [
+  { name: 'Floor Tiles', snap: -1, affine: -1, dither: -1 },
+  { name: 'UI Canvas Quad', snap: 0, affine: 0, dither: -1 },
+  { name: 'Character Mesh', snap: -1, affine: 0.5, dither: 0.8 },
+  { name: 'Record Player', snap: -1, affine: 1.0, dither: -1 },
+  { name: 'Window Glass', snap: 0, affine: 0, dither: 0 }
+];
+
+const propCycles = {
+  snap:   [-1, 0, 80, 160],
+  affine: [-1, 0, 0.5, 1.0],
+  dither: [-1, 0, 0.5, 1.0]
+};
+
+function cycleVal(arr, current) {
+  const idx = arr.indexOf(current);
+  return arr[(idx + 1) % arr.length];
+}
+
+function valClass(v) {
+  if (v === -1) return 'val-neg1';
+  if (v === 0)  return 'val-0';
+  return 'val-custom';
+}
+
+function valDisplay(v) {
+  if (v === -1) return '-1 (global)';
+  return v.toString();
+}
+
+function rebuildMatrix() {
+  const el = document.getElementById('overrideMatrix');
+  el.innerHTML = `
+    <div class="matrix-header obj-col">Object</div>
+    <div class="matrix-header">_snapResolution</div>
+    <div class="matrix-header">_affineIntensity</div>
+    <div class="matrix-header">_shadowDither</div>
+  `;
+
+  objects.forEach((obj, i) => {
+    const nameCell = document.createElement('div');
+    nameCell.className = 'matrix-cell obj-name';
+    nameCell.textContent = obj.name;
+    el.appendChild(nameCell);
+
+    ['snap', 'affine', 'dither'].forEach(prop => {
+      const cell = document.createElement('div');
+      cell.className = `matrix-cell ${valClass(obj[prop])}`;
+      cell.textContent = valDisplay(obj[prop]);
+      cell.addEventListener('click', () => {
+        obj[prop] = cycleVal(propCycles[prop], obj[prop]);
+        rebuildMatrix();
+      });
+      el.appendChild(cell);
+    });
+  });
+}
+
+rebuildMatrix();
+
+// ── Collapsible ──
+function toggleCollapse(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+// ── Checklist ──
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  const items = document.querySelectorAll('#checklist li');
+  const checked = document.querySelectorAll('#checklist li.checked').length;
+  const pct = Math.round(checked / items.length * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${checked} / ${items.length} criteria met`;
+}
+</script>
+</body>
+</html>

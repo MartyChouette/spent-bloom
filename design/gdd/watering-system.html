@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watering System — Spent Blooms GDD</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --card-hover: #1a2745;
+    --accent: #e94560;
+    --accent-soft: #e9456033;
+    --green: #4ecca3;
+    --yellow: #f5c542;
+    --muted: #8892a8;
+    --text: #eaeaea;
+    --text-dim: #a0a8b8;
+    --border: #2a3a5c;
+    --like: #ff6b9d;
+    --dislike: #8888a0;
+    --neutral: #c8c8d0;
+    --water: #3a8adf;
+    --water-light: #60b8f0;
+    --soil-dry: rgb(140, 102, 64);
+    --soil-wet: rgb(77, 56, 31);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+  }
+
+  .subtitle span {
+    background: var(--accent-soft); color: var(--accent);
+    padding: 2px 10px; border-radius: 12px; font-size: 0.8rem; margin-left: 0.5rem;
+  }
+
+  .tab-bar {
+    display: flex; gap: 4px; margin-bottom: 0;
+    border-bottom: 2px solid var(--border); flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 1.2rem; background: transparent; border: none;
+    color: var(--muted); font-size: 0.9rem; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: all 0.2s; font-family: inherit;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-content { display: none; padding-top: 1.5rem; }
+  .tab-content.active { display: block; }
+
+  section {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; transition: background 0.2s;
+  }
+
+  section:hover { background: var(--card-hover); }
+
+  section h2 {
+    font-size: 1.1rem; color: var(--green); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  section h3 { font-size: 0.95rem; color: var(--yellow); margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text-dim); font-size: 0.9rem; }
+  p { margin-bottom: 0.5rem; }
+  ul, ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.35rem; }
+  li strong { color: var(--text); }
+
+  code {
+    background: #0f3460; padding: 1px 6px; border-radius: 3px;
+    font-size: 0.85rem; color: var(--yellow);
+  }
+
+  .tag {
+    display: inline-block; padding: 1px 8px; border-radius: 10px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+
+  .tag-todo   { background: #e9456022; color: var(--accent); }
+  .tag-active { background: #4ecca322; color: var(--green); }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.85rem;
+  }
+
+  th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { color: var(--text-dim); }
+  tr:hover td { color: var(--text); background: #ffffff08; }
+
+  .status-bar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+  .status-badge {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+  }
+
+  .badge-rev { background: #4ecca322; color: var(--green); }
+  .badge-dep { background: #f5c54222; color: var(--yellow); }
+
+  .progress-bar { flex: 1; min-width: 200px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.5s; }
+  .progress-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── Pot Cross-Section ── */
+  .pot-section-wrap {
+    display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; margin: 1rem 0;
+  }
+
+  .pot-display { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+
+  .pot-canvas-wrap {
+    width: 160px; height: 200px; position: relative;
+    margin-bottom: 0.5rem;
+  }
+
+  canvas#potCanvas { display: block; }
+
+  .pot-readouts {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    font-size: 0.8rem; color: var(--text-dim); text-align: center;
+  }
+
+  .readout-val { font-family: monospace; color: var(--yellow); font-weight: 700; }
+
+  .pot-controls { flex: 1; min-width: 260px; }
+
+  /* Shape selector */
+  .shape-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; }
+
+  .shape-btn {
+    padding: 0.5rem 0.75rem; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 6px; color: var(--text-dim);
+    cursor: pointer; font-family: inherit; font-size: 0.85rem; text-align: left; transition: all 0.15s;
+  }
+
+  .shape-btn:hover { border-color: var(--green); }
+  .shape-btn.active { border-color: var(--green); background: #1a3a2a; color: var(--text); }
+  .shape-btn .sh-name { font-weight: 600; font-size: 0.85rem; color: var(--text); }
+  .shape-btn .sh-fn   { font-size: 0.7rem; color: var(--muted); font-family: monospace; }
+
+  /* Water level slider */
+  .water-slider-row { display: flex; align-items: center; gap: 0.75rem; margin: 0.75rem 0; }
+  .water-slider-row label { font-size: 0.85rem; color: var(--text-dim); min-width: 80px; }
+  .water-slider-row input[type=range] { flex: 1; accent-color: var(--water); }
+  .water-slider-row .val { font-size: 0.85rem; color: var(--yellow); font-family: monospace; min-width: 36px; }
+
+  .pour-btns { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+
+  .pour-action-btn {
+    padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--card); color: var(--text); cursor: pointer;
+    font-size: 0.85rem; font-family: inherit; transition: all 0.15s;
+  }
+
+  .pour-action-btn:hover { border-color: var(--green); }
+  .pour-action-btn.primary { background: var(--water); border-color: var(--water); color: white; font-weight: 600; }
+  .pour-action-btn.primary:hover { background: #2a6ab8; }
+  .pour-action-btn.danger { border-color: var(--accent); color: var(--accent); }
+
+  .status-msg-box {
+    margin-top: 0.75rem; padding: 0.65rem 1rem; border-radius: 6px;
+    font-size: 0.9rem; font-weight: 600; text-align: center; transition: all 0.3s;
+  }
+
+  /* ── Weather Chart ── */
+  .weather-bars { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.75rem 0; }
+
+  .weather-row { display: flex; align-items: center; gap: 0.75rem; }
+  .weather-label { font-size: 0.85rem; color: var(--text-dim); min-width: 120px; }
+  .weather-track { flex: 1; height: 20px; background: var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .weather-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 6px; font-size: 0.75rem; font-weight: 700; transition: width 0.5s; }
+  .weather-mult { font-size: 0.8rem; color: var(--muted); min-width: 40px; text-align: right; }
+
+  /* ── Consequences Diagram ── */
+  .consequence-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.75rem 0;
+  }
+
+  .consequence-card {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;
+    border-left: 4px solid;
+  }
+
+  .consequence-card.under { border-left-color: var(--yellow); }
+  .consequence-card.over  { border-left-color: var(--accent); }
+
+  .consequence-card .con-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .consequence-card.under .con-title { color: var(--yellow); }
+  .consequence-card.over  .con-title { color: var(--accent); }
+  .consequence-card p { font-size: 0.85rem; }
+
+  /* Tolerance zone visualizer */
+  .tol-bar-wrap { margin: 1rem 0; position: relative; }
+  .tol-bar-track { height: 32px; background: var(--border); border-radius: 8px; overflow: visible; position: relative; }
+  .tol-zone { position: absolute; height: 100%; background: #4ecca344; border: 2px solid var(--green); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--green); font-weight: 700; }
+  .tol-needle { position: absolute; top: -6px; width: 4px; height: 44px; background: var(--yellow); border-radius: 2px; box-shadow: 0 0 8px var(--yellow); transition: left 0.3s; }
+  .tol-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+  .tol-current-label { position: absolute; top: -24px; font-size: 0.75rem; color: var(--yellow); transform: translateX(-50%); white-space: nowrap; }
+
+  /* Formula block */
+  .formula-display {
+    font-family: 'Courier New', monospace; font-size: 0.88rem;
+    color: var(--green); padding: 0.75rem 1rem; margin: 0.75rem 0;
+    background: #0a1628; border-radius: 6px; border-left: 3px solid var(--green);
+    white-space: pre; overflow-x: auto;
+  }
+
+  /* Collapsible */
+  .collapsible-header {
+    cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .collapsible-header::before {
+    content: '>'; display: inline-block; transition: transform 0.2s;
+    font-family: monospace; color: var(--muted);
+  }
+
+  .collapsible-header.open::before { transform: rotate(90deg); }
+  .collapsible-body { display: none; margin-top: 0.75rem; }
+  .collapsible-body.open { display: block; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding-left: 0; }
+
+  .checklist li {
+    padding: 0.5rem 0.75rem; border-radius: 4px; cursor: pointer;
+    display: flex; align-items: flex-start; gap: 0.5rem; transition: background 0.15s;
+  }
+
+  .checklist li:hover { background: var(--bg); }
+
+  .checklist li .check {
+    width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-size: 0.7rem; color: transparent;
+  }
+
+  .checklist li.checked .check { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+  /* mult-select reuse */
+  .mult-select {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 0.3rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>Watering System</h1>
+<div class="subtitle">
+  Spent Blooms &mdash; Game Design Document
+  <span>Reverse-documented</span>
+  <span style="background:#4ecca322;color:var(--green);">9 dependencies</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-badge badge-rev">Reverse-documented 2026-05-20</div>
+  <div class="status-badge badge-dep">9 systems</div>
+  <div class="progress-label" id="progressLabel">0 / 10 criteria met</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="simulator">Pot Simulator</button>
+  <button class="tab-btn" data-tab="weather">Weather Drying</button>
+  <button class="tab-btn" data-tab="formulas">Formulas</button>
+  <button class="tab-btn" data-tab="consequences">Consequences</button>
+  <button class="tab-btn" data-tab="edges">Edge Cases</button>
+  <button class="tab-btn" data-tab="deps">Dependencies</button>
+  <button class="tab-btn" data-tab="tuning">Tuning</button>
+  <button class="tab-btn" data-tab="criteria">Acceptance</button>
+</div>
+
+<!-- ════ OVERVIEW ════ -->
+<div class="tab-content active" id="tab-overview">
+  <section>
+    <h2>Overview</h2>
+    <p>The Watering System lets the player use a physical watering can to tend their potted plants. Picking up the can and moving it near a plant triggers a magnetic snap; tilting to pour fills a 2D cross-section UI representing the pot's interior. Water level is governed by pot geometry &mdash; different pot shapes require different pour rates to rise at a consistent visual speed.</p>
+    <p>The target fill sits at 70% of pot height, with an 8-point tolerance window on either side. Overflow spills onto the floor. Water level persists between sessions and dries overnight at a rate scaled by the next day's weather. Chronic underwatering causes leaf shedding; chronic overwatering is marked as a future consequence <span class="tag tag-todo">TODO</span>.</p>
+  </section>
+
+  <section>
+    <h2>Player Fantasy</h2>
+    <p>The player should feel the gentle satisfaction of a daily ritual done right: lifting a familiar object, tilting it with deliberate care, watching the water rise to exactly the right line. Getting it perfect should feel effortless once learned but never automatic &mdash; the oscillating pour rate and varying pot shapes mean the player must stay present.</p>
+    <p>Forgetting to water should carry a quiet cost, not a catastrophic penalty: leaves fall, the plant droops, a small mess appears. The system rewards attentiveness and forgives distraction.</p>
+  </section>
+
+  <section>
+    <h2>Interaction Flow</h2>
+    <ol>
+      <li>Player grabs the watering can via <code>ObjectGrabber</code>.</li>
+      <li>When the can comes within <strong>1.5 meters</strong> of a plant's snap point, <code>ObjectGrabber</code> detects proximity and highlights the interaction.</li>
+      <li>Clicking while in snap range snaps the can to the pouring position and begins <code>WateringManager</code> state transition: <strong>Idle &rarr; Pouring</strong>.</li>
+      <li>Player holds interaction input to continue pouring; releasing transitions to <strong>Done</strong> then back to <strong>Idle</strong> after a settle period.</li>
+    </ol>
+
+    <h3>State Machine</h3>
+    <table>
+      <tr><th>State</th><th>Behavior</th></tr>
+      <tr><td><strong>Idle</strong></td><td>Can is held but not snapped; no water flows</td></tr>
+      <tr><td><strong>Pouring</strong></td><td>Water level rises; foam accumulates; audio plays</td></tr>
+      <tr><td><strong>Done</strong></td><td>Pouring has stopped; foam settles; status message shown</td></tr>
+    </table>
+
+    <h3>Status Messages</h3>
+    <table>
+      <tr><th>Condition</th><th>Message</th></tr>
+      <tr><td>Water level within tolerance [0.62, 0.78]</td><td style="color:var(--green);font-weight:600;">"Looks perfect!"</td></tr>
+      <tr><td>Water level below targetMin (0.62)</td><td style="color:var(--yellow);">"Could use more..."</td></tr>
+      <tr><td>Water level above targetMax (0.78)</td><td style="color:var(--accent);">"A bit much..."</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ POT SIMULATOR ════ -->
+<div class="tab-content" id="tab-simulator">
+  <section>
+    <h2>Pot Cross-Section Simulator</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Select a pot shape to see its width curve. Use the water level slider or the pour/drain buttons to watch the fill level, foam, and soil color update in real time.</p>
+
+    <div class="pot-section-wrap">
+      <div class="pot-display">
+        <div class="pot-canvas-wrap">
+          <canvas id="potCanvas" width="160" height="200"></canvas>
+        </div>
+        <div class="pot-readouts">
+          <div>Water: <span class="readout-val" id="waterLevelReadout">0.70</span></div>
+          <div>Foam:  <span class="readout-val" id="foamLevelReadout" style="color:rgba(255,255,255,0.6);">0.05</span></div>
+          <div id="statusMsgBox" class="status-msg-box" style="background:#4ecca322;color:var(--green);">Looks perfect!</div>
+        </div>
+      </div>
+
+      <div class="pot-controls">
+        <div style="font-size:0.85rem;color:var(--muted);margin-bottom:0.5rem;">Pot shape:</div>
+        <div class="shape-selector">
+          <button class="shape-btn active" data-shape="TallCylinder" onclick="selectShape('TallCylinder',this)">
+            <div class="sh-name">TallCylinder</div>
+            <div class="sh-fn">w(h) = 1.0 (constant)</div>
+          </button>
+          <button class="shape-btn" data-shape="RoundBulb" onclick="selectShape('RoundBulb',this)">
+            <div class="sh-name">RoundBulb</div>
+            <div class="sh-fn">w(h) = 0.5 + 0.5×sin(πh)</div>
+          </button>
+          <button class="shape-btn" data-shape="TaperedCone" onclick="selectShape('TaperedCone',this)">
+            <div class="sh-name">TaperedCone</div>
+            <div class="sh-fn">w(h) = lerp(1.4, 0.5, h)</div>
+          </button>
+          <button class="shape-btn" data-shape="Hourglass" onclick="selectShape('Hourglass',this)">
+            <div class="sh-name">Hourglass</div>
+            <div class="sh-fn">w(h) = 0.5 + 0.5×cos(πh)</div>
+          </button>
+        </div>
+
+        <div class="water-slider-row">
+          <label>Water level</label>
+          <input type="range" id="waterSlider" min="0" max="1.1" step="0.01" value="0.70" oninput="setWaterLevel(parseFloat(this.value))">
+          <span class="val" id="waterSliderVal">0.70</span>
+        </div>
+
+        <div style="margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted);">Tolerance zone (target 0.70 &plusmn; 0.08):</div>
+        <div class="tol-bar-wrap">
+          <div class="tol-bar-track" style="height:28px;">
+            <!-- Tolerance zone: 0.62 to 0.78 = 16% of 0-1.1 range = 14.5% to 70.9% of bar -->
+            <div class="tol-zone" style="left:56.4%;width:14.5%;">perfect</div>
+            <div class="tol-needle" id="tolNeedle" style="left:63.6%;"></div>
+            <div class="tol-current-label" id="tolLabel" style="left:63.6%;">0.70</div>
+          </div>
+          <div class="tol-labels">
+            <span>0.00</span>
+            <span>0.62</span>
+            <span>0.70</span>
+            <span>0.78</span>
+            <span>1.00</span>
+            <span>1.10</span>
+          </div>
+        </div>
+
+        <div class="pour-btns" style="margin-top:0.75rem;">
+          <button class="pour-action-btn primary" onclick="startPour()">Hold to Pour</button>
+          <button class="pour-action-btn" onclick="stopPour()">Stop Pour</button>
+          <button class="pour-action-btn" onclick="advanceDay()">Advance Day</button>
+          <button class="pour-action-btn danger" onclick="resetPot()">Reset</button>
+        </div>
+
+        <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--muted);">
+          Weather for next day:
+          <select class="mult-select" id="weatherSelect" style="margin-left:0.5rem;">
+            <option value="1.5">Clear (1.5x)</option>
+            <option value="1.2">FallingLeaves (1.2x)</option>
+            <option value="1.0" selected>Overcast (1.0x)</option>
+            <option value="0.6">Rainy (0.6x)</option>
+            <option value="0.4">Stormy (0.4x)</option>
+            <option value="0.3">Snowy (0.3x)</option>
+          </select>
+        </div>
+        <div id="dayLog" style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-dim);min-height:50px;background:var(--bg);border-radius:6px;padding:0.5rem 0.75rem;"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════ WEATHER DRYING ════ -->
+<div class="tab-content" id="tab-weather">
+  <section>
+    <h2>Overnight Drying Rate by Weather</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">At the start of each new day, <code>LivingFlowerPlant</code> reduces each plant's water level by: <code>baseDryingRate × weatherMultiplier</code>. The base drying rate is defined per plant via <code>PlantDefinition</code>.</p>
+
+    <div class="weather-bars">
+      <div class="weather-row">
+        <span class="weather-label">Clear</span>
+        <div class="weather-track"><div class="weather-bar" style="width:100%;background:linear-gradient(90deg,#f5c54288,var(--yellow));">1.5x</div></div>
+        <span class="weather-mult">1.5x</span>
+      </div>
+      <div class="weather-row">
+        <span class="weather-label">FallingLeaves</span>
+        <div class="weather-track"><div class="weather-bar" style="width:80%;background:linear-gradient(90deg,#c89a3088,#c89a30);">1.2x</div></div>
+        <span class="weather-mult">1.2x</span>
+      </div>
+      <div class="weather-row">
+        <span class="weather-label">Overcast</span>
+        <div class="weather-track"><div class="weather-bar" style="width:66.7%;background:linear-gradient(90deg,#88888888,#888);">1.0x</div></div>
+        <span class="weather-mult">1.0x baseline</span>
+      </div>
+      <div class="weather-row">
+        <span class="weather-label">Rainy</span>
+        <div class="weather-track"><div class="weather-bar" style="width:40%;background:linear-gradient(90deg,#3a8adf88,var(--water));">0.6x</div></div>
+        <span class="weather-mult">0.6x</span>
+      </div>
+      <div class="weather-row">
+        <span class="weather-label">Stormy</span>
+        <div class="weather-track"><div class="weather-bar" style="width:26.7%;background:linear-gradient(90deg,#2a4adf88,#2a4adf);">0.4x</div></div>
+        <span class="weather-mult">0.4x</span>
+      </div>
+      <div class="weather-row">
+        <span class="weather-label">Snowy</span>
+        <div class="weather-track"><div class="weather-bar" style="width:20%;background:linear-gradient(90deg,#a0c8e888,#a0c8e8);">0.3x</div></div>
+        <span class="weather-mult">0.3x</span>
+      </div>
+    </div>
+
+    <h3>Interactive Drying Calculator</h3>
+    <div style="background:var(--bg);border-radius:8px;padding:1.25rem;margin-top:0.75rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+        <div>
+          <label style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.3rem;">Current water level</label>
+          <input type="range" id="dryCalcLevel" min="0" max="1" step="0.01" value="0.70" oninput="updateDryCalc()" style="width:100%;accent-color:var(--water);">
+          <span style="font-size:0.85rem;color:var(--yellow);font-family:monospace;" id="dryCalcLevelVal">0.70</span>
+        </div>
+        <div>
+          <label style="font-size:0.8rem;color:var(--muted);display:block;margin-bottom:0.3rem;">Base drying rate (PlantDefinition)</label>
+          <input type="range" id="dryCalcBase" min="0.01" max="0.20" step="0.01" value="0.08" oninput="updateDryCalc()" style="width:100%;accent-color:var(--accent);">
+          <span style="font-size:0.85rem;color:var(--yellow);font-family:monospace;" id="dryCalcBaseVal">0.08</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.4rem;" id="dryCalcResults"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════ FORMULAS ════ -->
+<div class="tab-content" id="tab-formulas">
+  <section>
+    <h2>Pour Rate Formula</h2>
+    <div class="formula-display">pourRate    = 0.1 × shapeFillMultiplier × oscillation
+
+oscillation = 1 + 0.15 × sin(2π × 2 × t)
+// frequency = 2 Hz, amplitude = ±15% of base, t = seconds since pour began</div>
+    <table>
+      <tr><th>Variable</th><th>Description</th></tr>
+      <tr><td><code>0.1</code></td><td>Base rate constant (water level units per second)</td></tr>
+      <tr><td><code>shapeFillMultiplier</code></td><td>Geometry correction for current pot shape and fill height</td></tr>
+      <tr><td><code>oscillation</code></td><td>Sinusoidal variance; keeps pouring tactile and non-mechanical</td></tr>
+    </table>
+
+    <h3>Example &mdash; TallCylinder at t = 0.25s (oscillation peak)</h3>
+    <div class="formula-display">oscillation = 1 + 0.15 × sin(π/2) = 1.15
+pourRate    = 0.1 × 1.0 × 1.15 = 0.115 units/second</div>
+
+    <h3>Example &mdash; RoundBulb at h = 0.0 (narrow bottom)</h3>
+    <div class="formula-display">w(0.0) = 0.5 + 0.5 × sin(0) = 0.5
+shapeFillMultiplier = 1 / max(0.5, 0.3) = 2.0
+pourRate = 0.1 × 2.0 × oscillation  // doubles at the base</div>
+  </section>
+
+  <section>
+    <h2>Pot Shape Width Functions</h2>
+    <table>
+      <tr><th>Shape</th><th>Width Function w(h)</th><th>Fill Multiplier</th><th>Clamp Floor</th></tr>
+      <tr><td>TallCylinder</td><td><code>1.0</code> (constant)</td><td><code>1.0</code></td><td>&mdash;</td></tr>
+      <tr><td>RoundBulb</td><td><code>0.5 + 0.5 × sin(π × h)</code></td><td><code>1 / max(w(h), 0.3)</code></td><td>0.3</td></tr>
+      <tr><td>TaperedCone</td><td><code>lerp(1.4, 0.5, h)</code></td><td><code>1 / max(w(h), 0.3)</code></td><td>0.3</td></tr>
+      <tr><td>Hourglass</td><td><code>0.5 + 0.5 × cos(π × h)</code></td><td><code>1 / max(w(h), 0.35)</code></td><td>0.35 (prevents extreme rate spikes at waist)</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Foam Dynamics</h2>
+    <div class="formula-display">// Foam level
+foamLevel = waterLevel + max(foamAccumulation, 0.03)
+
+// Foam generation (while pouring)
+foamAccumulation rate = pourRate × 2.5
+
+// Foam decay (while not pouring)
+foamDecay rate = -0.2 × deltaTime</div>
+    <p>The minimum foam offset of <code>0.03</code> ensures foam is always visually rendered above the water surface.</p>
+  </section>
+
+  <section>
+    <h2>Overnight Drying</h2>
+    <div class="formula-display">newWaterLevel = waterLevel - (baseDryingRate × weatherMultiplier)</div>
+    <p><code>baseDryingRate</code> is defined in <code>PlantDefinition</code> per plant species.</p>
+
+    <h3>Water Target and Tolerance</h3>
+    <div class="formula-display">targetMin = idealWaterLevel - tolerance = 0.7 - 0.08 = 0.62
+targetMax = idealWaterLevel + tolerance = 0.7 + 0.08 = 0.78
+
+"Looks perfect!" when: targetMin &lt;= waterLevel &lt;= targetMax</div>
+  </section>
+</div>
+
+<!-- ════ CONSEQUENCES ════ -->
+<div class="tab-content" id="tab-consequences">
+  <section>
+    <h2>Consequences of Poor Watering</h2>
+    <div class="consequence-grid">
+      <div class="consequence-card under">
+        <div class="con-title">Underwatering</div>
+        <p>50% chance per morning that the plant sheds a leaf, spawning a trash object near the plant's base. This registers with <code>TidyScorer</code> as a mess that must be cleaned before a date.</p>
+        <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);">Leaf shed check runs at day start. A plant restored from a previous session at an underwatered level will roll the check on the first morning.</p>
+      </div>
+      <div class="consequence-card over">
+        <div class="con-title">Overwatering <span class="tag tag-todo">TODO</span></div>
+        <p>Visual water spill stain at pot base. A <code>SpillSurface</code> quad is spawned at ground level adjacent to the pot when <code>waterLevel</code> exceeds 1.0.</p>
+        <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--muted);">Full consequence implementation is marked TODO. SpillSurface spawns immediately on overflow; <code>waterLevel</code> is clamped at 1.1 and <code>foamLevel</code> at 1.2.</p>
+      </div>
+    </div>
+
+    <h3>Soil Visual Feedback</h3>
+    <p>Soil color linearly interpolates between dry and wet based on current water level:</p>
+    <table>
+      <tr><th>State</th><th>Color (RGB normalized)</th></tr>
+      <tr><td>Dry (level = 0.0)</td><td><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:rgb(140,102,64);vertical-align:middle;margin-right:4px;"></span> R: 0.55, G: 0.40, B: 0.25</td></tr>
+      <tr><td>Wet (level = 1.0)</td><td><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:rgb(77,56,31);vertical-align:middle;margin-right:4px;"></span> R: 0.30, G: 0.22, B: 0.12</td></tr>
+    </table>
+
+    <h3>Other Visual Indicators</h3>
+    <ul>
+      <li><strong>Fill line marker</strong>: Fixed at <code>idealWaterLevel</code> (0.7); serves as a static target guide.</li>
+      <li><strong>Water line marker</strong>: Moves dynamically to show the current water level.</li>
+      <li><strong>Drain drip</strong>: Visible when <code>waterLevel &gt; 0.5</code>, signaling the plant can drain if conditions allow.</li>
+      <li><strong>Foam</strong>: Always rendered at least 0.03 above the water surface.</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ════ EDGE CASES ════ -->
+<div class="tab-content" id="tab-edges">
+  <section>
+    <h2>Edge Cases</h2>
+    <div id="waterEdges"></div>
+  </section>
+</div>
+
+<!-- ════ DEPENDENCIES ════ -->
+<div class="tab-content" id="tab-deps">
+  <section>
+    <h2>Dependencies</h2>
+    <table>
+      <tr><th>System</th><th>Role in Watering System</th><th>This System's Role for It</th></tr>
+      <tr><td><code>ObjectGrabber</code></td><td>Detects can proximity to plant; manages snap (1.5m)</td><td>Watering system activates on snap confirmation</td></tr>
+      <tr><td><code>WaterablePlant</code></td><td>Stores water level; exposes save/restore interface</td><td>Watering manager reads and writes water level here</td></tr>
+      <tr><td><code>LivingFlowerPlant</code></td><td>Applies overnight drying; communicates water stress</td><td>Reads WaterablePlant's level to determine stress state</td></tr>
+      <tr><td><code>PotCrossSectionUI</code></td><td>Renders 2D pot interior; shows fill, foam, markers</td><td>Watering manager drives fill and foam values each frame</td></tr>
+      <tr><td><code>PlantDefinition</code></td><td>Defines pot shape, base drying rate, ideal species</td><td>Watering manager reads shape to select fill multiplier</td></tr>
+      <tr><td><code>AudioManager</code></td><td>Plays pour and splash audio cues</td><td>Watering manager signals pour start/stop/overflow</td></tr>
+      <tr><td><code>ApartmentManager</code></td><td>Suppresses camera pan during interaction</td><td>Watering manager registers active-interaction state</td></tr>
+      <tr><td><code>WeatherSystem</code></td><td>Provides next-day weather for drying multiplier</td><td>LivingFlowerPlant queries weather at day transition</td></tr>
+      <tr><td><code>TidyScorer</code></td><td>Registers SpillSurface as a mess</td><td>SpillSurface spawned by overflow is a tidiness event</td></tr>
+    </table>
+
+    <h3>Persistence</h3>
+    <ul>
+      <li>Water level stored on <code>WaterablePlant</code>, saved to disk.</li>
+      <li><code>SaveWaterLevel</code> throttled to <strong>4 Hz max</strong> to avoid write overhead during continuous pouring.</li>
+      <li>On session load, stored level is restored <em>before</em> overnight drying is applied.</li>
+    </ul>
+
+    <h3>Camera Behavior</h3>
+    <p><code>ApartmentManager</code> suppresses standard camera pan input while the player is in an active watering interaction. Normal control resumes when the can is released or snapped away from the plant.</p>
+  </section>
+</div>
+
+<!-- ════ TUNING ════ -->
+<div class="tab-content" id="tab-tuning">
+  <section>
+    <h2>Tuning Knobs</h2>
+    <table>
+      <tr><th>Knob</th><th>Default</th><th>Safe Range</th><th>Gameplay Effect</th></tr>
+      <tr><td>Base pour rate</td><td>0.1 units/s</td><td>0.05&ndash;0.2</td><td>Speed of fill; too fast makes precision impossible</td></tr>
+      <tr><td>Oscillation amplitude</td><td>0.15 (&plusmn;15%)</td><td>0.05&ndash;0.30</td><td>Tactile variance in pour; too high feels chaotic</td></tr>
+      <tr><td>Oscillation frequency</td><td>2 Hz</td><td>1&ndash;4 Hz</td><td>Rhythm of the pour; matches audio cue if synced</td></tr>
+      <tr><td>Snap radius</td><td>1.5m</td><td>0.8&ndash;2.5m</td><td>How close player must be; larger reduces navigation friction</td></tr>
+      <tr><td>Ideal water level</td><td>0.7</td><td>0.5&ndash;0.85</td><td>Target fill height; lower = less patient plant</td></tr>
+      <tr><td>Tolerance</td><td>0.08</td><td>0.04&ndash;0.15</td><td>Window for "perfect"; smaller requires more precision</td></tr>
+      <tr><td>Overflow water cap</td><td>1.1</td><td>1.0&ndash;1.2</td><td>How far past full the level is allowed to go</td></tr>
+      <tr><td>Foam rate multiplier</td><td>2.5x</td><td>1.5&ndash;4.0</td><td>How quickly foam builds above water</td></tr>
+      <tr><td>Foam decay rate</td><td>0.2/s</td><td>0.1&ndash;0.5</td><td>How quickly foam settles after pouring stops</td></tr>
+      <tr><td>Foam minimum offset</td><td>0.03</td><td>0.01&ndash;0.05</td><td>Ensures foam is always visually above waterline</td></tr>
+      <tr><td>Save throttle rate</td><td>4 Hz</td><td>2&ndash;10 Hz</td><td>Write frequency; lower risks data loss, higher is I/O heavy</td></tr>
+      <tr><td>Drying rate (Clear)</td><td>1.5x</td><td>1.0&ndash;2.0</td><td>Evaporation on sunny days</td></tr>
+      <tr><td>Drying rate (Snowy)</td><td>0.3x</td><td>0.1&ndash;0.6</td><td>Minimal evaporation in cold weather</td></tr>
+      <tr><td>Leaf shed chance</td><td>50%</td><td>20&ndash;80%</td><td>Probability of consequence per underwatered morning</td></tr>
+      <tr><td>Drain drip threshold</td><td>0.5</td><td>0.3&ndash;0.7</td><td>Water level above which drain drip visual activates</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ ACCEPTANCE ════ -->
+<div class="tab-content" id="tab-criteria">
+  <section>
+    <h2>Acceptance Criteria</h2>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Magnetic snap</strong>: Moving watering can within 1.5m of any plant triggers snap highlight. Clicking begins pouring. QA: measure distance at highlight activation.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Pour rate oscillation</strong>: Record waterLevel every 0.1s during 30s pour on TallCylinder. Confirm rate between 0.085 and 0.115 units/second (base ±15%). QA: unit test or scene recording.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Target status messages</strong>: Pour to 0.62 (min), 0.70 (target), 0.79 (just above max) and stop. Confirm "Looks perfect!" at 0.62 and 0.70, "A bit much..." at 0.79. QA: manual test.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Overflow spawns SpillSurface</strong>: Pour until waterLevel exceeds 1.0. Confirm SpillSurface quad appears at ground level and waterLevel does not exceed 1.1. QA: scene inspection after overflow.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Overnight drying — Clear weather</strong>: Plant at 0.7 on Clear night. Confirm next morning = 0.7 - (baseDryingRate × 1.5). QA: set weather Clear, advance day, check WaterablePlant.waterLevel.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Overnight drying — Snowy weather</strong>: Same plant, Snowy weather. Confirm reduction = baseDryingRate × 0.3. QA: same method, weather = Snowy.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Leaf shedding probability</strong>: Over 100 simulated mornings with underwatered plant, confirm leaf shed occurs 35&ndash;65 times (50% ± noise). QA: automated unit test iterating morning event.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Persistence across sessions</strong>: Set water level to 0.55, save, restart, confirm restored level is 0.55 before any day-start drying runs. QA: log waterLevel immediately on session load.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Save throttle</strong>: Pour continuously 2 seconds, force crash at 1-second mark. Confirm restored water level is no more than 0.25s of pour behind crash point. QA: debug-forced crash during pour.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Camera suppression</strong>: Begin watering interaction; confirm camera pan input is non-responsive. Release can; confirm pan resumes. QA: manual input test during and after interaction.</span></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Pot Simulator ──
+let currentShape = 'TallCylinder';
+let waterLevel   = 0.70;
+let foamLevel    = 0.05;
+let pourInterval = null;
+let foamDecay    = null;
+let dayLog       = [];
+
+const shapeWidthFn = {
+  TallCylinder: h => 1.0,
+  RoundBulb:    h => 0.5 + 0.5 * Math.sin(Math.PI * h),
+  TaperedCone:  h => 1.4 + (0.5 - 1.4) * h,
+  Hourglass:    h => 0.5 + 0.5 * Math.cos(Math.PI * h),
+};
+
+const shapeClamp = { TallCylinder: 0.3, RoundBulb: 0.3, TaperedCone: 0.3, Hourglass: 0.35 };
+
+function shapeFillMult(shape, h) {
+  const w = shapeWidthFn[shape](Math.max(0, Math.min(1, h)));
+  if (shape === 'TallCylinder') return 1.0;
+  return 1 / Math.max(w, shapeClamp[shape]);
+}
+
+function selectShape(shape, btn) {
+  currentShape = shape;
+  document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  drawPot();
+}
+
+function setWaterLevel(val) {
+  waterLevel = Math.max(0, Math.min(1.1, val));
+  document.getElementById('waterSlider').value = waterLevel;
+  document.getElementById('waterSliderVal').textContent = waterLevel.toFixed(2);
+  updateTolNeedle();
+  drawPot();
+  updateStatusMsg();
+}
+
+function updateTolNeedle() {
+  // Bar spans 0.0 to 1.1, left 0% to right 100%
+  const pct = (waterLevel / 1.1) * 100;
+  document.getElementById('tolNeedle').style.left = pct + '%';
+  document.getElementById('tolLabel').style.left = pct + '%';
+  document.getElementById('tolLabel').textContent = waterLevel.toFixed(2);
+}
+
+function updateStatusMsg() {
+  const el = document.getElementById('statusMsgBox');
+  if (waterLevel >= 0.62 && waterLevel <= 0.78) {
+    el.style.background = '#4ecca322'; el.style.color = 'var(--green)';
+    el.textContent = 'Looks perfect!';
+  } else if (waterLevel < 0.62) {
+    el.style.background = '#f5c54222'; el.style.color = 'var(--yellow)';
+    el.textContent = 'Could use more...';
+  } else {
+    el.style.background = '#e9456022'; el.style.color = 'var(--accent)';
+    el.textContent = waterLevel >= 1.0 ? 'OVERFLOW!' : 'A bit much...';
+  }
+}
+
+function drawPot() {
+  const canvas = document.getElementById('potCanvas');
+  const ctx    = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const potH = H - 10;
+  const centerX = W / 2;
+
+  ctx.clearRect(0, 0, W, H);
+
+  const maxW = 56; // half-width of widest point in px
+
+  // Pot outline — draw shape as filled path
+  ctx.beginPath();
+  for (let yi = 0; yi <= potH; yi++) {
+    const h   = 1 - yi / potH; // h=1 at top, h=0 at bottom
+    const w   = shapeWidthFn[currentShape](h);
+    const xOff = w * maxW;
+    if (yi === 0) {
+      ctx.moveTo(centerX - xOff, yi + 5);
+    } else {
+      ctx.lineTo(centerX - xOff, yi + 5);
+    }
+  }
+  for (let yi = potH; yi >= 0; yi--) {
+    const h   = 1 - yi / potH;
+    const w   = shapeWidthFn[currentShape](h);
+    const xOff = w * maxW;
+    ctx.lineTo(centerX + xOff, yi + 5);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = '#4a6a8a';
+  ctx.lineWidth   = 2;
+
+  // Background (empty pot — dark)
+  ctx.fillStyle = '#0a1628';
+  ctx.fill();
+  ctx.stroke();
+
+  // Water fill
+  const fillPx = Math.min(waterLevel, 1.0) * potH;
+  const fillTop = potH - fillPx + 5;
+
+  // Draw water by clipping inside pot
+  ctx.save();
+  ctx.beginPath();
+  for (let yi = 0; yi <= potH; yi++) {
+    const h   = 1 - yi / potH;
+    const w   = shapeWidthFn[currentShape](h);
+    const xOff = w * maxW - 2;
+    if (yi === 0) ctx.moveTo(centerX - xOff, yi + 5);
+    else          ctx.lineTo(centerX - xOff, yi + 5);
+  }
+  for (let yi = potH; yi >= 0; yi--) {
+    const h   = 1 - yi / potH;
+    const w   = shapeWidthFn[currentShape](h);
+    const xOff = w * maxW - 2;
+    ctx.lineTo(centerX + xOff, yi + 5);
+  }
+  ctx.closePath();
+  ctx.clip();
+
+  // Soil color (lerp dry to wet)
+  const t = Math.min(waterLevel, 1.0);
+  const soilR = Math.round(140 - t * 63);
+  const soilG = Math.round(102 - t * 46);
+  const soilB = Math.round(64  - t * 33);
+  ctx.fillStyle = `rgb(${soilR},${soilG},${soilB})`;
+  ctx.fillRect(0, 5, W, potH);
+
+  // Water layer
+  if (waterLevel > 0) {
+    const grad = ctx.createLinearGradient(0, fillTop, 0, potH + 5);
+    grad.addColorStop(0, 'rgba(58,138,223,0.85)');
+    grad.addColorStop(1, 'rgba(30,80,160,0.7)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, fillTop, W, potH - fillTop + 5);
+
+    // Water surface shimmer
+    ctx.beginPath();
+    ctx.moveTo(0, fillTop);
+    for (let xi = 0; xi <= W; xi += 4) {
+      ctx.lineTo(xi, fillTop + Math.sin(xi * 0.25 + Date.now() * 0.002) * 1.5);
+    }
+    ctx.lineTo(W, fillTop);
+    ctx.strokeStyle = 'rgba(150,220,255,0.6)';
+    ctx.lineWidth   = 1.5;
+    ctx.stroke();
+  }
+
+  // Foam
+  if (foamLevel > 0.03) {
+    const foamPx = Math.min(foamLevel * 0.12 * potH, 20);
+    ctx.fillStyle = 'rgba(255,255,255,0.18)';
+    ctx.fillRect(0, fillTop - foamPx, W, foamPx);
+  }
+
+  ctx.restore();
+
+  // Target line
+  const targetY = potH - (0.7 * potH) + 5;
+  ctx.beginPath();
+  ctx.setLineDash([4, 4]);
+  ctx.moveTo(8, targetY);
+  ctx.lineTo(W - 8, targetY);
+  ctx.strokeStyle = 'rgba(78,204,163,0.7)';
+  ctx.lineWidth   = 1.5;
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = 'rgba(78,204,163,0.8)';
+  ctx.font = '10px monospace';
+  ctx.fillText('0.70', W - 28, targetY - 3);
+
+  // Drain drip indicator
+  if (waterLevel > 0.5) {
+    ctx.fillStyle = 'rgba(58,138,223,0.6)';
+    ctx.beginPath();
+    ctx.arc(centerX, H - 2, 3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Readouts
+  document.getElementById('waterLevelReadout').textContent = waterLevel.toFixed(2);
+  document.getElementById('foamLevelReadout').textContent  = foamLevel.toFixed(2);
+}
+
+function startPour() {
+  if (pourInterval) return;
+  pourInterval = setInterval(() => {
+    const mult  = shapeFillMult(currentShape, waterLevel);
+    const osc   = 1 + 0.15 * Math.sin(Date.now() * 0.004 * Math.PI * 2);
+    const rate  = 0.1 * mult * osc;
+    waterLevel  = Math.min(1.1, waterLevel + rate * 0.05);
+    foamLevel   = Math.min(0.15, foamLevel + rate * 2.5 * 0.05);
+    document.getElementById('waterSlider').value        = waterLevel;
+    document.getElementById('waterSliderVal').textContent = waterLevel.toFixed(2);
+    updateTolNeedle();
+    updateStatusMsg();
+    drawPot();
+  }, 50);
+}
+
+function stopPour() {
+  if (pourInterval) { clearInterval(pourInterval); pourInterval = null; }
+  if (foamDecay)    clearInterval(foamDecay);
+  foamDecay = setInterval(() => {
+    foamLevel = Math.max(0, foamLevel - 0.2 * 0.1);
+    drawPot();
+    if (foamLevel <= 0) clearInterval(foamDecay);
+  }, 100);
+}
+
+function advanceDay() {
+  stopPour();
+  const weatherMult = parseFloat(document.getElementById('weatherSelect').value);
+  const weatherName = document.getElementById('weatherSelect').options[document.getElementById('weatherSelect').selectedIndex].text;
+  const baseDry     = 0.08;
+  const dried       = baseDry * weatherMult;
+  const before      = waterLevel;
+  waterLevel        = Math.max(0, waterLevel - dried);
+
+  let consequence = '';
+  if (before < 0.62) {
+    const shed = Math.random() < 0.5;
+    consequence = shed ? ' | Leaf shed! (50% roll)' : ' | No leaf shed this morning (50% roll)';
+  }
+
+  dayLog.unshift(`Day advance: ${before.toFixed(2)} - ${dried.toFixed(3)} (${weatherName}) = ${waterLevel.toFixed(2)}${consequence}`);
+  if (dayLog.length > 6) dayLog.pop();
+  document.getElementById('dayLog').innerHTML = dayLog.map(e => `<div style="padding:2px 0;border-bottom:1px solid var(--border);">${e}</div>`).join('');
+
+  document.getElementById('waterSlider').value         = waterLevel;
+  document.getElementById('waterSliderVal').textContent = waterLevel.toFixed(2);
+  updateTolNeedle();
+  updateStatusMsg();
+  drawPot();
+}
+
+function resetPot() {
+  stopPour();
+  waterLevel = 0.70;
+  foamLevel  = 0.05;
+  dayLog     = [];
+  document.getElementById('dayLog').innerHTML = '';
+  document.getElementById('waterSlider').value         = waterLevel;
+  document.getElementById('waterSliderVal').textContent = waterLevel.toFixed(2);
+  updateTolNeedle();
+  updateStatusMsg();
+  drawPot();
+}
+
+// Animate water shimmer
+function animateWater() {
+  drawPot();
+  requestAnimationFrame(animateWater);
+}
+
+drawPot();
+updateTolNeedle();
+updateStatusMsg();
+animateWater();
+
+// Sync slider with setWaterLevel
+document.getElementById('waterSlider').addEventListener('input', function() {
+  setWaterLevel(parseFloat(this.value));
+});
+
+// ── Drying Calculator ──
+const weatherMultipliers = { 1.5: 1.5, 1.2: 1.2, 1.0: 1.0, 0.6: 0.6, 0.4: 0.4, 0.3: 0.3 };
+const weatherNames = ['Clear (1.5x)', 'FallingLeaves (1.2x)', 'Overcast (1.0x)', 'Rainy (0.6x)', 'Stormy (0.4x)', 'Snowy (0.3x)'];
+const weatherMults = [1.5, 1.2, 1.0, 0.6, 0.4, 0.3];
+const weatherColors = ['#f5c542', '#c89a30', '#888', '#3a8adf', '#2a4adf', '#a0c8e8'];
+
+function updateDryCalc() {
+  const level    = parseFloat(document.getElementById('dryCalcLevel').value);
+  const base     = parseFloat(document.getElementById('dryCalcBase').value);
+  document.getElementById('dryCalcLevelVal').textContent = level.toFixed(2);
+  document.getElementById('dryCalcBaseVal').textContent  = base.toFixed(2);
+
+  const results = weatherMults.map((m, i) => {
+    const dried    = base * m;
+    const result   = Math.max(0, level - dried);
+    const tooLow   = result < 0.62;
+    return `<div style="display:flex;align-items:center;gap:0.75rem;padding:3px 0;">
+      <span style="min-width:140px;font-size:0.8rem;color:${weatherColors[i]}">${weatherNames[i]}</span>
+      <span style="font-family:monospace;font-size:0.8rem;color:var(--text-dim);">
+        ${level.toFixed(2)} &minus; ${dried.toFixed(3)} =
+        <strong style="color:${tooLow ? 'var(--accent)' : 'var(--green)'};">${result.toFixed(3)}</strong>
+        ${tooLow ? '<span style="color:var(--accent);font-size:0.7rem;"> (underwatered!)</span>' : ''}
+      </span>
+    </div>`;
+  });
+
+  document.getElementById('dryCalcResults').innerHTML = results.join('');
+}
+updateDryCalc();
+
+// ── Edge Cases ──
+const edges = [
+  { title: 'Watering an already-overflow pot', body: 'If waterLevel is already at or above 1.0 when the player begins pouring, a SpillSurface spawns immediately and waterLevel is clamped to 1.1. Continued pouring has no further effect on level; the SpillSurface remains.' },
+  { title: 'Watering during a date', body: 'The watering interaction is not explicitly gated during a date, but ApartmentManager\'s camera suppression is active regardless of date phase. No design rule currently prevents watering during a date; this is an unresolved edge case.' },
+  { title: 'Load with water level already in overflow range', body: 'If a saved water level of 1.0+ is restored at session start, overnight drying runs first. If the result is still >= 1.0, the SpillSurface spawns on day start.' },
+  { title: 'Zero base drying rate (PlantDefinition not set)', body: 'If baseDryingRate is undefined or zero, no overnight drying occurs. The plant behaves as if weather is irrelevant. This is a data configuration issue, not a runtime fallback.' },
+  { title: 'Save throttle during rapid pour', body: 'Because SaveWaterLevel is capped at 4 Hz, up to 0.25 seconds of water level change may be unsaved if the game is force-closed mid-pour. On restore, the water level will reflect the last saved value, not the moment of closure.' },
+  { title: 'Snap radius with multiple nearby plants', body: 'If two plants are within 1.5m of the can simultaneously, ObjectGrabber snaps to the nearest one. Only one plant can be watered at a time.' },
+  { title: 'Leaf shedding on day 1', body: 'Drying and the 50% leaf-shed check run at day start. A plant restored from a previous session at an underwatered level will roll the shed check on the first morning, potentially shedding a leaf before the player has had a chance to water.' },
+];
+
+document.getElementById('waterEdges').innerHTML = edges.map((e, i) => `
+  <div style="margin-bottom:0.75rem;background:var(--bg);border-radius:6px;overflow:hidden;">
+    <div class="collapsible-header" id="edge-hdr-${i}" onclick="toggleEdge(${i})" style="padding:0.75rem 1rem;">
+      <span style="color:var(--text);font-size:0.9rem;">${e.title}</span>
+    </div>
+    <div class="collapsible-body" id="edge-body-${i}">
+      <div style="padding:0 1rem 0.75rem;font-size:0.85rem;color:var(--text-dim);">${e.body}</div>
+    </div>
+  </div>
+`).join('');
+
+function toggleEdge(i) {
+  document.getElementById('edge-hdr-'  + i).classList.toggle('open');
+  document.getElementById('edge-body-' + i).classList.toggle('open');
+}
+
+// ── Checklist ──
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  const items   = document.querySelectorAll('#checklist li');
+  const checked = document.querySelectorAll('#checklist li.checked').length;
+  const pct     = Math.round(checked / items.length * 100);
+  document.getElementById('progressFill').style.width  = pct + '%';
+  document.getElementById('progressLabel').textContent  = `${checked} / ${items.length} criteria met`;
+}
+</script>
+</body>
+</html>

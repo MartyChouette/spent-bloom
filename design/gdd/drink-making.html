@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drink Making — Spent Blooms GDD</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --card-hover: #1a2745;
+    --accent: #e94560;
+    --accent-soft: #e9456033;
+    --green: #4ecca3;
+    --yellow: #f5c542;
+    --muted: #8892a8;
+    --text: #eaeaea;
+    --text-dim: #a0a8b8;
+    --border: #2a3a5c;
+    --like: #ff6b9d;
+    --dislike: #8888a0;
+    --neutral: #c8c8d0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+  }
+
+  .subtitle span {
+    background: var(--accent-soft); color: var(--accent);
+    padding: 2px 10px; border-radius: 12px; font-size: 0.8rem; margin-left: 0.5rem;
+  }
+
+  .tab-bar {
+    display: flex; gap: 4px; margin-bottom: 0;
+    border-bottom: 2px solid var(--border); flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 1.2rem; background: transparent; border: none;
+    color: var(--muted); font-size: 0.9rem; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: all 0.2s; font-family: inherit;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-content { display: none; padding-top: 1.5rem; }
+  .tab-content.active { display: block; }
+
+  section {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem; transition: background 0.2s;
+  }
+
+  section:hover { background: var(--card-hover); }
+
+  section h2 {
+    font-size: 1.1rem; color: var(--green); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  section h3 { font-size: 0.95rem; color: var(--yellow); margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text-dim); font-size: 0.9rem; }
+  p { margin-bottom: 0.5rem; }
+  ul, ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.35rem; }
+  li strong { color: var(--text); }
+
+  code {
+    background: #0f3460; padding: 1px 6px; border-radius: 3px;
+    font-size: 0.85rem; color: var(--yellow);
+  }
+
+  .tag {
+    display: inline-block; padding: 1px 8px; border-radius: 10px;
+    font-size: 0.75rem; font-weight: 600;
+  }
+
+  .tag-legacy { background: #88888822; color: var(--muted); }
+  .tag-active  { background: #4ecca322; color: var(--green); }
+  .tag-caution { background: #e9456022; color: var(--accent); }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.85rem;
+  }
+
+  th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { color: var(--text-dim); }
+  tr:hover td { color: var(--text); background: #ffffff08; }
+
+  .status-bar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+  .status-badge {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600;
+  }
+
+  .badge-rev { background: #4ecca322; color: var(--green); }
+  .badge-dep { background: #f5c54222; color: var(--yellow); }
+
+  .progress-bar { flex: 1; min-width: 200px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.5s; }
+  .progress-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── State Machine Flow ── */
+  .flow {
+    display: flex; align-items: stretch; gap: 0;
+    margin: 1rem 0; overflow-x: auto; padding-bottom: 0.5rem;
+  }
+
+  .flow-step {
+    flex: 1; min-width: 110px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.75rem 0.6rem; cursor: pointer; transition: all 0.2s; text-align: center;
+  }
+
+  .flow-step:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .flow-step.active-step { border-color: var(--accent); box-shadow: 0 0 16px var(--accent-soft); }
+  .flow-arrow { display: flex; align-items: center; color: var(--muted); font-size: 1rem; padding: 0 3px; user-select: none; }
+  .flow-step .step-title { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-top: 0.2rem; }
+  .flow-step .step-desc { font-size: 0.72rem; color: var(--text-dim); margin-top: 0.2rem; }
+  .flow-step .step-dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto; }
+
+  #smDetail {
+    margin-top: 0.75rem; padding: 0.85rem 1rem;
+    background: var(--bg); border-radius: 6px; border-left: 3px solid var(--accent);
+  }
+
+  #smDetail .sd-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  #smDetail .sd-body  { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* ── Pour Simulator ── */
+  .pour-wrap {
+    display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; margin: 1rem 0;
+  }
+
+  .glass-outer {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex-shrink: 0;
+  }
+
+  /* Glass cross-section */
+  .glass-cutaway {
+    width: 90px; height: 200px; position: relative;
+    border: 3px solid #4a8aaa; border-top: none; border-radius: 0 0 12px 12px;
+    background: #0a1a2e; overflow: hidden;
+  }
+
+  .glass-top-rim {
+    width: 100px; height: 6px; background: #4a8aaa; border-radius: 6px 6px 0 0;
+    margin: 0 auto;
+  }
+
+  .glass-fill-line {
+    position: absolute; width: 100%; height: 2px;
+    background: rgba(255,255,255,0.3); top: 40%;
+    border-top: 1px dashed rgba(255,255,255,0.4);
+  }
+
+  .glass-fill-line::after {
+    content: 'fill line'; position: absolute; right: 4px; top: -14px;
+    font-size: 0.6rem; color: rgba(255,255,255,0.4); white-space: nowrap;
+  }
+
+  .glass-layers { position: absolute; bottom: 0; left: 0; right: 0; }
+
+  .layer-block {
+    width: 100%; transition: height 0.5s ease;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; color: rgba(255,255,255,0.7); overflow: hidden;
+    font-weight: 600; letter-spacing: 0.5px;
+  }
+
+  .foam-block {
+    width: 100%; background: rgba(255,255,255,0.15);
+    border-top: 1px solid rgba(255,255,255,0.25);
+    transition: height 0.5s ease; position: absolute; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; color: rgba(255,255,255,0.4);
+  }
+
+  .glass-glow {
+    position: absolute; inset: 0; border-radius: 0 0 10px 10px;
+    box-shadow: inset 0 0 20px rgba(0,200,220,0.15);
+    pointer-events: none; transition: box-shadow 0.3s;
+  }
+
+  .glass-glow.active { box-shadow: inset 0 0 30px rgba(50,220,100,0.3); animation: glassPulse 0.5s ease-in-out infinite alternate; }
+
+  @keyframes glassPulse { from { box-shadow: inset 0 0 20px rgba(50,220,100,0.2); } to { box-shadow: inset 0 0 40px rgba(50,220,100,0.5); } }
+
+  .pour-controls { flex: 1; min-width: 260px; }
+
+  .ingredient-btn {
+    display: block; width: 100%; padding: 0.5rem 1rem; margin-bottom: 0.5rem;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); text-align: left; cursor: pointer; font-family: inherit;
+    font-size: 0.85rem; transition: all 0.15s; display: flex; align-items: center; gap: 0.75rem;
+  }
+
+  .ingredient-btn:hover { border-color: var(--accent); }
+  .ingredient-btn.selected { border-color: var(--green); background: #1a3a3a; }
+
+  .ing-dot { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+  .ing-info { flex: 1; }
+  .ing-name { font-weight: 600; }
+  .ing-props { font-size: 0.75rem; color: var(--muted); }
+
+  .pour-amount-row { display: flex; align-items: center; gap: 0.75rem; margin: 0.75rem 0; }
+  .pour-amount-row label { font-size: 0.85rem; color: var(--text-dim); min-width: 80px; }
+  .pour-amount-row input[type=range] { flex: 1; accent-color: var(--accent); }
+  .pour-amount-row .val { font-size: 0.85rem; color: var(--yellow); font-family: monospace; min-width: 40px; }
+
+  .pour-action-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+
+  .action-btn {
+    padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--card); color: var(--text); cursor: pointer;
+    font-size: 0.85rem; font-family: inherit; transition: all 0.15s;
+  }
+
+  .action-btn:hover { border-color: var(--accent); }
+  .action-btn.primary { background: var(--accent); border-color: var(--accent); color: white; font-weight: 600; }
+  .action-btn.primary:hover { background: #c0303a; }
+  .action-btn.danger { border-color: var(--dislike); color: var(--dislike); }
+
+  /* ── Score Calculator ── */
+  .score-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem; margin: 1rem 0;
+  }
+
+  .score-component {
+    background: var(--bg); border-radius: 8px; padding: 1rem;
+    border: 1px solid var(--border);
+  }
+
+  .score-component .sc-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .score-component .sc-max   { font-size: 0.75rem; color: var(--muted); float: right; }
+  .score-component .sc-value { font-size: 1.4rem; font-weight: 700; color: var(--text); margin: 0.25rem 0; font-family: monospace; }
+  .score-component input[type=range] { width: 100%; accent-color: var(--accent); margin-top: 0.25rem; }
+
+  .score-total-box {
+    background: var(--bg); border: 2px solid var(--border); border-radius: 8px;
+    padding: 1.25rem; margin: 1rem 0; text-align: center;
+  }
+
+  .score-total-box .st-label { font-size: 0.85rem; color: var(--muted); }
+  .score-total-box .st-value { font-size: 3rem; font-weight: 900; font-family: monospace; transition: color 0.3s; }
+  .score-total-box .st-outcome { font-size: 0.9rem; margin-top: 0.25rem; font-weight: 600; }
+
+  .score-bar-track {
+    height: 12px; background: var(--border); border-radius: 6px;
+    overflow: hidden; margin: 0.5rem 0; position: relative;
+  }
+
+  .score-bar-fill {
+    height: 100%; border-radius: 6px; transition: width 0.4s, background 0.4s;
+  }
+
+  .overflow-toggle {
+    display: flex; align-items: center; gap: 0.75rem; margin: 0.75rem 0;
+    padding: 0.75rem 1rem; background: var(--bg); border-radius: 6px;
+    cursor: pointer; border: 1px solid var(--border); transition: all 0.15s;
+  }
+
+  .overflow-toggle:hover { border-color: var(--accent); }
+  .overflow-toggle input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+  .overflow-toggle label { font-size: 0.85rem; color: var(--text-dim); cursor: pointer; }
+
+  /* ── Ingredient Cards ── */
+  .ing-card-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.75rem; margin: 0.75rem 0;
+  }
+
+  .ing-card {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1rem; transition: border-color 0.2s;
+  }
+
+  .ing-card:hover { border-color: var(--accent); }
+  .ing-card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .ing-card-dot { width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0; }
+  .ing-card-name { font-weight: 600; font-size: 0.95rem; color: var(--text); }
+  .ing-card-type { font-size: 0.75rem; color: var(--muted); }
+
+  .prop-bar-row { margin-bottom: 0.4rem; }
+  .prop-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; display: flex; justify-content: space-between; }
+  .prop-bar-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .prop-bar-fill { height: 100%; border-radius: 3px; }
+
+  /* Collapsible */
+  .collapsible-header {
+    cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .collapsible-header::before {
+    content: '>'; display: inline-block; transition: transform 0.2s;
+    font-family: monospace; color: var(--muted);
+  }
+
+  .collapsible-header.open::before { transform: rotate(90deg); }
+  .collapsible-body { display: none; margin-top: 0.75rem; }
+  .collapsible-body.open { display: block; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding-left: 0; }
+
+  .checklist li {
+    padding: 0.5rem 0.75rem; border-radius: 4px; cursor: pointer;
+    display: flex; align-items: flex-start; gap: 0.5rem; transition: background 0.15s;
+  }
+
+  .checklist li:hover { background: var(--bg); }
+
+  .checklist li .check {
+    width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-size: 0.7rem; color: transparent;
+  }
+
+  .checklist li.checked .check { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+  .formula-display {
+    font-family: 'Courier New', monospace; font-size: 0.9rem;
+    color: var(--green); margin-bottom: 0.5rem; padding: 0.75rem 1rem;
+    background: #0a1628; border-radius: 6px; border-left: 3px solid var(--green);
+    white-space: pre;
+  }
+
+  .outcome-chip {
+    display: inline-block; padding: 2px 10px; border-radius: 12px;
+    font-size: 0.8rem; font-weight: 700;
+  }
+
+  .chip-like    { background: #ff6b9d33; color: var(--like); }
+  .chip-dislike { background: #88888833; color: var(--dislike); }
+  .chip-neutral { background: #c8c8d033; color: var(--neutral); }
+</style>
+</head>
+<body>
+
+<h1>Drink Making</h1>
+<div class="subtitle">
+  Spent Blooms &mdash; Game Design Document
+  <span>Reverse-documented</span>
+  <span style="background:#4ecca322;color:var(--green);">9 dependencies</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-badge badge-rev">Reverse-documented 2026-05-20</div>
+  <div class="status-badge badge-dep">9 systems</div>
+  <div class="progress-label" id="progressLabel">0 / 17 criteria met</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="simulator">Pour Simulator</button>
+  <button class="tab-btn" data-tab="scoring">Score Calc</button>
+  <button class="tab-btn" data-tab="ingredients">Ingredients</button>
+  <button class="tab-btn" data-tab="formulas">Formulas</button>
+  <button class="tab-btn" data-tab="edges">Edge Cases</button>
+  <button class="tab-btn" data-tab="deps">Dependencies</button>
+  <button class="tab-btn" data-tab="tuning">Tuning</button>
+  <button class="tab-btn" data-tab="criteria">Acceptance</button>
+</div>
+
+<!-- ════ OVERVIEW ════ -->
+<div class="tab-content active" id="tab-overview">
+  <section>
+    <h2>Overview</h2>
+    <p>Drink Making is a physical pouring minigame that runs during date Phase 2. The player picks up a bottle, tilts it over a glass using a drag gesture, and pours ingredients in layers to build a drink. A cutaway UI panel shows the glass filling in real time. The finished drink is scored across five dimensions &mdash; ingredient order, layer accuracy, fill level, garnish, and overflow penalty &mdash; and the total score influences the date outcome.</p>
+    <p>Ingredients have physical properties (weight, fizziness, viscosity) that govern how foam builds and how layers sort. The glass glows during pouring to signal active state.</p>
+    <p style="margin-top:0.5rem;"><strong>Active system:</strong> <code>DrinkPourManager</code> <span class="tag tag-active">Active</span> &nbsp;&nbsp; <code>SimpleDrinkManager</code> <span class="tag tag-legacy">Legacy &mdash; do not reference</span></p>
+  </section>
+
+  <section>
+    <h2>Player Fantasy</h2>
+    <p>The player should feel like a careful, unhurried bartender in their own kitchen. Tilting a bottle should feel weighty and deliberate. Watching layers settle in the cutaway view should feel satisfying &mdash; a well-made drink is visually legible as a column of distinct strata. Overflow should feel like a mistake that could have been avoided, not an arbitrary punishment. A perfectly poured drink should leave the player with a quiet sense of craft.</p>
+  </section>
+
+  <section>
+    <h2>State Machine</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Click a state to see its behavior.</p>
+    <div class="flow">
+      <div class="flow-step active-step" data-sm="idle" onclick="selectSM('idle')">
+        <div class="step-dot" style="background:#4a4a6a;"></div>
+        <div class="step-title">Idle</div>
+        <div class="step-desc">No session</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step" data-sm="choosing" onclick="selectSM('choosing')">
+        <div class="step-dot" style="background:#4a6a8a;"></div>
+        <div class="step-title">Choosing Glass</div>
+        <div class="step-desc">Bottle grabbed</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step" data-sm="pouring" onclick="selectSM('pouring')">
+        <div class="step-dot" style="background:#2a8a6a;"></div>
+        <div class="step-title">Pouring</div>
+        <div class="step-desc">Drag to tilt</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step" data-sm="serve" onclick="selectSM('serve')">
+        <div class="step-dot" style="background:#8a6a2a;"></div>
+        <div class="step-title">Serve Glass</div>
+        <div class="step-desc">Optional</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step" data-sm="score" onclick="selectSM('score')">
+        <div class="step-dot" style="background:#8a2a4a;"></div>
+        <div class="step-title">Score</div>
+        <div class="step-desc">Evaluate</div>
+      </div>
+    </div>
+    <div id="smDetail">
+      <div class="sd-title">Idle &mdash; No active drink session</div>
+      <div class="sd-body">Bottles are grabbable but do nothing special. The system waits for the player to pick up a bottle to transition to ChoosingGlass.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pour Drag Input</h2>
+    <div class="formula-display">rate       = (dragDistance / 200px)²
+tiltAngle  = rate × 90°
+liquidPerSec = ingredient.pourRate × rate × glass.fillRateMultiplier</div>
+    <ul>
+      <li><code>dragDistance</code>: pixel distance dragged from initial click point.</li>
+      <li><code>rate</code>: ranges 0.0 (no drag) to 1.0 (200px or more). Clamped at 1.0.</li>
+      <li>The <strong>quadratic curve</strong> means small drags produce very little flow &mdash; the player must commit to pour meaningfully.</li>
+      <li>At 100px drag: <code>rate = (100/200)² = 0.25</code>, <code>tiltAngle = 22.5°</code></li>
+    </ul>
+  </section>
+</div>
+
+<!-- ════ POUR SIMULATOR ════ -->
+<div class="tab-content" id="tab-simulator">
+  <section>
+    <h2>Pour Simulator</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Select an ingredient, set the pour amount, and add it to the glass. Layers sort by weight after each pour. Watch foam build and settle.</p>
+
+    <div class="pour-wrap">
+      <div class="glass-outer">
+        <div class="glass-top-rim"></div>
+        <div class="glass-cutaway" id="glassCutaway">
+          <div class="glass-fill-line"></div>
+          <div class="glass-layers" id="glassLayers"></div>
+          <div class="foam-block" id="foamBlock" style="height:0px;bottom:0px;"></div>
+          <div class="glass-glow" id="glassGlow"></div>
+        </div>
+        <div style="font-size:0.75rem;color:var(--muted);text-align:center;margin-top:0.25rem;">Cross-section view</div>
+        <div style="font-size:0.8rem;color:var(--text);text-align:center;margin-top:0.25rem;">
+          Fill: <span id="fillReadout" style="color:var(--yellow);font-family:monospace;">0.00</span>
+          &nbsp;|&nbsp;
+          Foam: <span id="foamReadout" style="color:rgba(255,255,255,0.5);font-family:monospace;">0.00</span>
+        </div>
+        <div style="font-size:0.75rem;text-align:center;margin-top:0.15rem;" id="overflowWarning"></div>
+      </div>
+
+      <div class="pour-controls">
+        <div style="font-size:0.85rem;color:var(--muted);margin-bottom:0.5rem;">Select ingredient to pour:</div>
+        <div id="ingredientList"></div>
+
+        <div class="pour-amount-row">
+          <label>Pour amount</label>
+          <input type="range" id="pourAmount" min="0.05" max="0.45" step="0.05" value="0.20">
+          <span class="val" id="pourAmountVal">0.20</span>
+        </div>
+
+        <div class="pour-action-row">
+          <button class="action-btn primary" onclick="pourIngredient()">Pour Selected</button>
+          <button class="action-btn" onclick="addGarnish()">Add Garnish (+5pts)</button>
+          <button class="action-btn danger" onclick="resetGlass()">Reset Glass</button>
+        </div>
+
+        <div style="margin-top:1rem;background:var(--bg);border-radius:6px;padding:0.75rem;">
+          <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem;">Pour log (sorted by weight):</div>
+          <div id="pourLog" style="font-size:0.8rem;color:var(--text-dim);min-height:40px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════ SCORE CALCULATOR ════ -->
+<div class="tab-content" id="tab-scoring">
+  <section>
+    <h2>Score Breakdown Calculator</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Adjust each component to see the total score and date outcome update in real time.</p>
+
+    <div class="score-grid">
+      <div class="score-component">
+        <div class="sc-label">Order Score <span class="sc-max">max 10</span></div>
+        <div class="sc-value" id="orderScoreVal">10</div>
+        <input type="range" id="orderScore" min="0" max="10" step="5" value="10" oninput="updateScore()">
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">0 = wrong | 5 = one swap | 10 = perfect</div>
+      </div>
+      <div class="score-component">
+        <div class="sc-label">Layer Score <span class="sc-max">max 50</span></div>
+        <div class="sc-value" id="layerScoreVal">50</div>
+        <input type="range" id="layerScore" min="0" max="50" step="1" value="50" oninput="updateScore()">
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">Accuracy of each ingredient portion (8% tolerance)</div>
+      </div>
+      <div class="score-component">
+        <div class="sc-label">Fill Score <span class="sc-max">max 30</span></div>
+        <div class="sc-value" id="fillScoreVal">30</div>
+        <input type="range" id="fillScore" min="0" max="30" step="1" value="30" oninput="updateScore()">
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">How close to ideal fill (0.75), tolerance 0.10</div>
+      </div>
+      <div class="score-component">
+        <div class="sc-label">Garnish Score <span class="sc-max">max 10</span></div>
+        <div class="sc-value" id="garnishScoreVal">0</div>
+        <input type="range" id="garnishScore" min="0" max="10" step="5" value="0" oninput="updateScore()">
+        <div style="font-size:0.75rem;color:var(--muted);margin-top:0.3rem;">5 pts each, capped at 10</div>
+      </div>
+    </div>
+
+    <label class="overflow-toggle">
+      <input type="checkbox" id="overflowCheck" onchange="updateScore()">
+      <label for="overflowCheck">Overflow occurred &mdash; &minus;15 point penalty</label>
+    </label>
+
+    <div style="margin-bottom:0.5rem;">
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.3rem;">Recipe preference:</div>
+      <select id="recipePreference" class="mult-select" onchange="updateScore()" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:0.35rem 0.75rem;border-radius:6px;font-family:inherit;font-size:0.85rem;cursor:pointer;">
+        <option value="liked">Liked recipe</option>
+        <option value="neutral">Neutral recipe</option>
+        <option value="disliked">Disliked recipe</option>
+      </select>
+    </div>
+
+    <div class="score-total-box">
+      <div class="st-label">Total Score</div>
+      <div class="st-value" id="scoreTotalVal" style="color:var(--green);">100</div>
+      <div class="score-bar-track" style="max-width:400px;margin:0.5rem auto;">
+        <div class="score-bar-fill" id="scoreTotalBar" style="width:100%;background:var(--green);"></div>
+      </div>
+      <div class="st-outcome" id="scoreOutcome"></div>
+    </div>
+
+    <h3>Score Component Breakdown</h3>
+    <table>
+      <tr><th>Component</th><th>Max Points</th><th>Description</th></tr>
+      <tr><td>Order</td><td>10</td><td>Correct ingredient pour sequence</td></tr>
+      <tr><td>Layer</td><td>50</td><td>Accuracy of each ingredient's portion size</td></tr>
+      <tr><td>Fill</td><td>30</td><td>How close the final fill level is to the ideal (0.75)</td></tr>
+      <tr><td>Garnish</td><td>10</td><td>Correct garnish items added (5 pts each, cap 10)</td></tr>
+      <tr><td>Overflow</td><td>&minus;15</td><td>Applied if liquid + foam exceeds glass capacity</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ INGREDIENTS ════ -->
+<div class="tab-content" id="tab-ingredients">
+  <section>
+    <h2>Ingredient Properties</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Each ingredient is defined by a <code>DrinkIngredientDefinition</code> ScriptableObject. Weight determines final layer sorting &mdash; heavier sinks below lighter regardless of pour order.</p>
+    <div class="ing-card-grid" id="ingCardGrid"></div>
+  </section>
+
+  <section>
+    <h2>Glass Properties</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Each glass type is defined by a <code>GlassDefinition</code> ScriptableObject.</p>
+    <table>
+      <tr><th>Property</th><th>Description</th><th>Default</th></tr>
+      <tr><td><code>capacity</code></td><td>Maximum liquid volume</td><td>Varies per glass</td></tr>
+      <tr><td><code>fillStart</code></td><td>Y-position where liquid begins to appear</td><td>Varies</td></tr>
+      <tr><td><code>fillLine</code></td><td>Normalized fill level considered "ideal"</td><td>0.8</td></tr>
+      <tr><td><code>foamHeadroom</code></td><td>Normalized space above fill line for foam</td><td>0.2</td></tr>
+      <tr><td><code>fillRateMultiplier</code></td><td>Scales fill speed per unit of pour rate</td><td>1.0</td></tr>
+    </table>
+    <p>Glass is considered <strong>full</strong> when <code>liquid + foam >= 1.0</code> (normalized volume).</p>
+  </section>
+
+  <section>
+    <h2>Foam Mechanics</h2>
+    <div class="formula-display">foamDelta   = pourRate × foamMultiplier × (1 + fizziness)
+settleRate  = weightedAverage(foamSettleRate, weighted by volume fraction)
+foam        = max(0, foam - settleRate × deltaTime)</div>
+    <ul>
+      <li>Foam accumulates on top of the liquid column during pours.</li>
+      <li>Between pours, foam settles using a weighted average of all poured ingredients' settle rates.</li>
+      <li>Rush penalty: pouring fizzy ingredients (fizziness &gt; 0) at high rate causes extra foam. Decays when player slows or stops.</li>
+      <li>If foam alone pushes total above 1.0, the overflow flag triggers.</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ════ FORMULAS ════ -->
+<div class="tab-content" id="tab-formulas">
+  <section>
+    <h2>Pour Rate Formula</h2>
+    <div class="formula-display">dragRate     = (dragDistance / 200)²          // [0, 1]
+tiltAngle    = dragRate × 90               // degrees
+liquidPerSec = ingredient.pourRate × dragRate × glass.fillRateMultiplier</div>
+  </section>
+
+  <section>
+    <h2>Foam Generation &amp; Settling</h2>
+    <div class="formula-display">// Generation (while pouring)
+foamDelta = liquidPerSec × ingredient.foamRateMultiplier × (1 + ingredient.fizziness)
+foam += foamDelta × deltaTime
+
+// Settling (while not pouring)
+settleRate = sum(ingredient.foamSettleRate × volumeFraction_i for each i)
+foam = max(0, foam - settleRate × deltaTime)</div>
+  </section>
+
+  <section>
+    <h2>Layer Score</h2>
+    <div class="formula-display">accuracy_i = clamp(1.0 - abs(actual_i - expected_i) / 0.08, 0, 1)
+layerScore = (sum(accuracy_i) / n) × 50
+
+// Example (2 ingredients, both within tolerance):
+// actual = [0.40, 0.35], expected = [0.40, 0.35], tolerance = 0.08
+// accuracy_0 = 1.0 - 0/0.08 = 1.0
+// accuracy_1 = 1.0 - 0/0.08 = 1.0
+// layerScore = (1.0 + 1.0) / 2 × 50 = 50</div>
+  </section>
+
+  <section>
+    <h2>Fill Score</h2>
+    <div class="formula-display">fillError = abs(actualFillLevel - 0.75)
+if fillError <= 0.10:
+    accuracy = 1.0 - (fillError / 0.10)
+else:
+    accuracy = 0.0
+fillScore = accuracy × 30
+
+// Example (fill level = 0.82):
+// fillError = |0.82 - 0.75| = 0.07
+// accuracy = 1.0 - (0.07 / 0.10) = 0.30
+// fillScore = 0.30 × 30 = 9</div>
+  </section>
+
+  <section>
+    <h2>Order Score</h2>
+    <div class="formula-display">if (pouringSequence == recipeSequence):
+    orderScore = 10
+elif (sequenceIsOneOutOfOrder):   // exactly one adjacent pair swapped
+    orderScore = 5
+else:
+    orderScore = 0</div>
+  </section>
+
+  <section>
+    <h2>Date Outcome Integration</h2>
+    <div class="formula-display">magnitude = drinkScore / 100.0   // normalized to [0, 1]</div>
+    <table>
+      <tr><th>Condition</th><th>Outcome</th></tr>
+      <tr><td>Liked recipe AND score &ge; 60</td><td><span class="outcome-chip chip-like">Like</span></td></tr>
+      <tr><td>Score &ge; 80 (any recipe preference)</td><td><span class="outcome-chip chip-like">Like (override)</span></td></tr>
+      <tr><td>Disliked recipe</td><td><span class="outcome-chip chip-dislike">Dislike (always)</span></td></tr>
+      <tr><td>All other cases</td><td><span class="outcome-chip chip-neutral">Neutral</span></td></tr>
+    </table>
+    <p style="margin-top:0.5rem;"><strong>Priority rule:</strong> Disliked recipe always overrides. The &ge; 80 Like override does NOT apply to disliked recipes.</p>
+
+    <h3>Full Example</h3>
+    <div class="formula-display">// Correct order, good layers, poor fill, one garnish, no overflow:
+orderScore   = 10
+layerScore   = 42
+fillScore    = 9
+garnishScore = 5
+overflow     = 0
+total        = 66  // magnitude = 0.66
+// Liked recipe + 66 >= 60 → Like
+// Neutral recipe + 66 < 80 → Neutral</div>
+  </section>
+</div>
+
+<!-- ════ EDGE CASES ════ -->
+<div class="tab-content" id="tab-edges">
+  <section>
+    <h2>Edge Cases</h2>
+    <div id="drinkEdges"></div>
+  </section>
+</div>
+
+<!-- ════ DEPENDENCIES ════ -->
+<div class="tab-content" id="tab-deps">
+  <section>
+    <h2>Dependencies</h2>
+    <table>
+      <tr><th>System</th><th>Role</th><th>Direction</th></tr>
+      <tr><td><code>PourDragHelper</code></td><td>Converts screen-space drag into rate and tiltAngle each frame</td><td>Feeds DrinkPourManager</td></tr>
+      <tr><td><code>DrinkCutawayUI</code></td><td>Renders the real-time cross-section glass view</td><td>Reads from DrinkPourManager</td></tr>
+      <tr><td><code>ObjectGrabber</code></td><td>Manages physical bottle grab and magnetic snap (1.2m radius)</td><td>DrinkPourManager listens for snap events</td></tr>
+      <tr><td><code>DateSessionManager</code></td><td>Receives final magnitude (score/100) and like/dislike flag; provides Phase 2 timing</td><td>Bidirectional</td></tr>
+      <tr><td><code>AudioManager</code></td><td>Plays pour, fizz, overflow, scoring cue sounds</td><td>Triggered by state transitions</td></tr>
+      <tr><td><code>GlassDefinition</code></td><td>ScriptableObject: glass capacity, fill levels, foam headroom</td><td>One per glass type</td></tr>
+      <tr><td><code>DrinkRecipeDefinition</code></td><td>ScriptableObject: ingredient sequence, expected portions, garnish requirements</td><td>Owned by date character config</td></tr>
+      <tr><td><code>DrinkIngredientDefinition</code></td><td>ScriptableObject: pour physics and foam properties per ingredient</td><td>Read by DrinkPourManager</td></tr>
+      <tr><td><code>DrinkGarnishDefinition</code></td><td>ScriptableObject: garnish items mapped to point value and recipe compatibility</td><td>Read at scoring time</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ TUNING ════ -->
+<div class="tab-content" id="tab-tuning">
+  <section>
+    <h2>Tuning Knobs</h2>
+    <table>
+      <tr><th>Parameter</th><th>Current</th><th>Safe Range</th><th>Affects</th></tr>
+      <tr><td>Drag sensitivity</td><td>200 px</td><td>100&ndash;400</td><td>Distance to reach full pour rate</td></tr>
+      <tr><td>Pour curve exponent</td><td>2 (quadratic)</td><td>1&ndash;3</td><td>Linearity of drag-to-pour-rate mapping</td></tr>
+      <tr><td>Layer tolerance</td><td>0.08</td><td>0.04&ndash;0.15</td><td>Precision required per ingredient portion</td></tr>
+      <tr><td>Ideal fill level</td><td>0.75</td><td>0.60&ndash;0.90</td><td>Target fill for maximum fill score</td></tr>
+      <tr><td>Fill tolerance</td><td>0.10</td><td>0.05&ndash;0.20</td><td>How close to ideal fill must be for any score</td></tr>
+      <tr><td>Max layer score</td><td>50</td><td>30&ndash;60</td><td>Weight of portion accuracy in total</td></tr>
+      <tr><td>Max fill score</td><td>30</td><td>20&ndash;40</td><td>Weight of fill level accuracy in total</td></tr>
+      <tr><td>Max order score</td><td>10</td><td>5&ndash;20</td><td>Weight of pour sequence correctness</td></tr>
+      <tr><td>Max garnish score</td><td>10</td><td>5&ndash;15</td><td>Weight of correct garnish (5 pts each)</td></tr>
+      <tr><td>Overflow penalty</td><td>&minus;15</td><td>&minus;5 to &minus;25</td><td>Punishment for overflowing the glass</td></tr>
+      <tr><td>One-out-of-order score</td><td>5</td><td>2&ndash;8</td><td>Partial credit for near-correct sequence</td></tr>
+      <tr><td>Like threshold (liked recipe)</td><td>60</td><td>40&ndash;80</td><td>Minimum score for Like on liked recipe</td></tr>
+      <tr><td>Like override threshold</td><td>80</td><td>60&ndash;90</td><td>Score at which outcome is Like regardless of pref</td></tr>
+      <tr><td>Glass glow pulse rate</td><td>2 Hz</td><td>1&ndash;4</td><td>Pulse speed during active pour</td></tr>
+      <tr><td>Bottle snap range</td><td>1.2 m</td><td>0.6&ndash;2.0</td><td>Distance at which bottle snaps to glass</td></tr>
+      <tr><td>Glass fill line</td><td>0.8</td><td>0.6&ndash;0.95</td><td>Normalized fill at which "full" is indicated in UI</td></tr>
+      <tr><td>Glass foam headroom</td><td>0.2</td><td>0.05&ndash;0.35</td><td>Fraction reserved for foam above fill line</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ ACCEPTANCE ════ -->
+<div class="tab-content" id="tab-criteria">
+  <section>
+    <h2>Acceptance Criteria</h2>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Drag-to-rate quadratic</strong>: 100px &rarr; rate = 0.25. 200px &rarr; rate = 1.0. 300px &rarr; rate clamped at 1.0.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Tilt angle</strong>: rate 0.25 &rarr; tiltAngle = 22.5&deg;. rate 1.0 &rarr; tiltAngle = 90&deg;.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Order score — correct sequence</strong>: Pour in recipe order. Verify orderScore = 10.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Order score — one out of order</strong>: Reverse two adjacent. Verify orderScore = 5.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Order score — multiple out of order</strong>: Differ by two positions. Verify orderScore = 0.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Layer score — within tolerance</strong>: Pour to exactly expected portion. Verify accuracy = 1.0.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Layer score — beyond tolerance</strong>: 0.09 beyond expected (outside 0.08). Verify accuracy = 0.0.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Fill score — at ideal</strong>: Pour to exactly 0.75. Verify fillScore = 30.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Fill score — at tolerance edge</strong>: Pour to 0.85 (0.10 above ideal). Verify fillScore = 0.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Overflow penalty</strong>: Fill past 1.0 (liquid + foam). Verify &minus;15 applied and overflow flag set.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Garnish cap</strong>: Apply 3 correct garnishes (15 pts potential). Verify garnish score capped at 10.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Like override</strong>: Neutral-preference recipe, score exactly 80. Verify outcome = Like.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Dislike overrides score</strong>: Disliked recipe, score 95. Verify outcome = Dislike (not Like).</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Liked recipe at 59</strong>: Liked recipe, score 59. Verify outcome is not Like.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>State machine full pass</strong>: Idle &rarr; ChoosingGlass &rarr; Pouring &rarr; Score &rarr; Idle. Verify DateSessionManager receives score.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Foam settling</strong>: Pour fizzy ingredient, stop. Verify foam volume decreases at rate consistent with foamSettleRate.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Layer sorting by weight</strong>: Pour light then heavy. Verify cutaway shows heavy below light after settling.</span></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── State Machine ──
+const smData = {
+  idle:     { title: 'Idle — No active drink session', body: 'Bottles are grabbable but do nothing special. The system waits for the player to pick up a bottle to transition to ChoosingGlass.' },
+  choosing: { title: 'ChoosingGlass — Bottle grabbed', body: 'Player has picked up a bottle. The system waits for the player to position the bottle above a valid glass and confirm selection. If multiple glasses are present, only the one directly under the bottle at confirmation is selected.' },
+  pouring:  { title: 'Pouring — Active pour via drag', body: 'Bottle is tilted above the selected glass. Drag input controls tilt angle and pour rate via the quadratic formula. Ingredient liquid flows into the cutaway glass. Glass glow shifts to green and pulses at 2 Hz. State continues until player releases or glass is full.' },
+  serve:    { title: 'ChoosingServeGlass — Select serving vessel (optional)', body: 'If the recipe requires a separate serving vessel, the player selects it here. If not required, this state is skipped entirely and the machine advances directly from Pouring to Score.' },
+  score:    { title: 'Score — Evaluate and report', body: 'The completed drink is evaluated across all five components (order, layer, fill, garnish, overflow). Total score is computed and magnitude (score/100) is reported to DateSessionManager. System resets to Idle.' },
+};
+
+function selectSM(id) {
+  document.querySelectorAll('.flow-step').forEach(s => s.classList.remove('active-step'));
+  document.querySelector(`.flow-step[data-sm="${id}"]`).classList.add('active-step');
+  const d = smData[id];
+  document.getElementById('smDetail').innerHTML =
+    `<div class="sd-title">${d.title}</div><div class="sd-body">${d.body}</div>`;
+}
+
+// ── Score Calculator ──
+function updateScore() {
+  const order    = parseInt(document.getElementById('orderScore').value);
+  const layer    = parseInt(document.getElementById('layerScore').value);
+  const fill     = parseInt(document.getElementById('fillScore').value);
+  const garnish  = parseInt(document.getElementById('garnishScore').value);
+  const overflow = document.getElementById('overflowCheck').checked ? -15 : 0;
+  const pref     = document.getElementById('recipePreference').value;
+
+  document.getElementById('orderScoreVal').textContent   = order;
+  document.getElementById('layerScoreVal').textContent   = layer;
+  document.getElementById('fillScoreVal').textContent    = fill;
+  document.getElementById('garnishScoreVal').textContent = garnish;
+
+  const total = order + layer + fill + garnish + overflow;
+  const el = document.getElementById('scoreTotalVal');
+  el.textContent = total;
+  el.style.color = total >= 60 ? 'var(--green)' : total >= 40 ? 'var(--yellow)' : 'var(--accent)';
+
+  const pct = Math.max(0, Math.min(100, total));
+  const bar = document.getElementById('scoreTotalBar');
+  bar.style.width = pct + '%';
+  bar.style.background = total >= 60 ? 'var(--green)' : total >= 40 ? 'var(--yellow)' : 'var(--accent)';
+
+  let outcome = '';
+  if (pref === 'disliked') {
+    outcome = '<span class="outcome-chip chip-dislike">Dislike &mdash; recipe is disliked (overrides score)</span>';
+  } else if (total >= 80) {
+    outcome = '<span class="outcome-chip chip-like">Like &mdash; score &ge; 80 override</span>';
+  } else if (pref === 'liked' && total >= 60) {
+    outcome = '<span class="outcome-chip chip-like">Like &mdash; liked recipe + score &ge; 60</span>';
+  } else {
+    outcome = '<span class="outcome-chip chip-neutral">Neutral</span>';
+  }
+  document.getElementById('scoreOutcome').innerHTML = 'Date outcome: ' + outcome;
+}
+updateScore();
+
+// ── Ingredient definitions ──
+const ingredients = [
+  { name: 'Sparkling Water', type: 'Mixer', color: '#a0d8f0', pourRate: 0.18, fizziness: 0.8, weight: 0.2, viscosity: 0.1 },
+  { name: 'Citrus Juice',    type: 'Juice',  color: '#f5c542', pourRate: 0.15, fizziness: 0.1, weight: 0.5, viscosity: 0.3 },
+  { name: 'Dark Syrup',      type: 'Syrup',  color: '#4a2010', pourRate: 0.08, fizziness: 0.0, weight: 0.9, viscosity: 0.9 },
+  { name: 'Cream',           type: 'Dairy',  color: '#f0ece0', pourRate: 0.10, fizziness: 0.4, weight: 0.3, viscosity: 0.7 },
+  { name: 'Herbal Spirit',   type: 'Spirit', color: '#2a6a3a', pourRate: 0.12, fizziness: 0.1, weight: 0.6, viscosity: 0.2 },
+  { name: 'Berry Cordial',   type: 'Cordial',color: '#8a2a6a', pourRate: 0.13, fizziness: 0.3, weight: 0.7, viscosity: 0.5 },
+];
+
+// Render ingredient cards
+document.getElementById('ingCardGrid').innerHTML = ingredients.map(ing => `
+  <div class="ing-card">
+    <div class="ing-card-header">
+      <div class="ing-card-dot" style="background:${ing.color};"></div>
+      <div>
+        <div class="ing-card-name">${ing.name}</div>
+        <div class="ing-card-type">${ing.type}</div>
+      </div>
+    </div>
+    ${[
+      { label: 'pourRate',  val: ing.pourRate,  max: 0.25, color: '#4ecca3' },
+      { label: 'fizziness', val: ing.fizziness, max: 1.0,  color: '#f5c542' },
+      { label: 'weight',    val: ing.weight,    max: 1.0,  color: '#e94560' },
+      { label: 'viscosity', val: ing.viscosity, max: 1.0,  color: '#c088e0' },
+    ].map(p => `
+      <div class="prop-bar-row">
+        <div class="prop-label"><span>${p.label}</span><span style="color:${p.color}">${p.val.toFixed(2)}</span></div>
+        <div class="prop-bar-track">
+          <div class="prop-bar-fill" style="width:${(p.val/p.max)*100}%;background:${p.color};"></div>
+        </div>
+      </div>
+    `).join('')}
+  </div>
+`).join('');
+
+// ── Pour Simulator ──
+let glassContents = []; // { ing, amount }
+let foamLevel     = 0;
+let garnishCount  = 0;
+let selectedIng   = 0;
+let isPouring     = false;
+let foamTimer     = null;
+
+function getTotalFill() {
+  return glassContents.reduce((s, c) => s + c.amount, 0);
+}
+
+function renderGlass() {
+  const totalFill = getTotalFill();
+  document.getElementById('fillReadout').textContent = totalFill.toFixed(2);
+  document.getElementById('foamReadout').textContent = foamLevel.toFixed(2);
+
+  const ow = document.getElementById('overflowWarning');
+  if (totalFill + foamLevel > 1.0) {
+    ow.innerHTML = '<span style="color:var(--accent);font-weight:700;">OVERFLOW — &minus;15 pts</span>';
+  } else {
+    ow.textContent = '';
+  }
+
+  // Sort by weight (heaviest at bottom)
+  const sorted = [...glassContents].sort((a, b) => b.ing.weight - a.ing.weight);
+  const glassH = 200; // px
+
+  const layersEl = document.getElementById('glassLayers');
+  layersEl.innerHTML = sorted.map(c => {
+    const hPx = Math.min(c.amount / 1.0 * glassH, glassH);
+    return `<div class="layer-block" style="height:${hPx}px;background:${c.ing.color}99;">${c.ing.name}</div>`;
+  }).join('');
+
+  // Foam
+  const foamEl = document.getElementById('foamBlock');
+  const foamPx = Math.min(foamLevel * glassH * 1.2, 30);
+  const bottomPx = Math.min(totalFill * glassH, glassH - foamPx);
+  foamEl.style.height = foamPx + 'px';
+  foamEl.style.bottom = bottomPx + 'px';
+  foamEl.textContent  = foamPx > 8 ? 'foam' : '';
+}
+
+function buildIngredientList() {
+  document.getElementById('ingredientList').innerHTML = ingredients.map((ing, i) => `
+    <button class="ingredient-btn ${i === selectedIng ? 'selected' : ''}" onclick="selectIng(${i})">
+      <div class="ing-dot" style="background:${ing.color};"></div>
+      <div class="ing-info">
+        <div class="ing-name">${ing.name}</div>
+        <div class="ing-props">pourRate:${ing.pourRate} | fiz:${ing.fizziness} | wt:${ing.weight}</div>
+      </div>
+    </button>
+  `).join('');
+}
+
+function selectIng(i) {
+  selectedIng = i;
+  buildIngredientList();
+}
+
+document.getElementById('pourAmount').addEventListener('input', function() {
+  document.getElementById('pourAmountVal').textContent = parseFloat(this.value).toFixed(2);
+});
+
+function pourIngredient() {
+  const ing = ingredients[selectedIng];
+  const amount = parseFloat(document.getElementById('pourAmount').value);
+  const totalBefore = getTotalFill();
+
+  if (totalBefore >= 1.0) return;
+
+  const actualAmount = Math.min(amount, 1.0 - totalBefore);
+
+  // Find or add ingredient
+  const existing = glassContents.find(c => c.ing.name === ing.name);
+  if (existing) {
+    existing.amount += actualAmount;
+  } else {
+    glassContents.push({ ing, amount: actualAmount });
+  }
+
+  // Generate foam
+  const foamGenerated = actualAmount * (ing.fizziness > 0 ? ing.fizziness * 0.4 : 0.02);
+  foamLevel = Math.min(0.3, foamLevel + foamGenerated);
+
+  // Glow
+  const glow = document.getElementById('glassGlow');
+  glow.classList.add('active');
+  setTimeout(() => glow.classList.remove('active'), 800);
+
+  // Start foam decay
+  if (foamTimer) clearInterval(foamTimer);
+  foamTimer = setInterval(() => {
+    foamLevel = Math.max(0, foamLevel - 0.01);
+    renderGlass();
+    if (foamLevel <= 0) clearInterval(foamTimer);
+  }, 100);
+
+  updatePourLog();
+  renderGlass();
+}
+
+function addGarnish() {
+  if (garnishCount < 2) {
+    garnishCount++;
+    const log = document.getElementById('pourLog');
+    log.innerHTML += `<div style="color:var(--yellow);">Garnish added (${garnishCount}/2 &mdash; +5 pts)</div>`;
+  }
+}
+
+function resetGlass() {
+  glassContents = [];
+  foamLevel     = 0;
+  garnishCount  = 0;
+  if (foamTimer) clearInterval(foamTimer);
+  document.getElementById('pourLog').innerHTML = '';
+  document.getElementById('overflowWarning').textContent = '';
+  renderGlass();
+}
+
+function updatePourLog() {
+  const sorted = [...glassContents].sort((a, b) => b.ing.weight - a.ing.weight);
+  document.getElementById('pourLog').innerHTML = sorted.map(c =>
+    `<div style="display:flex;justify-content:space-between;">
+       <span style="color:${c.ing.color}">${c.ing.name}</span>
+       <span>vol: ${c.amount.toFixed(2)} | wt: ${c.ing.weight}</span>
+     </div>`
+  ).join('') + (garnishCount > 0 ? `<div style="color:var(--yellow)">Garnish x${garnishCount}</div>` : '');
+}
+
+buildIngredientList();
+renderGlass();
+
+// ── Edge Cases ──
+const edges = [
+  { title: 'Pour rate at 200px drag', body: '<code>rate = (200/200)² = 1.0</code>. This is the maximum pour rate. Dragging beyond 200px does not increase the rate further — it is clamped at 1.0.' },
+  { title: 'Overflow with foam only', body: 'If foam alone pushes the glass above 1.0 while liquid is still below 1.0, the overflow flag still triggers. Foam counts against capacity.' },
+  { title: 'Rush penalty and foam spiral', body: 'A highly fizzy ingredient poured at full speed can generate enough foam to trigger overflow even at a low liquid fill level. Players who slow their pour allow foam to settle before continuing.' },
+  { title: 'Weight-sorted layers out of pour order', body: 'If a player pours a heavy ingredient after a light one, the heavy ingredient sinks below the light one in the final sorted display. Confirm with implementation whether accuracy check uses pour order or sorted order.' },
+  { title: 'Garnish on disliked recipe', body: 'Garnish points are still awarded per correct garnish item even if the recipe is disliked. The disliked result is applied after score computation — a disliked recipe always yields Dislike regardless of total score.' },
+  { title: 'Score >= 80 on disliked recipe', body: 'The &ge; 80 Like override does NOT override the disliked recipe Dislike. Recipe preference takes priority. Only liked or neutral-preference recipes benefit from the &ge; 80 override.' },
+  { title: 'ChoosingServeGlass with no alternate glass', body: 'If the recipe does not require a separate serving vessel, the ChoosingServeGlass state is skipped and the state machine advances directly from Pouring to Score.' },
+  { title: 'Bottle snapped but player does not tilt', body: 'If the bottle snaps to the pouring position above a glass but the player makes no drag gesture (rate = 0), no liquid flows. The Pouring state remains active until the player drags or moves the bottle out of snap range.' },
+  { title: 'Multiple glasses in scene', body: 'The ChoosingGlass state listens for the player to position the held bottle above a valid glass. If multiple glasses are present, only the glass directly under the bottle at confirmation time is selected.' },
+  { title: 'Score below zero', body: 'Overflow (&minus;15) can only reduce the score to a minimum of 85 minus all other component scores. The score is not clamped — if all other components score 0 and overflow triggers, the total is &minus;15. DateSessionManager must handle negative magnitude input gracefully.' },
+];
+
+document.getElementById('drinkEdges').innerHTML = edges.map((e, i) => `
+  <div style="margin-bottom:0.75rem;background:var(--bg);border-radius:6px;overflow:hidden;">
+    <div class="collapsible-header" id="edge-hdr-${i}" onclick="toggleEdge(${i})" style="padding:0.75rem 1rem;">
+      <span style="color:var(--text);font-size:0.9rem;">${e.title}</span>
+    </div>
+    <div class="collapsible-body" id="edge-body-${i}">
+      <div style="padding:0 1rem 0.75rem;font-size:0.85rem;color:var(--text-dim);">${e.body}</div>
+    </div>
+  </div>
+`).join('');
+
+function toggleEdge(i) {
+  document.getElementById('edge-hdr-'  + i).classList.toggle('open');
+  document.getElementById('edge-body-' + i).classList.toggle('open');
+}
+
+// ── Checklist ──
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  const items   = document.querySelectorAll('#checklist li');
+  const checked = document.querySelectorAll('#checklist li.checked').length;
+  const pct     = Math.round(checked / items.length * 100);
+  document.getElementById('progressFill').style.width  = pct + '%';
+  document.getElementById('progressLabel').textContent  = `${checked} / ${items.length} criteria met`;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Object Interaction — Spent Blooms</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --card-hover: #1a2745;
+    --accent: #e94560;
+    --accent-soft: #e9456033;
+    --green: #4ecca3;
+    --yellow: #f5c542;
+    --muted: #8892a8;
+    --text: #eaeaea;
+    --text-dim: #a0a8b8;
+    --border: #2a3a5c;
+    --blue: #4aa8e8;
+    --purple: #9b59b6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .subtitle span {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  .status-bar {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .badge-rev { background: #4aa8e822; color: var(--blue); }
+  .badge-dep { background: #4ecca322; color: var(--green); }
+
+  .progress-bar { flex: 1; min-width: 200px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.5s; }
+  .progress-label { font-size: 0.8rem; color: var(--muted); }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 1.1rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-content { display: none; padding-top: 1.5rem; }
+  .tab-content.active { display: block; }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: background 0.2s;
+  }
+
+  section:hover { background: var(--card-hover); }
+  section h2 { font-size: 1.1rem; color: var(--green); margin-bottom: 0.75rem; }
+  section h3 { font-size: 0.95rem; color: var(--yellow); margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text-dim); font-size: 0.9rem; }
+  p { margin-bottom: 0.5rem; }
+  ul, ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.35rem; }
+  li strong { color: var(--text); }
+
+  code {
+    background: #0f3460;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: var(--yellow);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-exists { background: #4ecca333; color: var(--green); }
+  .tag-new { background: #e9456033; color: var(--accent); }
+  .tag-rev { background: #4aa8e822; color: var(--blue); }
+
+  table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.85rem; }
+  th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { color: var(--text-dim); }
+  tr:hover td { color: var(--text); }
+
+  .collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+
+  .collapsible-header:hover { background: var(--bg); }
+
+  .collapsible-header::before {
+    content: '>';
+    display: inline-block;
+    transition: transform 0.2s;
+    font-family: monospace;
+    color: var(--muted);
+    width: 12px;
+  }
+
+  .collapsible-header.open::before { transform: rotate(90deg); }
+  .collapsible-body { display: none; margin-top: 0.5rem; padding: 0 0.6rem 0.6rem; }
+  .collapsible-body.open { display: block; }
+
+  .checklist { list-style: none; padding-left: 0; }
+  .checklist li {
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    transition: background 0.15s;
+  }
+  .checklist li:hover { background: var(--bg); }
+  .checklist li .check {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-size: 0.7rem;
+    color: transparent;
+  }
+  .checklist li.checked .check { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+  .formula-block {
+    background: #0a1628;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: var(--green);
+    margin: 0.75rem 0;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.7;
+  }
+
+  /* ── Spring-Damper Demo ── */
+  .spring-demo {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .spring-canvas {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  .spring-target {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px dashed var(--muted);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .spring-object {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: background 0.3s;
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
+  }
+
+  .spring-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .spring-preset-btns {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .preset-btn {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--card);
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+
+  .preset-btn:hover, .preset-btn.active { border-color: var(--accent); color: var(--text); }
+  .preset-btn.active { background: var(--accent-soft); }
+
+  .spring-info {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .spring-stat {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .spring-stat .ss-label { color: var(--muted); }
+  .spring-stat .ss-val { color: var(--yellow); font-weight: 700; font-size: 1rem; }
+
+  /* ── Rejection Cascade ── */
+  .cascade-list { list-style: none; padding: 0; }
+
+  .cascade-item {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .cascade-item:hover { border-color: var(--blue); }
+
+  .cascade-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    background: var(--bg);
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .cascade-header:hover { background: #111a2e; }
+
+  .cascade-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .cascade-item.open .cascade-num { background: var(--accent); color: white; }
+
+  .cascade-title {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .cascade-item.open .cascade-title { color: var(--text); }
+
+  .cascade-arrow {
+    font-family: monospace;
+    color: var(--muted);
+    transition: transform 0.2s;
+    font-size: 0.8rem;
+  }
+
+  .cascade-item.open .cascade-arrow { transform: rotate(90deg); }
+
+  .cascade-body {
+    display: none;
+    padding: 0.6rem 1rem 0.8rem 2.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    background: #0d1526;
+    border-top: 1px solid var(--border);
+  }
+
+  .cascade-item.open .cascade-body { display: block; }
+
+  /* ── Snap Radius Visualizer ── */
+  .snap-viz {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+  }
+
+  .snap-canvas {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    margin: 0 auto;
+    background: #0d1526;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: visible;
+  }
+
+  .snap-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .snap-center-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+  .snap-label {
+    position: absolute;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    pointer-events: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .snap-legend {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+
+  .snap-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .snap-legend-item:hover { background: var(--card); }
+  .snap-legend-item.active { border-color: var(--accent); background: var(--accent-soft); }
+
+  .snap-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+
+  /* ── Pairing Mode Comparison ── */
+  .pairing-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .pairing-card {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s;
+  }
+
+  .pairing-card:hover { border-color: var(--green); }
+
+  .pairing-card .pc-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pairing-card .pc-detail { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 0.35rem; }
+  .pairing-card .pc-detail strong { color: var(--text); }
+
+  .pairing-demo {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: #0d1526;
+    border-radius: 4px;
+    min-height: 56px;
+  }
+
+  .pairing-item {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .pairing-item.snapped { border-color: var(--green); box-shadow: 0 0 12px #4ecca355; }
+  .pairing-item.ready { border-color: var(--yellow); }
+
+  .dep-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin: 0.75rem 0;
+  }
+
+  .dep-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem;
+    transition: all 0.2s;
+  }
+
+  .dep-card:hover { border-color: var(--green); }
+  .dep-card .dep-name { font-size: 0.85rem; font-weight: 600; color: var(--green); margin-bottom: 0.3rem; }
+  .dep-card .dep-role { font-size: 0.78rem; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<h1>Object Interaction</h1>
+<div class="subtitle">
+  Spent Blooms &mdash; Design Document
+  <span>Reverse-Documented</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-badge badge-rev">Reverse-Documented</div>
+  <div class="status-badge badge-dep">7 dependencies</div>
+  <div class="progress-label" id="progressLabel">0 / 12 criteria met</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="physics">Physics Feel</button>
+  <button class="tab-btn" data-tab="placement">Placement</button>
+  <button class="tab-btn" data-tab="snaps">Magnetic Snaps</button>
+  <button class="tab-btn" data-tab="pairing">Pairing</button>
+  <button class="tab-btn" data-tab="highlight">Highlight</button>
+  <button class="tab-btn" data-tab="formulas">Formulas</button>
+  <button class="tab-btn" data-tab="edges">Edge Cases</button>
+  <button class="tab-btn" data-tab="deps">Dependencies</button>
+  <button class="tab-btn" data-tab="tuning">Tuning</button>
+  <button class="tab-btn" data-tab="criteria">Acceptance</button>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- OVERVIEW -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-overview">
+
+  <section>
+    <h2>Overview</h2>
+    <p>The Object Interaction system lets the player pick up, carry, and place objects throughout the apartment using a <strong>spring-damper physics model</strong>. Objects float toward a target point driven by the mouse cursor, with five authored feel presets that govern how each object archetype handles momentum and resistance. Placement uses a ghost-preview renderer with an <strong>11-step validation cascade</strong>, grid snapping, and magnetic snap zones for contextually appropriate placement targets. Items that belong together &mdash; shoes, dishes, books &mdash; snap and stack via the <code>PairableItem</code> system. A highlight system with six priority layers pulses to draw attention to interactive items.</p>
+  </section>
+
+  <section>
+    <h2>Player Fantasy</h2>
+    <p>The player should feel like they are tidying up with gentle, satisfying weight. Heavy objects should feel like they have mass; small trinkets should feel nimble and responsive. Placing something in exactly the right spot &mdash; a shoe paired with its partner, a dish stacked on its pile &mdash; should feel like a small click of rightness. The apartment should reward attentiveness: magnetic snaps guide rather than force, and the ghost preview communicates intent before commitment.</p>
+  </section>
+
+  <section>
+    <h2>System Interactions Map</h2>
+    <div style="background:var(--bg);border-radius:6px;padding:1rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;justify-content:center;">
+      <div style="text-align:center;">
+        <div style="background:#1a3060;border:2px solid var(--accent);border-radius:6px;padding:0.5rem 1rem;margin-bottom:0.5rem;font-size:0.85rem;font-weight:600;color:var(--accent);">ObjectGrabber</div>
+        <div style="color:var(--muted);font-size:0.75rem;">Player controller</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;align-self:center;">
+        <div style="background:#0a2040;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.75rem;font-size:0.78rem;color:var(--green);">Spring force</div>
+        <div style="background:#0a2040;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.75rem;font-size:0.78rem;color:var(--green);">Ghost preview</div>
+        <div style="background:#0a2040;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.75rem;font-size:0.78rem;color:var(--green);">Snap polling</div>
+        <div style="background:#0a2040;border:1px solid var(--border);border-radius:4px;padding:0.3rem 0.75rem;font-size:0.78rem;color:var(--green);">11-step cascade</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;">
+        <div style="background:#162030;border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.75rem;font-size:0.8rem;color:var(--text-dim);"><code>PlaceableObject</code></div>
+        <div style="background:#162030;border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.75rem;font-size:0.8rem;color:var(--text-dim);"><code>PlacementSurface</code></div>
+        <div style="background:#162030;border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.75rem;font-size:0.8rem;color:var(--text-dim);"><code>MagneticSnap</code> variants</div>
+        <div style="background:#162030;border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.75rem;font-size:0.8rem;color:var(--text-dim);"><code>PairableItem</code></div>
+        <div style="background:#162030;border:1px solid var(--border);border-radius:4px;padding:0.35rem 0.75rem;font-size:0.8rem;color:var(--text-dim);"><code>ItemHighlight</code></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PHYSICS FEEL -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-physics">
+
+  <section>
+    <h2>Grab Feel Presets</h2>
+    <p>Each <code>PlaceableObject</code> is assigned one of five spring-damper feel presets. Move your mouse over the canvas below to feel the difference.</p>
+
+    <div class="spring-demo">
+      <div class="spring-canvas" id="springCanvas">
+        <svg class="spring-line" id="springLine">
+          <line id="springConnector" x1="0" y1="0" x2="0" y2="0" stroke="#2a3a5c" stroke-width="1.5" stroke-dasharray="4,3"/>
+        </svg>
+        <div class="spring-target" id="springTarget"></div>
+        <div class="spring-object" id="springObject" style="background:#4ecca3;"></div>
+      </div>
+      <div class="spring-preset-btns" id="presetBtns"></div>
+      <div class="spring-info">
+        <div class="spring-stat"><div class="ss-label">Spring</div><div class="ss-val" id="ssSpring">120</div></div>
+        <div class="spring-stat"><div class="ss-label">Damper</div><div class="ss-val" id="ssDamper">18</div></div>
+        <div class="spring-stat"><div class="ss-label">MaxAccel</div><div class="ss-val" id="ssMaxAccel">60</div></div>
+        <div class="spring-stat"><div class="ss-label">AngularDamp</div><div class="ss-val" id="ssAngDamp">12</div></div>
+        <div class="spring-stat"><div class="ss-label">Preset</div><div class="ss-val" id="ssPreset" style="color:var(--green);">Default</div></div>
+      </div>
+    </div>
+
+    <table>
+      <tr><th>Preset</th><th>Spring</th><th>Damper</th><th>MaxAccel</th><th>AngularDamp</th><th>Feel</th></tr>
+      <tr><td><strong>Default</strong></td><td>120</td><td>18</td><td>60</td><td>12</td><td>Balanced household item</td></tr>
+      <tr><td><strong>Plucky</strong></td><td>35</td><td>6</td><td>20</td><td>5</td><td>Bouncy, light, lively</td></tr>
+      <tr><td><strong>Floaty</strong></td><td>25</td><td>12</td><td>15</td><td>4</td><td>Soft, drifting, gentle</td></tr>
+      <tr><td><strong>Snappy</strong></td><td>500</td><td>40</td><td>200</td><td>25</td><td>Instant, rigid, no lag</td></tr>
+      <tr><td><strong>Heavy</strong></td><td>50</td><td>25</td><td>25</td><td>3</td><td>Lethargic, mass-like</td></tr>
+    </table>
+
+    <h3>Pickup Feel Ramp</h3>
+    <p>When an object is first picked up, there is a <strong>0.25-second blend</strong> from carry parameters (spring=250, damper=22, maxAccel=120, angularDamp=16) into the object's assigned preset. This prevents the object from immediately flying to the cursor.</p>
+
+    <div class="formula-block">blendParam = min(timeSincePickup / 0.25, 1.0)
+spring     = Lerp(250, presetSpring, blendParam)
+damper     = Lerp(22,  presetDamper, blendParam)
+maxAccel   = Lerp(120, presetMaxAccel, blendParam)
+angularDamp= Lerp(16,  presetAngularDamp, blendParam)
+
+// At t=0:    tight carry feel (spring=250)
+// At t=0.25: full preset feel</div>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PLACEMENT -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-placement">
+
+  <section>
+    <h2>Ghost Preview Renderer</h2>
+    <p>While an object is held, a ghost preview mesh renders at the candidate placement position using a distinct render queue to stay behind the held object.</p>
+
+    <div style="display:flex;gap:1rem;margin:1rem 0;flex-wrap:wrap;">
+      <div style="flex:1;min-width:150px;background:var(--bg);border:2px solid #4ecca355;border-radius:6px;padding:0.75rem;text-align:center;">
+        <div style="width:40px;height:40px;border-radius:4px;background:rgba(128,243,140,0.35);border:1px solid #4ecca3;margin:0 auto 0.5rem;"></div>
+        <div style="font-size:0.8rem;color:var(--green);font-weight:600;">Valid Placement</div>
+        <div style="font-size:0.75rem;color:var(--muted);">RGBA(0.5, 0.95, 0.55, 0.35)</div>
+        <div style="font-size:0.75rem;color:var(--muted);">Queue: 3500</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:var(--bg);border:2px solid #e9456055;border-radius:6px;padding:0.75rem;text-align:center;">
+        <div style="width:40px;height:40px;border-radius:4px;background:rgba(242,51,51,0.35);border:1px solid #e94560;margin:0 auto 0.5rem;"></div>
+        <div style="font-size:0.8rem;color:var(--accent);font-weight:600;">Invalid Placement</div>
+        <div style="font-size:0.75rem;color:var(--muted);">RGBA(0.95, 0.2, 0.2, 0.35)</div>
+        <div style="font-size:0.75rem;color:var(--muted);">Queue: 3500</div>
+      </div>
+      <div style="flex:1;min-width:150px;background:var(--bg);border:2px solid #f5c54255;border-radius:6px;padding:0.75rem;text-align:center;">
+        <div style="width:40px;height:40px;border-radius:4px;background:#16213e;border:2px solid #f5c542;margin:0 auto 0.5rem;display:flex;align-items:center;justify-content:center;font-size:1rem;">&#9632;</div>
+        <div style="font-size:0.8rem;color:var(--yellow);font-weight:600;">Held Object</div>
+        <div style="font-size:0.75rem;color:var(--muted);">Above all geometry</div>
+        <div style="font-size:0.75rem;color:var(--muted);">Queue: 3900</div>
+      </div>
+    </div>
+
+    <h3>Grid Snapping</h3>
+    <ul>
+      <li><strong>Grid cell size</strong>: 0.06 meters base</li>
+      <li><strong>Edge margin</strong>: 0.03 meters (objects cannot be placed closer than 0.03m to surface edge)</li>
+      <li><strong>Wall-surface multiplier</strong>: 1.0x currently (planned 2&ndash;3x for coarser wall placement)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Placement Rejection Cascade</h2>
+    <p>Before a placement is confirmed, <strong>11 checks run in order</strong>. The first failure rejects placement and turns the ghost red. If check 3 fails, checks 4&ndash;11 do not run.</p>
+    <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.75rem;">Click any check to expand its details.</p>
+
+    <ul class="cascade-list" id="cascadeList">
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">1</div>
+          <div class="cascade-title">Surface check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">A valid <code>PlacementSurface</code> must be under the candidate position. If no surface exists at the cursor, placement fails immediately.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">2</div>
+          <div class="cascade-title">Wall mount check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">If the surface is a wall, the object must be flagged as a wall-mountable type. A standard shelf item dropped onto a wall surface is rejected here.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">3</div>
+          <div class="cascade-title">Fridge state check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">If placing inside a fridge, the fridge door must be open. A closed fridge door blocks any placement inside the fridge volume.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">4</div>
+          <div class="cascade-title">Cubby state check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">If placing inside a cubby, the cubby door must be open. Same logic as fridge — closed door = blocked placement.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">5</div>
+          <div class="cascade-title">Trash category check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">If placing in a trash zone, the object's category must match the zone's accepted category. A food item cannot go in a paper trash zone.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">6</div>
+          <div class="cascade-title">Height clearance check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">The object's bounding box must fit within the surface's vertical clearance. A tall item under a low shelf fails this check.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">7</div>
+          <div class="cascade-title">Barrier sphere check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">A sphere of radius <strong>0.009 meters</strong> is cast at the candidate position. Any collision with a barrier collider rejects placement. Catches near-miss placements clipping into thin geometry (baseboards, trim) that the footprint check does not detect.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">8</div>
+          <div class="cascade-title">Exclusion zone check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">The candidate position must not overlap any active exclusion zone volume. Exclusion zones are designer-placed colliders that block specific spots from receiving objects.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">9</div>
+          <div class="cascade-title">Footprint overhang check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">The object's footprint must be <strong>at least 50% supported</strong> by the surface. No more than 50% may overhang the edge. Prevents balancing objects on the corner of a shelf.</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">10</div>
+          <div class="cascade-title">Occupancy check</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">The grid cell at the candidate position must not already be occupied by another placed object. Non-pairable items cannot share a cell. (Stacking via <code>PairableItem</code> bypasses this check.)</div>
+      </li>
+      <li class="cascade-item">
+        <div class="cascade-header" onclick="toggleCascade(this)">
+          <div class="cascade-num">11</div>
+          <div class="cascade-title">Reserved</div>
+          <div class="cascade-arrow">&gt;</div>
+        </div>
+        <div class="cascade-body">Reserved for future use or additional game-specific checks. Currently always passes.</div>
+      </li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- MAGNETIC SNAPS -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-snaps">
+
+  <section>
+    <h2>Magnetic Snap Zones</h2>
+    <p>Certain placement targets pull the held object into a precise position when within snap range. Snaps are evaluated every frame while the object is held.</p>
+
+    <div class="snap-viz">
+      <div class="snap-canvas" id="snapCanvas">
+        <div class="snap-center-dot" style="background:var(--yellow);"></div>
+      </div>
+      <div class="snap-legend" id="snapLegend"></div>
+    </div>
+
+    <table>
+      <tr><th>Snap Type</th><th>Range</th><th>Behavior</th></tr>
+      <tr><td>Pair snap</td><td>0.4 m</td><td><strong>Hard teleport</strong> &mdash; immediate, no lerp</td></tr>
+      <tr><td>Trash snap</td><td>0.8 m</td><td>Quadratic pull &mdash; stronger as distance closes</td></tr>
+      <tr><td>Turntable snap</td><td>0.6 m</td><td>Smooth position lock to turntable center</td></tr>
+      <tr><td>Bottle snap</td><td>1.2 m</td><td>Smooth snap to bottle target mount point</td></tr>
+      <tr><td>Watering snap</td><td>1.5 m</td><td>Smooth snap to watering can spout target</td></tr>
+    </table>
+
+    <h3>Pair Snap &mdash; Hard Teleport</h3>
+    <div class="formula-block">if (distance(heldObject, partnerObject) &lt;= 0.4):
+    heldObject.position = snapTargetPosition  // immediate, no lerp</div>
+
+    <h3>Trash Snap &mdash; Quadratic Pull</h3>
+    <div class="formula-block">t = 1.0 - (distance / 0.8)  // normalized: 0 at range, 1 at contact
+pullForce = t * t * maxTrashPull
+  // Quadratic: pull doubles when distance halves</div>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- PAIRING -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-pairing">
+
+  <section>
+    <h2>PairableItem System</h2>
+    <p><code>PairableItem</code> defines whether an object can bond with another object on placement. There are two bonding modes &mdash; click each card to trigger its demo.</p>
+
+    <div class="pairing-compare">
+      <div class="pairing-card" id="specificCard">
+        <div class="pc-title" style="color:var(--accent);">SpecificPartner</div>
+        <div class="pc-detail"><strong>What</strong>: Snaps only to one named partner.</div>
+        <div class="pc-detail"><strong>Example</strong>: Left shoe &rarr; right shoe.</div>
+        <div class="pc-detail"><strong>Consumed</strong>: Bond is a one-time event. Snap zone deactivates after first snap.</div>
+        <div class="pc-detail"><strong>Orientation</strong>: <em>SideBySide</em> &mdash; placed adjacent along fixed axis.</div>
+        <div class="pairing-demo" id="specificDemo">
+          <div class="pairing-item" id="sp1" title="Shoe L">&#128095;</div>
+          <div style="color:var(--muted);font-size:1.5rem;">+</div>
+          <div class="pairing-item ready" id="sp2" title="Shoe R">&#128095;</div>
+        </div>
+        <div style="text-align:center;margin-top:0.5rem;">
+          <button onclick="demoSpecific()" style="padding:0.3rem 0.75rem;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:0.8rem;">Simulate snap</button>
+        </div>
+      </div>
+
+      <div class="pairing-card" id="anyCard">
+        <div class="pc-title" style="color:var(--blue);">AnyOfCategory</div>
+        <div class="pc-detail"><strong>What</strong>: Snaps to any item in the same category.</div>
+        <div class="pc-detail"><strong>Example</strong>: Dishes stack with dishes; books with books.</div>
+        <div class="pc-detail"><strong>Stackable</strong>: Multiple items can chain into the same stack.</div>
+        <div class="pc-detail"><strong>Orientation</strong>: <em>Stacked</em> &mdash; placed directly on top.</div>
+        <div class="pairing-demo" id="anyDemo">
+          <div class="pairing-item" id="any1" title="Dish 1">&#127826;</div>
+          <div class="pairing-item ready" id="any2" title="Dish 2">&#127826;</div>
+          <div class="pairing-item ready" id="any3" title="Dish 3">&#127826;</div>
+        </div>
+        <div style="text-align:center;margin-top:0.5rem;">
+          <button onclick="demoAny()" style="padding:0.3rem 0.75rem;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:0.8rem;">Stack all</button>
+          <button onclick="resetAny()" style="padding:0.3rem 0.75rem;background:var(--card);border:1px solid var(--border);border-radius:4px;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:0.8rem;margin-left:0.4rem;">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Double-Click to Unstack</h3>
+    <p>If the player double-clicks a stacked item within a <strong>0.3-second window</strong>, the entire stack is broken and all items are individually grabbable. Outside this window, clicking grabs only the top item.</p>
+
+    <table>
+      <tr><th>Action</th><th>Result</th></tr>
+      <tr><td>Single click stacked item</td><td>Grabs the top item only</td></tr>
+      <tr><td>Double-click within 0.3s window</td><td>Breaks entire stack &mdash; all items individually grabbable</td></tr>
+      <tr><td>Double-click after 0.3s window</td><td>Treated as two single clicks; grabs top item twice</td></tr>
+      <tr><td>Double-click on solo item (no stack)</td><td>Treated as standard grab &mdash; no feedback</td></tr>
+    </table>
+
+    <h3>Rotation</h3>
+    <p>While holding an object, pressing <strong>RMB</strong> rotates it in <strong>45-degree steps</strong>. Wall rotation is preserved when replacing on the same wall; floor placement always uses cursor-facing rotation.</p>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- HIGHLIGHT -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-highlight">
+
+  <section>
+    <h2>ItemHighlight System</h2>
+    <p>Interactive objects are highlighted using <code>MaterialPropertyBlock</code> (MPB) per interaction slot &mdash; no material instances are created. There are <strong>6 priority layers</strong>; higher-priority highlights override lower-priority ones on the same object.</p>
+
+    <table>
+      <tr><th>Priority</th><th>Source</th><th>Trigger</th></tr>
+      <tr><td>1 (lowest)</td><td>&mdash;</td><td>Reserved</td></tr>
+      <tr><td>2</td><td>&mdash;</td><td>Reserved</td></tr>
+      <tr><td>3</td><td>Interaction raycast</td><td>Hover over object</td></tr>
+      <tr><td>4</td><td>&mdash;</td><td>Reserved</td></tr>
+      <tr><td>5</td><td>&mdash;</td><td>Reserved</td></tr>
+      <tr><td>6 (highest)</td><td>ObjectGrabber</td><td>Object is held</td></tr>
+    </table>
+
+    <h3>Pulse Formula</h3>
+    <div class="formula-block">intensity = 0.7 + 0.3 * sin(Time.time * 2 * PI * 3.0)
+  // Range: [0.4, 1.0]
+  // Period: 0.333 seconds (3 Hz)
+  // Minimum 0.7 keeps highlight always visible</div>
+
+    <div style="background:var(--bg);border-radius:8px;padding:1.5rem;margin:1rem 0;">
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;">
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;">
+            <div id="hlBox" style="width:40px;height:40px;border-radius:4px;background:var(--green);transition:opacity 0.05s;border:2px solid transparent;"></div>
+            <div>
+              <div style="font-size:0.85rem;color:var(--text);">Live Highlight Preview</div>
+              <div style="font-size:0.78rem;color:var(--muted);">Intensity: <span id="hlIntensity">0.70</span></div>
+            </div>
+          </div>
+          <div style="font-size:0.8rem;color:var(--text-dim);">Pulses at 3 Hz &mdash; one cycle every 0.333 seconds.</div>
+        </div>
+        <div style="flex:1;min-width:200px;height:60px;background:#0d1526;border-radius:4px;position:relative;overflow:hidden;border:1px solid var(--border);">
+          <canvas id="hlWave" style="width:100%;height:100%;"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <h3>Tether and Wall Collision</h3>
+    <ul>
+      <li><strong>Tether distance</strong>: 3 meters from grab origin. If exceeded, object snaps back to grab origin with velocity zeroed</li>
+      <li><strong>Wall collision</strong>: Velocity clamped against wall colliders &mdash; object cannot be pushed through a wall by spring force</li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- FORMULAS -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-formulas">
+
+  <section>
+    <h2>Spring-Damper Force</h2>
+    <div class="formula-block">force = (targetPosition - objectCenter) * spring - velocity * damper
+clampedForce = Clamp(force magnitude, 0, maxAccel) in force direction
+
+Variables:
+  targetPosition: world-space cursor target on carry plane
+  objectCenter:   world-space center of held Rigidbody
+  spring:         preset spring constant  (e.g. 120 for Default)
+  damper:         preset damper constant  (e.g. 18  for Default)
+  maxAccel:       maximum force magnitude (e.g. 60  for Default)
+
+Example (Default, object 0.5u from target, velocity 1 u/s toward target):
+  force = 0.5 * 120 - 1.0 * 18 = 60 - 18 = 42 u/s²
+  42 &lt; maxAccel(60), so force = 42 u/s²</div>
+  </section>
+
+  <section>
+    <h2>Pickup Ramp Blend</h2>
+    <div class="formula-block">blendParam = min(timeSincePickup / 0.25, 1.0)
+spring      = Lerp(250, presetSpring, blendParam)
+damper      = Lerp(22,  presetDamper, blendParam)
+maxAccel    = Lerp(120, presetMaxAccel, blendParam)
+angularDamp = Lerp(16,  presetAngularDamp, blendParam)</div>
+  </section>
+
+  <section>
+    <h2>Highlight Pulse</h2>
+    <div class="formula-block">intensity = 0.7 + 0.3 * sin(Time.time * 2 * PI * 3.0)
+  // Range: [0.4, 1.0]. Period: 0.333s (3 Hz)</div>
+  </section>
+
+  <section>
+    <h2>Pair Snap Teleport</h2>
+    <div class="formula-block">if (distance(heldObject, partnerObject) &lt;= 0.4):
+    heldObject.position = snapTargetPosition  // immediate, no lerp</div>
+  </section>
+
+  <section>
+    <h2>Trash Magnetic Pull (Quadratic)</h2>
+    <div class="formula-block">t = 1.0 - (distance / 0.8)  // 0 at range, 1 at contact
+pullForce = t * t * maxTrashPull</div>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- EDGE CASES -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-edges">
+
+  <section>
+    <h2>Edge Cases</h2>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Pair snap consumed</div>
+      <div class="collapsible-body"><p>Once a <code>SpecificPartner</code> pair bond forms, the snap zone deactivates. Picking up one shoe and moving it elsewhere does not re-enable the snap; the player must deliberately re-place.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Double-click on top of a single item</div>
+      <div class="collapsible-body"><p>If a solo item (no stack) is double-clicked, the double-click is treated as a standard grab. No unstacking animation or feedback plays.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Wall rotation on floor drop</div>
+      <div class="collapsible-body"><p>If an object with wall rotation is dropped on a floor surface, the rotation resets to the default floor-facing orientation. It is not preserved across surface types.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Barrier sphere at 0.009m</div>
+      <div class="collapsible-body"><p>Intentionally very small &mdash; it catches near-miss placements clipping into thin geometry (baseboards, trim) that the footprint check does not detect. Objects with very thin footprints may still fail this check in tight corners.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Tether distance</div>
+      <div class="collapsible-body"><p>At exactly 3.0 meters, the snap-back triggers. The object teleports to the grab origin, not to the cursor. Velocity is zeroed at snap-back to prevent oscillation.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Ghost during magnetic snap</div>
+      <div class="collapsible-body"><p>When a magnetic snap is active, the ghost preview moves to the snap target position rather than the grid-snapped cursor position. The 11-step cascade still runs against the snap position. If the snap position fails validation, the ghost turns red but the snap remains visually active.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Stacked item occupancy</div>
+      <div class="collapsible-body"><p>Each item in a stack occupies the same grid cell. Occupancy check passes for stacking (handled by the <code>PairableItem</code> Stacked path before the occupancy check runs), but a non-pairable item cannot be placed in the same cell as any stack member.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Fridge/cubby with closed door</div>
+      <div class="collapsible-body"><p>If a door closes while an item is inside, the item is not ejected. The cubby-state check only applies at placement time.</p></div>
+    </div>
+
+    <div style="margin-bottom:0.4rem;">
+      <div class="collapsible-header" onclick="toggleCollapse(this)">Render queue conflict</div>
+      <div class="collapsible-body"><p>Held objects at queue 3900 render on top of UI elements that render below that queue. If a UI panel uses queue &lt; 3900, a held object will visually clip through it. This is known and accepted for the current UI stack.</p></div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- DEPENDENCIES -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-deps">
+
+  <section>
+    <h2>Dependencies</h2>
+    <div class="dep-grid">
+      <div class="dep-card"><div class="dep-name">PlacementSurface</div><div class="dep-role">Defines valid surface volumes, wall/floor type, height clearance, edge boundaries. Required for cascade checks 1, 2, 6.</div></div>
+      <div class="dep-card"><div class="dep-name">PlaceableObject</div><div class="dep-role">Per-object data: feel preset, category, wall-mount flag, footprint, home position. Static registry <code>.All</code> for batch queries.</div></div>
+      <div class="dep-card"><div class="dep-name">PairableItem</div><div class="dep-role">Extends PlaceableObject with partner data, snap type, and stack state. Manages double-click unstack window.</div></div>
+      <div class="dep-card"><div class="dep-name">ItemHighlight</div><div class="dep-role">MPB-based highlight system. Reads priority assignments from ObjectGrabber (held = 6) and interaction raycasts (hover = 3).</div></div>
+      <div class="dep-card"><div class="dep-name">DropZone</div><div class="dep-role">Represents trash zones and categorized placement zones. Provides accepted category and snap range for trash pull.</div></div>
+      <div class="dep-card"><div class="dep-name">ObjectGrabber</div><div class="dep-role">Player-facing controller. Owns carry plane, spring loop, tether logic, RMB rotation, ghost renderer. Uses <code>ApartmentManager.ScreenPointToRay</code>.</div></div>
+      <div class="dep-card"><div class="dep-name">MagneticSnap variants</div><div class="dep-role">Individual snap components (pair, trash, turntable, bottle, watering). Each registers itself; ObjectGrabber polls all active snaps each frame.</div></div>
+    </div>
+
+    <h3>Reverse Dependencies</h3>
+    <ul>
+      <li><strong>TidyScorer</strong>: reads <code>PlaceableObject.IsAtHome</code> and <code>PlaceableObject.IsOnFloor</code> each scoring tick</li>
+      <li><strong>DateSessionManager</strong>: queries object states (turntable, watering snap) to trigger date reactions</li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- TUNING -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-tuning">
+
+  <section>
+    <h2>Tuning Knobs</h2>
+    <table>
+      <tr><th>Parameter</th><th>Current Value</th><th>Safe Range</th><th>Affects</th></tr>
+      <tr><td>Default spring</td><td>120</td><td>60 &ndash; 300</td><td>Responsiveness of default-feel objects</td></tr>
+      <tr><td>Default damper</td><td>18</td><td>8 &ndash; 40</td><td>Oscillation settling of default-feel objects</td></tr>
+      <tr><td>Default maxAccel</td><td>60</td><td>30 &ndash; 150</td><td>Maximum speed of default-feel object movement</td></tr>
+      <tr><td>Carry spring (ramp start)</td><td>250</td><td>150 &ndash; 400</td><td>Tightness of feel at moment of grab</td></tr>
+      <tr><td>Pickup ramp duration</td><td>0.25 sec</td><td>0.1 &ndash; 0.5</td><td>How long before object settles into preset feel</td></tr>
+      <tr><td>Grid base size</td><td>0.06 m</td><td>0.03 &ndash; 0.12</td><td>Precision of placement snapping</td></tr>
+      <tr><td>Grid edge margin</td><td>0.03 m</td><td>0.01 &ndash; 0.05</td><td>Minimum clearance from surface edge</td></tr>
+      <tr><td>Barrier sphere radius</td><td>0.009 m</td><td>0.005 &ndash; 0.02</td><td>Near-geometry placement rejection sensitivity</td></tr>
+      <tr><td>Pair snap range</td><td>0.4 m</td><td>0.2 &ndash; 0.8</td><td>Distance at which shoe/partner snap triggers</td></tr>
+      <tr><td>Trash snap range</td><td>0.8 m</td><td>0.4 &ndash; 1.5</td><td>Distance at which trash pull activates</td></tr>
+      <tr><td>Turntable snap range</td><td>0.6 m</td><td>0.3 &ndash; 1.2</td><td>Distance at which turntable snap triggers</td></tr>
+      <tr><td>Bottle snap range</td><td>1.2 m</td><td>0.6 &ndash; 2.0</td><td>Distance at which bottle mount triggers</td></tr>
+      <tr><td>Watering snap range</td><td>1.5 m</td><td>0.8 &ndash; 2.5</td><td>Distance at which watering can snap triggers</td></tr>
+      <tr><td>Tether distance</td><td>3.0 m</td><td>1.5 &ndash; 5.0</td><td>Maximum carry distance before snap-back</td></tr>
+      <tr><td>Highlight pulse frequency</td><td>3 Hz</td><td>1 &ndash; 6</td><td>Attention-drawing speed of interactive highlights</td></tr>
+      <tr><td>Highlight min intensity</td><td>0.7</td><td>0.4 &ndash; 0.9</td><td>Minimum highlight brightness between pulses</td></tr>
+      <tr><td>Double-click window</td><td>0.3 sec</td><td>0.2 &ndash; 0.5</td><td>Time window to detect double-click for unstack</td></tr>
+      <tr><td>RMB rotation step</td><td>45 degrees</td><td>15 &ndash; 90</td><td>Precision of manual object rotation</td></tr>
+      <tr><td>Ghost render queue</td><td>3500</td><td>3000 &ndash; 3800</td><td>Render order of placement ghost</td></tr>
+      <tr><td>Held render queue</td><td>3900</td><td>3800 &ndash; 4000</td><td>Render order of held object above scene geometry</td></tr>
+    </table>
+  </section>
+
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- ACCEPTANCE CRITERIA -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-criteria">
+
+  <section>
+    <h2>Acceptance Criteria</h2>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Snappy preset</strong>: Pick up a Snappy-preset object. Move cursor quickly. Object must reach cursor in under 0.1 seconds from 0.5 units away. Release and verify no significant oscillation.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Pickup ramp</strong>: Pick up a Plucky-preset object (spring=35). At frame of grab, spring must be 250. At 0.25s post-grab, spring must be 35. Intermediate values must be a linear lerp.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Ghost validity</strong>: Hold an object over a valid surface &mdash; ghost must display green (0.5, 0.95, 0.55, 0.35). Move over an occupied cell &mdash; ghost must turn red (0.95, 0.2, 0.2, 0.35).</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>11-step cascade &mdash; occupancy</strong>: Place an object on a grid cell. Attempt to place a second non-pairable object in the same cell. Placement must be rejected (red ghost) and no overlap occurs.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Pair snap teleport</strong>: Place one shoe. Hold the partner shoe within 0.4m of the first. The held shoe must immediately teleport to the snap position &mdash; no lerp visible.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Trash snap quadratic pull</strong>: Hold a trash item at 0.8m from a trash zone. Verify zero pull force. Move to 0.4m. Verify pull increases. At 0.01m, verify pull is near maximum.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Double-click unstack</strong>: Stack three dishes. Double-click the top dish within 0.3 seconds. All three dishes must be individually grabbable afterward.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Double-click timeout</strong>: Stack two dishes. Wait 0.4 seconds, then double-click. Only the top dish is grabbed &mdash; the lower dish remains placed.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Tether snap-back</strong>: Hold an object and drag the cursor 3.1 meters from grab origin. Object must snap back to grab origin. Velocity must be zero immediately after snap-back.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Highlight pulse</strong>: Hover over an interactive object. Verify highlight pulses at 3 Hz (one full cycle in 0.333 seconds), with intensity never dropping below 0.7.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>RMB rotation preserved on wall</strong>: Place an object on a wall. Pick it up. Do not rotate it. Replace on same wall. Verify object returns to pre-pickup wall rotation.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Held render-on-top</strong>: Pick up an object and drag it in front of furniture. The held object must render on top of the furniture geometry.</span></li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const el = document.getElementById('tab-' + btn.dataset.tab);
+    if (el) el.classList.add('active');
+  });
+});
+
+// ── Spring-Damper Demo ──
+const presets = [
+  { name: 'Default', spring: 120, damper: 18, maxAccel: 60, angularDamp: 12, color: '#4ecca3' },
+  { name: 'Plucky',  spring: 35,  damper: 6,  maxAccel: 20, angularDamp: 5,  color: '#f5c542' },
+  { name: 'Floaty',  spring: 25,  damper: 12, maxAccel: 15, angularDamp: 4,  color: '#4aa8e8' },
+  { name: 'Snappy',  spring: 500, damper: 40, maxAccel: 200,angularDamp: 25, color: '#e94560' },
+  { name: 'Heavy',   spring: 50,  damper: 25, maxAccel: 25, angularDamp: 3,  color: '#9b59b6' }
+];
+
+let activePreset = 0;
+let objPos = { x: 0, y: 0 };
+let objVel = { x: 0, y: 0 };
+let targetPos = { x: 0, y: 0 };
+let springRunning = false;
+
+const springCanvas = document.getElementById('springCanvas');
+const springObject = document.getElementById('springObject');
+const springTarget = document.getElementById('springTarget');
+const springConnector = document.getElementById('springConnector');
+
+function initSpringCenter() {
+  const w = springCanvas.offsetWidth;
+  const h = springCanvas.offsetHeight;
+  objPos = { x: w / 2, y: h / 2 };
+  targetPos = { x: w / 2, y: h / 2 };
+  updateSpringDOM();
+}
+
+function updateSpringDOM() {
+  springObject.style.left = objPos.x + 'px';
+  springObject.style.top = objPos.y + 'px';
+  springTarget.style.left = targetPos.x + 'px';
+  springTarget.style.top = targetPos.y + 'px';
+  springConnector.setAttribute('x1', objPos.x);
+  springConnector.setAttribute('y1', objPos.y);
+  springConnector.setAttribute('x2', targetPos.x);
+  springConnector.setAttribute('y2', targetPos.y);
+}
+
+springCanvas.addEventListener('mousemove', e => {
+  const r = springCanvas.getBoundingClientRect();
+  targetPos.x = e.clientX - r.left;
+  targetPos.y = e.clientY - r.top;
+});
+
+springCanvas.addEventListener('mouseleave', () => {
+  const w = springCanvas.offsetWidth;
+  const h = springCanvas.offsetHeight;
+  targetPos.x = w / 2;
+  targetPos.y = h / 2;
+});
+
+function buildPresetBtns() {
+  const container = document.getElementById('presetBtns');
+  container.innerHTML = '';
+  presets.forEach((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'preset-btn' + (i === activePreset ? ' active' : '');
+    btn.textContent = p.name;
+    btn.onclick = () => {
+      activePreset = i;
+      buildPresetBtns();
+      updatePresetStats();
+      springObject.style.background = p.color;
+    };
+    container.appendChild(btn);
+  });
+}
+
+function updatePresetStats() {
+  const p = presets[activePreset];
+  document.getElementById('ssSpring').textContent = p.spring;
+  document.getElementById('ssDamper').textContent = p.damper;
+  document.getElementById('ssMaxAccel').textContent = p.maxAccel;
+  document.getElementById('ssAngDamp').textContent = p.angularDamp;
+  document.getElementById('ssPreset').textContent = p.name;
+  document.getElementById('ssPreset').style.color = p.color;
+}
+
+function springStep() {
+  const p = presets[activePreset];
+  const dt = 0.016;
+  const fx = (targetPos.x - objPos.x) * p.spring * 0.01 - objVel.x * p.damper;
+  const fy = (targetPos.y - objPos.y) * p.spring * 0.01 - objVel.y * p.damper;
+  const fmag = Math.sqrt(fx * fx + fy * fy);
+  const scale = fmag > p.maxAccel ? p.maxAccel / fmag : 1;
+  objVel.x += fx * scale * dt;
+  objVel.y += fy * scale * dt;
+  objPos.x += objVel.x;
+  objPos.y += objVel.y;
+  updateSpringDOM();
+  requestAnimationFrame(springStep);
+}
+
+buildPresetBtns();
+updatePresetStats();
+setTimeout(() => { initSpringCenter(); springStep(); }, 50);
+
+// ── Cascade ──
+function toggleCascade(header) {
+  const item = header.parentElement;
+  item.classList.toggle('open');
+}
+
+// ── Snap Ring Visualizer ──
+const snapData = [
+  { name: 'Pair snap',       range: 0.4, color: '#e94560', label: 'Hard teleport' },
+  { name: 'Trash snap',      range: 0.8, color: '#f5c542', label: 'Quadratic pull' },
+  { name: 'Turntable snap',  range: 0.6, color: '#4ecca3', label: 'Smooth lock' },
+  { name: 'Bottle snap',     range: 1.2, color: '#4aa8e8', label: 'Smooth mount' },
+  { name: 'Watering snap',   range: 1.5, color: '#9b59b6', label: 'Smooth spout' }
+];
+
+let activeSnap = -1;
+
+function buildSnapViz() {
+  const canvas = document.getElementById('snapCanvas');
+  canvas.innerHTML = '';
+
+  // Center dot (snap target)
+  const center = document.createElement('div');
+  center.className = 'snap-center-dot';
+  center.style.background = 'var(--yellow)';
+  center.title = 'Snap target';
+  canvas.appendChild(center);
+
+  const w = 340;
+  const maxRange = 1.5;
+  const scale = (w / 2 - 20) / maxRange;
+
+  snapData.forEach((s, i) => {
+    const isActive = activeSnap === -1 || activeSnap === i;
+    const r = s.range * scale;
+    const ring = document.createElement('div');
+    ring.className = 'snap-ring';
+    ring.style.width = r * 2 + 'px';
+    ring.style.height = r * 2 + 'px';
+    ring.style.borderColor = isActive ? s.color : '#2a3a5c';
+    ring.style.opacity = isActive ? '0.7' : '0.15';
+    canvas.appendChild(ring);
+
+    if (isActive) {
+      const lbl = document.createElement('div');
+      lbl.className = 'snap-label';
+      lbl.style.color = s.color;
+      lbl.style.right = '50%';
+      lbl.style.top = '50%';
+      lbl.style.transform = `translate(${r + 6}px, ${-r + 8}px)`;
+      lbl.textContent = `${s.range}m`;
+      canvas.appendChild(lbl);
+    }
+  });
+
+  const legend = document.getElementById('snapLegend');
+  legend.innerHTML = '';
+  snapData.forEach((s, i) => {
+    const item = document.createElement('div');
+    item.className = 'snap-legend-item' + (activeSnap === i ? ' active' : '');
+    item.innerHTML = `<div class="snap-legend-dot" style="border-color:${s.color};background:${s.color}44;"></div>${s.name} — ${s.range}m`;
+    item.onclick = () => {
+      activeSnap = activeSnap === i ? -1 : i;
+      buildSnapViz();
+    };
+    legend.appendChild(item);
+  });
+}
+
+buildSnapViz();
+
+// ── Pairing demos ──
+let specificSnapped = false;
+
+function demoSpecific() {
+  if (specificSnapped) return;
+  specificSnapped = true;
+  const sp1 = document.getElementById('sp1');
+  const sp2 = document.getElementById('sp2');
+  sp1.classList.add('snapped');
+  sp2.classList.add('snapped');
+  sp2.classList.remove('ready');
+  sp2.style.transform = 'translateX(-20px)';
+  setTimeout(() => {
+    sp2.style.transform = '';
+    sp1.style.border = '2px solid var(--green)';
+  }, 300);
+}
+
+let anySnapped = 0;
+
+function demoAny() {
+  const items = ['any1', 'any2', 'any3'];
+  if (anySnapped >= items.length) return;
+  const id = items[anySnapped];
+  const el = document.getElementById(id);
+  el.classList.add('snapped');
+  el.classList.remove('ready');
+  el.style.marginTop = -(anySnapped * 4) + 'px';
+  anySnapped++;
+}
+
+function resetAny() {
+  anySnapped = 0;
+  ['any1', 'any2', 'any3'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('snapped');
+    el.classList.add('ready');
+    el.style.marginTop = '';
+  });
+  document.getElementById('any1').classList.remove('ready');
+}
+
+// ── Highlight live preview ──
+let hlTime = 0;
+const hlBox = document.getElementById('hlBox');
+const hlWaveCanvas = document.getElementById('hlWave');
+const hlCtx = hlWaveCanvas ? hlWaveCanvas.getContext('2d') : null;
+
+function animateHighlight() {
+  hlTime += 0.016;
+  const intensity = 0.7 + 0.3 * Math.sin(hlTime * 2 * Math.PI * 3.0);
+  if (hlBox) {
+    hlBox.style.opacity = intensity;
+    hlBox.style.boxShadow = `0 0 ${intensity * 16}px #4ecca3`;
+  }
+  const intEl = document.getElementById('hlIntensity');
+  if (intEl) intEl.textContent = intensity.toFixed(2);
+
+  if (hlCtx && hlWaveCanvas) {
+    const w = hlWaveCanvas.offsetWidth;
+    const h = hlWaveCanvas.offsetHeight;
+    hlWaveCanvas.width = w;
+    hlWaveCanvas.height = h;
+    hlCtx.clearRect(0, 0, w, h);
+    hlCtx.strokeStyle = '#4ecca3';
+    hlCtx.lineWidth = 1.5;
+    hlCtx.beginPath();
+    for (let x = 0; x < w; x++) {
+      const t = (hlTime - (w - x) / w * 1.5);
+      const y = h / 2 - (0.7 + 0.3 * Math.sin(t * 2 * Math.PI * 3)) * (h / 2 - 4);
+      x === 0 ? hlCtx.moveTo(x, y) : hlCtx.lineTo(x, y);
+    }
+    hlCtx.stroke();
+    // min line
+    hlCtx.strokeStyle = '#2a3a5c';
+    hlCtx.lineWidth = 1;
+    hlCtx.setLineDash([4, 4]);
+    hlCtx.beginPath();
+    hlCtx.moveTo(0, h / 2 - 0.4 * (h / 2 - 4));
+    hlCtx.lineTo(w, h / 2 - 0.4 * (h / 2 - 4));
+    hlCtx.stroke();
+    hlCtx.setLineDash([]);
+  }
+
+  requestAnimationFrame(animateHighlight);
+}
+animateHighlight();
+
+// ── Collapsible ──
+function toggleCollapse(header) {
+  header.classList.toggle('open');
+  const body = header.nextElementSibling;
+  if (body) body.classList.toggle('open');
+}
+
+// ── Checklist ──
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  const items = document.querySelectorAll('#checklist li');
+  const checked = document.querySelectorAll('#checklist li.checked').length;
+  const pct = Math.round(checked / items.length * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${checked} / ${items.length} criteria met`;
+}
+</script>
+
+</body>
+</html>
