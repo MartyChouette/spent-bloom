@@ -60,21 +60,18 @@ Each area score is computed independently by the formula below.
 
 ### Per-Area Score Formula
 
-> **REBALANCING NEEDED**: The stain weight of 0.45 has been flagged as too high
-> by the design team. The current formula is documented accurately below, but the
-> stain weight should be reduced in the next balance pass. Do not treat the stain
-> weight as the target design value.
+All four signals are weighted equally:
 
 ```
-areaScore = (stainScore * 0.45)
+areaScore = (stainScore * 0.25)
            + (objectScore * 0.25)
-           + (smellScore * 0.15)
-           + (clutterScore * 0.10)
+           + (smellScore * 0.25)
+           + (clutterScore * 0.25)
 ```
 
-Sub-score weights must sum to 1.0. Current total: 0.45 + 0.25 + 0.15 + 0.10 = 0.95.
-The remaining 0.05 is unallocated — this is a discrepancy in the current implementation
-and should be resolved during rebalancing.
+Weights sum to 1.0. Equal weighting means no single signal dominates — a messy
+apartment with clean floors is scored the same as a clean apartment with cluttered
+floors.
 
 ### Stain Sub-Score
 
@@ -200,14 +197,11 @@ smellScore    = 1.0 - min(sum(SmellAmount for all ReactableTags in area) / 1.5, 
 
 clutterScore  = 1.0 - min(count(onFloor AND notAtHome in area) / 3.0, 1.0)
 
-areaScore     = stainScore * 0.45
+areaScore     = stainScore * 0.25
                + objectScore * 0.25
-               + smellScore * 0.15
-               + clutterScore * 0.10
+               + smellScore * 0.25
+               + clutterScore * 0.25
 ```
-
-> **REBALANCING NEEDED**: The 0.05 gap in weights and the 0.45 stain weight are
-> both flagged for correction in the next balance pass.
 
 **Example calculation (Kitchen, moderate mess):**
 
@@ -217,9 +211,9 @@ objectScore  = 0.67  (rawMess = 1.0, 1 - 1.0/3 = 0.67)
 smellScore   = 0.50  (totalSmell = 0.75, 1 - 0.75/1.5 = 0.50)
 clutterScore = 1.00  (no floor clutter)
 
-areaScore = 0.70*0.45 + 0.67*0.25 + 0.50*0.15 + 1.00*0.10
-          = 0.315 + 0.1675 + 0.075 + 0.10
-          = 0.6575
+areaScore = 0.70*0.25 + 0.67*0.25 + 0.50*0.25 + 1.00*0.25
+          = 0.175 + 0.1675 + 0.125 + 0.25
+          = 0.7175
   // Overall result: Neutral (>= 0.5, < 0.8)
 ```
 
@@ -299,10 +293,10 @@ overallTidiness = (0.66 + 0.85 + 0.40) / 3 = 1.91 / 3 = 0.637
 
 | Parameter              | Current Value | Safe Range   | Affects                                                     | Note                        |
 |------------------------|---------------|--------------|--------------------------------------------------------------|-----------------------------|
-| Stain weight           | 0.45          | 0.10 – 0.35  | How much surface cleanliness dominates the area score       | **NEEDS REBALANCING**       |
-| Object mess weight     | 0.25          | 0.15 – 0.40  | How much misplaced items affect the area score              |                             |
-| Smell weight           | 0.15          | 0.10 – 0.25  | How much ambient smell degrades the area score              |                             |
-| Clutter weight         | 0.10          | 0.05 – 0.20  | How much floor items affect the area score                  |                             |
+| Stain weight           | 0.25          | 0.10 – 0.40  | How much surface cleanliness affects the area score         |                             |
+| Object mess weight     | 0.25          | 0.10 – 0.40  | How much misplaced items affect the area score              |                             |
+| Smell weight           | 0.25          | 0.10 – 0.40  | How much ambient smell degrades the area score              |                             |
+| Clutter weight         | 0.25          | 0.10 – 0.40  | How much floor items affect the area score                  |                             |
 | maxExpectedMess        | 3             | 1 – 6        | Mess multiplier sum at which objectScore reaches 0.0        |                             |
 | Smell threshold        | 1.5           | 0.5 – 3.0    | Total SmellAmount at which smellScore reaches 0.0           |                             |
 | maxExpectedClutter     | 3             | 1 – 6        | Floor item count at which clutterScore reaches 0.0          |                             |

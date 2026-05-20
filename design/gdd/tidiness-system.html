@@ -515,7 +515,7 @@
 <div class="status-bar">
   <div class="status-badge badge-rev">Reverse-Documented</div>
   <div class="status-badge badge-dep">6 dependencies</div>
-  <div class="status-badge badge-warn">Rebalancing Needed</div>
+  <div class="status-badge badge-dep">Balanced</div>
   <div class="progress-label" id="progressLabel">0 / 11 criteria met</div>
   <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
 </div>
@@ -570,10 +570,6 @@
   <section>
     <h2>Weight Distribution</h2>
 
-    <div class="warn-box">
-      <strong>Rebalancing Needed</strong>: The stain weight of 0.45 has been flagged as too high. The weights also do not sum to 1.0 &mdash; there is an unallocated 0.05. Both should be corrected in the next balance pass. Current implementation documented accurately below.
-    </div>
-
     <div class="pie-container">
       <canvas id="pieChart" width="180" height="180" class="pie-svg"></canvas>
       <div class="pie-legend" id="pieLegend"></div>
@@ -581,12 +577,11 @@
 
     <table>
       <tr><th>Sub-Score</th><th>Weight</th><th>Target Range</th><th>Status</th></tr>
-      <tr><td>Stain (surface cleanliness)</td><td>0.45</td><td>0.10 &ndash; 0.35</td><td><span class="tag tag-warn">Needs Rebalancing</span></td></tr>
+      <tr><td>Stain (surface cleanliness)</td><td>0.25</td><td>0.10 &ndash; 0.35</td><td><span class="tag tag-exists">OK</span></td></tr>
       <tr><td>Object mess (misplaced items)</td><td>0.25</td><td>0.15 &ndash; 0.40</td><td><span class="tag tag-exists">OK</span></td></tr>
-      <tr><td>Smell (ReactableTag amounts)</td><td>0.15</td><td>0.10 &ndash; 0.25</td><td><span class="tag tag-exists">OK</span></td></tr>
-      <tr><td>Floor clutter</td><td>0.10</td><td>0.05 &ndash; 0.20</td><td><span class="tag tag-exists">OK</span></td></tr>
-      <tr><td style="color:var(--warn);">Unallocated</td><td style="color:var(--warn);">0.05</td><td>&mdash;</td><td><span class="tag tag-warn">Discrepancy</span></td></tr>
-      <tr><td><strong>Total</strong></td><td><strong>0.95</strong></td><td>1.00</td><td><span class="tag tag-warn">0.05 gap</span></td></tr>
+      <tr><td>Smell (ReactableTag amounts)</td><td>0.25</td><td>0.10 &ndash; 0.25</td><td><span class="tag tag-exists">OK</span></td></tr>
+      <tr><td>Floor clutter</td><td>0.25</td><td>0.05 &ndash; 0.20</td><td><span class="tag tag-exists">OK</span></td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>1.00</strong></td><td>1.00</td><td><span class="tag tag-exists">OK</span></td></tr>
     </table>
   </section>
 
@@ -703,7 +698,7 @@ objectScore = 1.0 - min(rawMess / 3.0, 1.0)
           <div class="sub-score-card">
             <div class="ssc-label">Stain</div>
             <div class="ssc-val" id="ssStain" style="color:#4aa8e8;">0.315</div>
-            <div class="ssc-weight">&times;0.45</div>
+            <div class="ssc-weight">&times;0.25</div>
           </div>
           <div class="sub-score-card">
             <div class="ssc-label">Objects</div>
@@ -713,18 +708,18 @@ objectScore = 1.0 - min(rawMess / 3.0, 1.0)
           <div class="sub-score-card">
             <div class="ssc-label">Smell</div>
             <div class="ssc-val" id="ssSmell" style="color:#f5c542;">0.075</div>
-            <div class="ssc-weight">&times;0.15</div>
+            <div class="ssc-weight">&times;0.25</div>
           </div>
           <div class="sub-score-card">
             <div class="ssc-label">Clutter</div>
             <div class="ssc-val" id="ssClutter" style="color:#4ecca3;">0.100</div>
-            <div class="ssc-weight">&times;0.10</div>
+            <div class="ssc-weight">&times;0.25</div>
           </div>
         </div>
 
         <div style="margin-top:0.75rem;font-size:0.78rem;color:var(--muted);">
-          Formula: score = stain&times;0.45 + object&times;0.25 + smell&times;0.15 + clutter&times;0.10
-          <span style="color:var(--warn);">(weights sum to 0.95 &mdash; 0.05 unallocated)</span>
+          Formula: score = stain&times;0.25 + object&times;0.25 + smell&times;0.25 + clutter&times;0.25
+          <span style="color:var(--muted);">(weights sum to 1.0 &mdash; equal weighting)</span>
         </div>
       </div>
     </div>
@@ -833,11 +828,11 @@ smellScore   = 1.0 - min(sum(SmellAmount for all ReactableTags in area) / 1.5, 1
 
 clutterScore = 1.0 - min(count(onFloor AND notAtHome in area) / 3.0, 1.0)
 
-areaScore    = stainScore  * 0.45
+areaScore    = stainScore  * 0.25
              + objectScore * 0.25
-             + smellScore  * 0.15
-             + clutterScore* 0.10
-  // WARNING: weights sum to 0.95, not 1.0 (0.05 unallocated)</div>
+             + smellScore  * 0.25
+             + clutterScore* 0.25
+  // weights sum to 1.0 (equal weighting)</div>
   </section>
 
   <section>
@@ -852,9 +847,9 @@ objectScore  = 0.67  (rawMess = 1.0, 1 - 1.0/3 = 0.67)
 smellScore   = 0.50  (totalSmell = 0.75, 1 - 0.75/1.5 = 0.50)
 clutterScore = 1.00  (no floor clutter)
 
-areaScore = 0.70*0.45 + 0.67*0.25 + 0.50*0.15 + 1.00*0.10
-          = 0.315 + 0.1675 + 0.075 + 0.100
-          = 0.6575  // Result: Neutral (>= 0.5, < 0.8)</div>
+areaScore = 0.70*0.25 + 0.67*0.25 + 0.50*0.25 + 1.00*0.25
+          = 0.175 + 0.1675 + 0.125 + 0.250
+          = 0.7175  // Result: Neutral (>= 0.5, < 0.8)</div>
   </section>
 
   <section>
@@ -954,10 +949,10 @@ overallTidiness = (0.66 + 0.85 + 0.40) / 3 = 1.91 / 3 = 0.637
     <h2>Tuning Knobs</h2>
     <table>
       <tr><th>Parameter</th><th>Current Value</th><th>Safe Range</th><th>Affects</th><th>Note</th></tr>
-      <tr><td>Stain weight</td><td style="color:var(--warn);">0.45</td><td>0.10 &ndash; 0.35</td><td>Surface cleanliness dominance in area score</td><td style="color:var(--warn);">Needs Rebalancing</td></tr>
+      <tr><td>Stain weight</td><td>0.25</td><td>0.10 &ndash; 0.35</td><td>Surface cleanliness dominance in area score</td><td>&nbsp;</td></tr>
       <tr><td>Object mess weight</td><td>0.25</td><td>0.15 &ndash; 0.40</td><td>Misplaced item impact on area score</td><td>&nbsp;</td></tr>
-      <tr><td>Smell weight</td><td>0.15</td><td>0.10 &ndash; 0.25</td><td>Ambient smell degradation on area score</td><td>&nbsp;</td></tr>
-      <tr><td>Clutter weight</td><td>0.10</td><td>0.05 &ndash; 0.20</td><td>Floor item impact on area score</td><td>&nbsp;</td></tr>
+      <tr><td>Smell weight</td><td>0.25</td><td>0.10 &ndash; 0.25</td><td>Ambient smell degradation on area score</td><td>&nbsp;</td></tr>
+      <tr><td>Clutter weight</td><td>0.25</td><td>0.05 &ndash; 0.20</td><td>Floor item impact on area score</td><td>&nbsp;</td></tr>
       <tr><td>maxExpectedMess</td><td>3</td><td>1 &ndash; 6</td><td>Multiplier sum where objectScore reaches 0.0</td><td>&nbsp;</td></tr>
       <tr><td>Smell threshold</td><td>1.5</td><td>0.5 &ndash; 3.0</td><td>Total SmellAmount where smellScore reaches 0.0</td><td>&nbsp;</td></tr>
       <tr><td>maxExpectedClutter</td><td>3</td><td>1 &ndash; 6</td><td>Floor item count where clutterScore reaches 0.0</td><td>&nbsp;</td></tr>
@@ -1009,11 +1004,10 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 // ── Pie Chart ──
 const weights = [
-  { label: 'Stain',   value: 0.45, color: '#4aa8e8' },
+  { label: 'Stain',   value: 0.25, color: '#4aa8e8' },
   { label: 'Objects', value: 0.25, color: '#e94560' },
-  { label: 'Smell',   value: 0.15, color: '#f5c542' },
-  { label: 'Clutter', value: 0.10, color: '#4ecca3' },
-  { label: 'Gap',     value: 0.05, color: '#3a4a5c' }
+  { label: 'Smell',   value: 0.25, color: '#f5c542' },
+  { label: 'Clutter', value: 0.25, color: '#4ecca3' }
 ];
 
 function drawPie() {
@@ -1046,9 +1040,7 @@ function drawPie() {
       item.innerHTML = `
         <div class="pie-dot" style="background:${w.color};"></div>
         <span>${w.label}</span>
-        <span style="color:${w.value === 0.05 ? 'var(--warn)' : 'var(--text)'};font-weight:600;font-family:monospace;">${w.value.toFixed(2)}</span>
-        ${w.value === 0.05 ? '<span style="color:var(--warn);font-size:0.72rem;">(unallocated)</span>' : ''}
-        ${w.label === 'Stain' ? '<span style="color:var(--warn);font-size:0.72rem;">(rebalance)</span>' : ''}
+        <span style="color:var(--text);font-weight:600;font-family:monospace;">${w.value.toFixed(2)}</span>
       `;
       legend.appendChild(item);
     });
@@ -1069,10 +1061,10 @@ function updateCalc() {
   document.getElementById('smellVal').textContent = smell.toFixed(2);
   document.getElementById('clutterVal').textContent = clutter.toFixed(2);
 
-  const stainComp   = stain   * 0.45;
+  const stainComp   = stain   * 0.25;
   const objectComp  = object  * 0.25;
-  const smellComp   = smell   * 0.15;
-  const clutterComp = clutter * 0.10;
+  const smellComp   = smell   * 0.25;
+  const clutterComp = clutter * 0.25;
 
   // Plant toggle: reduce smell by 0.3 if healthy plant present
   const hasPlant = document.getElementById('plantToggle').checked;
@@ -1083,12 +1075,12 @@ function updateCalc() {
     effectiveSmellScore = Math.min(1.0, smell + smellReduction);
   }
 
-  const baseScore = stain * 0.45 + object * 0.25 + (hasPlant ? effectiveSmellScore : smell) * 0.15 + clutter * 0.10;
+  const baseScore = stain * 0.25 + object * 0.25 + (hasPlant ? effectiveSmellScore : smell) * 0.25 + clutter * 0.25;
   const score = Math.round(baseScore * 1000) / 1000;
 
   document.getElementById('ssStain').textContent   = stainComp.toFixed(3);
   document.getElementById('ssObject').textContent  = objectComp.toFixed(3);
-  document.getElementById('ssSmell').textContent   = (hasPlant ? effectiveSmellScore * 0.15 : smellComp).toFixed(3);
+  document.getElementById('ssSmell').textContent   = (hasPlant ? effectiveSmellScore * 0.25 : smellComp).toFixed(3);
   document.getElementById('ssClutter').textContent = clutterComp.toFixed(3);
 
   document.getElementById('areaScore').textContent = score.toFixed(3);
@@ -1117,9 +1109,9 @@ function updateCalc() {
   if (hasPlant) {
     plantLabel.textContent = 'Healthy plant present — smell partially neutralized';
     plantDetail.textContent = 'Plant reduces effective totalSmell in this area. SmellAmount still counts but effect is dampened.';
-    const withoutPlant = stain * 0.45 + object * 0.25 + smell * 0.15 + clutter * 0.10;
+    const withoutPlant = stain * 0.25 + object * 0.25 + smell * 0.25 + clutter * 0.25;
     const diff = score - withoutPlant;
-    plantDiff.textContent = `Smell score boost: +${(smellReduction * 0.15).toFixed(3)} | Area score: ${diff >= 0 ? '+' : ''}${diff.toFixed(3)}`;
+    plantDiff.textContent = `Smell score boost: +${(smellReduction * 0.25).toFixed(3)} | Area score: ${diff >= 0 ? '+' : ''}${diff.toFixed(3)}`;
     plantDiff.style.color = diff > 0 ? 'var(--green)' : 'var(--muted)';
   } else {
     plantLabel.textContent = 'No plant — smell unmodified';
