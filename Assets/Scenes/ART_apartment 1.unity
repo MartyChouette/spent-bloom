@@ -39374,10 +39374,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a62d252434bbb741b7cb4a1a40c6558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TidyScorer
-  _stainWeight: 0.45
+  _stainWeight: 0.25
   _objectWeight: 0.25
-  _smellWeight: 0.15
-  _clutterWeight: 0.1
+  _smellWeight: 0.25
+  _clutterWeight: 0.25
   _maxExpectedMess: 3
   _maxExpectedClutter: 3
   _smellThreshold: 1.5

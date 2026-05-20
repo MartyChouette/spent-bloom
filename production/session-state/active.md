@@ -2,25 +2,28 @@
 
 <!-- STATUS -->
 Epic: Project Health
-Feature: Codebase Quality
-Task: Material leak fixes complete
+Feature: Documentation + Quality
+Task: HTML docs generating
 <!-- /STATUS -->
 
 ## Current Focus
-Session complete. All planned tasks finished.
+Waiting on 4 HTML generation agents to complete (12 interactive GDD documents).
 
 ## Session Summary (2026-05-20)
-- Reverse-documented 12 systems into full GDDs
+- Reverse-documented 12 systems into full GDDs + character-arcs spec
+- Created game-pillars.md and systems-index.md
 - Ran project stage analysis (Production, mid-to-late)
-- Reviewed codebase quality assessment
-- Fixed 11 material instance memory leaks across 10 files
-- Fixed MoodMachine volume bug (now respects AccessibilitySettings)
+- Fixed 11 material instance memory leaks
+- Fixed MoodMachine volume bug (respects AccessibilitySettings)
 - Fixed LivingFlowerPlant div-by-zero guard
 - Implemented plant smell reduction (15%) in TidyScorer
-- Equalized tidiness weights to 0.25 each
-- Created MaterialOnDestroyCleanup utility
+- Equalized tidiness weights (0.25 each) in code + scene files
+- Cleaned up dormant systems (fail thresholds, ambient mood, outfit)
+- Added 23 NUnit tests (drink scoring + tidiness)
+- HTML interactive docs in progress (12 files)
 
 ## Open Questions
-- Tidiness weights: equal (0.25 each) set as code defaults but scene serialization may override
-- SimpleDrinkManager: legacy, can be removed in future cleanup
-- Dormant systems (mid-date fails, ambient mood, outfit judgment): still in codebase
+- Flower threshold: 30 (code) vs 90 (redesign draft) — needs resolution
+- Drink pour quality impact is low (~2 affection diff) — consider steeper curve
+- Character arc completion reward type TBD
+- Calendar length (7-day hard limit or loop?) TBD

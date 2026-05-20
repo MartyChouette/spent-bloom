@@ -116,23 +116,34 @@ public class DateSessionManager : MonoBehaviour
     [Tooltip("Affection lost from a Dislike reaction.")]
     [SerializeField] private float dislikeAffection = -4f;
 
-    [Header("Fail Thresholds")]
+    // Disabled by design — dates always play through all 3 phases regardless of affection.
+    // Fields are kept (not removed) to preserve existing scene serialization references.
+    [Header("Fail Thresholds (Disabled — Old Hat)")]
+    [HideInInspector] // Disabled by design — dates always play through all 3 phases
     [Tooltip("Affection below this after Arrival → NPC leaves.")]
     [SerializeField] private float _arrivalFailThreshold = 25f;
 
+    [HideInInspector] // Disabled by design — dates always play through all 3 phases
     [Tooltip("Affection below this after drink delivery → NPC leaves.")]
     [SerializeField] private float _bgJudgingFailThreshold = 20f;
 
+    [HideInInspector] // Disabled by design — dates always play through all 3 phases
     [Tooltip("Affection below this after Phase 3 → NPC leaves without flower.")]
     [SerializeField] private float _revealFailThreshold = 30f;
 
+    [HideInInspector] // Disabled by design — dates always play through all 3 phases
     [Tooltip("If affection drops below this at ANY point, date immediately fails. 0 = disabled.")]
     [SerializeField] private float _bailOutThreshold = 10f;
 
     [Tooltip("Minimum affection required for the date to give you a flower (and trigger flower trimming).")]
     [SerializeField] private float _flowerAffectionThreshold = 30f;
 
-    [Header("Ambient Check")]
+    // WIP — Ambient Mood: The evaluation loop exists and runs, but random weather/time-of-day
+    // inputs to MoodMachine are not yet connected. Toggle _enableAmbientMoodDrift on when ready.
+    [Header("WIP — Ambient Mood")]
+    [Tooltip("Enable periodic ambient mood drift evaluation. Keep false until weather/time-of-day inputs to MoodMachine are connected.")]
+    [SerializeField] private bool _enableAmbientMoodDrift = false;
+
     [Tooltip("Seconds between ambient mood evaluations.")]
     [SerializeField] private float moodCheckInterval = 15f;
 
@@ -373,7 +384,8 @@ public class DateSessionManager : MonoBehaviour
         if (_state != SessionState.DateInProgress) return;
 
         // Periodic mood check during BackgroundJudging and Reveal
-        if (_datePhase == DatePhase.BackgroundJudging || _datePhase == DatePhase.Reveal)
+        // WIP — guarded by _enableAmbientMoodDrift until weather/time-of-day inputs are connected
+        if (_enableAmbientMoodDrift && (_datePhase == DatePhase.BackgroundJudging || _datePhase == DatePhase.Reveal))
         {
             _moodCheckTimer += Time.deltaTime;
             if (_moodCheckTimer >= moodCheckInterval)

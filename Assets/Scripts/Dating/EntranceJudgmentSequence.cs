@@ -118,6 +118,8 @@ public class EntranceJudgmentSequence : MonoBehaviour
         DateDebugOverlay.Instance?.LogReaction($"[Entrance] Perfume ({perfumeLabel}) → {perfumeReaction}");
         yield return new WaitForSecondsRealtime(_interJudgmentPause);
 
+        // WIP: Outfit judgment — re-enable when OutfitSelector is complete
+        // EvaluateOutfit() calls OutfitSelector.Instance?.SelectedOutfit which does not yet exist.
         // --- Judgment 3: Outfit (disabled — no outfit system yet) ---
         // PlayJudgingSFX();
         // var outfitReaction = EvaluateOutfit(date);

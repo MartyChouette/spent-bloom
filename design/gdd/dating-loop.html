@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dating Loop — Spent Blooms GDD</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --card-hover: #1a2745;
+    --accent: #e94560;
+    --accent-soft: #e9456033;
+    --green: #4ecca3;
+    --yellow: #f5c542;
+    --muted: #8892a8;
+    --text: #eaeaea;
+    --text-dim: #a0a8b8;
+    --border: #2a3a5c;
+    --like: #ff6b9d;
+    --dislike: #8888a0;
+    --neutral: #c8c8d0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  h1 { font-size: 2rem; margin-bottom: 0.25rem; color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .subtitle span {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 0;
+    border-bottom: 2px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-content { display: none; padding-top: 1.5rem; }
+  .tab-content.active { display: block; }
+
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: background 0.2s;
+  }
+
+  section:hover { background: var(--card-hover); }
+
+  section h2 {
+    font-size: 1.1rem;
+    color: var(--green);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  section h3 { font-size: 0.95rem; color: var(--yellow); margin: 1rem 0 0.5rem; }
+
+  p, li { color: var(--text-dim); font-size: 0.9rem; }
+  p { margin-bottom: 0.5rem; }
+  ul, ol { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.35rem; }
+  li strong { color: var(--text); }
+
+  code {
+    background: #0f3460;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    color: var(--yellow);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag-dormant { background: #f5c54222; color: var(--yellow); }
+  .tag-wip     { background: #e9456022; color: var(--accent); }
+  .tag-active  { background: #4ecca322; color: var(--green); }
+  .tag-dep     { background: #4ecca322; color: var(--green); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+  }
+
+  th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { color: var(--text-dim); }
+  tr:hover td { color: var(--text); background: #ffffff08; }
+
+  .status-bar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+
+  .status-badge {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    font-size: 0.8rem; font-weight: 600;
+  }
+
+  .badge-rev { background: #4ecca322; color: var(--green); }
+  .badge-dep { background: #f5c54222; color: var(--yellow); }
+
+  .progress-bar { flex: 1; min-width: 200px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.5s; }
+  .progress-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── Day Flow Diagram ── */
+  .day-flow {
+    display: flex; align-items: stretch; gap: 0;
+    margin: 1rem 0; overflow-x: auto; padding-bottom: 0.5rem;
+  }
+
+  .day-step {
+    flex: 1; min-width: 120px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.85rem 0.75rem; cursor: pointer; transition: all 0.2s;
+    text-align: center;
+  }
+
+  .day-step:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .day-step.active-step { border-color: var(--accent); box-shadow: 0 0 16px var(--accent-soft); }
+
+  .day-arrow { display: flex; align-items: center; color: var(--muted); font-size: 1.2rem; padding: 0 4px; user-select: none; }
+
+  .day-step .step-num { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .day-step .step-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin: 0.2rem 0; }
+  .day-step .step-emoji { font-size: 1.3rem; margin-bottom: 0.2rem; }
+
+  #phaseDetail {
+    margin-top: 0.75rem; padding: 0.85rem 1rem;
+    background: var(--bg); border-radius: 6px; border-left: 3px solid var(--accent);
+  }
+
+  #phaseDetail .pd-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; }
+  #phaseDetail .pd-body  { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* ── Affection Calculator ── */
+  .calc-area {
+    background: var(--bg); border-radius: 8px; padding: 1.25rem; margin: 1rem 0;
+  }
+
+  .calc-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .calc-label { font-size: 0.85rem; color: var(--text-dim); min-width: 90px; }
+
+  .reaction-btn {
+    padding: 0.35rem 0.85rem; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--card); color: var(--text); cursor: pointer;
+    font-size: 0.8rem; font-family: inherit; transition: all 0.15s;
+  }
+
+  .reaction-btn.like-btn:hover    { border-color: var(--like); color: var(--like); }
+  .reaction-btn.neutral-btn:hover { border-color: var(--neutral); color: var(--neutral); }
+  .reaction-btn.dislike-btn:hover { border-color: var(--dislike); color: var(--dislike); }
+  .reaction-btn.reset-btn:hover   { border-color: var(--muted); }
+
+  .mult-select {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    padding: 0.3rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; cursor: pointer;
+  }
+
+  .aff-display {
+    text-align: center; margin: 1rem 0;
+  }
+
+  .aff-number { font-size: 2.5rem; font-weight: 700; transition: color 0.4s; }
+  .aff-label  { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+  /* Grade bar */
+  .grade-bar-wrap { position: relative; margin: 1rem 0; }
+  .grade-bar-track {
+    display: flex; height: 24px; border-radius: 6px; overflow: hidden;
+  }
+
+  .grade-seg { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  .grade-seg.d-seg { background: #5a3a4a; color: #c88; }
+  .grade-seg.c-seg { background: #3a4a6a; color: #88aaf0; }
+  .grade-seg.b-seg { background: #2a5a4a; color: #4ecca3; }
+  .grade-seg.a-seg { background: #3a5a2a; color: #8eda8e; }
+  .grade-seg.s-seg { background: #5a4a1a; color: var(--yellow); }
+
+  .grade-needle {
+    position: absolute; top: 0; width: 3px; height: 24px;
+    background: white; border-radius: 2px; transition: left 0.4s;
+    box-shadow: 0 0 8px rgba(255,255,255,0.8);
+  }
+
+  .grade-badge {
+    display: inline-block; font-size: 1.8rem; font-weight: 900;
+    width: 52px; height: 52px; line-height: 52px; text-align: center;
+    border-radius: 50%; border: 3px solid currentColor; margin: 0.5rem;
+    transition: all 0.4s;
+  }
+
+  /* Reaction log */
+  .reaction-log {
+    max-height: 160px; overflow-y: auto; margin-top: 0.5rem;
+    background: var(--bg); border-radius: 6px; padding: 0.5rem 0.75rem;
+  }
+
+  .log-entry { font-size: 0.8rem; padding: 0.2rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+  .log-entry:last-child { border-bottom: none; }
+  .log-pos { color: var(--like); }
+  .log-neg { color: var(--dislike); }
+  .log-neu { color: var(--neutral); }
+
+  /* ── Formula Inputs ── */
+  .formula-box {
+    background: var(--bg); border-radius: 8px; padding: 1.25rem; margin: 1rem 0;
+  }
+
+  .formula-display {
+    font-family: 'Courier New', monospace; font-size: 0.95rem;
+    color: var(--green); margin-bottom: 1rem; padding: 0.75rem 1rem;
+    background: #0a1628; border-radius: 6px; border-left: 3px solid var(--green);
+  }
+
+  .input-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; }
+
+  .input-group { display: flex; flex-direction: column; gap: 0.3rem; }
+  .input-group label { font-size: 0.8rem; color: var(--muted); }
+
+  .input-group input[type=range] { width: 100%; accent-color: var(--accent); }
+  .input-group .range-val { font-size: 0.85rem; color: var(--yellow); font-family: monospace; }
+
+  .formula-result {
+    margin-top: 1rem; padding: 0.75rem 1rem; background: #0a1628;
+    border-radius: 6px; border-left: 3px solid var(--accent);
+    font-family: monospace; font-size: 1rem;
+  }
+
+  .formula-result .res-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.25rem; }
+  .formula-result .res-value { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+
+  /* ── Character Cards ── */
+  .char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+
+  .char-card {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .char-card:hover { border-color: var(--accent); }
+
+  .char-header {
+    padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;
+    user-select: none;
+  }
+
+  .char-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .char-name  { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+  .char-label { font-size: 0.75rem; color: var(--muted); }
+
+  .char-body { display: none; padding: 0 1rem 1rem; }
+  .char-body.open { display: block; }
+
+  .pref-row {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;
+  }
+
+  .pref-chip {
+    padding: 2px 10px; border-radius: 12px; font-size: 0.75rem;
+    border: 1px solid var(--border);
+  }
+
+  .pref-chip.like-chip    { border-color: var(--like); color: var(--like); }
+  .pref-chip.dislike-chip { border-color: var(--dislike); color: var(--dislike); }
+  .pref-chip.neutral-chip { border-color: var(--muted); color: var(--muted); }
+
+  /* Collapsible */
+  .collapsible-header {
+    cursor: pointer; user-select: none; display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .collapsible-header::before {
+    content: '>'; display: inline-block; transition: transform 0.2s;
+    font-family: monospace; color: var(--muted);
+  }
+
+  .collapsible-header.open::before { transform: rotate(90deg); }
+  .collapsible-body { display: none; margin-top: 0.75rem; }
+  .collapsible-body.open { display: block; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding-left: 0; }
+
+  .checklist li {
+    padding: 0.5rem 0.75rem; border-radius: 4px; cursor: pointer;
+    display: flex; align-items: flex-start; gap: 0.5rem; transition: background 0.15s;
+  }
+
+  .checklist li:hover { background: var(--bg); }
+
+  .checklist li .check {
+    width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px;
+    flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-size: 0.7rem; color: transparent;
+  }
+
+  .checklist li.checked .check { background: var(--green); border-color: var(--green); color: var(--bg); }
+  .checklist li.checked { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--muted); }
+
+  /* Phase comparison table highlight */
+  .phase-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700;
+  }
+
+  .ph1 { background: #3a1a4a; color: #c088e0; }
+  .ph2 { background: #1a3a4a; color: #60b8e0; }
+  .ph3 { background: #1a4a2a; color: var(--green); }
+</style>
+</head>
+<body>
+
+<h1>Dating Loop</h1>
+<div class="subtitle">
+  Spent Blooms &mdash; Game Design Document
+  <span>Reverse-documented</span>
+  <span style="background:#4ecca322;color:var(--green);">13 dependencies</span>
+</div>
+
+<div class="status-bar">
+  <div class="status-badge badge-rev">Reverse-documented 2026-05-20</div>
+  <div class="status-badge badge-dep">13 systems</div>
+  <div class="progress-label" id="progressLabel">0 / 10 criteria met</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="loop">Day Loop</button>
+  <button class="tab-btn" data-tab="calc">Affection Calc</button>
+  <button class="tab-btn" data-tab="formula">Formula</button>
+  <button class="tab-btn" data-tab="characters">Characters</button>
+  <button class="tab-btn" data-tab="phases">Phase Compare</button>
+  <button class="tab-btn" data-tab="edges">Edge Cases</button>
+  <button class="tab-btn" data-tab="deps">Dependencies</button>
+  <button class="tab-btn" data-tab="tuning">Tuning</button>
+  <button class="tab-btn" data-tab="criteria">Acceptance</button>
+</div>
+
+<!-- ════ OVERVIEW ════ -->
+<div class="tab-content active" id="tab-overview">
+  <section>
+    <h2>Overview</h2>
+    <p>The Dating Loop is the primary progression spine of Spent Bloom. Over a 7-day calendar the player receives phone calls from potential dates, arranges visits, and hosts them across three sequential evaluation phases: Entrance (first impressions), Kitchen (drink-making), and Reveal (apartment walkthrough). Each phase feeds affection gains or losses into a running total. A passing grade earns a trimmed flower. Three successful dates with a single character advances their personal arc. Seven distinct characters cycle through the week, with the tutorial date forced on Day 1 and each character withheld from repeat appearance until all others have been seen.</p>
+  </section>
+
+  <section>
+    <h2>Player Fantasy</h2>
+    <p>The player should feel like someone who genuinely wants to make a good impression &mdash; cleaning the apartment not because a prompt says to, but because a real person is coming over. Anticipation builds from the moment the phone rings. Each date should feel like a small social puzzle: the player reads the character's posted ad, infers their preferences, and tries to curate a space that reflects them.</p>
+    <p>Success should feel warm and earned; failure should feel instructive rather than punitive, leaving the player thinking about what to change before the next visitor arrives.</p>
+  </section>
+
+  <section>
+    <h2>Day Phase Flow</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Click any phase to see details.</p>
+    <div class="day-flow">
+      <div class="day-step active-step" data-phase="morning" onclick="selectPhase('morning')">
+        <div class="step-emoji">&#9728;</div>
+        <div class="step-num">Phase 1</div>
+        <div class="step-title">Morning</div>
+      </div>
+      <div class="day-arrow">&rarr;</div>
+      <div class="day-step" data-phase="explore" onclick="selectPhase('explore')">
+        <div class="step-emoji">&#127968;</div>
+        <div class="step-num">Phase 2</div>
+        <div class="step-title">Exploration</div>
+      </div>
+      <div class="day-arrow">&rarr;</div>
+      <div class="day-step" data-phase="date" onclick="selectPhase('date')">
+        <div class="step-emoji">&#128149;</div>
+        <div class="step-num">Phase 3</div>
+        <div class="step-title">Date</div>
+      </div>
+      <div class="day-arrow">&rarr;</div>
+      <div class="day-step" data-phase="flower" onclick="selectPhase('flower')">
+        <div class="step-emoji">&#127825;</div>
+        <div class="step-num">Phase 4</div>
+        <div class="step-title">Trimming</div>
+      </div>
+      <div class="day-arrow">&rarr;</div>
+      <div class="day-step" data-phase="evening" onclick="selectPhase('evening')">
+        <div class="step-emoji">&#127773;</div>
+        <div class="step-num">Phase 5</div>
+        <div class="step-title">Evening</div>
+      </div>
+    </div>
+    <div id="phaseDetail">
+      <div class="pd-title">Morning &mdash; Newspaper ad + phone call</div>
+      <div class="pd-body">DayManager posts the personal ad for today's date character. PhoneController rings at a scripted or random point. The player must physically walk to the phone and answer it. Answering commits the date; not answering means no date that day.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ════ DAY LOOP ════ -->
+<div class="tab-content" id="tab-loop">
+  <section>
+    <h2>Calendar &amp; Character Scheduling</h2>
+    <ul>
+      <li>Game runs on a <strong>7-day cycle</strong> managed by <code>GameClock</code>.</li>
+      <li>Each morning, <code>DayManager</code> posts a newspaper personal ad for that day's available character.</li>
+      <li><strong>Day 1</strong> is always the tutorial date; <code>_alwaysPositive = true</code> forces every evaluation to return Like regardless of conditions.</li>
+      <li>No character repeats until all 7 characters have appeared at least once.</li>
+      <li><code>DateHistory</code> records the outcome of every date (grade, affection, flower awarded, day index).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Phone &amp; Scheduling Flow</h2>
+    <ol>
+      <li><code>PhoneController</code> rings at a scripted or random point during the Morning phase.</li>
+      <li>Player must physically walk to the phone and answer it.</li>
+      <li>Answering commits the date; character arrives during Exploration phase.</li>
+      <li>If the phone is not answered, <strong>no date occurs that day</strong>.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>The Three Date Phases</h2>
+    <h3>Phase 1 &mdash; Entrance</h3>
+    <p>The date makes 4 simultaneous or near-simultaneous judgments on entry:</p>
+    <ul>
+      <li><strong>Music</strong> &mdash; Evaluated against the character's surface multiplier for the active track. Acts as a multiplier on subsequent phase judgments.</li>
+      <li><strong>Perfume</strong> &mdash; Intensity [0.34–0.99] = Like &nbsp;|&nbsp; Below 0.34 = Neutral &nbsp;|&nbsp; Above 0.99 = Dislike. Room smell &gt; 2x perfume threshold downgrades one tier.</li>
+      <li><strong>Cleanliness</strong> &mdash; Evaluated against <code>TidyScorer</code> output. Threshold is per-character.</li>
+      <li><strong>Outfit</strong> &mdash; <span class="tag tag-wip">WIP — DISABLED</span> No affection events generated currently.</li>
+    </ul>
+
+    <h3>Phase 2 &mdash; Kitchen</h3>
+    <p>Player makes the character a drink. Score range [0, 100].</p>
+    <table>
+      <tr><th>Condition</th><th>Outcome</th></tr>
+      <tr><td>Liked recipe AND score &ge; 60</td><td>Like</td></tr>
+      <tr><td>Score &ge; 80 (any recipe)</td><td>Like (override)</td></tr>
+      <tr><td>Disliked recipe</td><td>Dislike (regardless of score)</td></tr>
+      <tr><td>All other cases</td><td>Neutral</td></tr>
+    </table>
+
+    <h3>Phase 3 &mdash; Reveal</h3>
+    <p>Character walks the apartment and reacts to items tagged with <code>ReactableTag</code>. Highest total affection potential.</p>
+    <ul>
+      <li><strong>Cache building</strong>: <code>BuildRevealCache</code> runs during fade-in; 10 items per frame, sorted descending by surface multiplier (3x &rarr; 2x &rarr; 1x).</li>
+      <li><strong>Presentation</strong>: Items surfaced to player staggered 0.6s apart; character evaluates at 2.0s mark of investigation.</li>
+      <li><strong>Player interaction</strong>: Player may click any visible item to surface it immediately, bypassing the stagger.</li>
+      <li><strong>Excursions</strong>: Character wanders every 4s (90% chance), investigates for 3s, evaluates at 2.0s mark.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Grading</h2>
+    <p>Starting affection: <strong>50 / 100</strong>. After all three phases:</p>
+    <table>
+      <tr><th>Grade</th><th>Threshold</th><th>Notes</th></tr>
+      <tr><td style="color:var(--yellow);font-weight:700;">S</td><td>&ge; 90</td><td>Flower gift guaranteed</td></tr>
+      <tr><td style="color:var(--green);font-weight:700;">A</td><td>&ge; 75</td><td></td></tr>
+      <tr><td style="color:#60b8e0;font-weight:700;">B</td><td>&ge; 60</td><td></td></tr>
+      <tr><td style="color:#c088e0;font-weight:700;">C</td><td>&ge; 40</td><td></td></tr>
+      <tr><td style="color:#c88;font-weight:700;">D</td><td>&lt; 40</td><td>Flower still available if &ge; 30</td></tr>
+      <tr><td style="color:var(--accent);font-weight:700;">F</td><td>&mdash;</td><td>Mid-date fail (currently disabled)</td></tr>
+    </table>
+    <p>Flower trimming unlocked when final affection &ge; 30, or when <code>guaranteeFlower</code> flag is set.</p>
+
+    <h3>Arc Progression</h3>
+    <p>Three successful dates (any grade above F) with the same character completes their personal arc, unlocking arc-specific narrative content stored in <code>DateHistory</code>.</p>
+  </section>
+
+  <section>
+    <h2>Dormant Systems <span class="tag tag-dormant">Dormant</span></h2>
+    <ul>
+      <li><strong>Ambient mood drift</strong>: Every 15s, affection drifts +0.5 (mood match) or -0.25 (mismatch). Disabled.</li>
+      <li><strong>Mid-date fail thresholds</strong>: Affection floors that trigger early date-end. Intentionally disabled; outcome always graded, never hard-failed mid-date.</li>
+      <li><strong>moodMultiplier</strong> (1.5x match / 0.5x mismatch): Being replaced by discrete per-phase evaluations. Currently dormant.</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ════ AFFECTION CALCULATOR ════ -->
+<div class="tab-content" id="tab-calc">
+  <section>
+    <h2>Affection Calculator</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Simulate a date. Starting affection is 50. Select a multiplier, then fire reactions to watch the running total and grade update live.</p>
+
+    <div class="calc-area">
+      <div class="aff-display">
+        <div class="aff-number" id="affNumber" style="color:var(--green);">50.0</div>
+        <div class="aff-label">Affection &nbsp;|&nbsp; Grade: <span id="gradeLabel" style="font-weight:700;color:var(--green);">C</span></div>
+        <div style="margin:0.75rem auto;max-width:300px;">
+          <div class="grade-badge" id="gradeBadge" style="color:var(--yellow);">C</div>
+        </div>
+      </div>
+
+      <div class="grade-bar-wrap">
+        <div class="grade-bar-track">
+          <div class="grade-seg d-seg" style="flex:40">D</div>
+          <div class="grade-seg c-seg" style="flex:20">C</div>
+          <div class="grade-seg b-seg" style="flex:15">B</div>
+          <div class="grade-seg a-seg" style="flex:15">A</div>
+          <div class="grade-seg s-seg" style="flex:10">S</div>
+        </div>
+        <div class="grade-needle" id="gradeNeedle" style="left:50%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:var(--muted);margin-top:2px;">
+        <span>0</span><span>40</span><span>60</span><span>75</span><span>90</span><span>100</span>
+      </div>
+
+      <div class="calc-row" style="margin-top:1rem;">
+        <span class="calc-label">Multiplier:</span>
+        <select class="mult-select" id="multSelect">
+          <option value="1">1x (standard)</option>
+          <option value="2">2x (notable item)</option>
+          <option value="3">3x (beloved item)</option>
+          <option value="4">4x (rare taste)</option>
+          <option value="5">5x (obsession)</option>
+        </select>
+        <span class="calc-label">Phase:</span>
+        <select class="mult-select" id="phaseSelect">
+          <option value="1">Entrance</option>
+          <option value="2">Kitchen</option>
+          <option value="3">Reveal</option>
+        </select>
+      </div>
+
+      <div class="calc-row">
+        <button class="reaction-btn like-btn"    onclick="fireReaction('like')">Like +</button>
+        <button class="reaction-btn neutral-btn" onclick="fireReaction('neutral')">Neutral</button>
+        <button class="reaction-btn dislike-btn" onclick="fireReaction('dislike')">Dislike &minus;</button>
+        <button class="reaction-btn reset-btn"   onclick="resetCalc()">Reset</button>
+      </div>
+    </div>
+
+    <div class="reaction-log" id="reactionLog">
+      <div class="log-entry"><span style="color:var(--muted)">Reactions will appear here...</span></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════ FORMULA ════ -->
+<div class="tab-content" id="tab-formula">
+  <section>
+    <h2>Reaction Delta Formula</h2>
+    <div class="formula-display">delta = baseValue &times; magnitude &times; moodMultiplier &times; characterReactionStrength</div>
+    <table>
+      <tr><th>Variable</th><th>Description</th><th>Current Values</th></tr>
+      <tr><td><code>baseValue</code></td><td>Valence of the reaction</td><td>Like: +5.0 &nbsp;|&nbsp; Neutral: +0.5 &nbsp;|&nbsp; Dislike: &minus;4.0</td></tr>
+      <tr><td><code>magnitude</code></td><td>Weight of the item or event</td><td>Surface multiplier 1&ndash;5x; drink score/100</td></tr>
+      <tr><td><code>moodMultiplier</code></td><td>Mood match bonus/penalty</td><td>1.5x match, 0.5x mismatch <span class="tag tag-dormant">DORMANT</span></td></tr>
+      <tr><td><code>characterReactionStrength</code></td><td>Per-character sensitivity scalar</td><td>Defined per character profile</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Interactive Formula Calculator</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Adjust the sliders to compute an individual reaction delta.</p>
+    <div class="formula-box">
+      <div class="formula-display" id="formulaDisplay">delta = ? &times; ? &times; ? &times; ?</div>
+      <div class="input-grid">
+        <div class="input-group">
+          <label>baseValue (reaction type)</label>
+          <select class="mult-select" id="fBaseValue" onchange="updateFormula()">
+            <option value="5">Like: +5.0</option>
+            <option value="0.5">Neutral: +0.5</option>
+            <option value="-4">Dislike: &minus;4.0</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>magnitude (surface multiplier)</label>
+          <input type="range" id="fMagnitude" min="1" max="5" step="1" value="1" oninput="updateFormula()">
+          <span class="range-val" id="fMagnitudeVal">1x</span>
+        </div>
+        <div class="input-group">
+          <label>moodMultiplier <span class="tag tag-dormant">DORMANT</span></label>
+          <select class="mult-select" id="fMood" onchange="updateFormula()">
+            <option value="1.0">Dormant (1.0)</option>
+            <option value="1.5">Match (1.5x)</option>
+            <option value="0.5">Mismatch (0.5x)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>characterReactionStrength</label>
+          <input type="range" id="fStrength" min="0.5" max="2.0" step="0.1" value="1.0" oninput="updateFormula()">
+          <span class="range-val" id="fStrengthVal">1.0</span>
+        </div>
+      </div>
+      <div class="formula-result">
+        <div class="res-label">Computed Delta</div>
+        <div class="res-value" id="formulaResult">+5.0</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Perfume Tier Downgrade</h2>
+    <div class="formula-display">if roomSmell &gt; perfumeThreshold &times; 2.0 &rarr; downgrade result one tier</div>
+    <p>Like &rarr; Neutral &rarr; Dislike. Each downgrade step is applied once regardless of how far over the threshold the room smell is.</p>
+    <h3>Example Calculations</h3>
+    <table>
+      <tr><th>Scenario</th><th>Base Result</th><th>Room Smell</th><th>Final Result</th></tr>
+      <tr><td>Intensity 0.5, threshold 0.4, roomSmell 0.5</td><td>Like</td><td>0.5 &lt; 0.8 (2x threshold)</td><td style="color:var(--like)">Like</td></tr>
+      <tr><td>Intensity 0.5, threshold 0.4, roomSmell 0.9</td><td>Like</td><td>0.9 &gt; 0.8 (downgrade)</td><td style="color:var(--neutral)">Neutral</td></tr>
+      <tr><td>No perfume (intensity 0)</td><td>Neutral</td><td>0 &lt; 0.34 threshold</td><td style="color:var(--neutral)">Neutral</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ CHARACTERS ════ -->
+<div class="tab-content" id="tab-characters">
+  <section>
+    <h2>Character Roster</h2>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem;">Seven characters rotate through the 7-day cycle. Click any card to expand preferences.</p>
+    <div class="char-grid" id="charGrid"></div>
+  </section>
+</div>
+
+<!-- ════ PHASE COMPARE ════ -->
+<div class="tab-content" id="tab-phases">
+  <section>
+    <h2>Phase Comparison</h2>
+    <table>
+      <tr>
+        <th>Dimension</th>
+        <th><span class="phase-badge ph1">Phase 1 &mdash; Entrance</span></th>
+        <th><span class="phase-badge ph2">Phase 2 &mdash; Kitchen</span></th>
+        <th><span class="phase-badge ph3">Phase 3 &mdash; Reveal</span></th>
+      </tr>
+      <tr><td>What's judged</td><td>Music, Perfume, Cleanliness, Outfit (WIP)</td><td>Drink recipe preference + score</td><td>Individual ReactableTag items</td></tr>
+      <tr><td>Player influence window</td><td>Before the date (prep)</td><td>During Phase 2 (active pour)</td><td>During Phase 3 (item click)</td></tr>
+      <tr><td>Reaction count</td><td>3 active (4 when Outfit live)</td><td>1 verdict</td><td>Many (all tagged items)</td></tr>
+      <tr><td>Affection potential</td><td>Medium</td><td>Low-medium (single verdict)</td><td>Highest</td></tr>
+      <tr><td>Multiplier source</td><td>Music track multiplier (phase-wide)</td><td>Score &divide; 100 as magnitude</td><td>Surface multiplier per item (1&ndash;5x)</td></tr>
+      <tr><td>Key system</td><td><code>ReactionEvaluator</code>, <code>TidyScorer</code></td><td><code>DrinkPourManager</code></td><td><code>ReactableTag</code> registry</td></tr>
+      <tr><td>Sort / ordering</td><td>Fixed judgment order</td><td>Single event</td><td>Sorted 3x &rarr; 2x &rarr; 1x, player can override</td></tr>
+      <tr><td>Timing</td><td>Simultaneous / near-simultaneous</td><td>Player-paced delivery</td><td>0.6s stagger; 3s investigation per item</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ EDGE CASES ════ -->
+<div class="tab-content" id="tab-edges">
+  <section>
+    <h2>Edge Cases</h2>
+    <div id="edgeCases"></div>
+  </section>
+</div>
+
+<!-- ════ DEPENDENCIES ════ -->
+<div class="tab-content" id="tab-deps">
+  <section>
+    <h2>Dependencies</h2>
+    <table>
+      <tr><th>System</th><th>Role in Dating Loop</th><th>This System's Role for It</th></tr>
+      <tr><td><code>GameClock</code></td><td>Provides current day index</td><td>Reads day to enforce tutorial lock and character cycling</td></tr>
+      <tr><td><code>DayPhaseManager</code></td><td>Sequences phases, triggers transitions</td><td>Dating loop occupies phases 2&ndash;4</td></tr>
+      <tr><td><code>PhoneController</code></td><td>Signals date arrival</td><td>Dating loop registers a listener to begin Exploration</td></tr>
+      <tr><td><code>DateSessionManager</code></td><td>Owns date state across all phases</td><td>Dating loop delegates per-phase logic to it</td></tr>
+      <tr><td><code>ReactionEvaluator</code></td><td>Computes reaction deltas</td><td>Feeds results back as affection events</td></tr>
+      <tr><td><code>DateCharacterController</code></td><td>Drives character animation and excursions</td><td>Receives phase signals (start/end)</td></tr>
+      <tr><td><code>DateEndScreen</code></td><td>Displays grade and results</td><td>Receives final affection and grade at Evening</td></tr>
+      <tr><td><code>TidyScorer</code></td><td>Provides cleanliness score for Phase 1</td><td>Polled once at Entrance evaluation time</td></tr>
+      <tr><td><code>MoodMachine</code></td><td>Provides mood state for moodMultiplier</td><td>Currently dormant <span class="tag tag-dormant">DORMANT</span></td></tr>
+      <tr><td><code>DrinkPourManager</code></td><td>Runs Phase 2 drink interaction</td><td>Returns score [0, 100] to ReactionEvaluator</td></tr>
+      <tr><td><code>ReactableTag</code></td><td>Marks items for Phase 3 evaluation</td><td>Registry queried by BuildRevealCache</td></tr>
+      <tr><td><code>FlowerTrimmingBridge</code></td><td>Loads trimming scene on phase transition</td><td>Dating loop signals bridge when affection qualifies</td></tr>
+      <tr><td><code>DateHistory</code></td><td>Persists outcomes</td><td>Dating loop writes grade, affection, flower flag after Evening</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ TUNING ════ -->
+<div class="tab-content" id="tab-tuning">
+  <section>
+    <h2>Tuning Knobs</h2>
+    <table>
+      <tr><th>Knob</th><th>Default</th><th>Safe Range</th><th>Gameplay Effect</th></tr>
+      <tr><td>Starting affection</td><td>50</td><td>30&ndash;70</td><td>Sets floor and ceiling pressure on each date</td></tr>
+      <tr><td>Like baseValue</td><td>+5.0</td><td>+3.0&ndash;+8.0</td><td>How much a single positive reaction is worth</td></tr>
+      <tr><td>Neutral baseValue</td><td>+0.5</td><td>0.0&ndash;+1.5</td><td>Whether neutral reactions feel meaningless or rewarding</td></tr>
+      <tr><td>Dislike baseValue</td><td>&minus;4.0</td><td>&minus;2.0&ndash;&minus;6.0</td><td>Punishment severity for a bad impression</td></tr>
+      <tr><td>Flower affection threshold</td><td>30</td><td>20&ndash;50</td><td>How often the player earns the trimming reward</td></tr>
+      <tr><td>Phase 3 stagger interval</td><td>0.6s</td><td>0.3&ndash;1.2s</td><td>Pacing of reveal; shorter = frenetic, longer = deliberate</td></tr>
+      <tr><td>Excursion interval</td><td>4s</td><td>2&ndash;8s</td><td>Frequency of unsolicited character wandering</td></tr>
+      <tr><td>Excursion chance</td><td>90%</td><td>60&ndash;100%</td><td>How reliably the character explores between scripted events</td></tr>
+      <tr><td>Investigation duration</td><td>3s</td><td>1.5&ndash;5s</td><td>Time character lingers at each item</td></tr>
+      <tr><td>Evaluation mark</td><td>2.0s</td><td>1.0&ndash;2.5s</td><td>When within investigation the reaction fires</td></tr>
+      <tr><td>Perfume liked low threshold</td><td>0.34</td><td>0.2&ndash;0.5</td><td>How little perfume before result degrades to Neutral</td></tr>
+      <tr><td>Perfume liked high threshold</td><td>0.99</td><td>0.8&ndash;1.0</td><td>How much before result degrades to Dislike</td></tr>
+      <tr><td>Room smell downgrade multiplier</td><td>2.0x</td><td>1.5&ndash;3.0x</td><td>How strongly ambient smell interferes with perfume</td></tr>
+    </table>
+  </section>
+</div>
+
+<!-- ════ ACCEPTANCE ════ -->
+<div class="tab-content" id="tab-criteria">
+  <section>
+    <h2>Acceptance Criteria</h2>
+    <ul class="checklist" id="checklist">
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Day 1 tutorial lock</strong>: All three phase evaluations return Like on Day 1 regardless of apartment state, perfume level, or drink score. QA: set worst-case conditions, confirm grade &ge; A.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>No character repeats before full rotation</strong>: Over 7 consecutive days with phone answered, all 7 characters appear exactly once. QA: record names from newspaper ads across 7 days.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Phase sequencing</strong>: Phases fire in order Morning &rarr; Exploration &rarr; DateInProgress &rarr; FlowerTrimming (if qualified) &rarr; Evening. QA: debug log to each phase transition across 5 dates.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Flower threshold</strong>: Affection at 30 loads trimming scene. Affection at 29 does not. QA: force via debug menu; observe scene load behavior.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Reaction delta correctness</strong>: Character with reactionStrength 1.0, Like on 2x item, mood dormant. Confirm affection increases by exactly 10.0. QA: unit test in ReactionEvaluator.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Perfume downgrade</strong>: Intensity 0.5 (Like), threshold 0.4, roomSmell 0.9 (&gt; 0.8). Confirm result degrades to Neutral. QA: automated test against EvaluatePerfume.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Phase 3 cache sort</strong>: After BuildRevealCache, items appear to player in descending surface-multiplier order (3x before 2x before 1x). QA: log item order at phase start.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Arc completion</strong>: After 3 successful dates with the same character, arc content triggers at Evening. QA: run 3 dates, confirm arc flag in DateHistory and content plays.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>Grade boundaries</strong>: Confirm grade assignment at affection values 39, 40, 59, 60, 74, 75, 89, 90. QA: unit test against grading function with those inputs.</span></li>
+      <li onclick="toggleCheck(this)"><span class="check">&#10003;</span><span><strong>No phone, no date</strong>: Player doesn't approach phone during Morning &rarr; Evening loads with no date content and no DateHistory entry for that day. QA: let morning timer expire.</span></li>
+    </ul>
+  </section>
+</div>
+
+<script>
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Day phase flow ──
+const phaseData = {
+  morning:  { title: 'Morning — Newspaper ad + phone call', body: 'DayManager posts the personal ad for today\'s date character. PhoneController rings at a scripted or random point. The player must physically walk to the phone and answer it. Answering commits the date; not answering means no date that day. GameClock provides day index to enforce the Day 1 tutorial lock.' },
+  explore:  { title: 'Exploration — Apartment prep', body: 'Player preps the apartment before the date arrives. This is the window to clean (TidyScorer), set up music, apply perfume, and curate items with ReactableTag multipliers. The date character arrives at the end of this phase.' },
+  date:     { title: 'DateInProgress — Three evaluation phases', body: 'Entrance (first impressions: music, perfume, cleanliness, outfit), Kitchen (drink-making minigame via DrinkPourManager), and Reveal (apartment walkthrough with ReactableTag items). Each phase feeds affection into a running total via ReactionEvaluator.' },
+  flower:   { title: 'FlowerTrimming — Flower reward', body: 'Loads the trimming scene if final affection >= 30, or if the character\'s guaranteeFlower flag is set. FlowerTrimmingBridge handles the scene transition. If the threshold is not met, this phase is skipped.' },
+  evening:  { title: 'Evening — Results and close', body: 'Day closes. DateEndScreen displays the grade and results. DateHistory records the outcome (grade, affection score, flower awarded, day index). Arc completion triggers here if the third successful date with a character was today.' },
+};
+
+function selectPhase(id) {
+  document.querySelectorAll('.day-step').forEach(s => s.classList.remove('active-step'));
+  document.querySelector(`.day-step[data-phase="${id}"]`).classList.add('active-step');
+  const d = phaseData[id];
+  document.getElementById('phaseDetail').innerHTML =
+    `<div class="pd-title">${d.title}</div><div class="pd-body">${d.body}</div>`;
+}
+
+// ── Affection Calculator ──
+let currentAff = 50;
+let logEntries = [];
+
+function gradeFor(aff) {
+  if (aff >= 90) return { letter: 'S', color: 'var(--yellow)' };
+  if (aff >= 75) return { letter: 'A', color: 'var(--green)' };
+  if (aff >= 60) return { letter: 'B', color: '#60b8e0' };
+  if (aff >= 40) return { letter: 'C', color: '#c088e0' };
+  return { letter: 'D', color: '#c88' };
+}
+
+function updateAffDisplay() {
+  const g = gradeFor(currentAff);
+  const clamped = Math.max(0, Math.min(100, currentAff));
+  document.getElementById('affNumber').textContent = clamped.toFixed(1);
+  document.getElementById('affNumber').style.color = g.color;
+  document.getElementById('gradeLabel').textContent = g.letter;
+  document.getElementById('gradeLabel').style.color = g.color;
+  document.getElementById('gradeBadge').textContent = g.letter;
+  document.getElementById('gradeBadge').style.color = g.color;
+  document.getElementById('gradeNeedle').style.left = (clamped) + '%';
+}
+
+function fireReaction(type) {
+  const baseValues = { like: 5.0, neutral: 0.5, dislike: -4.0 };
+  const mult = parseFloat(document.getElementById('multSelect').value);
+  const phase = document.getElementById('phaseSelect').value;
+  const base = baseValues[type];
+  const delta = base * mult;
+  currentAff = Math.max(0, Math.min(100, currentAff + delta));
+  updateAffDisplay();
+
+  const phaseName = ['', 'Entrance', 'Kitchen', 'Reveal'][parseInt(phase)];
+  const sign = delta >= 0 ? '+' : '';
+  const cls  = type === 'like' ? 'log-pos' : type === 'dislike' ? 'log-neg' : 'log-neu';
+  logEntries.unshift({ cls, text: `${phaseName} / ${type} / ${mult}x`, delta: `${sign}${delta.toFixed(1)}`, aff: currentAff.toFixed(1) });
+  if (logEntries.length > 20) logEntries.pop();
+
+  const log = document.getElementById('reactionLog');
+  log.innerHTML = logEntries.map(e =>
+    `<div class="log-entry"><span>${e.text}</span><span class="${e.cls}">${e.delta} &rarr; ${e.aff}</span></div>`
+  ).join('');
+}
+
+function resetCalc() {
+  currentAff = 50;
+  logEntries = [];
+  updateAffDisplay();
+  document.getElementById('reactionLog').innerHTML =
+    '<div class="log-entry"><span style="color:var(--muted)">Reactions will appear here...</span></div>';
+}
+
+updateAffDisplay();
+
+// ── Formula Calculator ──
+function updateFormula() {
+  const base = parseFloat(document.getElementById('fBaseValue').value);
+  const mag  = parseFloat(document.getElementById('fMagnitude').value);
+  const mood = parseFloat(document.getElementById('fMood').value);
+  const str  = parseFloat(document.getElementById('fStrength').value);
+  document.getElementById('fMagnitudeVal').textContent = mag + 'x';
+  document.getElementById('fStrengthVal').textContent  = str.toFixed(1);
+  const result = base * mag * mood * str;
+  const sign   = result >= 0 ? '+' : '';
+  document.getElementById('formulaDisplay').textContent =
+    `delta = ${base} × ${mag} × ${mood} × ${str.toFixed(1)}`;
+  document.getElementById('formulaResult').innerHTML =
+    `<div class="res-label">Computed Delta</div><div class="res-value" style="color:${result>=0?'var(--like)':'var(--dislike)'}">${sign}${result.toFixed(2)}</div>`;
+}
+updateFormula();
+
+// ── Character Cards ──
+const characters = [
+  { name: 'Tutorial Date', emoji: '&#127774;', label: 'Day 1 — Always Positive', likes: ['Everything (forced)'], dislikes: [], notes: '_alwaysPositive = true; every evaluation returns Like regardless of conditions.' },
+  { name: 'Cassette', emoji: '&#127908;', label: 'Music lover, Day 2+', likes: ['Loud music', 'Vintage items', 'Clean spaces'], dislikes: ['Silence', 'Modern electronics'], notes: 'High surface multiplier on music-related items. Sensitive to perfume intensity.' },
+  { name: 'Veronica', emoji: '&#127799;', label: 'Botanist, Day 2+', likes: ['Plants', 'Natural scents', 'Earthy tones'], dislikes: ['Synthetic perfume', 'Clutter'], notes: 'Strong reaction to ReactableTag plant items. Room-smell threshold is lower.' },
+  { name: 'Dax', emoji: '&#127945;', label: 'Athlete, Day 2+', likes: ['Cleanliness', 'Energetic music', 'Simple drinks'], dislikes: ['Mess', 'Strong perfume'], notes: 'TidyScorer threshold is strict. Prefers simple recipe with high score.' },
+  { name: 'Mira', emoji: '&#127775;', label: 'Artist, Day 2+', likes: ['Unique decor', 'Ambient music', 'Layered drinks'], dislikes: ['Generic items', 'Pop music'], notes: 'High multiplier on art-tagged ReactableTag items. Rewards creative drink construction.' },
+  { name: 'Elliot', emoji: '&#128218;', label: 'Academic, Day 2+', likes: ['Books', 'Jazz', 'Precise drinks'], dislikes: ['Mess', 'Loud music'], notes: 'High reaction strength. Books and desk items carry elevated surface multiplier.' },
+  { name: 'Sunny', emoji: '&#9728;', label: 'Optimist, Day 2+', likes: ['Bright spaces', 'Upbeat music', 'Any drink'], dislikes: ['Dark mood', 'Heavy scents'], notes: 'Lower reaction strength overall but very forgiving. Wide perfume tolerance band.' },
+  { name: 'Rook', emoji: '&#9820;', label: 'Strategist, Day 2+', likes: ['Order', 'Chess pieces', 'Strong coffee'], dislikes: ['Chaos', 'Sweet drinks'], notes: 'Very high characterReactionStrength. Cleanliness score weighs heavily. Precise drink preference.' },
+];
+
+const grid = document.getElementById('charGrid');
+grid.innerHTML = characters.map((c, i) => `
+  <div class="char-card">
+    <div class="char-header" onclick="toggleChar(${i})">
+      <div class="char-avatar" style="background:hsl(${i*47+20},40%,20%)">${c.emoji}</div>
+      <div>
+        <div class="char-name">${c.name}</div>
+        <div class="char-label">${c.label}</div>
+      </div>
+    </div>
+    <div class="char-body" id="char-body-${i}">
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem;">Likes</div>
+      <div class="pref-row">${c.likes.map(l => `<span class="pref-chip like-chip">${l}</span>`).join('')}</div>
+      ${c.dislikes.length ? `<div style="font-size:0.8rem;color:var(--muted);margin:0.4rem 0;">Dislikes</div><div class="pref-row">${c.dislikes.map(d => `<span class="pref-chip dislike-chip">${d}</span>`).join('')}</div>` : ''}
+      <p style="font-size:0.8rem;color:var(--text-dim);margin-top:0.5rem;">${c.notes}</p>
+    </div>
+  </div>
+`).join('');
+
+function toggleChar(i) {
+  const body = document.getElementById('char-body-' + i);
+  body.classList.toggle('open');
+}
+
+// ── Edge Cases ──
+const edges = [
+  { title: 'Tutorial date', body: '<code>_alwaysPositive = true</code> is set on the evaluator for Day 1 dates. All reactions return Like regardless of actual apartment state, perfume intensity, drink score, or item condition. Cannot be toggled mid-date.' },
+  { title: 'No phone answer', body: 'If the player does not answer the phone during the Morning phase, the day proceeds to Evening with no date, no affection events, and no flower. <code>DateHistory</code> records no entry for that day.' },
+  { title: 'All characters seen', body: 'Once all 7 characters have appeared at least once, the scheduling pool resets and characters may repeat. Repeat scheduling preserves <code>DateHistory</code> across appearances.' },
+  { title: 'Outfit evaluation disabled', body: 'Because Outfit is disabled (WIP), characters never react to clothing. If re-enabled, the outfit judgment fires alongside the other three Entrance judgments and uses the standard reaction delta formula.' },
+  { title: 'Perfume with no active scent', body: 'If no perfume has been applied, intensity is 0. This falls below the 0.34 threshold and returns Neutral. The room-smell downgrade check still runs; if ambient smell exceeds 2x the threshold, result degrades to Dislike.' },
+  { title: 'Flower threshold at exactly 30', body: 'Affection equal to 30 (not strictly greater than) qualifies for flower trimming. <code>guaranteeFlower</code> bypasses the threshold check entirely.' },
+  { title: 'Mid-date fail', body: 'Code paths for mid-date failure thresholds exist but are disabled. If re-enabled, breaching the floor affection value mid-date would terminate the date early and assign grade F, bypassing Phase 3 and FlowerTrimming.' },
+  { title: 'Arc completion same day', body: 'If a third successful date completes a character arc, the arc content triggers at the Evening phase after the results screen, not during the date.' },
+];
+
+document.getElementById('edgeCases').innerHTML = edges.map((e, i) => `
+  <div style="margin-bottom:0.75rem;background:var(--bg);border-radius:6px;overflow:hidden;">
+    <div class="collapsible-header" id="edge-hdr-${i}" onclick="toggleEdge(${i})" style="padding:0.75rem 1rem;">
+      <span style="color:var(--text);font-size:0.9rem;">${e.title}</span>
+    </div>
+    <div class="collapsible-body" id="edge-body-${i}">
+      <div style="padding:0 1rem 0.75rem;font-size:0.85rem;color:var(--text-dim);">${e.body}</div>
+    </div>
+  </div>
+`).join('');
+
+function toggleEdge(i) {
+  const hdr  = document.getElementById('edge-hdr-'  + i);
+  const body = document.getElementById('edge-body-' + i);
+  hdr.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ── Checklist ──
+function toggleCheck(li) {
+  li.classList.toggle('checked');
+  const items   = document.querySelectorAll('#checklist li');
+  const checked = document.querySelectorAll('#checklist li.checked').length;
+  const pct     = Math.round(checked / items.length * 100);
+  document.getElementById('progressFill').style.width  = pct + '%';
+  document.getElementById('progressLabel').textContent  = `${checked} / ${items.length} criteria met`;
+}
+</script>
+</body>
+</html>
