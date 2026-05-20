@@ -45214,3 +45214,25 @@ production/session-logs/session-log.md
 production/session-state/active.md
 ---
 
+## Archived Session State: 20260520_182159
+# Active Session State
+
+<!-- STATUS -->
+Epic:
+Feature:
+Task:
+<!-- /STATUS -->
+
+## Last Session (2026-05-20)
+Complete. See git log for details (7 commits this session).
+---
+
+## Session End: 20260520_182159
+### Commits
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+### Uncommitted Changes
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+---
+
