@@ -45236,3 +45236,137 @@ abe791e Update tidiness docs to reflect equal weights (0.25 each)
 Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
 ---
 
+## Archived Session State: 20260520_184636
+# Active Session State
+
+<!-- STATUS -->
+Epic:
+Feature:
+Task:
+<!-- /STATUS -->
+
+## Last Session (2026-05-20)
+Complete. See git log for details (7 commits this session).
+---
+
+## Session End: 20260520_184636
+### Commits
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+---
+
+## Session End: 20260520_184802
+### Commits
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+### Uncommitted Changes
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_192728
+### Commits
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+abe791e Update tidiness docs to reflect equal weights (0.25 each)
+### Uncommitted Changes
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260520_212617
+# Session State — Iris / Spent Bloom
+
+**Last updated:** 2026-05-19
+**Agent:** narrative-director
+
+<!-- STATUS -->
+Epic: Narrative Design
+Feature: Character Design
+Task: Complete — characters.md written
+<!-- /STATUS -->
+
+## Current Task
+
+Character narrative design document — complete.
+
+## Completed Sections
+
+- [x] Nema (player character)
+- [x] The Cat
+- [x] Paris
+- [x] Livii
+- [x] Clover
+- [x] Lily
+- [x] Sage
+- [x] Psychic
+- [x] Sterling
+- [x] Overall Narrative Arc
+
+## Files Written This Session
+
+| File | Status | Notes |
+|---|---|---|
+| `design/narrative/characters.md` | Written | Full narrative design for all 7 date characters + Nema + cat + overall arc |
+
+## Key Decisions Made
+
+- Tonal path: "The Unease" — impossible flowers, surreal not grotesque
+- Arc completion rewards marked [PROPOSED] — not yet implemented
+- All 7 flowers designed to escalate strangeness from Paris (rose, normal) to Lily (legible marks), Livii (impossible color), Clover (too large, too white), Psychic (glowing tips)
+- Sterling's flower (carnation) is the least supernatural — tonal counterweight
+- Sage's arc completion incense functions as a permanent MoodMachine source [PROPOSED]
+- Ending condition left [TO BE DESIGNED] with three options: no newspaper / different ad / nothing changes
+- Clover's plant care card note text left [TO BE AUTHORED] by writer
+
+## Open Questions / [TO BE DESIGNED] Items
+
+1. All 7 arc completion ending states — confirmed as [PROPOSED], pending producer and creative-director alignment
+2. Ending condition when all 7 arcs complete (see Overall Narrative Arc section)
+3. Clover's plant care card note text — delegate to writer under narrative-director direction
+4. Calendar loop length — referenced in character-arcs.md as unresolved; affects minimum arc completion time
+5. Sterling: does a date after arc completion still trigger plants the player must manage despite him disliking them?
+
+## Cross-Document Flags
+
+- `character-arcs.md` has [TO BE DESIGNED] for arc completion content — `characters.md` now provides the authored proposals for each character
+- `character-arcs.md` Option E (story-triggered dropout) recommended — dropout conditions per character not yet authored in characters.md; should be added in a future pass
+- Psychic Date 2 scene (cat observation near impossible flower) requires coordination with art-director for camera angle during date phase
+---
+
+## Session End: 20260520_212617
+### Commits
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+### Uncommitted Changes
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_212635
+### Commits
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+### Uncommitted Changes
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260520_212828
+### Commits
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+### Uncommitted Changes
+Assets/Editor/Tests/DrinkScoringTests.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+

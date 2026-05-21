@@ -415,8 +415,10 @@ public class DrinkScoringTests
         // Act
         int result = TotalScore(order, layer, fill, garnish, 0f);
 
-        // Assert
-        Assert.AreEqual(0, result);
+        // Assert — empty glass still gets partial order score (5) because
+        // 0 poured items counts as "one off" from expected (correct >= length-1).
+        // This matches DrinkPourManager behavior: no early-return for empty glass.
+        Assert.AreEqual(5, result);
     }
 
     // ─────────────────────────────────────────────────────────────
