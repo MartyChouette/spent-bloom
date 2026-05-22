@@ -105,8 +105,8 @@ TestResults*.xml
 # Windows reserved name junk file
 nul
 
-# Docs (generated/internal — not shipped)
-/docs/
+# Docs — node_modules excluded, rest tracked
+/docs/node_modules/
 
 # Build artifacts & reports
 build_log*.txt

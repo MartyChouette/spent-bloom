@@ -45370,3 +45370,214 @@ production/session-logs/session-log.md
 production/session-state/active.md
 ---
 
+## Archived Session State: 20260520_213731
+# Active Session State
+
+<!-- STATUS -->
+Epic:
+Feature:
+Task:
+<!-- /STATUS -->
+
+## Last Session (2026-05-20)
+Complete. See git log for details (7 commits this session).
+---
+
+## Session End: 20260520_213731
+### Commits
+62a4432 Fix empty glass test, add arc rewards, drink curve analysis, character narratives
+293b1fa Add missing .meta files for new scripts and tests
+c6557da Update session logs and TextMesh Pro fallback font asset
+5e0390e Fix dating-loop.html character roster with real game characters
+---
+
+## Session End: 20260522_153221
+### Uncommitted Changes
+design/game-pillars.md
+design/gdd/accessibility.html
+design/gdd/accessibility.md
+design/gdd/apartment-hub.html
+design/gdd/apartment-hub.md
+design/gdd/arc-completion-rewards.md
+design/gdd/character-arcs.md
+design/gdd/date-phase-scoring-redesign.html
+design/gdd/date-phase-scoring-redesign.md
+design/gdd/dating-loop.html
+design/gdd/dating-loop.md
+design/gdd/drink-magnitude-analysis.md
+design/gdd/drink-making.html
+design/gdd/drink-making.md
+design/gdd/flower-trimming.html
+design/gdd/flower-trimming.md
+design/gdd/living-plants.html
+design/gdd/living-plants.md
+design/gdd/mood-machine.html
+design/gdd/mood-machine.md
+design/gdd/object-interaction.html
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.html
+design/gdd/psx-rendering.md
+design/gdd/record-player.html
+design/gdd/record-player.md
+design/gdd/tidiness-system.html
+design/gdd/tidiness-system.md
+design/gdd/watering-system.html
+design/gdd/watering-system.md
+design/narrative/characters.md
+design/systems-index.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260522_153356
+### Uncommitted Changes
+design/game-pillars.md
+design/gdd/accessibility.html
+design/gdd/accessibility.md
+design/gdd/apartment-hub.html
+design/gdd/apartment-hub.md
+design/gdd/arc-completion-rewards.md
+design/gdd/character-arcs.md
+design/gdd/date-phase-scoring-redesign.html
+design/gdd/date-phase-scoring-redesign.md
+design/gdd/dating-loop.html
+design/gdd/dating-loop.md
+design/gdd/drink-magnitude-analysis.md
+design/gdd/drink-making.html
+design/gdd/drink-making.md
+design/gdd/flower-trimming.html
+design/gdd/flower-trimming.md
+design/gdd/living-plants.html
+design/gdd/living-plants.md
+design/gdd/mood-machine.html
+design/gdd/mood-machine.md
+design/gdd/object-interaction.html
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.html
+design/gdd/psx-rendering.md
+design/gdd/record-player.html
+design/gdd/record-player.md
+design/gdd/tidiness-system.html
+design/gdd/tidiness-system.md
+design/gdd/watering-system.html
+design/gdd/watering-system.md
+design/narrative/characters.md
+design/systems-index.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260522_153546
+### Uncommitted Changes
+design/game-pillars.md
+design/gdd/accessibility.html
+design/gdd/accessibility.md
+design/gdd/apartment-hub.html
+design/gdd/apartment-hub.md
+design/gdd/arc-completion-rewards.md
+design/gdd/character-arcs.md
+design/gdd/date-phase-scoring-redesign.html
+design/gdd/date-phase-scoring-redesign.md
+design/gdd/dating-loop.html
+design/gdd/dating-loop.md
+design/gdd/drink-magnitude-analysis.md
+design/gdd/drink-making.html
+design/gdd/drink-making.md
+design/gdd/flower-trimming.html
+design/gdd/flower-trimming.md
+design/gdd/living-plants.html
+design/gdd/living-plants.md
+design/gdd/mood-machine.html
+design/gdd/mood-machine.md
+design/gdd/object-interaction.html
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.html
+design/gdd/psx-rendering.md
+design/gdd/record-player.html
+design/gdd/record-player.md
+design/gdd/tidiness-system.html
+design/gdd/tidiness-system.md
+design/gdd/watering-system.html
+design/gdd/watering-system.md
+design/narrative/characters.md
+design/systems-index.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260522_153615
+### Uncommitted Changes
+design/game-pillars.md
+design/gdd/accessibility.html
+design/gdd/accessibility.md
+design/gdd/apartment-hub.html
+design/gdd/apartment-hub.md
+design/gdd/arc-completion-rewards.md
+design/gdd/character-arcs.md
+design/gdd/date-phase-scoring-redesign.html
+design/gdd/date-phase-scoring-redesign.md
+design/gdd/dating-loop.html
+design/gdd/dating-loop.md
+design/gdd/drink-magnitude-analysis.md
+design/gdd/drink-making.html
+design/gdd/drink-making.md
+design/gdd/flower-trimming.html
+design/gdd/flower-trimming.md
+design/gdd/living-plants.html
+design/gdd/living-plants.md
+design/gdd/mood-machine.html
+design/gdd/mood-machine.md
+design/gdd/object-interaction.html
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.html
+design/gdd/psx-rendering.md
+design/gdd/record-player.html
+design/gdd/record-player.md
+design/gdd/tidiness-system.html
+design/gdd/tidiness-system.md
+design/gdd/watering-system.html
+design/gdd/watering-system.md
+design/narrative/characters.md
+design/systems-index.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260522_154511
+### Uncommitted Changes
+design/game-pillars.md
+design/gdd/accessibility.html
+design/gdd/accessibility.md
+design/gdd/apartment-hub.html
+design/gdd/apartment-hub.md
+design/gdd/arc-completion-rewards.md
+design/gdd/character-arcs.md
+design/gdd/date-phase-scoring-redesign.html
+design/gdd/date-phase-scoring-redesign.md
+design/gdd/dating-loop.html
+design/gdd/dating-loop.md
+design/gdd/drink-magnitude-analysis.md
+design/gdd/drink-making.html
+design/gdd/drink-making.md
+design/gdd/flower-trimming.html
+design/gdd/flower-trimming.md
+design/gdd/living-plants.html
+design/gdd/living-plants.md
+design/gdd/mood-machine.html
+design/gdd/mood-machine.md
+design/gdd/object-interaction.html
+design/gdd/object-interaction.md
+design/gdd/psx-rendering.html
+design/gdd/psx-rendering.md
+design/gdd/record-player.html
+design/gdd/record-player.md
+design/gdd/tidiness-system.html
+design/gdd/tidiness-system.md
+design/gdd/watering-system.html
+design/gdd/watering-system.md
+design/narrative/characters.md
+design/systems-index.md
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
