@@ -35,9 +35,23 @@ public class ApartmentClock : MonoBehaviour
 
     private int _lastMinute = -1;
 
+    private bool _revealed;
+
     private void Update()
     {
         if (GameClock.Instance == null) return;
+
+        // Hide clock until the tutorial gate releases
+        if (!_revealed)
+        {
+            if (GameClock.Instance.IsWaitingForTutorial)
+            {
+                SetVisible(false);
+                return;
+            }
+            _revealed = true;
+            SetVisible(true);
+        }
 
         float hour24 = Mathf.Repeat(GameClock.Instance.CurrentHour, 24f);
         float hour12 = Mathf.Repeat(hour24, 12f);
@@ -89,5 +103,12 @@ public class ApartmentClock : MonoBehaviour
         tickSource = gameObject.AddComponent<AudioSource>();
         tickSource.spatialBlend = 1f; // 3D
         tickSource.playOnAwake = false;
+    }
+
+    private void SetVisible(bool visible)
+    {
+        var renderers = GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; i++)
+            renderers[i].enabled = visible;
     }
 }

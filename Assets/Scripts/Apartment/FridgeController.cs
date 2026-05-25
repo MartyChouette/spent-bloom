@@ -110,16 +110,21 @@ public class FridgeController : MonoBehaviour
     private void Update()
     {
         if (DayPhaseManager.Instance != null && !DayPhaseManager.Instance.IsInteractionPhase) return;
+
+        // Block fridge during Phase 3 (Reveal) — player should be showing items, not rummaging
+        if (DateSessionManager.Instance != null
+            && DateSessionManager.Instance.CurrentDatePhase == DateSessionManager.DatePhase.Reveal)
+            return;
+
         if (IrisInput.Instance == null || !IrisInput.Instance.Click.WasPressedThisFrame()) return;
         if (ApartmentManager.Instance == null) return;
         if (ApartmentManager.Instance.CurrentState != ApartmentManager.State.Browsing) return;
         if (ObjectGrabber.ClickConsumedThisFrame) return;
         if (_mainCamera == null) return;
 
-        // Don't open/close fridge while holding an item — ObjectGrabber's
-        // PlacementSurface + DropZone slotting handles shelf deposits naturally
-        // (magnetic snap to slot like the shoe rack).
-        if (ObjectGrabber.IsHoldingObject) return;
+        // If holding an item and fridge is closed, open it so the player can deposit.
+        // If holding an item and fridge is already open, let ObjectGrabber handle shelf placement.
+        if (ObjectGrabber.IsHoldingObject && IsOpen) return;
 
         Vector2 mousePos = IrisInput.CursorPosition;
         var ray = ApartmentManager.Instance != null ? ApartmentManager.Instance.ScreenPointToRay(mousePos) : _mainCamera.ScreenPointToRay(mousePos);

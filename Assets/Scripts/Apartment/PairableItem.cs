@@ -324,6 +324,11 @@ public class PairableItem : MonoBehaviour
         else if (held._snapSound != null)
             AudioManager.Instance?.PlaySFX(held._snapSound);
         SmokePoof.Spawn(held.transform.position, 0.1f);
+        CelebrationBurst.Spawn(held.transform.position, 0.08f);
+
+        // Notify tutorial gate tracker
+        if (_snapMode == SnapMode.SideBySide)
+            TutorialGateTracker.Instance?.RecordMilestone(TutorialGateTracker.MilestoneType.ShoePaired);
 
         // Pulse both items to confirm the pairing
         // Re-cache renderer in case it was lost

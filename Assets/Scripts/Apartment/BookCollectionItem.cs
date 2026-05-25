@@ -50,6 +50,9 @@ public class BookCollectionItem : MonoBehaviour
 
     private bool _completed;
 
+    /// <summary>True when all required books are present in this collection.</summary>
+    public bool IsCompleted => _completed;
+
     /// <summary>Called by PairableItem.SnapPair when a book is added to the stack.</summary>
     public void OnBookSnapped()
     {
@@ -60,6 +63,7 @@ public class BookCollectionItem : MonoBehaviour
 
         // All books present — complete regardless of order
         _completed = true;
+        TutorialGateTracker.Instance?.RecordMilestone(TutorialGateTracker.MilestoneType.BookCollectionDone);
         StartCoroutine(CelebrationSequence());
     }
 
@@ -145,6 +149,7 @@ public class BookCollectionItem : MonoBehaviour
 
         Vector3 spawnPos = transform.position + transform.right * 0.15f + Vector3.up * 0.02f;
         SmokePoof.Spawn(spawnPos);
+        CelebrationBurst.Spawn(transform.position, 0.1f, 24);
         var reward = Instantiate(_rewardPrefab, spawnPos, Quaternion.identity);
         reward.layer = LayerMask.NameToLayer("Placeable");
 

@@ -228,12 +228,20 @@ public class DropZone : MonoBehaviour
             if (_trashSFX != null && AudioManager.Instance != null)
                 AudioManager.Instance.PlaySFX(_trashSFX);
 
+            // Notify tutorial gate tracker for trash
+            if (_zoneName == "TrashCan")
+                TutorialGateTracker.Instance?.RecordMilestone(TutorialGateTracker.MilestoneType.TrashBinned);
+
             StartCoroutine(ArcBounceAndDestroy(item.gameObject));
         }
         else
         {
             if (_depositSFX != null && AudioManager.Instance != null)
                 AudioManager.Instance.PlaySFX(_depositSFX);
+
+            // Notify tutorial gate tracker for shoe rack
+            if (_useSlotting && item.Category == ItemCategory.Shoe)
+                TutorialGateTracker.Instance?.RecordMilestone(TutorialGateTracker.MilestoneType.ShoesRacked);
         }
 
         // Dismiss flies orbiting this item (checks children too — flies

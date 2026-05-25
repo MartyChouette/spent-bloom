@@ -1,4 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>Pour quality tier derived from drink score.</summary>
+public enum PourQualityTier
+{
+    Bad,       // 0-39
+    Mediocre,  // 40-59
+    Good,      // 60-89
+    Perfect    // 90-100
+}
+
+/// <summary>
+/// Result of a detailed drink evaluation. Contains the final reaction,
+/// the pour quality tier, and a list of noted response lines the character
+/// will say in sequence during the verdict.
+/// </summary>
+public struct DrinkVerdict
+{
+    public ReactionType reaction;
+    public PourQualityTier pourTier;
+    public List<string> notes;
+}
 
 /// <summary>
 /// Static utility for evaluating how a date character reacts to various stimuli.
@@ -75,36 +97,163 @@ public static class ReactionEvaluator
         return baseReaction;
     }
 
-    /// <summary>Evaluate a drink against date preferences and quality.</summary>
+    /// <summary>Evaluate a drink against date preferences and quality (legacy — no glass contents).</summary>
     public static ReactionType EvaluateDrink(DrinkRecipeDefinition recipe, int score, DatePreferences prefs)
     {
-        if (recipe == null || prefs == null) return ReactionType.Neutral;
+        return EvaluateDrinkDetailed(recipe, score, prefs, null).reaction;
+    }
 
-        // Check liked drinks
-        if (prefs.likedDrinks != null)
+    /// <summary>Map a raw score (0-100) to a pour quality tier.</summary>
+    public static PourQualityTier GetPourTier(int score)
+    {
+        if (score >= 90) return PourQualityTier.Perfect;
+        if (score >= 60) return PourQualityTier.Good;
+        if (score >= 40) return PourQualityTier.Mediocre;
+        return PourQualityTier.Bad;
+    }
+
+    // Fallback lines when no authored note exists
+    private static readonly string[] s_pourPerfect  = { "Poured beautifully.", "That's a perfect pour." };
+    private static readonly string[] s_pourGood     = { "Nicely done.", "That looks good." };
+    private static readonly string[] s_pourMediocre = { "Hmm, a bit uneven.", "This could use some work." };
+    private static readonly string[] s_pourBad      = { "This is... rough.", "Did you even try?" };
+    private static readonly string[] s_likedIngredientFallback   = { "Ooh, I like what's in this." };
+    private static readonly string[] s_dislikedIngredientFallback = { "There's something in here I don't love." };
+    private static readonly string[] s_specialIngredientFallback  = { "You remembered my favorite!" };
+
+    private static string Pick(string[] arr) => arr[UnityEngine.Random.Range(0, arr.Length)];
+
+    /// <summary>
+    /// Detailed drink evaluation that checks actual glass contents, pour quality,
+    /// ingredient preferences, and collects noted response lines.
+    /// </summary>
+    /// <param name="recipe">The recipe that was attempted (for recipe-level like/dislike).</param>
+    /// <param name="score">Pour quality score 0-100.</param>
+    /// <param name="prefs">Character's preferences.</param>
+    /// <param name="glass">The actual glass contents (null if unavailable — falls back to recipe-only evaluation).</param>
+    public static DrinkVerdict EvaluateDrinkDetailed(
+        DrinkRecipeDefinition recipe, int score, DatePreferences prefs, DrinkGlass glass)
+    {
+        var verdict = new DrinkVerdict
+        {
+            reaction = ReactionType.Neutral,
+            pourTier = GetPourTier(score),
+            notes = new List<string>()
+        };
+
+        if (prefs == null) return verdict;
+
+        // ── Scoring: accumulate positive/negative signals ──
+        // Each factor nudges a running tally. Final reaction is derived from the sum.
+        int sentiment = 0; // positive = like, negative = dislike
+
+        // --- Recipe preference ---
+        bool isLikedRecipe = false;
+        bool isDislikedRecipe = false;
+        if (recipe != null && prefs.likedDrinks != null)
         {
             foreach (var liked in prefs.likedDrinks)
-            {
-                if (liked == recipe && score >= 60)
-                    return ReactionType.Like;
-            }
+                if (liked == recipe) { isLikedRecipe = true; break; }
         }
-
-        // Check disliked drinks
-        if (prefs.dislikedDrinks != null)
+        if (recipe != null && prefs.dislikedDrinks != null)
         {
             foreach (var disliked in prefs.dislikedDrinks)
+                if (disliked == recipe) { isDislikedRecipe = true; break; }
+        }
+
+        if (isLikedRecipe) sentiment += 2;
+        if (isDislikedRecipe) sentiment -= 2;
+
+        // --- Pour quality ---
+        switch (verdict.pourTier)
+        {
+            case PourQualityTier.Perfect: sentiment += 2; break;
+            case PourQualityTier.Good:    sentiment += 1; break;
+            case PourQualityTier.Mediocre: break; // no change
+            case PourQualityTier.Bad:     sentiment -= 2; break;
+        }
+
+        // Pour quality note (always included)
+        string pourNote = prefs.GetPourQualityNote(verdict.pourTier);
+        if (pourNote == null)
+        {
+            pourNote = verdict.pourTier switch
             {
-                if (disliked == recipe)
-                    return ReactionType.Dislike;
+                PourQualityTier.Perfect  => Pick(s_pourPerfect),
+                PourQualityTier.Good     => Pick(s_pourGood),
+                PourQualityTier.Mediocre => Pick(s_pourMediocre),
+                _                        => Pick(s_pourBad)
+            };
+        }
+        verdict.notes.Add(pourNote);
+
+        // --- Ingredient checks (only if we have the actual glass) ---
+        if (glass != null)
+        {
+            // Special ingredient
+            if (prefs.specialIngredient != null)
+            {
+                bool found = false;
+                for (int i = 0; i < glass.Layers.Count; i++)
+                {
+                    if (glass.Layers[i].ingredient == prefs.specialIngredient)
+                    { found = true; break; }
+                }
+
+                if (found)
+                {
+                    sentiment += 3;
+                    string note = prefs.GetSpecialIngredientNote() ?? Pick(s_specialIngredientFallback);
+                    verdict.notes.Add(note);
+                }
+            }
+
+            // Liked ingredients
+            if (prefs.likedIngredients != null)
+            {
+                foreach (var liked in prefs.likedIngredients)
+                {
+                    if (liked == null || liked == prefs.specialIngredient) continue;
+                    for (int i = 0; i < glass.Layers.Count; i++)
+                    {
+                        if (glass.Layers[i].ingredient == liked)
+                        {
+                            sentiment += 1;
+                            string note = prefs.GetDrinkIngredientNote(liked) ?? Pick(s_likedIngredientFallback);
+                            verdict.notes.Add(note);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Disliked ingredients
+            if (prefs.dislikedIngredients != null)
+            {
+                foreach (var disliked in prefs.dislikedIngredients)
+                {
+                    if (disliked == null) continue;
+                    for (int i = 0; i < glass.Layers.Count; i++)
+                    {
+                        if (glass.Layers[i].ingredient == disliked)
+                        {
+                            sentiment -= 2;
+                            string note = prefs.GetDrinkIngredientNote(disliked) ?? Pick(s_dislikedIngredientFallback);
+                            verdict.notes.Add(note);
+                            break;
+                        }
+                    }
+                }
             }
         }
 
-        // A well-made drink is always nice
-        if (score >= 80)
-            return ReactionType.Like;
+        // --- Derive final reaction from sentiment tally ---
+        if (sentiment >= 3)       verdict.reaction = ReactionType.Like;
+        else if (sentiment >= 1)  verdict.reaction = ReactionType.Like;
+        else if (sentiment <= -2) verdict.reaction = ReactionType.Dislike;
+        else                      verdict.reaction = ReactionType.Neutral;
 
-        return ReactionType.Neutral;
+        return verdict;
     }
 
     /// <summary>Evaluate an outfit against the date's style preferences.</summary>

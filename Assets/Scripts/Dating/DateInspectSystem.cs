@@ -21,6 +21,10 @@ public class DateInspectSystem : MonoBehaviour
     [Header("Wiggle")]
     [SerializeField] private float _wiggleDuration = 0.4f;
 
+    [Header("Audio")]
+    [Tooltip("SFX played when the player clicks an item to show the date.")]
+    [SerializeField] private AudioClip _inspectSFX;
+
     // Raycast buffer declared in UpdateHover (s_hoverBuffer)
 
     // Tooltip UI (built at runtime)
@@ -185,7 +189,11 @@ public class DateInspectSystem : MonoBehaviour
 
         bool firstTime = _inspected.Add(tag);
 
-        // 1. Wiggle the item
+        // 1. Play inspect SFX
+        if (_inspectSFX != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(_inspectSFX);
+
+        // 2. Wiggle the item
         StartCoroutine(WiggleItem(tag.transform));
 
         // 2. Apply affection change only on first inspect

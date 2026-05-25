@@ -194,18 +194,38 @@ public class DayPhaseManager : MonoBehaviour
             TryEditorQuickBoot();
 #endif
 
-        // Show tutorial card when starting directly in Exploration (demo flow)
-        if (_currentPhase == DayPhase.Exploration)
+        // Day 1 tutorial gate: clock is paused until the player completes 2 milestones.
+        // On gate pass, show the Paris card; on dismiss, start the clock.
+        if (_currentPhase == DayPhase.Exploration && TutorialGateTracker.Instance != null
+            && !TutorialGateTracker.Instance.GatePassed)
         {
-            StartCoroutine(ShowTutorialCardDelayed());
+            TutorialGateTracker.Instance.OnGatePassed.AddListener(OnTutorialGatePassed);
+        }
+        else if (_currentPhase == DayPhase.Exploration)
+        {
+            // Gate already passed (restore from save, day 2+, or no tracker)
+            GameClock.Instance?.SkipTutorialGate();
         }
     }
 
-    private IEnumerator ShowTutorialCardDelayed()
+    private void OnTutorialGatePassed()
     {
-        // Wait for loading screen to fade out
-        yield return new WaitForSecondsRealtime(0.7f);
-        TutorialCard.ShowObjective("Help Nema organize her room\nbefore her date Paris arrives tonight");
+        if (TutorialGateTracker.Instance != null)
+            TutorialGateTracker.Instance.OnGatePassed.RemoveListener(OnTutorialGatePassed);
+
+        // Show the scheduled date's personal ad
+        var date = DateSessionManager.Instance != null ? DateSessionManager.Instance.CurrentDate : null;
+        string cardText = date != null
+            ? $"<size=120%><b>{date.characterName}</b></size>\n\n{date.adText}"
+            : "Help Nema organize her room\nbefore her date arrives tonight";
+
+        TutorialCard.ShowObjective(cardText, OnTutorialCardDismissed);
+    }
+
+    private void OnTutorialCardDismissed()
+    {
+        GameClock.Instance?.ReleaseTutorialGate();
+        StartPrepTimer();
     }
 
 #if UNITY_EDITOR
@@ -266,6 +286,8 @@ public class DayPhaseManager : MonoBehaviour
         }
         if (GameClock.Instance != null)
             GameClock.Instance.OnCalendarComplete.RemoveListener(OnCalendarComplete);
+        if (TutorialGateTracker.Instance != null)
+            TutorialGateTracker.Instance.OnGatePassed.RemoveListener(OnTutorialGatePassed);
         if (Instance == this) Instance = null;
     }
 
@@ -713,8 +735,10 @@ public class DayPhaseManager : MonoBehaviour
         // 12. Flash visibility eyes on all items so the player sees what the date can notice
         VisibilityEyeIndicator.Instance?.FlashAllItems();
 
-        // 14. Start preparation countdown
-        StartPrepTimer();
+        // 14. Start preparation countdown (deferred on day 1 until tutorial gate passes)
+        bool waitingForGate = GameClock.Instance != null && GameClock.Instance.IsWaitingForTutorial;
+        if (!waitingForGate)
+            StartPrepTimer();
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -796,8 +820,10 @@ public class DayPhaseManager : MonoBehaviour
 
         OnPhaseChanged?.Invoke((int)DayPhase.Exploration);
 
-        // 10. Start prep timer (date will arrive when it expires or player calls)
-        StartPrepTimer();
+        // 10. Start prep timer (deferred on day 1 until tutorial gate passes)
+        bool waitingForGate = GameClock.Instance != null && GameClock.Instance.IsWaitingForTutorial;
+        if (!waitingForGate)
+            StartPrepTimer();
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -812,8 +838,8 @@ public class DayPhaseManager : MonoBehaviour
         // 1. Cinematic day intro — track shot + DAY N + Paris description
         if (DayIntroSequence.Instance != null)
         {
-            int day = GameClock.Instance != null ? GameClock.Instance.CurrentDay : 1;
-            yield return DayIntroSequence.Instance.Play(day);
+            int introDay = GameClock.Instance != null ? GameClock.Instance.CurrentDay : 1;
+            yield return DayIntroSequence.Instance.Play(introDay);
         }
 
         // Set phase to Exploration but skip newspaper and prep timer entirely
@@ -868,17 +894,41 @@ public class DayPhaseManager : MonoBehaviour
 
         OnPhaseChanged?.Invoke((int)DayPhase.Exploration);
 
-        // 10. Auto-schedule the Paris date for day 2+ and start prep timer
-        var tutorialDate = DayManager.Instance != null && DayManager.Instance.Pool != null
-            ? DayManager.Instance.Pool.tutorialDate
-            : null;
-        if (tutorialDate != null)
+        // 10. Auto-schedule the date and start prep timer.
+        //     On day 1 the prep timer is deferred until the tutorial gate passes
+        //     (OnTutorialCardDismissed starts it). Day 2+ starts it immediately.
+        var pool = DayManager.Instance != null ? DayManager.Instance.Pool : null;
+        int day = GameClock.Instance != null ? GameClock.Instance.CurrentDay : 1;
+        DatePersonalDefinition scheduledDate = null;
+
+        if (pool != null)
         {
-            DateSessionManager.Instance?.ScheduleDate(tutorialDate);
-            PhoneController.Instance?.SetPendingDate(tutorialDate);
+            if (day == 1 && pool.tutorialDate != null)
+                scheduledDate = pool.tutorialDate;
+            else if (day == 2 && pool.day2Date != null)
+                scheduledDate = pool.day2Date;
         }
 
-        StartPrepTimer();
+        if (scheduledDate != null)
+        {
+            DateSessionManager.Instance?.ScheduleDate(scheduledDate);
+            PhoneController.Instance?.SetPendingDate(scheduledDate);
+
+            // Day 2+: show a card announcing the date, then start prep timer
+            if (day >= 2)
+            {
+                yield return new WaitForSecondsRealtime(0.7f);
+                bool cardDismissed = false;
+                TutorialCard.ShowObjective(
+                    $"<size=120%><b>{scheduledDate.characterName}</b></size>\n\n{scheduledDate.adText}",
+                    () => cardDismissed = true);
+                yield return new WaitUntil(() => cardDismissed);
+            }
+        }
+
+        bool waitingForGate = GameClock.Instance != null && GameClock.Instance.IsWaitingForTutorial;
+        if (!waitingForGate)
+            StartPrepTimer();
     }
 
     // ═══════════════════════════════════════════════════════════════

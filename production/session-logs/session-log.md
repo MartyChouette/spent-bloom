@@ -45581,3 +45581,2003 @@ production/session-logs/session-log.md
 production/session-state/active.md
 ---
 
+## Session End: 20260522_155044
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+---
+
+## Session End: 20260522_155310
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_160558
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_160614
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_160805
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_160814
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_161127
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_161138
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_161227
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_161316
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_162429
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_162906
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_172641
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_172753
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_173149
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_173312
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_173405
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_173645
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_174340
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_174627
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_174714
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_174900
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_175743
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_180100
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_180621
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_181323
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_192502
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_192536
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_192757
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_192842
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_194134
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_194256
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_194439
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_194619
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_195306
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_195826
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_195950
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_200048
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_200123
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_200424
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_200521
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202301
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202305
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202350
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202440
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202616
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202718
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202742
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202753
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202809
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202824
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_202910
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_203122
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_203312
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_203352
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_203610
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_203711
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_203908
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_204403
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_204952
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260522_205004
+### Commits
+320f717 Remove design docs from repo, narrow docs gitignore
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260524_183126
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/FridgeController.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/ObjectGrabber.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260524_183144
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/FridgeController.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/ObjectGrabber.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260524_184844
+### Uncommitted Changes
+Assets/Scenes/ART_apartment 1.unity
+Assets/Scenes/ART_apartment 1.unity.meta
+Assets/Scenes/Canvas.prefab
+Assets/Scenes/Canvas.prefab.meta
+Assets/Scenes/Daisy_Flower_Scene.unity
+Assets/Scenes/DrinkTest.unity
+Assets/Scenes/DrinkTest.unity.meta
+Assets/Scenes/Hint.prefab
+Assets/Scenes/Hint.prefab.meta
+Assets/Scenes/Hover Hint .prefab
+Assets/Scenes/Hover Hint .prefab.meta
+Assets/Scenes/LightTest.unity
+Assets/Scenes/LightTest.unity.meta
+Assets/Scenes/UI_Mockup.unity
+Assets/Scenes/UI_Mockup.unity.meta
+Assets/Scenes/apartment.unity
+Assets/ScriptableObjects/GameModes/Mode_7Minutes.asset
+Assets/Scripts/Apartment/ApartmentClock.cs
+Assets/Scripts/Apartment/BookCollectionItem.cs
+Assets/Scripts/Apartment/DropZone.cs
+Assets/Scripts/Apartment/FridgeController.cs
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/ObjectGrabber.cs
+Assets/Scripts/Apartment/PairableItem.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/DayManager.cs
+Assets/Scripts/Dating/NewspaperPoolDefinition.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/Framework/FlowerTrimmingBridge.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/Mechanics/Cleaning/CleanableSurface.cs
+Assets/Scripts/Mechanics/DrinkMaking/GlassController.cs
+Assets/Scripts/Mechanics/DrinkMaking/SimpleDrinkManager.cs
+Assets/Scripts/UI/HintDisplayManager.cs
+ProjectSettings/TimeManager.asset
+production/session-logs/session-log.md
+---
+

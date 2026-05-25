@@ -149,6 +149,7 @@ public class CleanableSurface : MonoBehaviour
         {
             _fullyCleanFired = true;
             Debug.Log($"[CleanableSurface] {_definition.displayName} is fully clean.");
+            TutorialGateTracker.Instance?.RecordMilestone(TutorialGateTracker.MilestoneType.StainCleaned);
             OnFullyClean?.Invoke();
         }
     }

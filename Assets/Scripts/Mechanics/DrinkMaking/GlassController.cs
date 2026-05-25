@@ -128,22 +128,41 @@ public class GlassController : MonoBehaviour
 
     // ── Glow API ─────────────────────────────────────────────────────
 
+    /// <summary>Set the rim glow color (call before EnableGlow or while glowing).</summary>
+    public void SetGlowColor(Color rimColor)
+    {
+        _customRimColor = rimColor;
+        _hasCustomColor = true;
+        if (_glowing && _rimMat != null)
+            _rimMat.SetColor("_RimColor", rimColor);
+    }
+
+    private Color _customRimColor;
+    private bool _hasCustomColor;
+
     /// <summary>Add a rim light glow to the glass shell.</summary>
     public void EnableGlow()
     {
         if (_glowing) return;
         if (_glassRenderer == null) return;
 
+        Color rimColor = _hasCustomColor ? _customRimColor : new Color(0.6f, 0.9f, 1f, 0.55f);
+
         if (_rimMat == null)
         {
             var shader = Shader.Find("Iris/Highlight");
             if (shader == null) return;
             _rimMat = new Material(shader);
-            _rimMat.SetColor("_HighlightColor", new Color(0.6f, 0.9f, 1f, 0.15f));
-            _rimMat.SetColor("_RimColor", new Color(0.6f, 0.9f, 1f, 0.55f));
+            _rimMat.SetColor("_HighlightColor", new Color(rimColor.r, rimColor.g, rimColor.b, 0.15f));
+            _rimMat.SetColor("_RimColor", rimColor);
             _rimMat.SetFloat("_RimPower", 2.5f);
             _rimMat.SetFloat("_PulseSpeed", 2f);
             _rimMat.SetFloat("_PulseAmount", 0.1f);
+        }
+        else
+        {
+            _rimMat.SetColor("_RimColor", rimColor);
+            _rimMat.SetColor("_HighlightColor", new Color(rimColor.r, rimColor.g, rimColor.b, 0.15f));
         }
 
         _baseMaterials = _glassRenderer.sharedMaterials;
@@ -163,6 +182,7 @@ public class GlassController : MonoBehaviour
         if (_baseMaterials != null)
             _glassRenderer.materials = _baseMaterials;
         _glowing = false;
+        _hasCustomColor = false;
     }
 
     // ── MonoBehaviour ──────────────────────────────────────────────────
@@ -185,15 +205,27 @@ public class GlassController : MonoBehaviour
     // ── Glow pulse (while pouring) ──────────────────────────────────────
 
     private bool _isPouring;
+    private bool _completedFlash;
 
     /// <summary>Signal that liquid is actively being poured into this glass.</summary>
     public void SetPouring(bool pouring) { _isPouring = pouring; }
+
+    /// <summary>Enable a bright, fast green flash for completed drinks.</summary>
+    public void SetCompletedFlash(bool on) { _completedFlash = on; }
 
     private void UpdateGlowPulse()
     {
         if (!_glowing || _rimMat == null) return;
 
-        if (_isPouring)
+        if (_completedFlash)
+        {
+            // Completed drink: bright green, fast flash
+            float pulse = 1.2f + Mathf.Sin(Time.time * 8f) * 0.8f;
+            _rimMat.SetFloat("_RimIntensity", pulse);
+            _rimMat.SetColor("_RimColor", new Color(0.2f, 1f, 0.3f, 0.85f));
+            _rimMat.SetColor("_HighlightColor", new Color(0.2f, 1f, 0.3f, 0.35f));
+        }
+        else if (_isPouring)
         {
             // Pulse the rim intensity while actively pouring
             float pulse = 1.0f + Mathf.Sin(Time.time * 4f) * 0.4f;
@@ -202,9 +234,9 @@ public class GlassController : MonoBehaviour
         }
         else
         {
-            // Idle glow — gentle blue rim
+            // Idle glow — use custom color if set, otherwise gentle blue rim
             _rimMat.SetFloat("_RimIntensity", 1.2f);
-            _rimMat.SetColor("_RimColor", new Color(0.6f, 0.9f, 1f, 0.55f));
+            _rimMat.SetColor("_RimColor", _hasCustomColor ? _customRimColor : new Color(0.6f, 0.9f, 1f, 0.55f));
         }
     }
 

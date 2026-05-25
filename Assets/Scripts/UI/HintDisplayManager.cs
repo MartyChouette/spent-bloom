@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -26,8 +27,21 @@ public class HintDisplayManager : MonoBehaviour
     [Tooltip("List of hint definitions. One per game phase.")]
     [SerializeField] private HintDefinition[] _hints;
 
+    [Header("Auto-Show & Minimize")]
+    [Tooltip("Seconds the hint panel stays open before minimizing.")]
+    [SerializeField] private float _showDuration = 2f;
+
+    [Tooltip("Duration of the minimize animation.")]
+    [SerializeField] private float _animDuration = 0.3f;
+
+    [Tooltip("Scale when the hint is minimized (small enough to not obstruct, big enough to find).")]
+    [SerializeField] private float _minimizedScale = 0.45f;
+
     private HintDefinition.GamePhase _currentPhase;
     private bool _visible = true;
+    private Coroutine _enlargeCoroutine;
+    private RectTransform _panelRT;
+    private bool _panelCached;
 
     private void Awake()
     {
@@ -178,13 +192,35 @@ public class HintDisplayManager : MonoBehaviour
     {
         _visible = visible;
         if (_hintPanel != null)
+        {
             _hintPanel.SetActive(visible);
+            // Restore full size when manually opened
+            if (visible)
+            {
+                CachePanel();
+                if (_panelRT != null) _panelRT.localScale = Vector3.one;
+                if (_panelCanvasGroup != null) _panelCanvasGroup.alpha = 1f;
+            }
+        }
     }
 
-    /// <summary>Toggle hint panel visibility.</summary>
+    /// <summary>Toggle between minimized and full size.</summary>
     public void Toggle()
     {
-        SetVisible(!_visible);
+        CachePanel();
+        bool isMinimized = _panelRT != null && _panelRT.localScale.x < 0.9f;
+        if (isMinimized)
+        {
+            // Expand back to full
+            if (_panelRT != null) _panelRT.localScale = Vector3.one;
+            if (_panelCanvasGroup != null) _panelCanvasGroup.alpha = 1f;
+        }
+        else
+        {
+            // Minimize
+            if (_panelRT != null) _panelRT.localScale = Vector3.one * _minimizedScale;
+            if (_panelCanvasGroup != null) _panelCanvasGroup.alpha = 0.6f;
+        }
     }
 
     /// <summary>Override both texts directly (for one-off hints).</summary>
@@ -219,6 +255,69 @@ public class HintDisplayManager : MonoBehaviour
         Debug.Log($"[HintDisplayManager] Applying hint: {hint.name} ({hint.phase})");
         if (_hintContentText != null) _hintContentText.text = hint.hintContent;
         if (_hintPromptText != null) _hintPromptText.text = hint.hintPrompt;
-        SetVisible(true);
+
+        // Show the hint open, then minimize so the player sees where it went
+        ShowThenMinimize();
+    }
+
+    // ── Enlarge on change ─────────────────────────────────────────────
+
+    private void CachePanel()
+    {
+        if (_panelCached) return;
+        if (_hintPanel == null) return;
+        _panelRT = _hintPanel.GetComponent<RectTransform>();
+        _panelCached = true;
+    }
+
+    private CanvasGroup _panelCanvasGroup;
+
+    private void ShowThenMinimize()
+    {
+        if (!Application.isPlaying) return;
+        CachePanel();
+
+        if (_enlargeCoroutine != null)
+            StopCoroutine(_enlargeCoroutine);
+
+        if (_hintPanel != null)
+        {
+            _hintPanel.SetActive(true);
+            if (_panelCanvasGroup == null)
+                _panelCanvasGroup = _hintPanel.GetComponent<CanvasGroup>();
+            if (_panelCanvasGroup == null)
+                _panelCanvasGroup = _hintPanel.AddComponent<CanvasGroup>();
+        }
+        _visible = true;
+
+        _enlargeCoroutine = StartCoroutine(ShowThenMinimizeSequence());
+    }
+
+    private IEnumerator ShowThenMinimizeSequence()
+    {
+        if (_panelRT == null) yield break;
+
+        // Start full size and fully opaque
+        _panelRT.localScale = Vector3.one;
+        if (_panelCanvasGroup != null) _panelCanvasGroup.alpha = 1f;
+
+        // Hold open
+        yield return new WaitForSecondsRealtime(_showDuration);
+
+        // Minimize: shrink and fade to semi-transparent
+        float elapsed = 0f;
+        while (elapsed < _animDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / _animDuration);
+            _panelRT.localScale = Vector3.Lerp(Vector3.one, Vector3.one * _minimizedScale, t);
+            if (_panelCanvasGroup != null)
+                _panelCanvasGroup.alpha = Mathf.Lerp(1f, 0.6f, t);
+            yield return null;
+        }
+        _panelRT.localScale = Vector3.one * _minimizedScale;
+        if (_panelCanvasGroup != null) _panelCanvasGroup.alpha = 0.6f;
+
+        _enlargeCoroutine = null;
     }
 }

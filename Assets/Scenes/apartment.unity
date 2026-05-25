@@ -18625,6 +18625,7 @@ MonoBehaviour:
   _revealFailThreshold: 30
   _bailOutThreshold: 10
   _flowerAffectionThreshold: 90
+  _enableAmbientMoodDrift: 0
   moodCheckInterval: 15
   ambientMoodDrift: 0.5
   phase3Duration: 40
@@ -24156,6 +24157,8 @@ GameObject:
   - component: {fileID: 885491238}
   - component: {fileID: 885491239}
   - component: {fileID: 885491240}
+  - component: {fileID: 885491242}
+  - component: {fileID: 885491241}
   m_Layer: 15
   m_Name: Triangle Perfume
   m_TagString: Untagged
@@ -24256,6 +24259,67 @@ MonoBehaviour:
   isActive: 1
   reactionIcon: {fileID: 0}
   smellAmount: 0
+--- !u!114 &885491241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885491235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71b51f9af8c6194ab521348af2210a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaceableObject
+  heldBrightness: 1.4
+  respawnDelay: 0.5
+  _itemCategory: 0
+  _homeZoneName: 
+  _altHomeZoneName: 
+  _itemDescription: 
+  _smellPerDay: 0
+  _daysLeftOut: 0
+  canWallMount: 0
+  wallOnly: 0
+  crookedAngleRange: 12
+  _rotateMode: 0
+  _rotatePivot: {fileID: 0}
+  _allowAutoStraighten: 1
+  _disheveledRotation: {x: 0, y: 0, z: 0, w: 1}
+  _startDishelved: 0
+  _pickupSFXOverride: {fileID: 0}
+  _placeSFXOverride: {fileID: 0}
+  _useSpawnAsHome: 0
+  _homePosition: {x: 0, y: 0, z: 0}
+  _homeTolerance: 0.2
+  _homeRotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!54 &885491242
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885491235}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &887305160
 GameObject:
   m_ObjectHideFlags: 0
@@ -41812,6 +41876,7 @@ MonoBehaviour:
   _entranceBounds:
     m_Center: {x: -2.51, y: 2.06, z: -4.17}
     m_Extent: {x: 3.43, y: 2.44, z: 1.8}
+  _plantSmellReduction: 0.15
 --- !u!4 &1271655109
 Transform:
   m_ObjectHideFlags: 0

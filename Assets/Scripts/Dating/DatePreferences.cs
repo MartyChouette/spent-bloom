@@ -23,12 +23,42 @@ public class DatePreferences
     [Range(0f, 1f)]
     public float preferredMoodMax = 0.5f;
 
-    [Header("Drinks")]
+    [Header("Drinks — Recipes")]
     [Tooltip("Drink recipes this date enjoys.")]
     public DrinkRecipeDefinition[] likedDrinks = { };
 
     [Tooltip("Drink recipes this date dislikes.")]
     public DrinkRecipeDefinition[] dislikedDrinks = { };
+
+    [Header("Drinks — Ingredients")]
+    [Tooltip("Individual ingredients this date likes (e.g. cream, lavender).")]
+    public DrinkIngredientDefinition[] likedIngredients = { };
+
+    [Tooltip("Individual ingredients this date dislikes (e.g. grenadine).")]
+    public DrinkIngredientDefinition[] dislikedIngredients = { };
+
+    [Tooltip("This date's one special favorite ingredient. Triggers a unique reaction.")]
+    public DrinkIngredientDefinition specialIngredient;
+
+    [Header("Drinks — Noted Responses")]
+    [Tooltip("Authored lines the date says about specific ingredients or pour quality.")]
+    public DrinkNote[] drinkNotes = { };
+
+    [System.Serializable]
+    public struct DrinkNote
+    {
+        [Tooltip("Ingredient this note is about. Leave empty for pour-quality notes.")]
+        public DrinkIngredientDefinition ingredient;
+
+        [Tooltip("Which pour quality tier triggers this note. Ignored if ingredient is set.")]
+        public PourQualityTier pourTier;
+
+        [Tooltip("True if this note is for the special ingredient (overrides ingredient field).")]
+        public bool isSpecialNote;
+
+        [TextArea(1, 3)]
+        public string line;
+    }
 
     [Header("Outfit")]
     [Tooltip("Outfit style tags this date likes.")]
@@ -116,6 +146,54 @@ public class DatePreferences
                 if (string.Equals(bespokeReactions[i].tag, itemTags[j], System.StringComparison.OrdinalIgnoreCase))
                     return bespokeReactions[i].line;
             }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Look up an authored drink note for a specific ingredient.
+    /// Returns null if no match found.
+    /// </summary>
+    public string GetDrinkIngredientNote(DrinkIngredientDefinition ingredient)
+    {
+        if (drinkNotes == null || ingredient == null) return null;
+        for (int i = 0; i < drinkNotes.Length; i++)
+        {
+            if (drinkNotes[i].isSpecialNote) continue;
+            if (drinkNotes[i].ingredient == ingredient)
+                return drinkNotes[i].line;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Look up an authored drink note for the special ingredient.
+    /// Returns null if no match found.
+    /// </summary>
+    public string GetSpecialIngredientNote()
+    {
+        if (drinkNotes == null) return null;
+        for (int i = 0; i < drinkNotes.Length; i++)
+        {
+            if (drinkNotes[i].isSpecialNote)
+                return drinkNotes[i].line;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Look up an authored drink note for a pour quality tier.
+    /// Returns null if no match found.
+    /// </summary>
+    public string GetPourQualityNote(PourQualityTier tier)
+    {
+        if (drinkNotes == null) return null;
+        for (int i = 0; i < drinkNotes.Length; i++)
+        {
+            if (drinkNotes[i].ingredient != null) continue;
+            if (drinkNotes[i].isSpecialNote) continue;
+            if (drinkNotes[i].pourTier == tier)
+                return drinkNotes[i].line;
         }
         return null;
     }

@@ -20,9 +20,12 @@ public class NewspaperPoolDefinition : ScriptableObject
     [Range(0, 6)]
     public int commercialAdsPerDay = 3;
 
-    [Header("Tutorial")]
+    [Header("Scheduled Dates")]
     [Tooltip("If set, this character is forced as the only selectable ad on Day 1.")]
     public DatePersonalDefinition tutorialDate;
+
+    [Tooltip("If set, this character is auto-scheduled on Day 2.")]
+    public DatePersonalDefinition day2Date;
 
     [Header("Repeat Rules")]
     [Tooltip("Can the same ad appear on consecutive days?")]

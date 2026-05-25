@@ -658,7 +658,9 @@ public class ObjectGrabber : MonoBehaviour
 
             // Click on album sleeve — extract vinyl if hovered/peeking (fully blocked during dates)
             bool dateActiveForSleeve = DateSessionManager.Instance != null && DateSessionManager.Instance.IsDateActive;
-            if (!dateActiveForSleeve)
+            bool revealPhaseForSleeve = DateSessionManager.Instance != null
+                && DateSessionManager.Instance.CurrentDatePhase == DateSessionManager.DatePhase.Reveal;
+            if (!dateActiveForSleeve && !revealPhaseForSleeve)
             {
                 var clickedSleeve = hit.collider.GetComponent<AlbumSleeve>();
                 if (clickedSleeve == null)
@@ -692,11 +694,15 @@ public class ObjectGrabber : MonoBehaviour
                 }
             }
 
+            // Block all record player interaction during Phase 3 (Reveal)
+            bool isRevealPhase = DateSessionManager.Instance != null
+                && DateSessionManager.Instance.CurrentDatePhase == DateSessionManager.DatePhase.Reveal;
+
             // Click on vinyl sitting on platter:
             //   If playing → stop (pause + lift needle)
             //   If stopped → pick up into hand
             var clickedVinyl = hit.collider.GetComponent<VinylDisc>();
-            if (clickedVinyl != null && RecordSlot.Instance != null && RecordSlot.Instance.IsLoaded)
+            if (!isRevealPhase && clickedVinyl != null && RecordSlot.Instance != null && RecordSlot.Instance.IsLoaded)
             {
                 if (RecordSlot.Instance.IsPlaying)
                 {
@@ -717,7 +723,7 @@ public class ObjectGrabber : MonoBehaviour
             }
 
             // Click on turntable lid — toggle open/close
-            if (RecordSlot.Instance != null && RecordSlot.Instance.IsLidTarget(hit.collider))
+            if (!isRevealPhase && RecordSlot.Instance != null && RecordSlot.Instance.IsLidTarget(hit.collider))
             {
                 RecordSlot.Instance.ToggleLid();
                 ConsumeClick();
@@ -728,21 +734,8 @@ public class ObjectGrabber : MonoBehaviour
             var clickedSlot = hit.collider.GetComponent<RecordSlot>();
             if (clickedSlot == null)
                 clickedSlot = hit.collider.GetComponentInParent<RecordSlot>();
-            if (clickedSlot != null && clickedSlot.IsLoaded)
+            if (!isRevealPhase && clickedSlot != null && clickedSlot.IsLoaded)
             {
-                // If paused, eject vinyl into hand instead of resuming
-                if (!clickedSlot.IsPlaying)
-                {
-                    var ejected = clickedSlot.EjectVinyl();
-                    if (ejected != null)
-                    {
-                        _held = ejected;
-                        _pickupTimer = PickupFeelDuration;
-                        InitGrab();
-                        ConsumeClick();
-                        return;
-                    }
-                }
                 clickedSlot.TogglePlayPause();
                 ConsumeClick();
                 return;

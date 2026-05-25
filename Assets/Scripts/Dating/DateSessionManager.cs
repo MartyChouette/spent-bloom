@@ -420,7 +420,7 @@ public class DateSessionManager : MonoBehaviour
 #endif
     }
 
-    /// <summary>Called when the arrival timer expires — triggers phone ring or direct arrival.</summary>
+    /// <summary>Called when the arrival timer expires — triggers doorbell + phone ring or direct arrival.</summary>
     private void TriggerDateArrival()
     {
 #if UNITY_EDITOR
@@ -428,9 +428,13 @@ public class DateSessionManager : MonoBehaviour
 #endif
 
         if (PhoneController.Instance != null)
-            PhoneController.Instance.StartRinging();
+        {
+            PhoneController.Instance.PlayDoorbell();
+        }
         else
+        {
             OnDateCharacterArrived();
+        }
     }
 
     /// <summary>Called when the player answers the door. Starts the date.</summary>
@@ -1684,7 +1688,7 @@ public class DateSessionManager : MonoBehaviour
         // Spawn a dirty glass on the coffee table (persists as next-day dish)
         SpawnDirtyGlass();
 
-        StartCoroutine(DrinkVerdictSequence(recipe, score));
+        StartCoroutine(DrinkVerdictSequence(recipe, score, servedGlass));
     }
 
     private GameObject _spawnedDirtyGlass;
@@ -1903,15 +1907,17 @@ public class DateSessionManager : MonoBehaviour
 
     // ──────────────────────────────────────────────────────────────
 
-    /// <summary>Dramatic drink tasting beat → verdict → continue button → Phase 3.</summary>
-    private IEnumerator DrinkVerdictSequence(DrinkRecipeDefinition recipe, int score)
+    /// <summary>Dramatic drink tasting beat → noted responses → verdict → continue button → Phase 3.</summary>
+    private IEnumerator DrinkVerdictSequence(DrinkRecipeDefinition recipe, int score, DrinkGlass glass = null)
     {
         _drinkVerdictRunning = true;
 
-        var reactionType = ReactionEvaluator.EvaluateDrink(recipe, score, _currentDate.preferences);
+        var verdict = ReactionEvaluator.EvaluateDrinkDetailed(recipe, score, _currentDate.preferences, glass);
+        var reactionType = verdict.reaction;
         float magnitude = score / 100f;
         var reactionUI = _dateCharacterGO?.GetComponent<DateReactionUI>();
         string drinkName = recipe != null ? recipe.drinkName : "Drink";
+        bool earnedSwirl = _enableVerdictSwirl && verdict.pourTier == PourQualityTier.Perfect;
 
         // ── Cinematic: fade to white, strip apartment, reveal characters in nature ──
 
@@ -1936,15 +1942,15 @@ public class DateSessionManager : MonoBehaviour
         Vector3 camDir = (camStartPos - zoomTarget).normalized;
         Vector3 camEndPos = zoomTarget + camDir * _verdictZoomDistance;
 
-        // 4. Fade from white → characters floating in the sky
+        // 4. Fade from white
         if (ScreenFade.Instance != null)
             yield return ScreenFade.Instance.FadeIn(0.5f);
 
-        // 5. Zoom in + optional orbit swirl around the date (skippable)
+        // 5. Camera movement — swirl only on Perfect pour, otherwise simple zoom
         Vector3 finalCamPos;
         Quaternion finalCamRot;
 
-        if (_enableVerdictSwirl)
+        if (earnedSwirl)
         {
             // Orbit swirl: camera spirals around the character while zooming in
             float swirlElapsed = 0f;
@@ -1954,7 +1960,6 @@ public class DateSessionManager : MonoBehaviour
             float totalAngle = endAngle - startAngle;
             float startDist = Vector3.Distance(camStartPos, zoomTarget);
 
-            // Compute final position for skip
             Vector3 endOrbitPos = zoomTarget + new Vector3(Mathf.Cos(endAngle), 0f, Mathf.Sin(endAngle)) * _verdictZoomDistance;
             endOrbitPos.y = zoomTarget.y + _swirlEndHeight;
             finalCamPos = endOrbitPos;
@@ -1965,7 +1970,6 @@ public class DateSessionManager : MonoBehaviour
                 swirlElapsed += Time.deltaTime;
                 float t = Mathf.SmoothStep(0f, 1f, swirlElapsed / totalDuration);
 
-                // Spiral in: distance decreases, angle increases
                 float dist = Mathf.Lerp(startDist, _verdictZoomDistance, t);
                 float angle = startAngle + totalAngle * t;
                 float height = Mathf.Lerp(zoomTarget.y + _swirlStartHeight, zoomTarget.y + _swirlEndHeight, t);
@@ -1973,7 +1977,6 @@ public class DateSessionManager : MonoBehaviour
                 Vector3 orbitPos = zoomTarget + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * dist;
                 orbitPos.y = height;
 
-                // Camera always looks at the character
                 Quaternion lookRot = Quaternion.LookRotation(zoomTarget - orbitPos, Vector3.up);
                 float fov = Mathf.Lerp(camStartFOV, _verdictZoomFOV, t);
 
@@ -1984,7 +1987,7 @@ public class DateSessionManager : MonoBehaviour
         }
         else
         {
-            // Simple straight zoom (fallback)
+            // Simple straight zoom (non-Perfect pours)
             finalCamPos = camEndPos;
             finalCamRot = camStartRot;
 
@@ -2003,18 +2006,30 @@ public class DateSessionManager : MonoBehaviour
             }
         }
 
-        // Snap to final close-up (in case we skipped mid-animation)
+        // Snap to final close-up
         am?.SetPresetBase(finalCamPos, finalCamRot, _verdictZoomFOV);
 
         // 6. Suspense — thinking face
-        if (reactionUI != null && reactionUI.gameObject.activeInHierarchy) reactionUI.ShowText("Hmm...", _drinkTastingHold);
+        if (reactionUI != null && reactionUI.gameObject.activeInHierarchy)
+            reactionUI.ShowText("Hmm...", _drinkTastingHold);
         yield return CacheDrinkTastingWait();
 
-        // 7. Verdict reaction
+        // 7. Noted responses — show each note as a sequential beat
+        if (verdict.notes != null && verdict.notes.Count > 0)
+        {
+            for (int i = 0; i < verdict.notes.Count; i++)
+            {
+                if (reactionUI != null && reactionUI.gameObject.activeInHierarchy)
+                    reactionUI.ShowText(verdict.notes[i], 1.8f);
+                yield return new WaitForSeconds(2.2f);
+            }
+        }
+
+        // 8. Final verdict reaction
         reactionUI?.ShowLabeledReaction(reactionType, drinkName);
         ApplyReaction(reactionType, magnitude);
 
-        // 8. Flower popup + particles
+        // 9. Flower popup + particles
         if (reactionType != ReactionType.Neutral)
         {
             string sym = reactionType == ReactionType.Like ? " \u2665" : " \u2639";
@@ -2024,14 +2039,15 @@ public class DateSessionManager : MonoBehaviour
                 SpawnReactionParticles(_dateCharacterGO.transform.position + Vector3.up * 0.5f, reactionType);
         }
 
-        // Hold for flower animation + let the moment breathe
+        // Hold for the moment to breathe
         yield return s_wait2;
 
 #if UNITY_EDITOR
-        Debug.Log($"[DateSessionManager] Drink verdict: {drinkName} (score={score}) \u2192 {reactionType}");
+        Debug.Log($"[DateSessionManager] Drink verdict: {drinkName} (score={score}, tier={verdict.pourTier}) " +
+                  $"\u2192 {reactionType} ({verdict.notes?.Count ?? 0} notes)");
 #endif
 
-        // 9. Wait for player to acknowledge (still in the cinematic close-up)
+        // 10. Wait for player to acknowledge
         if (PhaseContinueButton.Instance != null)
         {
             bool clicked = false;
@@ -2039,16 +2055,13 @@ public class DateSessionManager : MonoBehaviour
             yield return new WaitUntil(() => clicked);
         }
 
-        // 10. Fade out, restore apartment, go straight to Phase 3
-        //     (skip returning to Phase 2 camera — transition handles its own fade-in)
+        // 11. Fade out, restore apartment, go straight to Phase 3
         if (ScreenFade.Instance != null)
             yield return ScreenFade.Instance.FadeOut(0.5f);
 
         RestoreApartmentRenderers(hiddenRenderers);
-        // Don't ClearPresetBase here — that would flash the kitchen camera.
-        // TransitionToPhase3 snaps the Phase 3 camera while still faded.
 
-        // Transition to Phase 3 while still faded — it does its own fade-in
+        // Transition to Phase 3 while still faded
         yield return TransitionToPhase3();
         _drinkVerdictRunning = false;
     }

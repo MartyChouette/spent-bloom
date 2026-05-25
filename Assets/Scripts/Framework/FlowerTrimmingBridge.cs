@@ -21,8 +21,8 @@ public class FlowerTrimmingBridge : MonoBehaviour
     [Tooltip("Default flower trimming scene. Overridden per-date via DatePersonalDefinition.flowerSceneName.")]
     [SerializeField] private string _flowerSceneName = "Daisy_Flower_Scene";
 
-    [Tooltip("Vertical offset applied to the flower scene so it doesn't overlap the apartment.")]
-    [SerializeField] private float _sceneYOffset = 50f;
+    [Tooltip("Z offset applied to the flower scene so it doesn't overlap the apartment.")]
+    [SerializeField] private float _sceneZOffset = 50f;
 
     [Header("Debug")]
     [Tooltip("Always treat flower trimming as a success (high score, max days alive, no game over).")]
@@ -144,9 +144,9 @@ public class FlowerTrimmingBridge : MonoBehaviour
         // Wait one frame so all Start() methods run and joints are created.
         yield return null;
 
-        Vector3 offset = new Vector3(0f, _sceneYOffset, 0f);
+        Vector3 offset = new Vector3(0f, 0f, _sceneZOffset);
         var roots = flowerScene.GetRootGameObjects();
-        Debug.Log($"[FlowerTrimmingBridge] Scene '{sceneName}' loaded with {roots.Length} root objects, offsetting by Y={_sceneYOffset}.");
+        Debug.Log($"[FlowerTrimmingBridge] Scene '{sceneName}' loaded with {roots.Length} root objects, offsetting by Z={_sceneZOffset}.");
 
         // Suppress joint breaks during the move
         XYTetherJoint.SetCutBreakSuppressed(true);

@@ -10,7 +10,7 @@ public class SimpleDrinkManager : MonoBehaviour, IStationManager
 {
     public static SimpleDrinkManager Instance { get; private set; }
 
-    public enum State { ChoosingRecipe, Pouring, Scoring }
+    public enum State { ChoosingRecipe, Pouring, Scoring, WaitingToServe }
 
     [Header("References")]
     [Tooltip("Available recipes the player can choose from.")]
@@ -130,6 +130,9 @@ public class SimpleDrinkManager : MonoBehaviour, IStationManager
                 break;
             case State.Scoring:
                 UpdateScoring();
+                break;
+            case State.WaitingToServe:
+                UpdateWaitingToServe();
                 break;
         }
     }
@@ -300,17 +303,6 @@ public class SimpleDrinkManager : MonoBehaviour, IStationManager
         else if (!isPerfect && lastScore < 30 && failSFX != null && AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX(failSFX);
 
-        // Deliver drink to coffee table
-        CoffeeTableDelivery.Instance?.DeliverDrink(_activeRecipe, _activeRecipe.liquidColor, lastScore);
-
-        // Voice reaction to drink quality
-        if (lastScore >= 80)
-            DialoguePortraitBox.Instance?.Say("Mmm, that's delicious!", 2.5f);
-        else if (lastScore >= 40)
-            DialoguePortraitBox.Instance?.Say("Not bad... interesting choice.", 2.5f);
-        else
-            DialoguePortraitBox.Instance?.Say("Um... what did you put in this?", 2.5f);
-
         CurrentState = State.Scoring;
         _scoreTimer = _scoreDisplayTime;
 
@@ -322,15 +314,49 @@ public class SimpleDrinkManager : MonoBehaviour, IStationManager
         _scoreTimer -= Time.deltaTime;
         if (_scoreTimer <= 0f)
         {
-            _activeRecipe = null;
-            CurrentState = State.ChoosingRecipe;
+            // Transition to WaitingToServe — glow the glass yellow so the player clicks to serve
+            CurrentState = State.WaitingToServe;
 
-            // Hide HUD and close fridge after drink is done
-            HideRecipePanel();
-            FridgeController.Instance?.CloseDoor();
+            if (_cachedGlass == null)
+                _cachedGlass = Object.FindAnyObjectByType<GlassController>();
+            if (_cachedGlass != null)
+            {
+                _cachedGlass.SetCompletedFlash(true);
+                _cachedGlass.EnableGlow();
+            }
 
-            Debug.Log("[SimpleDrinkManager] Drink complete — HUD hidden, fridge closing.");
+            Debug.Log("[SimpleDrinkManager] Drink scored — waiting for player to click glass to serve.");
         }
+    }
+
+    private void UpdateWaitingToServe()
+    {
+        if (IrisInput.Instance == null || !IrisInput.Instance.Click.WasPressedThisFrame()) return;
+
+        Vector2 pointer = IrisInput.CursorPosition;
+        Ray ray = ApartmentManager.Instance != null
+            ? ApartmentManager.Instance.ScreenPointToRay(pointer)
+            : _mainCamera.ScreenPointToRay(pointer);
+
+        if (!Physics.Raycast(ray, out RaycastHit hit, 100f, _glassLayer)) return;
+
+        // Player clicked the glass — deliver the drink
+        if (_cachedGlass != null)
+        {
+            _cachedGlass.SetCompletedFlash(false);
+            _cachedGlass.DisableGlow();
+        }
+
+        if (_activeRecipe != null)
+            CoffeeTableDelivery.Instance?.DeliverDrink(_activeRecipe, _activeRecipe.liquidColor, lastScore);
+
+        _activeRecipe = null;
+        CurrentState = State.ChoosingRecipe;
+
+        HideRecipePanel();
+        FridgeController.Instance?.CloseDoor();
+
+        Debug.Log("[SimpleDrinkManager] Drink served to date.");
     }
 
     /// <summary>
@@ -345,6 +371,11 @@ public class SimpleDrinkManager : MonoBehaviour, IStationManager
     /// <summary>Force back to idle. Called on phase transitions to close HUD.</summary>
     public void ForceIdle()
     {
+        if (_cachedGlass != null)
+        {
+            _cachedGlass.SetCompletedFlash(false);
+            _cachedGlass.DisableGlow();
+        }
         _activeRecipe = null;
         CurrentState = State.ChoosingRecipe;
         HideRecipePanel();

@@ -66,6 +66,9 @@ public class GameClock : MonoBehaviour
     private float _demoTimeLimitSeconds;
     private float _demoTimeRemaining;
 
+    // Tutorial gate — clock doesn't tick until the gate is released
+    private bool _waitingForTutorial = true;
+
     // ──────────────────────────────────────────────────────────────
     // Public API
     // ──────────────────────────────────────────────────────────────
@@ -75,6 +78,21 @@ public class GameClock : MonoBehaviour
     public float NormalizedTimeOfDay => Mathf.Repeat(_currentHour, 24f) / 24f;
     public float DemoTimeRemaining => _demoTimeRemaining;
     public bool IsDemoMode => _demoTimeLimitSeconds > 0f;
+    public bool IsWaitingForTutorial => _waitingForTutorial;
+
+    /// <summary>Release the tutorial gate so the clock starts ticking.</summary>
+    public void ReleaseTutorialGate()
+    {
+        if (!_waitingForTutorial) return;
+        _waitingForTutorial = false;
+        Debug.Log("[GameClock] Tutorial gate released — clock is ticking.");
+    }
+
+    /// <summary>Skip the tutorial gate (day 2+, or restored from save).</summary>
+    public void SkipTutorialGate()
+    {
+        _waitingForTutorial = false;
+    }
 
     /// <summary>Restore day and hour from save data.</summary>
     public void RestoreFromSave(int day, float hour)
@@ -122,6 +140,9 @@ public class GameClock : MonoBehaviour
 
     private void Update()
     {
+        // Tutorial gate — nothing ticks until the gate is released
+        if (_waitingForTutorial) return;
+
         // Demo timer always ticks (real time) — even during sleep sequences
         if (_demoTimeLimitSeconds > 0f && _demoTimeRemaining > 0f)
         {
@@ -175,6 +196,7 @@ public class GameClock : MonoBehaviour
     {
         _currentDay++;
         _currentHour = startHour;
+        _waitingForTutorial = false; // day 2+ always ticks
 
         if (totalDays > 0 && _currentDay > totalDays)
         {
@@ -253,6 +275,7 @@ public class GameClock : MonoBehaviour
         // 6. Advance day and reset clock
         _currentDay++;
         _currentHour = startHour;
+        _waitingForTutorial = false; // day 2+ always ticks
 
         // Check calendar completion BEFORE advancing to next day's morning
         if (totalDays > 0 && _currentDay > totalDays)
