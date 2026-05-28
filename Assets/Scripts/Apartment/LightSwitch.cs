@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Light type for date preference matching.
 /// </summary>
-public enum LightType
+public enum SwitchLightType
 {
     Lamp,       // standard apartment lights (overhead, floor lamp, desk lamp)
     Candle      // candle-only lighting
@@ -47,7 +47,7 @@ public class LightSwitch : MonoBehaviour
 
     [Header("Type")]
     [Tooltip("What kind of light this switch controls. Used by date lighting preferences.")]
-    [SerializeField] private LightType _lightType = LightType.Lamp;
+    [SerializeField] private SwitchLightType _lightType = SwitchLightType.Lamp;
 
     [Header("State")]
     [Tooltip("Whether the light starts on. False = room starts dark, player must click switch.")]
@@ -71,7 +71,7 @@ public class LightSwitch : MonoBehaviour
     private bool _isOn;
 
     public bool IsOn => _isOn;
-    public LightType LightType => _lightType;
+    public SwitchLightType LightType => _lightType;
 
     private void Awake()
     {
@@ -135,8 +135,8 @@ public class LightSwitch : MonoBehaviour
             state.totalOn++;
             switch (sw._lightType)
             {
-                case LightType.Lamp:   state.lampsOn++;   break;
-                case LightType.Candle: state.candlesOn++; break;
+                case SwitchLightType.Lamp:   state.lampsOn++;   break;
+                case SwitchLightType.Candle: state.candlesOn++; break;
             }
         }
         return state;
