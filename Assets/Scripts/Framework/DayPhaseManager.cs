@@ -1089,8 +1089,8 @@ public class DayPhaseManager : MonoBehaviour
         if (NatureBoxController.Instance != null)
             NatureBoxController.Instance.ResumeGameClock();
 
-        // 10. Clean up state while still black (skip GoToBed to avoid redundant fades)
-        _currentPhase = DayPhase.Evening;
+        // 10. Clean up state while still black — go straight to sleep, no Evening phase
+        _currentPhase = DayPhase.FlowerTrimming; // stay in trimming until day advances
 
         // Re-enable grabber after trimming scene
         if (grabber != null) grabber.SetEnabled(true);
@@ -1104,27 +1104,7 @@ public class DayPhaseManager : MonoBehaviour
         RecordSlot.Instance?.Stop();
         DateEndScreen.Instance?.Dismiss();
 
-        // 11. Continue button after flower trimming — player clicks to proceed to dream/sleep
-        if (PhaseContinueButton.Instance != null)
-        {
-            bool clicked = false;
-            PhaseContinueButton.Instance.Show(() => clicked = true);
-            while (!clicked) yield return null;
-        }
-
-        // 11b. "Bedtime" title card on the white screen
-        if (ScreenFade.Instance != null)
-        {
-            ScreenFade.Instance.ShowPhaseTitle("Bedtime");
-            yield return new WaitForSecondsRealtime(2f);
-            ScreenFade.Instance.HidePhaseTitle();
-            yield return new WaitForSecondsRealtime(0.3f);
-        }
-
-        // 12. Dream interstitial — psychedelic overlay (auto-timed, no click)
-        //     Dream is at sortOrder 105, ScreenFade at 100. We need ScreenFade
-        //     opaque BEFORE the dream fades out, so the player sees dream → white
-        //     (not dream → apartment flash → white).
+        // 11. Dream interstitial — straight to sleep, no Continue button
         if (DreamScreen.Instance != null)
         {
             DreamScreen.Instance.ShowAndHold();

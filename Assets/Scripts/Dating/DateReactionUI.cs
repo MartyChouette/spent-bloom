@@ -16,7 +16,9 @@ public class DateReactionUI : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private static void ResetStatics()
     {
-        s_flashCanvas = null;
+        // Destroy orphaned DontDestroyOnLoad canvases before nulling refs
+        if (s_flashCanvas != null) { Destroy(s_flashCanvas.gameObject); s_flashCanvas = null; }
+        if (s_screenTextCanvas != null) { Destroy(s_screenTextCanvas.gameObject); s_screenTextCanvas = null; }
     }
 
     [Header("Icon Sprites")]

@@ -1,6 +1,16 @@
 using UnityEngine;
 
 /// <summary>
+/// What lighting state a date character prefers.
+/// </summary>
+public enum LightPreference
+{
+    None,       // prefers darkness (no lights on)
+    Lamp,       // prefers standard apartment lights
+    Candle      // prefers candles only
+}
+
+/// <summary>
 /// Serializable data block defining what a date character likes and dislikes.
 /// Stored on <see cref="DatePersonalDefinition"/>.
 /// </summary>
@@ -79,6 +89,13 @@ public class DatePreferences
 
     [Tooltip("What the date says if no perfume was sprayed. Empty = default.")]
     public string noPerfumeComment = "";
+
+    [Header("Lighting")]
+    [Tooltip("Whether this date cares about lighting at all. False = lighting is always Neutral.")]
+    public bool caresAboutLighting = true;
+
+    [Tooltip("Preferred lighting type. None = darkness, Lamp = standard lights, Candle = candles only.")]
+    public LightPreference preferredLighting = LightPreference.Lamp;
 
     [Header("Clutter")]
     [Tooltip("How much floor clutter this date tolerates (1 = doesn't care, 0 = hates it).")]

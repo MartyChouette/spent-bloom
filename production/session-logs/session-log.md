@@ -47581,3 +47581,253 @@ ProjectSettings/TimeManager.asset
 production/session-logs/session-log.md
 ---
 
+## Session End: 20260525_011320
+### Commits
+cfe0f98 Move legacy scenes to LEGACY_SCENES, update scripts and game systems
+---
+
+## Session End: 20260525_130020
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_131218
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_131237
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_131301
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_180023
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_180141
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_180206
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_180211
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260525_180807
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_010311
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_155349
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/matte_white.mat
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_155531
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/matte_white.mat
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_160205
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/matte_white.mat
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_163011
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/matte_white.mat
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_170938
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/matte_white.mat
+Assets/Scripts/Apartment/NemaController.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_175150
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_180605
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_180859
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_182407
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_185614
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260526_192219
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260527_131636
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/PSXLit_Glitch 1.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/PLACEHOLDER_paris_Standing Greeting.fbx.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/Scripts/Dating/OccludedSilhouette.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260527_155611
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/PSXLit_Glitch 1.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/PLACEHOLDER_paris_Standing Greeting.fbx.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateReactionUI.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/OccludedSilhouette.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260527_211815
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/kitchen_counter/Brown Polished Oak Wood.mat
+Assets/ArtAssets/3dModels/kitchen_counter/Marble.mat
+Assets/ArtAssets/3dModels/kitchen_counter/metal.mat
+Assets/Materials/PSXLit_Glitch 1.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/PLACEHOLDER_paris_Standing Greeting.fbx.meta
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/LightSwitch.cs
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DatePreferences.cs
+Assets/Scripts/Dating/DateReactionUI.cs
+Assets/Scripts/Dating/DateSceneModels.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/EntranceJudgmentSequence.cs
+Assets/Scripts/Dating/OccludedSilhouette.cs
+Assets/Scripts/Dating/ReactionEvaluator.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Scripts/UI/PhaseContinueButton.cs
+production/session-logs/session-log.md
+---
+

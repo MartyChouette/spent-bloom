@@ -25,6 +25,7 @@ public class OccludedSilhouette : MonoBehaviour
         _silhouetteMat = new Material(shader);
         _silhouetteMat.SetInt("_ZTest", (int)CompareFunction.Greater);
         _silhouetteMat.SetInt("_ZWrite", 0);
+        _silhouetteMat.SetInt("_Cull", (int)CullMode.Front); // only back faces — prevents self-occlusion pink bleed
         _silhouetteMat.color = _silhouetteColor;
         _silhouetteMat.renderQueue = 3100;
 

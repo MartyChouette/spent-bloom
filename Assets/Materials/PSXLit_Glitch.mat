@@ -30,8 +30,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _AffineIntensity: 1
-    - _GlitchIntensity: 0
+    - _DepthBias: 0
+    - _GlitchIntensity: 0.729
     - _ShadowDitherIntensity: 1
+    - _ZTest: 4
     m_Colors:
     - _Color: {r: 0.95686275, g: 0, b: 0.05817915, a: 1}
     - _VertexSnapResolution: {r: 160, g: 120, b: 0, a: 0}

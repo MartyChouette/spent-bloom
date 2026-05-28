@@ -2075,6 +2075,9 @@ public class DateSessionManager : MonoBehaviour
     {
         if (_state == SessionState.Idle || _state == SessionState.DateEnding) return;
 
+        // Kill any active reaction split screen
+        ReactionSplitScreen.Instance?.ForceOff();
+
         // Release date camera framing back to normal browsing
         ReleasePhaseCamera();
 

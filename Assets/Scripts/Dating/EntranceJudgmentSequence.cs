@@ -153,6 +153,31 @@ public class EntranceJudgmentSequence : MonoBehaviour
         Debug.Log($"[EntranceJudgmentSequence] Cleanliness: {cleanReaction}");
         DateDebugOverlay.Instance?.LogReaction($"[Entrance] Cleanliness → {cleanReaction}");
         yield return new WaitForSecondsRealtime(_interJudgmentPause);
+
+        // --- Judgment 5: Lighting ---
+        if (date.preferences.caresAboutLighting)
+        {
+            PlayJudgingSFX();
+            var lightReaction = ReactionEvaluator.EvaluateLighting(date.preferences);
+            if (_alwaysPositive) lightReaction = ReactionType.Like;
+            string lightLabel = GetLightingLabel();
+            reactionUI?.ShowLabeledReaction(lightReaction, lightLabel);
+            DateSessionManager.Instance?.ApplyReaction(lightReaction);
+            ShowJudgmentJuice(reactionUI, lightLabel, lightReaction);
+            if (lightReaction == ReactionType.Dislike) PlaySneezeSFX();
+            Debug.Log($"[EntranceJudgmentSequence] Lighting: {lightLabel} → {lightReaction}");
+            DateDebugOverlay.Instance?.LogReaction($"[Entrance] Lighting ({lightLabel}) → {lightReaction}");
+            yield return new WaitForSecondsRealtime(_interJudgmentPause);
+        }
+    }
+
+    private static string GetLightingLabel()
+    {
+        var state = LightSwitch.GetCurrentLighting();
+        if (state.IsDark) return "No Lights";
+        if (state.IsCandleOnly) return "Candlelight";
+        if (state.HasLamps && state.candlesOn > 0) return "Mixed Lighting";
+        return "The Lights";
     }
 
     private void PlayJudgingSFX()

@@ -4165,6 +4165,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 20a47707af8b15e418fcf1b17324fad9, type: 2}
   - {fileID: 11400000, guid: 25f24424fc31c0a47a1053b5435c84fc, type: 2}
   - {fileID: 11400000, guid: 64d6a75499dbf2a46b2db06fd5421cce, type: 2}
+  _showDuration: 2
+  _animDuration: 0.3
+  _minimizedScale: 0.45
 --- !u!1 &158204158
 GameObject:
   m_ObjectHideFlags: 0
@@ -8385,6 +8388,11 @@ MonoBehaviour:
   _newspaperModel: {fileID: 0}
   _explorationLeanModel: {fileID: 995989281}
   _cleaningModel: {fileID: 435621015}
+  _rimLightEnabled: 1
+  _rimLightShader: {fileID: 0}
+  _rimLightColor: {r: 1, g: 0.9700557, b: 0.7452829, a: 0.5803922}
+  _rimLightPower: 0.5
+  _rimLightIntensity: 0.02
   _dancingModel: {fileID: 1307194512}
   _lookBlendInSpeed: 2
   _lookBlendOutSpeed: 1.2
@@ -24540,7 +24548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlowerTrimmingBridge
   _flowerSceneName: Daisy_Flower_Scene
-  _sceneYOffset: 50
+  _sceneZOffset: 50
   _alwaysSucceed: 0
 --- !u!4 &895732840
 Transform:

@@ -227,6 +227,10 @@ public class DateInspectSystem : MonoBehaviour
         if (reactionUI != null)
             reactionUI.ShowLabeledReaction(reaction, tag.DisplayName, tag.ReactionIcon, customLine);
 
+        // 5. Diagonal split-screen close-up of the date reacting
+        if (ReactionSplitScreen.Instance != null && dsm.DateCharacter != null)
+            ReactionSplitScreen.Instance.Show(dsm.DateCharacter.transform);
+
         return true;
     }
 

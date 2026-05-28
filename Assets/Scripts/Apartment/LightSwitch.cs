@@ -1,4 +1,34 @@
+using System.Collections.Generic;
 using UnityEngine;
+
+/// <summary>
+/// Light type for date preference matching.
+/// </summary>
+public enum LightType
+{
+    Lamp,       // standard apartment lights (overhead, floor lamp, desk lamp)
+    Candle      // candle-only lighting
+}
+
+/// <summary>
+/// Snapshot of the apartment's current lighting state.
+/// </summary>
+public struct LightingState
+{
+    public int lampsOn;
+    public int candlesOn;
+    public int totalOn;
+    public int totalSwitches;
+
+    /// <summary>True if no lights of any type are on.</summary>
+    public bool IsDark => totalOn == 0;
+
+    /// <summary>True if only candles are lit (no lamps).</summary>
+    public bool IsCandleOnly => candlesOn > 0 && lampsOn == 0;
+
+    /// <summary>True if any lamps are on.</summary>
+    public bool HasLamps => lampsOn > 0;
+}
 
 /// <summary>
 /// Clickable light switch that toggles one or more lights on/off.
@@ -7,9 +37,17 @@ using UnityEngine;
 /// </summary>
 public class LightSwitch : MonoBehaviour
 {
+    // ── Static registry ───────────────
+    private static readonly List<LightSwitch> s_all = new();
+    public static IReadOnlyList<LightSwitch> All => s_all;
+
     [Header("Lights")]
     [Tooltip("Lights controlled by this switch.")]
     [SerializeField] private Light[] _lights;
+
+    [Header("Type")]
+    [Tooltip("What kind of light this switch controls. Used by date lighting preferences.")]
+    [SerializeField] private LightType _lightType = LightType.Lamp;
 
     [Header("State")]
     [Tooltip("Whether the light starts on. False = room starts dark, player must click switch.")]
@@ -33,6 +71,7 @@ public class LightSwitch : MonoBehaviour
     private bool _isOn;
 
     public bool IsOn => _isOn;
+    public LightType LightType => _lightType;
 
     private void Awake()
     {
@@ -47,6 +86,9 @@ public class LightSwitch : MonoBehaviour
         ApplyState();
     }
 
+    private void OnEnable() => s_all.Add(this);
+    private void OnDisable() => s_all.Remove(this);
+
     /// <summary>Toggle the light on/off. Called by ObjectGrabber on click.</summary>
     public void Toggle()
     {
@@ -54,7 +96,7 @@ public class LightSwitch : MonoBehaviour
         ApplyState();
 
         AudioManager.Instance?.PlaySFX(_toggleSFX);
-        Debug.Log($"[LightSwitch] {name} toggled {(_isOn ? "ON" : "OFF")}.");
+        Debug.Log($"[LightSwitch] {name} ({_lightType}) toggled {(_isOn ? "ON" : "OFF")}.");
     }
 
     private void ApplyState()
@@ -76,5 +118,27 @@ public class LightSwitch : MonoBehaviour
     {
         if (_instanceMat != null)
             Destroy(_instanceMat);
+    }
+
+    // ── Static query ───────────────
+
+    /// <summary>Query the current apartment lighting state across all registered switches.</summary>
+    public static LightingState GetCurrentLighting()
+    {
+        var state = new LightingState();
+        for (int i = 0; i < s_all.Count; i++)
+        {
+            var sw = s_all[i];
+            state.totalSwitches++;
+            if (!sw._isOn) continue;
+
+            state.totalOn++;
+            switch (sw._lightType)
+            {
+                case LightType.Lamp:   state.lampsOn++;   break;
+                case LightType.Candle: state.candlesOn++; break;
+            }
+        }
+        return state;
     }
 }

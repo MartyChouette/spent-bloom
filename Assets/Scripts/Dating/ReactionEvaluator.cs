@@ -366,4 +366,32 @@ public static class ReactionEvaluator
 
         return ReactionType.Neutral;
     }
+
+    /// <summary>Evaluate apartment lighting against date preferences.</summary>
+    public static ReactionType EvaluateLighting(DatePreferences prefs)
+    {
+        if (prefs == null || !prefs.caresAboutLighting) return ReactionType.Neutral;
+
+        var state = LightSwitch.GetCurrentLighting();
+
+        switch (prefs.preferredLighting)
+        {
+            case LightPreference.None:
+                if (state.IsDark) return ReactionType.Like;
+                return state.totalOn <= 1 ? ReactionType.Neutral : ReactionType.Dislike;
+
+            case LightPreference.Lamp:
+                if (state.HasLamps) return ReactionType.Like;
+                if (state.IsDark) return ReactionType.Dislike;
+                return ReactionType.Neutral; // candles only — not what they wanted but not bad
+
+            case LightPreference.Candle:
+                if (state.IsCandleOnly) return ReactionType.Like;
+                if (state.IsDark) return ReactionType.Neutral; // dark is close to candle mood
+                return ReactionType.Dislike; // bright lamps ruin the vibe
+
+            default:
+                return ReactionType.Neutral;
+        }
+    }
 }

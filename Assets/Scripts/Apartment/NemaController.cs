@@ -70,6 +70,31 @@ public class NemaController : MonoBehaviour
     [Tooltip("Full Nema model for the post-date Evening phase. Pre-positioned watching the player clean.")]
     [SerializeField] private GameObject _cleaningModel;
 
+    [Header("Rim Light")]
+    [Tooltip("Enable a rim light pass on Nema's active model.")]
+    [SerializeField] private bool _rimLightEnabled = true;
+
+    [Tooltip("Iris/RimLight shader reference (drag here so it's included in builds).")]
+    [SerializeField] private Shader _rimLightShader;
+
+    [Tooltip("Rim light color and alpha.")]
+    [SerializeField] private Color _rimLightColor = new Color(1f, 0.95f, 0.9f, 0.3f);
+
+    [Tooltip("Rim power — higher = tighter edge glow.")]
+    [SerializeField, Range(0.5f, 8f)] private float _rimLightPower = 2.5f;
+
+    [Tooltip("Rim intensity multiplier.")]
+    [SerializeField, Range(0f, 3f)] private float _rimLightIntensity = 0.6f;
+
+    private Material _rimLightMat;
+
+    /// <summary>Rim light color for other scripts to match (e.g. DateSceneModels).</summary>
+    public Color RimLightColor => _rimLightColor;
+    /// <summary>Rim light power for other scripts to match.</summary>
+    public float RimLightPower => _rimLightPower;
+    /// <summary>Rim light intensity for other scripts to match.</summary>
+    public float RimLightIntensity => _rimLightIntensity;
+
     [Header("Secret — Dancing")]
     [Tooltip("Secret dancing Nema model (e.g. Northern Soul Spin). Shown via ShowDancingSecret() — not tied to any phase, toggled externally by whatever trigger unlocks the dance (record player, secret click, etc.).")]
     [SerializeField] private GameObject _dancingModel;
@@ -243,6 +268,8 @@ public class NemaController : MonoBehaviour
 
         if (_animator == null && _model != null)
             _animator = _model.GetComponentInChildren<Animator>();
+
+        BuildRimLightMaterial();
     }
 
     private void OnDestroy()
@@ -252,6 +279,8 @@ public class NemaController : MonoBehaviour
             ApartmentManager.Instance.OnAreaChanged -= OnAreaChanged;
         if (DayPhaseManager.Instance != null)
             DayPhaseManager.Instance.OnPhaseChanged.RemoveListener(OnPhaseChanged);
+        if (_rimLightMat != null)
+            Destroy(_rimLightMat);
     }
 
     private void Start()
@@ -741,9 +770,48 @@ public class NemaController : MonoBehaviour
             if (headT != null) _headBone = headT;
         }
 
+        // Append rim light material to all renderers on the new model
+        ApplyRimLight(target);
+
         // Reset debug flags so we log which system the new model uses
         _debugLookLogged = false;
         _debugIKLogged = false;
+    }
+
+    // ── Rim light ──────────────────────────────────────────────────
+
+    private void BuildRimLightMaterial()
+    {
+        if (_rimLightShader == null)
+            _rimLightShader = Shader.Find("Iris/RimLight");
+        if (_rimLightShader == null) return;
+
+        _rimLightMat = new Material(_rimLightShader);
+        _rimLightMat.SetColor("_RimColor", _rimLightColor);
+        _rimLightMat.SetFloat("_RimPower", _rimLightPower);
+        _rimLightMat.SetFloat("_RimIntensity", _rimLightIntensity);
+    }
+
+    private void ApplyRimLight(GameObject model)
+    {
+        if (!_rimLightEnabled || _rimLightMat == null || model == null) return;
+
+        foreach (var rend in model.GetComponentsInChildren<Renderer>(true))
+        {
+            if (rend is ParticleSystemRenderer || rend is LineRenderer) continue;
+
+            var existing = rend.sharedMaterials;
+            // Don't double-add if already present
+            for (int i = 0; i < existing.Length; i++)
+                if (existing[i] == _rimLightMat) goto skip;
+
+            var combined = new Material[existing.Length + 1];
+            existing.CopyTo(combined, 0);
+            combined[existing.Length] = _rimLightMat;
+            rend.sharedMaterials = combined;
+
+            skip:;
+        }
     }
 
     // ── Public API for the secret dancing overlay ───────────────────

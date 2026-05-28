@@ -25,6 +25,8 @@ public class DateSceneModels : MonoBehaviour
     private static readonly System.Collections.Generic.List<DateSceneModels> s_all = new();
     public static System.Collections.Generic.IReadOnlyList<DateSceneModels> All => s_all;
 
+    private Material _rimLightMat;
+
     private void OnEnable() => s_all.Add(this);
     private void OnDisable() => s_all.Remove(this);
 
@@ -34,6 +36,8 @@ public class DateSceneModels : MonoBehaviour
         if (arrivalModel != null) arrivalModel.SetActive(false);
         if (kitchenModel != null) kitchenModel.SetActive(false);
         if (couchModel   != null) couchModel.SetActive(false);
+
+        BuildRimLightMaterial();
     }
 
     /// <summary>Find the scene models for a given date definition. Returns null if not found.</summary>
@@ -73,6 +77,9 @@ public class DateSceneModels : MonoBehaviour
             // invisibility in builds.
             if (PSXRenderController.Instance != null)
                 PSXRenderController.Instance.EnsureSwapped(target);
+
+            // Append rim light pass to all renderers
+            ApplyRimLight(target);
         }
     }
 
@@ -80,5 +87,59 @@ public class DateSceneModels : MonoBehaviour
     public void HideAll()
     {
         ShowOnly(null);
+    }
+
+    // ── Rim light ──────────────────────────────────────────────────
+
+    private void BuildRimLightMaterial()
+    {
+        // Match Nema's rim light settings so all characters look consistent.
+        // NemaController owns the canonical values; read them if available,
+        // otherwise fall back to the same defaults.
+        var shader = Shader.Find("Iris/RimLight");
+        if (shader == null) return;
+
+        _rimLightMat = new Material(shader);
+
+        var nema = NemaController.Instance;
+        if (nema != null)
+        {
+            _rimLightMat.SetColor("_RimColor", nema.RimLightColor);
+            _rimLightMat.SetFloat("_RimPower", nema.RimLightPower);
+            _rimLightMat.SetFloat("_RimIntensity", nema.RimLightIntensity);
+        }
+        else
+        {
+            _rimLightMat.SetColor("_RimColor", new Color(1f, 0.95f, 0.9f, 0.3f));
+            _rimLightMat.SetFloat("_RimPower", 2.5f);
+            _rimLightMat.SetFloat("_RimIntensity", 0.6f);
+        }
+    }
+
+    private void ApplyRimLight(GameObject model)
+    {
+        if (_rimLightMat == null || model == null) return;
+
+        foreach (var rend in model.GetComponentsInChildren<Renderer>(true))
+        {
+            if (rend is ParticleSystemRenderer || rend is LineRenderer) continue;
+
+            var existing = rend.sharedMaterials;
+            for (int i = 0; i < existing.Length; i++)
+                if (existing[i] == _rimLightMat) goto skip;
+
+            var combined = new Material[existing.Length + 1];
+            existing.CopyTo(combined, 0);
+            combined[existing.Length] = _rimLightMat;
+            rend.sharedMaterials = combined;
+
+            skip:;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_rimLightMat != null)
+            Destroy(_rimLightMat);
     }
 }
