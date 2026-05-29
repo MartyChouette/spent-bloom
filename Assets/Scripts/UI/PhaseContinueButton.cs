@@ -168,15 +168,16 @@ public class PhaseContinueButton : MonoBehaviour
         _canvasGroup = canvasGO.AddComponent<CanvasGroup>();
         _canvasGroup.alpha = 0f;
 
-        // Invisible fullscreen click target
+        // Click target — sized around the text, not fullscreen, so it doesn't block gameplay
         var clickGO = new GameObject("ClickTarget");
         clickGO.transform.SetParent(canvasGO.transform, false);
 
         var clickRT = clickGO.AddComponent<RectTransform>();
-        clickRT.anchorMin = Vector2.zero;
-        clickRT.anchorMax = Vector2.one;
-        clickRT.offsetMin = Vector2.zero;
-        clickRT.offsetMax = Vector2.zero;
+        clickRT.anchorMin = new Vector2(1f, 0f);
+        clickRT.anchorMax = new Vector2(1f, 0f);
+        clickRT.pivot = new Vector2(1f, 0f);
+        clickRT.anchoredPosition = new Vector2(-40f, 60f);
+        clickRT.sizeDelta = new Vector2(350f, 80f);
 
         var clickImg = clickGO.AddComponent<Image>();
         clickImg.color = new Color(0f, 0f, 0f, 0f); // invisible
@@ -188,21 +189,20 @@ public class PhaseContinueButton : MonoBehaviour
         _button.navigation = nav;
         _button.onClick.AddListener(OnButtonClicked);
 
-        // Floating text label — bottom-center
+        // Floating text label — bottom-right, bigger
         var labelGO = new GameObject("Label");
-        labelGO.transform.SetParent(canvasGO.transform, false);
+        labelGO.transform.SetParent(clickGO.transform, false);
 
         _labelRT = labelGO.AddComponent<RectTransform>();
-        _labelRT.anchorMin = new Vector2(0.5f, 0f);
-        _labelRT.anchorMax = new Vector2(0.5f, 0f);
-        _labelRT.pivot = new Vector2(0.5f, 0f);
-        _baseY = 80f;
-        _labelRT.anchoredPosition = new Vector2(0f, _baseY);
-        _labelRT.sizeDelta = new Vector2(400f, 60f);
+        _labelRT.anchorMin = Vector2.zero;
+        _labelRT.anchorMax = Vector2.one;
+        _labelRT.offsetMin = Vector2.zero;
+        _labelRT.offsetMax = Vector2.zero;
+        _baseY = 0f; // drift is relative to the click target's position
 
         _labelTMP = labelGO.AddComponent<TextMeshProUGUI>();
         _labelTMP.text = "continue";
-        _labelTMP.fontSize = 28f;
+        _labelTMP.fontSize = 36f;
         _labelTMP.fontStyle = FontStyles.Italic;
         _labelTMP.color = new Color(0.85f, 0.82f, 0.78f);
         _labelTMP.alignment = TextAlignmentOptions.Center;
