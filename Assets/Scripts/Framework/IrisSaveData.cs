@@ -15,6 +15,9 @@ public class IrisSaveData
     public string playerName;
     public int pronouns; // maps to PronounSet enum
 
+    // ── Mail Inventory ──────────────────────────────────────────
+    public List<CollectedMail> collectedMail = new List<CollectedMail>();
+
     // ── Game Mode ──────────────────────────────────────────────────
     public string gameModeName;
 

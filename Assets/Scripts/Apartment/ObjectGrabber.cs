@@ -568,6 +568,15 @@ public class ObjectGrabber : MonoBehaviour
             return;
         }
 
+        // Mail pickup on the floor — click to read/open
+        var mailPickup = hit.collider.GetComponent<MailPickup>();
+        if (mailPickup == null) mailPickup = hit.collider.GetComponentInParent<MailPickup>();
+        if (mailPickup != null && mailPickup.TryInteract())
+        {
+            ConsumeClick();
+            return;
+        }
+
         // Light switch on the clicked collider — toggle even if parent is a PlaceableObject
         // (e.g. lamp shade toggles light, lamp base picks up the whole lamp)
         var directSwitch = hit.collider.GetComponent<LightSwitch>();

@@ -85,7 +85,8 @@ public class AutoSaveController : MonoBehaviour
             itemDisplayStates = ItemStateRegistry.GetAllForSave(),
             objectPositions = GatherObjectPositions(),
             weatherState = WeatherSystem.Instance != null
-                ? WeatherSystem.Instance.GetStateForSave() : 0
+                ? WeatherSystem.Instance.GetStateForSave() : 0,
+            collectedMail = MailInventory.SaveData()
         };
     }
 
@@ -133,6 +134,7 @@ public class AutoSaveController : MonoBehaviour
 
         PlayerData.PlayerName = data.playerName;
         PlayerData.Pronouns = (PronounSet)data.pronouns;
+        MailInventory.LoadFrom(data.collectedMail);
         GameClock.Instance?.RestoreFromSave(data.currentDay, data.currentHour);
         DateHistory.LoadFrom(data.dateHistory);
         ItemStateRegistry.LoadFrom(data.itemDisplayStates);
