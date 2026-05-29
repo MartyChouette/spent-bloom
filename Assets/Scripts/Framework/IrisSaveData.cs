@@ -13,6 +13,7 @@ public class IrisSaveData
 
     // ── Player ────────────────────────────────────────────────────
     public string playerName;
+    public int pronouns; // maps to PronounSet enum
 
     // ── Game Mode ──────────────────────────────────────────────────
     public string gameModeName;

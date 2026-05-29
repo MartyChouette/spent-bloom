@@ -73,6 +73,7 @@ public class AutoSaveController : MonoBehaviour
         return new IrisSaveData
         {
             playerName = PlayerData.PlayerName,
+            pronouns = (int)PlayerData.Pronouns,
             gameModeName = MainMenuManager.ActiveConfig != null
                 ? MainMenuManager.ActiveConfig.modeName : "",
             currentDay = GameClock.Instance != null ? GameClock.Instance.CurrentDay : 1,
@@ -131,6 +132,7 @@ public class AutoSaveController : MonoBehaviour
         }
 
         PlayerData.PlayerName = data.playerName;
+        PlayerData.Pronouns = (PronounSet)data.pronouns;
         GameClock.Instance?.RestoreFromSave(data.currentDay, data.currentHour);
         DateHistory.LoadFrom(data.dateHistory);
         ItemStateRegistry.LoadFrom(data.itemDisplayStates);

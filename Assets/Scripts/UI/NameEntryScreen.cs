@@ -42,10 +42,15 @@ public class NameEntryScreen : MonoBehaviour
 
     private const int GridCols = 9;
     private const int CharRows = 6;
-    private const int TotalRows = 7; // 6 char rows + 1 command row
+    private const int CmdRow = 6;
+    private const int PronounRow = 7;
+    private const int TotalRows = 8; // 6 char rows + 1 command row + 1 pronoun row
     private const int CmdBack = 0;
     private const int CmdSpace = 1;
     private const int CmdOK = 2;
+
+    // Pronoun selection
+    private PronounSet _selectedPronoun = PronounSet.She;
 
     [Header("Colors")]
     [Tooltip("Color of the currently selected grid cell.")]
@@ -195,16 +200,6 @@ public class NameEntryScreen : MonoBehaviour
             return;
         }
 
-        // Demo mode: skip name entry, use default name
-        if (MainMenuManager.ActiveConfig != null)
-        {
-            Debug.Log("[NameEntryScreen] Demo mode — auto-confirming default name.");
-            OnConfirm();
-            return;
-        }
-
-        // (Editor direct play handled at top of Start)
-
         // Fade out menu music as the player enters their name
         if (MusicDirector.Instance != null)
             MusicDirector.Instance.FadeOutMenuMusic();
@@ -237,10 +232,10 @@ public class NameEntryScreen : MonoBehaviour
             }
             else
             {
-                // Command row: 3 zones
-                int cmd = GetCommandIndex();
-                cmd = (cmd - 1 + 3) % 3;
-                _cursorCol = cmd * 3;
+                // Command or pronoun row: 3 zones each
+                int zone = (_cursorRow == PronounRow) ? GetPronounIndex() : GetCommandIndex();
+                zone = (zone - 1 + 3) % 3;
+                _cursorCol = zone * 3;
             }
             changed = true;
         }
@@ -252,9 +247,9 @@ public class NameEntryScreen : MonoBehaviour
             }
             else
             {
-                int cmd = GetCommandIndex();
-                cmd = (cmd + 1) % 3;
-                _cursorCol = cmd * 3;
+                int zone = (_cursorRow == PronounRow) ? GetPronounIndex() : GetCommandIndex();
+                zone = (zone + 1) % 3;
+                _cursorCol = zone * 3;
             }
             changed = true;
         }
@@ -322,13 +317,23 @@ public class NameEntryScreen : MonoBehaviour
     {
         row = 0;
         col = 0;
-        // Format: "r{row}c{col}" for char cells, "cmd{index}" for commands
+        // Format: "r{row}c{col}" for char cells, "cmd{index}" for commands, "pron{index}" for pronouns
         if (linkId.StartsWith("cmd"))
         {
-            row = CharRows; // command row
+            row = CmdRow;
             if (int.TryParse(linkId.Substring(3), out int cmd))
             {
                 col = cmd * 3;
+                return true;
+            }
+            return false;
+        }
+        if (linkId.StartsWith("pron"))
+        {
+            row = PronounRow;
+            if (int.TryParse(linkId.Substring(4), out int pron))
+            {
+                col = pron * 3;
                 return true;
             }
             return false;
@@ -359,7 +364,7 @@ public class NameEntryScreen : MonoBehaviour
                 _nameLength++;
             }
         }
-        else
+        else if (_cursorRow == CmdRow)
         {
             // Command row
             int cmd = GetCommandIndex();
@@ -381,6 +386,12 @@ public class NameEntryScreen : MonoBehaviour
                     break;
             }
         }
+        else if (_cursorRow == PronounRow)
+        {
+            // Pronoun row
+            int pIdx = GetPronounIndex();
+            _selectedPronoun = (PronounSet)pIdx;
+        }
     }
 
     private int GetCommandIndex()
@@ -391,11 +402,19 @@ public class NameEntryScreen : MonoBehaviour
         return CmdOK;
     }
 
+    private int GetPronounIndex()
+    {
+        // Map column to pronoun zone: 0-2=She, 3-5=He, 6-8=They
+        if (_cursorCol < 3) return 0;
+        if (_cursorCol < 6) return 1;
+        return 2;
+    }
+
     private void ClampCursorCol()
     {
-        if (_cursorRow == CharRows) // entering command row
+        if (_cursorRow == CmdRow || _cursorRow == PronounRow)
         {
-            // Snap to nearest command zone center
+            // Snap to nearest zone center (3 zones of 3 columns each)
             if (_cursorCol < 3) _cursorCol = 0;
             else if (_cursorCol < 6) _cursorCol = 3;
             else _cursorCol = 6;
@@ -469,7 +488,7 @@ public class NameEntryScreen : MonoBehaviour
         sb.Append('\n');
 
         // Command row — each command wrapped in <link>
-        int cmdSelected = (_cursorRow >= CharRows) ? GetCommandIndex() : -1;
+        int cmdSelected = (_cursorRow == CmdRow) ? GetCommandIndex() : -1;
 
         string[] cmdLabels = { "BACK", "SPACE", "OK" };
         for (int i = 0; i < 3; i++)
@@ -484,6 +503,28 @@ public class NameEntryScreen : MonoBehaviour
                 sb.Append("    ");
         }
 
+        sb.Append("\n\n");
+
+        // Pronoun row
+        int pronSelected = (_cursorRow == PronounRow) ? GetPronounIndex() : -1;
+        string[] pronLabels = { "she/her", "he/him", "they/them" };
+        for (int i = 0; i < 3; i++)
+        {
+            string pronLink = $"pron{i}";
+            bool isChosen = (int)_selectedPronoun == i;
+            string marker = isChosen ? "\u2022 " : "  "; // bullet for selected
+
+            if (i == pronSelected)
+                sb.Append($"<link={pronLink}><color={_highlightHex}>[{marker}{pronLabels[i]}]</color></link>");
+            else if (isChosen)
+                sb.Append($"<link={pronLink}><color={_charHex}> {marker}{pronLabels[i]} </color></link>");
+            else
+                sb.Append($"<link={pronLink}><color={_dimHex}> {marker}{pronLabels[i]} </color></link>");
+
+            if (i < 2)
+                sb.Append("  ");
+        }
+
         _gridText.text = sb.ToString();
     }
 
@@ -496,6 +537,7 @@ public class NameEntryScreen : MonoBehaviour
             name = "Nema";
 
         PlayerData.PlayerName = name;
+        PlayerData.Pronouns = _selectedPronoun;
 
         // First save for this slot
         AutoSaveController.Instance?.PerformSave("new_game");
