@@ -118,19 +118,20 @@ public class EntranceJudgmentSequence : MonoBehaviour
         DateDebugOverlay.Instance?.LogReaction($"[Entrance] Perfume ({perfumeLabel}) → {perfumeReaction}");
         yield return new WaitForSecondsRealtime(_interJudgmentPause);
 
-        // WIP: Outfit judgment — re-enable when OutfitSelector is complete
-        // EvaluateOutfit() calls OutfitSelector.Instance?.SelectedOutfit which does not yet exist.
-        // --- Judgment 3: Outfit (disabled — no outfit system yet) ---
-        // PlayJudgingSFX();
-        // var outfitReaction = EvaluateOutfit(date);
-        // if (_alwaysPositive) outfitReaction = ReactionType.Like;
-        // reactionUI?.ShowLabeledReaction(outfitReaction, "Your Outfit");
-        // DateSessionManager.Instance?.ApplyReaction(outfitReaction);
-        // ShowJudgmentJuice(reactionUI, "Your Outfit", outfitReaction);
-        // if (outfitReaction == ReactionType.Dislike) PlaySneezeSFX();
-        // Debug.Log($"[EntranceJudgmentSequence] Outfit: {outfitReaction}");
-        // DateDebugOverlay.Instance?.LogReaction($"[Entrance] Outfit → {outfitReaction}");
-        // yield return new WaitForSecondsRealtime(_interJudgmentPause);
+        // --- Judgment 3: Outfit ---
+        if (OutfitSelector.Instance != null && OutfitSelector.Instance.SelectedOutfit != null)
+        {
+            PlayJudgingSFX();
+            var outfitReaction = EvaluateOutfit(date);
+            if (_alwaysPositive) outfitReaction = ReactionType.Like;
+            reactionUI?.ShowLabeledReaction(outfitReaction, "Your Outfit");
+            DateSessionManager.Instance?.ApplyReaction(outfitReaction);
+            ShowJudgmentJuice(reactionUI, "Your Outfit", outfitReaction);
+            if (outfitReaction == ReactionType.Dislike) PlaySneezeSFX();
+            Debug.Log($"[EntranceJudgmentSequence] Outfit: {outfitReaction}");
+            DateDebugOverlay.Instance?.LogReaction($"[Entrance] Outfit → {outfitReaction}");
+            yield return new WaitForSecondsRealtime(_interJudgmentPause);
+        }
 
         // --- Judgment 4: Cleanliness ---
         PlayJudgingSFX();

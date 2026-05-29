@@ -568,6 +568,19 @@ public class ObjectGrabber : MonoBehaviour
             return;
         }
 
+        // Mirror click — enter close-up view
+        if (MirrorStation.Instance != null && !MirrorStation.Instance.IsActive)
+        {
+            var mirror = hit.collider.GetComponent<MirrorStation>();
+            if (mirror == null) mirror = hit.collider.GetComponentInParent<MirrorStation>();
+            if (mirror != null)
+            {
+                mirror.EnterMirror();
+                ConsumeClick();
+                return;
+            }
+        }
+
         // Mail pickup on the floor — click to read/open
         var mailPickup = hit.collider.GetComponent<MailPickup>();
         if (mailPickup == null) mailPickup = hit.collider.GetComponentInParent<MailPickup>();

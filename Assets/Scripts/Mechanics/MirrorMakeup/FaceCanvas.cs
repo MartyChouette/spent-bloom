@@ -315,6 +315,46 @@ public class FaceCanvas : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set pimple count based on Nema's wellbeing (0-1).
+    /// High wellbeing = fewer pimples, low = more.
+    /// Call before GenerateBaseTexture / on mirror open.
+    /// </summary>
+    public void SetPimpleCountFromWellbeing(float overall)
+    {
+        // 0.0 = wilting (12+ pimples), 1.0 = thriving (0-1 pimples)
+        if (overall >= 0.8f)
+            _pimpleCount = Random.Range(0, 2);
+        else if (overall >= 0.6f)
+            _pimpleCount = Random.Range(2, 5);
+        else if (overall >= 0.4f)
+            _pimpleCount = Random.Range(5, 8);
+        else if (overall >= 0.2f)
+            _pimpleCount = Random.Range(8, 11);
+        else
+            _pimpleCount = Random.Range(11, 15);
+    }
+
+    /// <summary>
+    /// Regenerate the face with current pimple count. Call after SetPimpleCountFromWellbeing.
+    /// </summary>
+    public void Regenerate()
+    {
+        GeneratePimplePositions();
+        if (!_useExternalBase)
+            GenerateBaseTexture();
+
+        // Reset overlay (clear all makeup)
+        if (_overlayPixels != null)
+        {
+            var clear = new Color32(0, 0, 0, 0);
+            for (int i = 0; i < _overlayPixels.Length; i++)
+                _overlayPixels[i] = clear;
+            _overlayTex.SetPixels32(_overlayPixels);
+            _overlayTex.Apply();
+        }
+    }
+
     // ── Lifecycle ───────────────────────────────────────────────────
 
     void Awake()
