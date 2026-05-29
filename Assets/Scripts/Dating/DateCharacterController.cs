@@ -6,6 +6,8 @@ using UnityEngine.AI;
 /// <summary>
 /// Controls a date NPC. Stationary per-phase models toggled by DateSessionManager.
 /// Evaluates nearby ReactableTags via seated excursions (no walking).
+/// During investigation, highlights the target item and emits ambient particles
+/// indicating the date's sentiment before the verdict.
 /// </summary>
 public class DateCharacterController : MonoBehaviour
 {
@@ -33,6 +35,16 @@ public class DateCharacterController : MonoBehaviour
     [Tooltip("SFX played when the NPC reacts to an item.")]
     [SerializeField] private AudioClip reactionSFX;
 
+    [Tooltip("Ambient hum while considering an item (loops quietly during investigation).")]
+    [SerializeField] private AudioClip _thinkingSFX;
+
+    [Header("Ambient Particles")]
+    [Tooltip("Emit gentle ambient particles near the investigated item during the thinking phase.")]
+    [SerializeField] private bool _emitAmbientParticles = true;
+
+    [Tooltip("Particle rate during investigation (particles per second).")]
+    [SerializeField] private float _ambientParticleRate = 4f;
+
     // ──────────────────────────────────────────────────────────────
     // Events
     // ──────────────────────────────────────────────────────────────
@@ -52,6 +64,13 @@ public class DateCharacterController : MonoBehaviour
     private float _sitTimer;
     private float _investigateTimer;
     private bool _excursionsEnabled;
+
+    // Investigation visuals
+    private InteractableHighlight _currentHighlight;
+    private ReactionType _pendingReaction;
+    private bool _reactionEvaluated;
+    private ParticleSystem _ambientPS;
+    private GameObject _ambientPSGO;
 
     public CharState CurrentState => _state;
     public ReactableTag CurrentTarget => _currentTarget;
@@ -101,6 +120,7 @@ public class DateCharacterController : MonoBehaviour
             transform.position = position;
         }
 
+        ClearInvestigationVisuals();
         _currentTarget = null;
         Debug.Log($"[DateCharacterController] Warped to {position}");
     }
@@ -110,6 +130,7 @@ public class DateCharacterController : MonoBehaviour
     {
         _state = CharState.Sitting;
         _sitTimer = 0f;
+        ClearInvestigationVisuals();
         _currentTarget = null;
         if (_agent != null && _agent.isOnNavMesh)
             _agent.ResetPath();
@@ -127,6 +148,7 @@ public class DateCharacterController : MonoBehaviour
     public void DisableExcursions()
     {
         _excursionsEnabled = false;
+        ClearInvestigationVisuals();
         Debug.Log("[DateCharacterController] Excursions disabled.");
     }
 
@@ -135,9 +157,14 @@ public class DateCharacterController : MonoBehaviour
     {
         if (_state == CharState.Dismissed) return;
 
+        ClearInvestigationVisuals();
         _currentTarget = target.GetComponent<ReactableTag>();
         _state = CharState.Investigating;
         _investigateTimer = 0f;
+        _reactionEvaluated = false;
+
+        if (_currentTarget != null)
+            BeginInvestigationVisuals();
 
         if (investigateSFX != null && AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX(investigateSFX);
@@ -148,6 +175,7 @@ public class DateCharacterController : MonoBehaviour
     {
         _state = CharState.Dismissed;
         _excursionsEnabled = false;
+        ClearInvestigationVisuals();
         _currentTarget = null;
         Debug.Log("[DateCharacterController] Dismissed.");
     }
@@ -173,19 +201,29 @@ public class DateCharacterController : MonoBehaviour
             case CharState.Investigating:
                 _investigateTimer += Time.deltaTime;
 
-                // Opinion phase
+                // Pre-evaluate early to know which ambient particles to show
+                if (!_reactionEvaluated && _investigateTimer >= 0.5f)
+                    PreEvaluate();
+
+                // Opinion phase — fire the actual reaction event
                 if (_investigateTimer >= 2.0f && _investigateTimer < 2.0f + Time.deltaTime)
                     EvaluateCurrentTarget();
 
                 // Done investigating — return to sitting
                 if (_investigateTimer >= investigateDuration)
                 {
+                    ClearInvestigationVisuals();
                     _currentTarget = null;
                     _state = CharState.Sitting;
                     _sitTimer = 0f;
                 }
                 break;
         }
+    }
+
+    private void OnDisable()
+    {
+        ClearInvestigationVisuals();
     }
 
     // ──────────────────────────────────────────────────────────────
@@ -207,14 +245,34 @@ public class DateCharacterController : MonoBehaviour
 
         if (candidates.Count == 0) return;
 
+        ClearInvestigationVisuals();
         _currentTarget = candidates[UnityEngine.Random.Range(0, candidates.Count)];
         _state = CharState.Investigating;
         _investigateTimer = 0f;
+        _reactionEvaluated = false;
+
+        BeginInvestigationVisuals();
 
         if (investigateSFX != null && AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX(investigateSFX);
 
         Debug.Log($"[DateCharacterController] Evaluating {_currentTarget.gameObject.name}");
+    }
+
+    /// <summary>Pre-evaluate to determine ambient particle color before the verdict fires.</summary>
+    private void PreEvaluate()
+    {
+        _reactionEvaluated = true;
+
+        if (_currentTarget == null) return;
+        var dateSession = DateSessionManager.Instance;
+        if (dateSession == null || dateSession.CurrentDate == null) return;
+
+        _pendingReaction = ReactionEvaluator.EvaluateReactable(_currentTarget, dateSession.CurrentDate.preferences);
+
+        // Start ambient particles now that we know the sentiment
+        if (_emitAmbientParticles && _currentTarget != null)
+            StartAmbientParticles(_currentTarget.transform.position, _pendingReaction);
     }
 
     private void EvaluateCurrentTarget()
@@ -224,14 +282,107 @@ public class DateCharacterController : MonoBehaviour
         var dateSession = DateSessionManager.Instance;
         if (dateSession == null || dateSession.CurrentDate == null) return;
 
-        var reaction = ReactionEvaluator.EvaluateReactable(_currentTarget, dateSession.CurrentDate.preferences);
+        var reaction = _reactionEvaluated
+            ? _pendingReaction
+            : ReactionEvaluator.EvaluateReactable(_currentTarget, dateSession.CurrentDate.preferences);
 
         if (reactionSFX != null && AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX(reactionSFX);
+
+        // Burst particles at the item on verdict
+        DateSessionManager.SpawnReactionParticles(
+            _currentTarget.transform.position + Vector3.up * 0.15f, reaction);
 
         string itemDisplayName = _currentTarget.DisplayName;
         OnReaction?.Invoke(_currentTarget, reaction, itemDisplayName);
 
         Debug.Log($"[DateCharacterController] Reacted to {itemDisplayName}: {reaction}");
+    }
+
+    // ──────────────────────────────────────────────────────────────
+    // Investigation Visuals
+    // ──────────────────────────────────────────────────────────────
+
+    private void BeginInvestigationVisuals()
+    {
+        if (_currentTarget == null) return;
+
+        // Highlight the item being looked at
+        _currentHighlight = _currentTarget.GetComponent<InteractableHighlight>();
+        if (_currentHighlight != null)
+            _currentHighlight.SetGazeHighlighted(true);
+    }
+
+    private void ClearInvestigationVisuals()
+    {
+        // Remove highlight
+        if (_currentHighlight != null)
+        {
+            _currentHighlight.SetGazeHighlighted(false);
+            _currentHighlight = null;
+        }
+
+        // Stop ambient particles
+        StopAmbientParticles();
+    }
+
+    private void StartAmbientParticles(Vector3 position, ReactionType reaction)
+    {
+        StopAmbientParticles();
+
+        _ambientPSGO = new GameObject("AmbientReactionPS");
+        _ambientPSGO.transform.position = position + Vector3.up * 0.2f;
+
+        _ambientPS = _ambientPSGO.AddComponent<ParticleSystem>();
+        _ambientPS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        _ambientPS.Clear(true);
+
+        var main = _ambientPS.main;
+        main.playOnAwake = false;
+        main.simulationSpace = ParticleSystemSimulationSpace.World;
+        main.loop = true;
+        main.duration = 5f;
+        main.startLifetime = new ParticleSystem.MinMaxCurve(0.8f, 1.5f);
+        main.startSpeed = new ParticleSystem.MinMaxCurve(0.2f, 0.5f);
+        main.startSize = new ParticleSystem.MinMaxCurve(0.03f, 0.06f);
+        main.gravityModifier = -0.15f; // float upward gently
+        main.maxParticles = 20;
+
+        // Color by sentiment
+        Color particleColor = reaction switch
+        {
+            ReactionType.Like => new Color(1f, 0.7f, 0.8f, 0.7f),     // soft pink
+            ReactionType.Dislike => new Color(0.5f, 0.45f, 0.6f, 0.5f), // muted purple
+            _ => new Color(0.8f, 0.8f, 0.75f, 0.4f)                    // faint warm grey
+        };
+        main.startColor = particleColor;
+
+        var emission = _ambientPS.emission;
+        emission.rateOverTime = _ambientParticleRate;
+
+        var shape = _ambientPS.shape;
+        shape.shapeType = ParticleSystemShapeType.Sphere;
+        shape.radius = 0.12f;
+
+        var sizeOverLifetime = _ambientPS.sizeOverLifetime;
+        sizeOverLifetime.enabled = true;
+        sizeOverLifetime.size = new ParticleSystem.MinMaxCurve(1f,
+            AnimationCurve.EaseInOut(0f, 0.5f, 1f, 0f));
+
+        _ambientPS.Play();
+    }
+
+    private void StopAmbientParticles()
+    {
+        if (_ambientPS != null)
+        {
+            _ambientPS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+        if (_ambientPSGO != null)
+        {
+            Destroy(_ambientPSGO);
+            _ambientPSGO = null;
+        }
+        _ambientPS = null;
     }
 }

@@ -829,6 +829,10 @@ public class DateSessionManager : MonoBehaviour
 #endif
 
         // Phase 3 is player-driven — player clicks items to show the date.
+        // Enable seated excursions so the date looks around the room on their own
+        if (_dateCharacter != null)
+            _dateCharacter.EnableExcursions();
+
         DialoguePortraitBox.Instance?.Say("Show me what you've got!", 2.5f);
         yield return s_wait25;
 
