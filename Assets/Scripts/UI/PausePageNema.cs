@@ -9,6 +9,10 @@ using TMPro;
 /// </summary>
 public class PausePageNema : MonoBehaviour
 {
+    [Header("Data")]
+    [Tooltip("Drag the NemaPersonality ScriptableObject here.")]
+    [SerializeField] private NemaPersonality _personality;
+
     [Header("Optional Wired UI")]
     [SerializeField] private TMP_Text _wellbeingText;
     [SerializeField] private TMP_Text _personalityText;
@@ -56,7 +60,7 @@ public class PausePageNema : MonoBehaviour
         // Personality
         if (_personalityText != null)
         {
-            var np = NemaPersonality.Instance;
+            var np = _personality;
             if (np != null)
             {
                 _personalityText.text =
