@@ -33,6 +33,11 @@ public static class AccessibilitySettings
     private const string K_QualityPreset   = "Iris_QualityPreset";
     private const string K_PSXEnabled      = "Iris_PSXEnabled";
     private const string K_InvertScroll    = "Iris_InvertScroll";
+    private const string K_DoubleExposureMax = "Iris_DoubleExposureMax";
+    private const string K_BloomMax        = "Iris_BloomMax";
+    private const string K_DitherMax       = "Iris_DitherMax";
+    private const string K_VignetteMax     = "Iris_VignetteMax";
+    private const string K_DynamicVisuals  = "Iris_DynamicVisuals";
 
     // ── Event ───────────────────────────────────────────────────
     public static event System.Action OnSettingsChanged;
@@ -74,6 +79,11 @@ public static class AccessibilitySettings
     private static int   s_qualityPreset;
     private static bool  s_psxEnabled;
     private static bool  s_invertScroll;
+    private static float s_doubleExposureMax;
+    private static float s_bloomMax;
+    private static float s_ditherMax;
+    private static float s_vignetteMax;
+    private static bool  s_dynamicVisuals;
 
     // ── Color palettes per colorblind mode ──────────────────────
     private static readonly Color[] s_happyColors =
@@ -126,6 +136,11 @@ public static class AccessibilitySettings
         s_qualityPreset   = -1;
         s_psxEnabled      = true;
         s_invertScroll    = false;
+        s_doubleExposureMax = 1f;
+        s_bloomMax        = 1f;
+        s_ditherMax       = 1f;
+        s_vignetteMax     = 1f;
+        s_dynamicVisuals  = true;
     }
 
     private static void LoadAll()
@@ -146,6 +161,11 @@ public static class AccessibilitySettings
         s_qualityPreset   = PlayerPrefs.GetInt(K_QualityPreset, -1);
         s_psxEnabled      = PlayerPrefs.GetInt(K_PSXEnabled, 1) == 1;
         s_invertScroll    = PlayerPrefs.GetInt(K_InvertScroll, 0) == 1;
+        s_doubleExposureMax = PlayerPrefs.GetFloat(K_DoubleExposureMax, 1f);
+        s_bloomMax        = PlayerPrefs.GetFloat(K_BloomMax, 1f);
+        s_ditherMax       = PlayerPrefs.GetFloat(K_DitherMax, 1f);
+        s_vignetteMax     = PlayerPrefs.GetFloat(K_VignetteMax, 1f);
+        s_dynamicVisuals  = PlayerPrefs.GetInt(K_DynamicVisuals, 1) == 1;
 
         // Clamp loaded values
         s_textScale       = Mathf.Clamp(s_textScale, 0.8f, 1.5f);
@@ -156,6 +176,10 @@ public static class AccessibilitySettings
         s_ambienceVolume  = Mathf.Clamp01(s_ambienceVolume);
         s_uiVolume        = Mathf.Clamp01(s_uiVolume);
         s_resolutionScale = Mathf.Clamp(s_resolutionScale, 0.5f, 1f);
+        s_doubleExposureMax = Mathf.Clamp01(s_doubleExposureMax);
+        s_bloomMax        = Mathf.Clamp01(s_bloomMax);
+        s_ditherMax       = Mathf.Clamp01(s_ditherMax);
+        s_vignetteMax     = Mathf.Clamp01(s_vignetteMax);
     }
 
     // ── Visual Properties ───────────────────────────────────────
@@ -285,6 +309,43 @@ public static class AccessibilitySettings
         set { s_invertScroll = value; SaveBool(K_InvertScroll, value); NotifyChanged(); }
     }
 
+    // ── Visual Effect Caps ─────────────────────────────────────
+
+    /// <summary>Max double exposure (ghost trails) intensity. 0 = disabled.</summary>
+    public static float DoubleExposureMax
+    {
+        get => s_doubleExposureMax;
+        set { s_doubleExposureMax = Mathf.Clamp01(value); SaveFloat(K_DoubleExposureMax, s_doubleExposureMax); NotifyChanged(); }
+    }
+
+    /// <summary>Max bloom intensity multiplier. 0 = no bloom.</summary>
+    public static float BloomMax
+    {
+        get => s_bloomMax;
+        set { s_bloomMax = Mathf.Clamp01(value); SaveFloat(K_BloomMax, s_bloomMax); NotifyChanged(); }
+    }
+
+    /// <summary>Max PSX dither intensity. 0 = no dither overlay.</summary>
+    public static float DitherMax
+    {
+        get => s_ditherMax;
+        set { s_ditherMax = Mathf.Clamp01(value); SaveFloat(K_DitherMax, s_ditherMax); NotifyChanged(); }
+    }
+
+    /// <summary>Max vignette intensity. 0 = no edge darkening.</summary>
+    public static float VignetteMax
+    {
+        get => s_vignetteMax;
+        set { s_vignetteMax = Mathf.Clamp01(value); SaveFloat(K_VignetteMax, s_vignetteMax); NotifyChanged(); }
+    }
+
+    /// <summary>When false, all wellbeing/mood visual changes are frozen at neutral.</summary>
+    public static bool DynamicVisualsEnabled
+    {
+        get => s_dynamicVisuals;
+        set { s_dynamicVisuals = value; SaveBool(K_DynamicVisuals, value); NotifyChanged(); }
+    }
+
     // ── Color Helpers (unchanged API) ───────────────────────────
 
     public static Color GetHappyColor() => s_happyColors[(int)s_colorblindMode];
@@ -313,6 +374,11 @@ public static class AccessibilitySettings
         PlayerPrefs.DeleteKey(K_QualityPreset);
         PlayerPrefs.DeleteKey(K_PSXEnabled);
         PlayerPrefs.DeleteKey(K_InvertScroll);
+        PlayerPrefs.DeleteKey(K_DoubleExposureMax);
+        PlayerPrefs.DeleteKey(K_BloomMax);
+        PlayerPrefs.DeleteKey(K_DitherMax);
+        PlayerPrefs.DeleteKey(K_VignetteMax);
+        PlayerPrefs.DeleteKey(K_DynamicVisuals);
         PlayerPrefs.Save();
 
         ScalableBufferManager.ResizeBuffers(1f, 1f);

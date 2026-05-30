@@ -162,15 +162,7 @@ public class GameClock : MonoBehaviour
 
         _currentHour += Time.deltaTime / realSecondsPerGameHour;
 
-        // Feed mood machine with time-of-day value
-        float displayHour = Mathf.Repeat(_currentHour, 24f);
-        MoodMachine.Instance?.SetSource("TimeOfDay", timeOfDayMoodCurve.Evaluate(displayHour));
-
         OnHourChanged?.Invoke(_currentHour);
-
-        // Auto-sleep disabled: the day advances only on explicit player action
-        // (Go to Bed button) or via the flower trimming success path. The clock
-        // still ticks for time-of-day mood, but never forces sleep.
     }
 
     // ──────────────────────────────────────────────────────────────

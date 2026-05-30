@@ -23,6 +23,17 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private Slider _textScaleSlider;
     [SerializeField] private TMP_Text _textScaleLabel;
 
+    [Header("Visual Effects")]
+    [SerializeField] private Slider _doubleExposureMaxSlider;
+    [SerializeField] private TMP_Text _doubleExposureMaxLabel;
+    [SerializeField] private Slider _bloomMaxSlider;
+    [SerializeField] private TMP_Text _bloomMaxLabel;
+    [SerializeField] private Slider _ditherMaxSlider;
+    [SerializeField] private TMP_Text _ditherMaxLabel;
+    [SerializeField] private Slider _vignetteMaxSlider;
+    [SerializeField] private TMP_Text _vignetteMaxLabel;
+    [SerializeField] private Toggle _dynamicVisualsToggle;
+
     // ── Audio Tab ───────────────────────────────────────────────
     [Header("Audio")]
     [SerializeField] private Slider _masterVolumeSlider;
@@ -78,6 +89,11 @@ public class SettingsPanel : MonoBehaviour
         if (_qualityDropdown != null)    _qualityDropdown.onValueChanged.AddListener(OnQualityChanged);
         if (_psxToggle != null)          _psxToggle.onValueChanged.AddListener(OnPSXChanged);
         if (_invertScrollToggle != null) _invertScrollToggle.onValueChanged.AddListener(OnInvertScrollChanged);
+        if (_doubleExposureMaxSlider != null) _doubleExposureMaxSlider.onValueChanged.AddListener(OnDoubleExposureMaxChanged);
+        if (_bloomMaxSlider != null)    _bloomMaxSlider.onValueChanged.AddListener(OnBloomMaxChanged);
+        if (_ditherMaxSlider != null)   _ditherMaxSlider.onValueChanged.AddListener(OnDitherMaxChanged);
+        if (_vignetteMaxSlider != null) _vignetteMaxSlider.onValueChanged.AddListener(OnVignetteMaxChanged);
+        if (_dynamicVisualsToggle != null) _dynamicVisualsToggle.onValueChanged.AddListener(OnDynamicVisualsChanged);
 
         // Initialize tab buttons
         if (_tabButtons != null)
@@ -165,6 +181,15 @@ public class SettingsPanel : MonoBehaviour
         if (_highContrastToggle != null) _highContrastToggle.isOn = AccessibilitySettings.HighContrast;
         if (_textScaleSlider != null)    _textScaleSlider.value = AccessibilitySettings.TextScale;
         UpdateTextScaleLabel();
+        if (_doubleExposureMaxSlider != null) _doubleExposureMaxSlider.value = AccessibilitySettings.DoubleExposureMax;
+        UpdateDoubleExposureMaxLabel();
+        if (_bloomMaxSlider != null) _bloomMaxSlider.value = AccessibilitySettings.BloomMax;
+        UpdateBloomMaxLabel();
+        if (_ditherMaxSlider != null) _ditherMaxSlider.value = AccessibilitySettings.DitherMax;
+        UpdateDitherMaxLabel();
+        if (_vignetteMaxSlider != null) _vignetteMaxSlider.value = AccessibilitySettings.VignetteMax;
+        UpdateVignetteMaxLabel();
+        if (_dynamicVisualsToggle != null) _dynamicVisualsToggle.isOn = AccessibilitySettings.DynamicVisualsEnabled;
 
         // Audio
         if (_masterVolumeSlider != null) _masterVolumeSlider.value = AccessibilitySettings.MasterVolume;
@@ -295,6 +320,40 @@ public class SettingsPanel : MonoBehaviour
         AccessibilitySettings.InvertScroll = val;
     }
 
+    private void OnDoubleExposureMaxChanged(float val)
+    {
+        if (_suppressCallbacks) return;
+        AccessibilitySettings.DoubleExposureMax = val;
+        UpdateDoubleExposureMaxLabel();
+    }
+
+    private void OnBloomMaxChanged(float val)
+    {
+        if (_suppressCallbacks) return;
+        AccessibilitySettings.BloomMax = val;
+        UpdateBloomMaxLabel();
+    }
+
+    private void OnDitherMaxChanged(float val)
+    {
+        if (_suppressCallbacks) return;
+        AccessibilitySettings.DitherMax = val;
+        UpdateDitherMaxLabel();
+    }
+
+    private void OnVignetteMaxChanged(float val)
+    {
+        if (_suppressCallbacks) return;
+        AccessibilitySettings.VignetteMax = val;
+        UpdateVignetteMaxLabel();
+    }
+
+    private void OnDynamicVisualsChanged(bool val)
+    {
+        if (_suppressCallbacks) return;
+        AccessibilitySettings.DynamicVisualsEnabled = val;
+    }
+
     // ── Reset Buttons ───────────────────────────────────────────
 
     public void UI_ResetAll()
@@ -341,5 +400,29 @@ public class SettingsPanel : MonoBehaviour
     {
         if (_resolutionScaleLabel != null)
             _resolutionScaleLabel.text = $"{AccessibilitySettings.ResolutionScale:P0}";
+    }
+
+    private void UpdateDoubleExposureMaxLabel()
+    {
+        if (_doubleExposureMaxLabel != null)
+            _doubleExposureMaxLabel.text = $"{AccessibilitySettings.DoubleExposureMax:P0}";
+    }
+
+    private void UpdateBloomMaxLabel()
+    {
+        if (_bloomMaxLabel != null)
+            _bloomMaxLabel.text = $"{AccessibilitySettings.BloomMax:P0}";
+    }
+
+    private void UpdateDitherMaxLabel()
+    {
+        if (_ditherMaxLabel != null)
+            _ditherMaxLabel.text = $"{AccessibilitySettings.DitherMax:P0}";
+    }
+
+    private void UpdateVignetteMaxLabel()
+    {
+        if (_vignetteMaxLabel != null)
+            _vignetteMaxLabel.text = $"{AccessibilitySettings.VignetteMax:P0}";
     }
 }

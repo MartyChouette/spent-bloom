@@ -126,6 +126,12 @@ public class PlayerKnowledgeTracker : MonoBehaviour
     [SerializeField] private List<GameItemDefinition> discoveredItems = new List<GameItemDefinition>();
     [SerializeField] private List<InfoBitDefinition> learnedInfo = new List<InfoBitDefinition>();
 
+    /// <summary>All items the player has discovered.</summary>
+    public IReadOnlyList<GameItemDefinition> DiscoveredItems => discoveredItems;
+
+    /// <summary>All info bits the player has learned.</summary>
+    public IReadOnlyList<InfoBitDefinition> LearnedInfo => learnedInfo;
+
     // Fast lookup tables
     private readonly HashSet<string> _itemIds = new HashSet<string>();
     private readonly HashSet<string> _infoIds = new HashSet<string>();
