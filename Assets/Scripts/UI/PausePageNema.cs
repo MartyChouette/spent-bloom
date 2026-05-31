@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 
 /// <summary>
@@ -13,11 +12,7 @@ public class PausePageNema : MonoBehaviour
     [Tooltip("Drag the NemaPersonality ScriptableObject here.")]
     [SerializeField] private NemaPersonality _personality;
 
-    [Header("Carousel Input")]
-    [Tooltip("Navigate carousel left.")]
-    [SerializeField] private InputActionReference _carouselLeft;
-    [Tooltip("Navigate carousel right.")]
-    [SerializeField] private InputActionReference _carouselRight;
+    // Carousel uses A/D or arrow keys (Q/E is page switching)
 
     private PauseCarousel _carousel;
     private bool _built;
@@ -33,35 +28,16 @@ public class PausePageNema : MonoBehaviour
     private void OnEnable()
     {
         Refresh();
-
-        if (_carouselLeft != null && _carouselLeft.action != null)
-        {
-            _carouselLeft.action.performed += OnCarouselLeft;
-            _carouselLeft.action.Enable();
-        }
-        if (_carouselRight != null && _carouselRight.action != null)
-        {
-            _carouselRight.action.performed += OnCarouselRight;
-            _carouselRight.action.Enable();
-        }
     }
 
-    private void OnDisable()
+    private void Update()
     {
-        if (_carouselLeft != null && _carouselLeft.action != null)
-        {
-            _carouselLeft.action.performed -= OnCarouselLeft;
-            _carouselLeft.action.Disable();
-        }
-        if (_carouselRight != null && _carouselRight.action != null)
-        {
-            _carouselRight.action.performed -= OnCarouselRight;
-            _carouselRight.action.Disable();
-        }
+        if (_carousel == null) return;
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            _carousel.Previous();
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            _carousel.Next();
     }
-
-    private void OnCarouselLeft(InputAction.CallbackContext ctx) => _carousel?.Previous();
-    private void OnCarouselRight(InputAction.CallbackContext ctx) => _carousel?.Next();
 
     public void Refresh()
     {

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
 
 [DisallowMultipleComponent]
@@ -76,6 +77,9 @@ public class PauseMenuController : MonoBehaviour
         if (pages == null || pages.Length == 0)
             BuildDefaultPages();
 
+        // Ensure pause root blocks raycasts so clicks don't pass through to the game
+        EnsureRaycastBlocker();
+
         if (pauseRoot != null)
             pauseRoot.SetActive(false);
 
@@ -133,6 +137,22 @@ public class PauseMenuController : MonoBehaviour
         rt.anchorMax = Vector2.one;
         rt.offsetMin = Vector2.zero;
         rt.offsetMax = Vector2.zero;
+    }
+
+    /// <summary>
+    /// Adds a transparent full-screen Image to pauseRoot if one doesn't exist,
+    /// so it blocks raycasts and prevents clicks from reaching the game world.
+    /// </summary>
+    private void EnsureRaycastBlocker()
+    {
+        if (pauseRoot == null) return;
+        var img = pauseRoot.GetComponent<Image>();
+        if (img == null)
+        {
+            img = pauseRoot.AddComponent<Image>();
+            img.color = new Color(0f, 0f, 0f, 0.4f); // semi-transparent overlay
+            img.raycastTarget = true;
+        }
     }
 
     private void OnEnable()
