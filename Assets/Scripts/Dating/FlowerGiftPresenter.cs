@@ -113,8 +113,8 @@ public class FlowerGiftPresenter : MonoBehaviour
         // Center the flower visuals at the pivot origin so rotation is around the visual center
         CenterFlowerAtPivot(flowerClone);
 
-        // Render flower on top of scene geometry (but behind UI overlay text)
-        SetRenderOnTop(flowerClone);
+        // Keep original URP materials — the canvas overlay behind the flower
+        // handles visual separation from the scene. No shader swap needed.
 
         // Apply Zelda-style tilt (lean forward so spin looks dynamic)
         // 180 Y rotation so flower faces the camera, not away from it
