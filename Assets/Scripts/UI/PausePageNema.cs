@@ -2,25 +2,18 @@ using UnityEngine;
 using TMPro;
 
 /// <summary>
-/// Pause menu page for Nema. Carousel with four sections:
-/// Wellbeing (flower petals), Personality (trait dots),
-/// Outfit (current outfit), Flower (equilibrium indicator).
+/// Pause menu page for Nema. Carousel with three sections:
+/// Wellbeing (how she's doing), Outfit (current outfit),
+/// Flower (equilibrium indicator driven by NemaWellbeing.Overall).
 /// </summary>
 public class PausePageNema : MonoBehaviour
 {
-    [Header("Data")]
-    [Tooltip("Drag the NemaPersonality ScriptableObject here.")]
-    [SerializeField] private NemaPersonality _personality;
-
-    // Carousel uses A/D or arrow keys (Q/E is page switching)
-
     private PauseCarousel _carousel;
     private bool _built;
 
     // Section content text fields
     private TMP_Text _wellbeingText;
     private TMP_Text _moodLabel;
-    private TMP_Text _personalityText;
     private TMP_Text _outfitText;
     private TMP_Text _flowerText;
     private TMP_Text _flowerCommentary;
@@ -44,7 +37,6 @@ public class PausePageNema : MonoBehaviour
         if (!_built) BuildUI();
 
         RefreshWellbeing();
-        RefreshPersonality();
         RefreshOutfit();
         RefreshFlower();
     }
@@ -62,8 +54,10 @@ public class PausePageNema : MonoBehaviour
         for (int i = 0; i < NemaWellbeing.PetalCount; i++)
         {
             string name = NemaWellbeing.PetalNames[i].ToLower().PadRight(11);
+            string desc = NemaWellbeing.PetalDescriptions[i];
             float val = wb.GetPetal(i);
-            _wellbeingText.text += $"{name} {Bar(val)}  {val:P0}\n";
+            _wellbeingText.text += $"{name} {Bar(val)}\n" +
+                $"<size=13><color=#666666>  {desc}</color></size>\n";
         }
 
         if (_moodLabel != null)
@@ -79,27 +73,6 @@ public class PausePageNema : MonoBehaviour
                 : wb.Overall >= 0.3f
                     ? new Color(0.85f, 0.8f, 0.6f)
                     : new Color(0.85f, 0.5f, 0.5f);
-        }
-    }
-
-    // ─────────────────── Personality ───────────────────
-
-    private void RefreshPersonality()
-    {
-        if (_personalityText == null) return;
-
-        if (_personality != null)
-        {
-            _personalityText.text =
-                $"warm        {Dots(_personality.GetTrait(0))}\n" +
-                $"transparent {Dots(_personality.GetTrait(1))}\n" +
-                $"playful     {Dots(_personality.GetTrait(2))}\n" +
-                $"bold        {Dots(_personality.GetTrait(3))}\n" +
-                $"romantic    {Dots(_personality.GetTrait(4))}";
-        }
-        else
-        {
-            _personalityText.text = "<color=#666666>no personality data</color>";
         }
     }
 
@@ -135,7 +108,6 @@ public class PausePageNema : MonoBehaviour
 
         float overall = NemaWellbeing.Instance != null ? NemaWellbeing.Instance.Overall : 0f;
 
-        // Visual representation of flower growth
         string flowerState;
         string commentary;
 
@@ -168,7 +140,7 @@ public class PausePageNema : MonoBehaviour
         _flowerText.text =
             $"<b>nema's flower</b>\n\n" +
             $"{flowerState}\n\n" +
-            $"{Bar(overall)}  {overall:P0}";
+            $"{Bar(overall)}";
 
         if (_flowerCommentary != null)
             _flowerCommentary.text = commentary;
@@ -182,11 +154,6 @@ public class PausePageNema : MonoBehaviour
         return new string('\u2588', filled) + new string('\u2591', 10 - filled);
     }
 
-    private static string Dots(int value)
-    {
-        return new string('\u25CF', value) + new string('\u25CB', 5 - value);
-    }
-
     // ─────────────────── Build UI ───────────────────
 
     private void BuildUI()
@@ -195,7 +162,7 @@ public class PausePageNema : MonoBehaviour
         PauseUIHelper.EnsureFullStretch(gameObject);
         var theme = IrisTextTheme.Active;
 
-        // Carousel container (takes full page minus margins for dots)
+        // Carousel container
         var carouselGO = new GameObject("Carousel");
         carouselGO.transform.SetParent(transform, false);
         var carouselRT = carouselGO.AddComponent<RectTransform>();
@@ -206,19 +173,19 @@ public class PausePageNema : MonoBehaviour
         _carousel = carouselGO.AddComponent<PauseCarousel>();
         _carousel.OnSectionChanged += _ => Refresh();
 
-        // Create section roots
-        var sectionNames = new[] { "wellbeing", "personality", "outfit", "flower" };
-        var sectionRoots = new GameObject[4];
+        // Create 3 section roots
+        var sectionNames = new[] { "wellbeing", "outfit", "flower" };
+        var sectionRoots = new GameObject[3];
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             var sectionGO = new GameObject($"Section_{sectionNames[i]}");
             sectionGO.transform.SetParent(carouselGO.transform, false);
             var sRT = sectionGO.AddComponent<RectTransform>();
             sRT.anchorMin = Vector2.zero;
             sRT.anchorMax = Vector2.one;
-            sRT.offsetMin = new Vector2(20f, 40f);   // above dots
-            sRT.offsetMax = new Vector2(-20f, -40f);  // below carousel title
+            sRT.offsetMin = new Vector2(20f, 40f);
+            sRT.offsetMax = new Vector2(-20f, -40f);
             sectionRoots[i] = sectionGO;
         }
 
@@ -246,30 +213,16 @@ public class PausePageNema : MonoBehaviour
         wbRT.offsetMin = new Vector2(20f, 20f);
         wbRT.offsetMax = new Vector2(-20f, -50f);
         _wellbeingText = wbGO.AddComponent<TextMeshProUGUI>();
-        _wellbeingText.fontSize = 18f;
+        _wellbeingText.fontSize = 16f;
         _wellbeingText.color = new Color(0.85f, 0.82f, 0.78f);
         _wellbeingText.alignment = TextAlignmentOptions.TopLeft;
         _wellbeingText.raycastTarget = false;
+        _wellbeingText.richText = true;
         if (theme != null && theme.primaryFont != null) _wellbeingText.font = theme.primaryFont;
 
-        // ── Section 1: Personality ──
-        var pGO = new GameObject("PersonalityDots");
-        pGO.transform.SetParent(sectionRoots[1].transform, false);
-        var pRT = pGO.AddComponent<RectTransform>();
-        pRT.anchorMin = Vector2.zero;
-        pRT.anchorMax = Vector2.one;
-        pRT.offsetMin = new Vector2(20f, 20f);
-        pRT.offsetMax = new Vector2(-20f, -10f);
-        _personalityText = pGO.AddComponent<TextMeshProUGUI>();
-        _personalityText.fontSize = 18f;
-        _personalityText.color = new Color(0.85f, 0.82f, 0.78f);
-        _personalityText.alignment = TextAlignmentOptions.TopLeft;
-        _personalityText.raycastTarget = false;
-        if (theme != null && theme.primaryFont != null) _personalityText.font = theme.primaryFont;
-
-        // ── Section 2: Outfit ──
+        // ── Section 1: Outfit ──
         var oGO = new GameObject("OutfitInfo");
-        oGO.transform.SetParent(sectionRoots[2].transform, false);
+        oGO.transform.SetParent(sectionRoots[1].transform, false);
         var oRT = oGO.AddComponent<RectTransform>();
         oRT.anchorMin = Vector2.zero;
         oRT.anchorMax = Vector2.one;
@@ -284,9 +237,9 @@ public class PausePageNema : MonoBehaviour
         _outfitText.richText = true;
         if (theme != null && theme.primaryFont != null) _outfitText.font = theme.primaryFont;
 
-        // ── Section 3: Flower ──
+        // ── Section 2: Flower ──
         var fGO = new GameObject("FlowerState");
-        fGO.transform.SetParent(sectionRoots[3].transform, false);
+        fGO.transform.SetParent(sectionRoots[2].transform, false);
         var fRT = fGO.AddComponent<RectTransform>();
         fRT.anchorMin = new Vector2(0f, 0.3f);
         fRT.anchorMax = new Vector2(1f, 1f);
@@ -302,7 +255,7 @@ public class PausePageNema : MonoBehaviour
         if (theme != null && theme.primaryFont != null) _flowerText.font = theme.primaryFont;
 
         var fcGO = new GameObject("FlowerCommentary");
-        fcGO.transform.SetParent(sectionRoots[3].transform, false);
+        fcGO.transform.SetParent(sectionRoots[2].transform, false);
         var fcRT = fcGO.AddComponent<RectTransform>();
         fcRT.anchorMin = new Vector2(0f, 0f);
         fcRT.anchorMax = new Vector2(1f, 0.3f);
