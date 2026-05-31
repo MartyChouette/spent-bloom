@@ -142,8 +142,8 @@ public class SettingsPanel : MonoBehaviour
     /// <summary>Called by the Close button. Routes through pause menu to restore buttons.</summary>
     public void UI_Close()
     {
-        if (SimplePauseMenu.Instance != null)
-            SimplePauseMenu.Instance.CloseSettings();
+        if (PauseMenuController.Instance != null)
+            PauseMenuController.Instance.CloseSettings();
         else
             Close();
     }

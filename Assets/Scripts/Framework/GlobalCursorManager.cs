@@ -426,7 +426,7 @@ public class GlobalCursorManager : MonoBehaviour
         }
 
         // Force cursor visible when paused — menus need the cursor
-        if ((SimplePauseMenu.Instance != null && SimplePauseMenu.Instance.IsPaused)
+        if ((PauseMenuController.Instance != null && PauseMenuController.Instance.IsPaused)
             || Time.timeScale == 0f)
         {
             if (!Cursor.visible) Cursor.visible = true;

@@ -7,6 +7,8 @@ using TMPro;
 [DisallowMultipleComponent]
 public class PauseMenuController : MonoBehaviour
 {
+    public static PauseMenuController Instance { get; private set; }
+
     [System.Serializable]
     public class PausePage
     {
@@ -37,6 +39,10 @@ public class PauseMenuController : MonoBehaviour
     [Tooltip("Optional options panel that can be shown from the System page.")]
     public GameObject optionsPanel;
 
+    [Header("Settings")]
+    [Tooltip("Optional settings panel opened from the System page.")]
+    [SerializeField] private SettingsPanel _settingsPanel;
+
     [Header("Debug")]
     public bool debugLogs = false;
 
@@ -52,6 +58,13 @@ public class PauseMenuController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         _pauseAction = new InputAction("Pause", InputActionType.Button, "<Keyboard>/escape");
         _pageLeftAction = new InputAction("PageLeft", InputActionType.Button, "<Keyboard>/q");
         _pageRightAction = new InputAction("PageRight", InputActionType.Button, "<Keyboard>/e");
@@ -59,11 +72,67 @@ public class PauseMenuController : MonoBehaviour
 
     private void Start()
     {
+        // Auto-build pages if none wired in Inspector
+        if (pages == null || pages.Length == 0)
+            BuildDefaultPages();
+
         if (pauseRoot != null)
             pauseRoot.SetActive(false);
 
         if (optionsPanel != null)
             optionsPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// Programmatically creates the 5 pause pages if none are configured.
+    /// Each page component builds its own UI on first enable.
+    /// </summary>
+    private void BuildDefaultPages()
+    {
+        if (pauseRoot == null) return;
+
+        var nemaGO = new GameObject("Page_Nema");
+        nemaGO.transform.SetParent(pauseRoot.transform, false);
+        SetFullStretch(nemaGO);
+        nemaGO.AddComponent<PausePageNema>();
+
+        var itemsGO = new GameObject("Page_Items");
+        itemsGO.transform.SetParent(pauseRoot.transform, false);
+        SetFullStretch(itemsGO);
+        itemsGO.AddComponent<PausePageItems>();
+
+        var notesGO = new GameObject("Page_Notes");
+        notesGO.transform.SetParent(pauseRoot.transform, false);
+        SetFullStretch(notesGO);
+        notesGO.AddComponent<PausePageNotes>();
+
+        var calendarGO = new GameObject("Page_Calendar");
+        calendarGO.transform.SetParent(pauseRoot.transform, false);
+        SetFullStretch(calendarGO);
+        calendarGO.AddComponent<PausePageCalendar>();
+
+        var systemGO = new GameObject("Page_System");
+        systemGO.transform.SetParent(pauseRoot.transform, false);
+        SetFullStretch(systemGO);
+        systemGO.AddComponent<PausePageSystem>();
+
+        pages = new PausePage[]
+        {
+            new PausePage { pageId = "nema", displayName = "Nema", root = nemaGO },
+            new PausePage { pageId = "items", displayName = "Items", root = itemsGO },
+            new PausePage { pageId = "notes", displayName = "Notes", root = notesGO },
+            new PausePage { pageId = "calendar", displayName = "Calendar", root = calendarGO },
+            new PausePage { pageId = "system", displayName = "System", root = systemGO },
+        };
+    }
+
+    private static void SetFullStretch(GameObject go)
+    {
+        var rt = go.AddComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
     }
 
     private void OnEnable()
@@ -82,6 +151,7 @@ public class PauseMenuController : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (Instance == this) Instance = null;
         _pauseAction?.Dispose();
         _pageLeftAction?.Dispose();
         _pageRightAction?.Dispose();
@@ -92,8 +162,19 @@ public class PauseMenuController : MonoBehaviour
 
     private void Update()
     {
-        if (_pauseAction.WasPressedThisFrame())
+        // Check both InputAction and legacy Input as fallback
+        bool pressed = _pauseAction.WasPressedThisFrame()
+                    || Input.GetKeyDown(KeyCode.Escape);
+
+        if (pressed)
         {
+            // If settings panel is open, close it first
+            if (_isPaused && _settingsPanel != null && _settingsPanel.IsOpen)
+            {
+                CloseSettings();
+                return;
+            }
+
             if (!_isPaused) OpenPauseMenu();
             else ClosePauseMenu();
         }
@@ -245,10 +326,43 @@ public class PauseMenuController : MonoBehaviour
 
     public void QuitGame()
     {
+        if (PlaytestFeedbackForm.Instance != null && !PlaytestFeedbackForm.Instance.IsOpen)
+        {
+            if (pauseRoot != null) pauseRoot.SetActive(false);
+            PlaytestFeedbackForm.Instance.OpenWithCallback(DoQuitGame);
+            return;
+        }
+        DoQuitGame();
+    }
+
+    private void DoQuitGame()
+    {
         if (debugLogs)
             Debug.Log("[PauseMenuController] QuitGame called.", this);
 
         TimeScaleManager.ClearAll();
         GracefulQuit.Execute();
+    }
+
+    // ─────────────────── Settings panel ───────────────────
+
+    public void OpenSettings()
+    {
+        if (_settingsPanel == null)
+            _settingsPanel = FindAnyObjectByType<SettingsPanel>();
+        if (_settingsPanel == null) return;
+
+        _settingsPanel.Open();
+        if (pauseRoot != null)
+            pauseRoot.SetActive(false);
+    }
+
+    public void CloseSettings()
+    {
+        if (_settingsPanel != null && _settingsPanel.IsOpen)
+            _settingsPanel.Close();
+
+        if (pauseRoot != null)
+            pauseRoot.SetActive(true);
     }
 }
