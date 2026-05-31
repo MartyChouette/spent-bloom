@@ -312,6 +312,21 @@ public class DateSessionManager : MonoBehaviour
     // Phase 3 cached evaluations — built gradually at phase start to avoid hitch
     private readonly Dictionary<ReactableTag, (ReactionType reaction, int multiplier)> _revealCache = new();
     private bool _revealCacheReady;
+    private int _nonNeutralCount; // precomputed count of non-neutral items for phase end check
+
+    // Reaction queue — prevents overlapping reactions in Phase 3
+    private bool _reactionInProgress;
+    private ReactableTag _queuedInspectTag;
+
+    /// <summary>True while a reaction visual sequence is playing.</summary>
+    public bool ReactionInProgress => _reactionInProgress;
+
+    [Header("Phase 3 Timing")]
+    [Tooltip("Soft timer for Phase 3 in seconds. Phase ends when all items seen or timer expires.")]
+    [SerializeField] private float _phase3SoftTimer = 75f;
+
+    /// <summary>Queue a player click to fire after the current reaction finishes.</summary>
+    public void QueueInspect(ReactableTag tag) => _queuedInspectTag = tag;
 
     private Coroutine _phase2PulseCoroutine;
     private Color _fridgeOrigColor;
@@ -504,6 +519,9 @@ public class DateSessionManager : MonoBehaviour
             _scoredTags.Clear();
             _revealCache.Clear();
             _revealCacheReady = false;
+            _reactionInProgress = false;
+            _queuedInspectTag = null;
+            _nonNeutralCount = 0;
 
             Debug.Log("[DateSessionManager] P1_DEBUG: SpawnDateCharacter begin");
             SpawnDateCharacter();
@@ -828,52 +846,50 @@ public class DateSessionManager : MonoBehaviour
         Debug.Log("[DateSessionManager] Phase 3: Player-driven item inspection.");
 #endif
 
-        // Phase 3 is player-driven — player clicks items to show the date.
-        // Enable seated excursions so the date looks around the room on their own
+        // Phase 3: unified exploration — date auto-reacts and player clicks, interleaved.
+        // No continue buttons. Phase ends when all non-neutral items seen or soft timer expires.
         if (_dateCharacter != null)
             _dateCharacter.EnableExcursions();
 
         DialoguePortraitBox.Instance?.Say("Show me what you've got!", 2.5f);
         yield return s_wait25;
 
-        // Show Continue button — player explores at their own pace
-        if (PhaseContinueButton.Instance != null)
+        // Precompute non-neutral count for phase end check
+        _nonNeutralCount = 0;
+        foreach (var kvp in _revealCache)
         {
-            bool clicked = false;
-            PhaseContinueButton.Instance.Show(() => clicked = true);
-            yield return new WaitUntil(() => clicked || _state != SessionState.DateInProgress);
-            if (_state != SessionState.DateInProgress) yield break;
+            if (kvp.Value.reaction != ReactionType.Neutral)
+                _nonNeutralCount++;
         }
 
-        // Release phase camera back to original apartment angle for the sweep
-        ReleasePhaseCamera();
-        // Pull out to farthest zoom so the full apartment is visible for judgment
-        var zoomSteps = ApartmentManager.Instance?.ZoomSteps;
-        if (zoomSteps != null && zoomSteps.Length > 0)
-            ApartmentManager.Instance.ForceZoomStep(zoomSteps.Length - 1);
+        // Run unified phase loop — ends when all items scored or timer expires
+        yield return StartCoroutine(RunPhase3Loop());
+
+        // Disable excursions and player clicking
+        if (_dateCharacter != null)
+            _dateCharacter.DisableExcursions();
+        _reactionInProgress = false;
+        _queuedInspectTag = null;
+
+        // Date says closing line
         yield return s_wait05;
-
-        // Sweep remaining un-inspected items as a wave (from the wide OG angle)
-        yield return StartCoroutine(SweepRemainingItems());
-
-        // Post-reveal commentary based on affection
         if (_affection >= 0.7f)
             DialoguePortraitBox.Instance?.Say("I love what you've done here.", 3f);
         else if (_affection >= 0.4f)
             DialoguePortraitBox.Instance?.Say("Not bad... there's potential.", 3f);
         else
             DialoguePortraitBox.Instance?.Say("We can work on this...", 3f);
-
         yield return s_wait2;
 
-        // Final continue before flower gift / farewell
-        if (PhaseContinueButton.Instance != null)
-        {
-            bool clicked = false;
-            PhaseContinueButton.Instance.Show(() => clicked = true);
-            yield return new WaitUntil(() => clicked || _state != SessionState.DateInProgress);
-            if (_state != SessionState.DateInProgress) yield break;
-        }
+        // Release phase camera and zoom out for sweep
+        ReleasePhaseCamera();
+        var zoomSteps = ApartmentManager.Instance?.ZoomSteps;
+        if (zoomSteps != null && zoomSteps.Length > 0)
+            ApartmentManager.Instance.ForceZoomStep(zoomSteps.Length - 1);
+        yield return s_wait05;
+
+        // Sweep judgment — shows ALL non-neutral items, skips double-scoring
+        yield return StartCoroutine(SweepAllItems());
 
         yield return StartCoroutine(RunEndSequence());
     }
@@ -953,6 +969,158 @@ public class DateSessionManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Sweep judgment — shows ALL non-neutral items (including already-scored ones).
+    /// Already-scored items display popups but don't get double points.
+    /// Unseen items get scored for the first time.
+    /// Good items shown first, then bad items, then cleanliness.
+    /// </summary>
+    private IEnumerator SweepAllItems()
+    {
+        if (_currentDate == null || _currentDate.preferences == null) yield break;
+
+        // Gather all non-neutral items (including already scored)
+        var liked = new List<(ReactableTag tag, ReactionType reaction, int multiplier, bool alreadyScored)>();
+        var disliked = new List<(ReactableTag tag, ReactionType reaction, int multiplier, bool alreadyScored)>();
+
+        foreach (var kvp in _revealCache)
+        {
+            var tag = kvp.Key;
+            if (tag == null || !tag.IsActive) continue;
+            if (kvp.Value.reaction == ReactionType.Neutral) continue;
+
+            bool alreadyScored = _scoredTags.Contains(tag);
+
+            if (kvp.Value.reaction == ReactionType.Like)
+                liked.Add((tag, kvp.Value.reaction, kvp.Value.multiplier, alreadyScored));
+            else
+                disliked.Add((tag, kvp.Value.reaction, kvp.Value.multiplier, alreadyScored));
+        }
+
+        // Sort by multiplier descending
+        liked.Sort((a, b) => b.multiplier.CompareTo(a.multiplier));
+        disliked.Sort((a, b) => b.multiplier.CompareTo(a.multiplier));
+
+#if UNITY_EDITOR
+        Debug.Log($"[DateSessionManager] Sweep: {liked.Count} liked, {disliked.Count} disliked total.");
+#endif
+
+        var reactionUI = _dateCharacterGO?.GetComponent<DateReactionUI>();
+        ItemHighlight activeHL = null;
+        bool activeHLLiked = false;
+
+        // Show good items first
+        for (int i = 0; i < liked.Count; i++)
+        {
+            var item = liked[i];
+
+            // Score only if not already scored during Phase 3
+            if (!item.alreadyScored)
+            {
+                _scoredTags.Add(item.tag);
+                ApplyReaction(item.reaction, item.multiplier);
+            }
+
+            // Always show the popup
+            string popText = $"{item.tag.DisplayName} \u2665";
+            if (item.multiplier > 1) popText += $" {item.multiplier}\u00d7";
+            AffectionBar.Instance?.ShowPopup(popText, true);
+
+            // Clear previous highlight
+            if (activeHL != null)
+            {
+                if (activeHLLiked) activeHL.SetPrepLikedHighlighted(false);
+                else activeHL.SetPrepDislikedHighlighted(false);
+                activeHL = null;
+            }
+
+            // Highlight current item
+            var hl = item.tag.GetComponent<ItemHighlight>()
+                  ?? item.tag.GetComponentInParent<ItemHighlight>()
+                  ?? item.tag.GetComponentInChildren<ItemHighlight>();
+            if (hl != null) { hl.SetPrepLikedHighlighted(true); activeHL = hl; activeHLLiked = true; }
+
+            SpawnReactionParticles(item.tag.transform.position, item.reaction);
+            SpawnMultiplierPopup(item.tag.transform.position + Vector3.up * 0.22f, item.multiplier, item.reaction);
+
+            OnRevealReaction?.Invoke(new AccumulatedReaction { itemName = item.tag.DisplayName, type = item.reaction });
+
+            yield return new WaitForSeconds(0.8f);
+        }
+
+        // Clear last liked highlight
+        if (activeHL != null)
+        {
+            if (activeHLLiked) activeHL.SetPrepLikedHighlighted(false);
+            else activeHL.SetPrepDislikedHighlighted(false);
+            activeHL = null;
+        }
+
+        // Pause between good and bad
+        if (liked.Count > 0 && disliked.Count > 0)
+            yield return new WaitForSeconds(1.5f);
+
+        // Show bad items
+        for (int i = 0; i < disliked.Count; i++)
+        {
+            var item = disliked[i];
+
+            if (!item.alreadyScored)
+            {
+                _scoredTags.Add(item.tag);
+                ApplyReaction(item.reaction, item.multiplier);
+            }
+
+            string popText = $"{item.tag.DisplayName} \u2639";
+            if (item.multiplier > 1) popText += $" {item.multiplier}\u00d7";
+            AffectionBar.Instance?.ShowPopup(popText, false);
+
+            if (activeHL != null)
+            {
+                if (activeHLLiked) activeHL.SetPrepLikedHighlighted(false);
+                else activeHL.SetPrepDislikedHighlighted(false);
+                activeHL = null;
+            }
+
+            var hl = item.tag.GetComponent<ItemHighlight>()
+                  ?? item.tag.GetComponentInParent<ItemHighlight>()
+                  ?? item.tag.GetComponentInChildren<ItemHighlight>();
+            if (hl != null) { hl.SetPrepDislikedHighlighted(true); activeHL = hl; activeHLLiked = false; }
+
+            SpawnReactionParticles(item.tag.transform.position, item.reaction);
+            SpawnMultiplierPopup(item.tag.transform.position + Vector3.up * 0.22f, item.multiplier, item.reaction);
+
+            OnRevealReaction?.Invoke(new AccumulatedReaction { itemName = item.tag.DisplayName, type = item.reaction });
+
+            yield return new WaitForSeconds(0.8f);
+        }
+
+        // Clear last highlight
+        if (activeHL != null)
+        {
+            if (activeHLLiked) activeHL.SetPrepLikedHighlighted(false);
+            else activeHL.SetPrepDislikedHighlighted(false);
+        }
+
+        // Cleanliness evaluation
+        if (TidyScorer.Instance != null)
+        {
+            var cleanReaction = ReactionEvaluator.EvaluateCleanliness(TidyScorer.Instance.OverallTidiness);
+            if (cleanReaction != ReactionType.Neutral)
+            {
+                ApplyReaction(cleanReaction);
+                if (reactionUI != null)
+                {
+                    string cleanText = cleanReaction == ReactionType.Like
+                        ? "So clean and tidy!"
+                        : "It's a bit messy...";
+                    reactionUI.ShowText(cleanText, 2f);
+                }
+                yield return new WaitForSeconds(1f);
+            }
+        }
+    }
+
+    /// <summary>
     /// Gather all qualifying ReactableTags into a sorted list.
     /// When <paramref name="skipInspected"/> is true, tags already handled
     /// by DateInspectSystem are excluded (for the Phase 3 remainder sweep).
@@ -999,6 +1167,43 @@ public class DateSessionManager : MonoBehaviour
     public ReactionType GetCachedReaction(ReactableTag tag)
     {
         return _revealCache.TryGetValue(tag, out var entry) ? entry.reaction : ReactionType.Neutral;
+    }
+
+    /// <summary>
+    /// Unified Phase 3 loop. Date auto-reacts and player clicks items.
+    /// Ends when all non-neutral items have been scored or the soft timer expires.
+    /// </summary>
+    private IEnumerator RunPhase3Loop()
+    {
+        float elapsed = 0f;
+
+        while (_state == SessionState.DateInProgress)
+        {
+            elapsed += Time.deltaTime;
+
+            // Check if all non-neutral items have been scored
+            int scoredNonNeutral = 0;
+            foreach (var tag in _scoredTags)
+            {
+                if (_revealCache.TryGetValue(tag, out var entry) && entry.reaction != ReactionType.Neutral)
+                    scoredNonNeutral++;
+            }
+
+            if (_nonNeutralCount > 0 && scoredNonNeutral >= _nonNeutralCount)
+            {
+                Debug.Log("[DateSessionManager] Phase 3: all non-neutral items scored.");
+                break;
+            }
+
+            // Soft timer
+            if (elapsed >= _phase3SoftTimer)
+            {
+                Debug.Log("[DateSessionManager] Phase 3: soft timer expired.");
+                break;
+            }
+
+            yield return null;
+        }
     }
 
     private List<(ReactableTag tag, ReactionType reaction, int multiplier)> GatherRevealItems(bool skipInspected)
@@ -2499,10 +2704,27 @@ public class DateSessionManager : MonoBehaviour
             AffectionBar.Instance?.ShowPopup(displayName + sym, type == ReactionType.Like);
         }
 
+        // Look up bespoke dialogue (same chain as player clicks)
+        string bespokeLine = null;
+        if (tag != null && _currentDate != null)
+        {
+            bespokeLine = _currentDate.GetReactionDialogue(tag)
+                       ?? _currentDate.preferences.GetBespokeLine(tag.Tags, type)
+                       ?? _currentDate.preferences.GetGenericLine(type);
+        }
+
         // Show labeled reaction bubble on the character (with item icon if available)
         var reactionUI = _dateCharacterGO?.GetComponent<DateReactionUI>();
         Sprite itemIcon = tag != null ? tag.ReactionIcon : null;
-        reactionUI?.ShowLabeledReaction(type, displayName, itemIcon);
+        reactionUI?.ShowLabeledReaction(type, displayName, itemIcon, bespokeLine);
+
+        // Trigger split-cam for auto-excursions (same visual treatment as player clicks)
+        if (_datePhase == DatePhase.Reveal)
+        {
+            _reactionInProgress = true;
+            ReactionSplitScreen.Instance?.Show();
+            StartCoroutine(ClearReactionFlag(2.5f));
+        }
 
         // Accumulate during all date phases (reactions shown live)
         if (tag != null)
@@ -2518,6 +2740,20 @@ public class DateSessionManager : MonoBehaviour
 
         // Debug overlay logging
         DateDebugOverlay.Instance?.LogReaction($"{displayName} → {type}");
+    }
+
+    private IEnumerator ClearReactionFlag(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _reactionInProgress = false;
+
+        // Process queued player click if any
+        if (_queuedInspectTag != null)
+        {
+            var queued = _queuedInspectTag;
+            _queuedInspectTag = null;
+            DateInspectSystem.Instance?.TryInspectQueued(queued);
+        }
     }
 
     private void EvaluateAmbientMood()

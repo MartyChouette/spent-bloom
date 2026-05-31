@@ -82,6 +82,18 @@ public class DateInspectSystem : MonoBehaviour
         HideTooltip();
     }
 
+    /// <summary>
+    /// Inspect a specific tag (called from the reaction queue after a previous reaction finishes).
+    /// </summary>
+    public void TryInspectQueued(ReactableTag tag)
+    {
+        if (tag == null) return;
+        var saved = _hoveredTag;
+        _hoveredTag = tag;
+        TryInspect();
+        _hoveredTag = saved;
+    }
+
     private int _camLookupFrame = -1;
 
     private void Update()
@@ -180,6 +192,13 @@ public class DateInspectSystem : MonoBehaviour
 
         // Only allow item inspection during Phase 3 (Reveal)
         if (dsm.CurrentDatePhase != DateSessionManager.DatePhase.Reveal) return false;
+
+        // Queue if a reaction is already playing
+        if (dsm.ReactionInProgress)
+        {
+            dsm.QueueInspect(_hoveredTag);
+            return true; // consumed the click, will play later
+        }
 
         var tag = _hoveredTag;
 
