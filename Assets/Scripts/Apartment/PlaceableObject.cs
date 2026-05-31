@@ -213,6 +213,17 @@ public class PlaceableObject : MonoBehaviour
     public void SetLastPlacedSurface(PlacementSurface surface) => _lastPlacedSurface = surface;
 
     /// <summary>
+    /// Convert this item to trash at runtime (e.g. dead plant, spoiled milk).
+    /// Sets category to Trash, applies glitch shader, and starts smell accumulation.
+    /// </summary>
+    public void ConvertToTrash()
+    {
+        _itemCategory = ItemCategory.Trash;
+        _smellPerDay = 0.2f;
+        ApplyGlitch();
+    }
+
+    /// <summary>
     /// Configure home settings at runtime (e.g. from BookItem).
     /// Captures current position as home if useSpawnAsHome is true and no home is set yet.
     /// </summary>

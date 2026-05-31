@@ -127,7 +127,8 @@ public class LivingFlowerPlant : MonoBehaviour
 
         foreach (var r in allRenderers)
         {
-            if (r.gameObject.name == "Pot" || r.gameObject.name == "Soil")
+            string objName = r.gameObject.name;
+            if (objName == "Pot" || objName == "Soil" || objName.Contains("Leaf"))
                 continue;
             tintable.Add(r);
             // Read from sharedMaterial to avoid creating instances
@@ -234,16 +235,26 @@ public class LivingFlowerPlant : MonoBehaviour
         _isDead = true;
         _health = 0f;
 
-        Debug.Log($"[LivingFlowerPlant] Plant from {_characterName} has died.");
-
-        // Deactivate ReactableTag so date NPCs don't react to dead plants
-        var reactable = GetComponent<ReactableTag>();
-        if (reactable != null) reactable.IsActive = false;
+        Debug.Log($"[LivingFlowerPlant] Plant from {_characterName} has died — becoming trash.");
 
         // Remove MoodMachine source
         MoodMachine.Instance?.RemoveSource($"Plant_{_characterName}");
 
-        gameObject.SetActive(false);
+        // Apply dead visuals (full brown tint)
+        UpdateVisuals();
+
+        // Convert to trash: keep visible, add PlaceableObject as Trash category
+        var po = GetComponent<PlaceableObject>();
+        if (po == null)
+            po = gameObject.AddComponent<PlaceableObject>();
+        po.ConvertToTrash();
+
+        // Update ReactableTag to mark as dead/trash instead of deactivating
+        var reactable = GetComponent<ReactableTag>();
+        if (reactable != null)
+        {
+            reactable.Setup(new[] { "trash" }, "dead plant");
+        }
     }
 
     /// <summary>Create a serializable record for save data.</summary>
