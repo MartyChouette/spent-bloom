@@ -89,7 +89,24 @@ public class LivingFlowerPlant : MonoBehaviour
     {
         if (_isDead) return;
 
-        _health -= 1f / Mathf.Max(1, _totalDaysAlive);
+        // Base health decay from lifespan
+        float baseLoss = 1f / Mathf.Max(1, _totalDaysAlive);
+
+        // Water stress accelerates decay: unwatered plants die in ~3 days
+        var waterState = GetWaterState();
+        if (waterState == WaterState.Underwatered)
+        {
+            // Dry plants lose health much faster — roughly 1/3 per day
+            float dryPenalty = 0.33f;
+            baseLoss = Mathf.Max(baseLoss, dryPenalty);
+        }
+        else if (waterState == WaterState.Overwatered)
+        {
+            // Overwatered plants decay slightly faster
+            baseLoss *= 1.5f;
+        }
+
+        _health -= baseLoss;
         _health = Mathf.Max(0f, _health);
 
         if (_health <= 0f)
@@ -124,8 +141,8 @@ public class LivingFlowerPlant : MonoBehaviour
 
     // ─── Internal ─────────────────────────────────────────────────
 
-    private static readonly Color UnderwaterTint = new Color(0.7f, 0.55f, 0.3f); // dry brown
-    private static readonly Color OverwaterTint = new Color(0.4f, 0.5f, 0.35f);  // soggy dark green
+    private static readonly Color UnderwaterTint = new Color(0.55f, 0.4f, 0.2f);  // dry brown (stronger)
+    private static readonly Color OverwaterTint = new Color(0.35f, 0.45f, 0.3f); // soggy dark green
 
     private void UpdateVisuals()
     {
@@ -136,12 +153,18 @@ public class LivingFlowerPlant : MonoBehaviour
         else
             wiltTint = Color.Lerp(DeadColor, WiltingColor, _health * 2f);
 
-        // Water stress tint overlay — browning for dry, dark green for soggy
+        // Water stress tint — lerp strength based on how far from target
         var waterState = GetWaterState();
         if (waterState == WaterState.Underwatered)
-            wiltTint *= UnderwaterTint;
+        {
+            // Stronger browning the drier the plant is
+            float dryness = 1f - Mathf.Clamp01(_currentWaterLevel / Mathf.Max(0.01f, _waterTarget));
+            wiltTint = Color.Lerp(wiltTint, wiltTint * UnderwaterTint, dryness);
+        }
         else if (waterState == WaterState.Overwatered)
+        {
             wiltTint *= OverwaterTint;
+        }
 
         // Apply tint via MPB — no material instances created
         if (_renderers != null)
