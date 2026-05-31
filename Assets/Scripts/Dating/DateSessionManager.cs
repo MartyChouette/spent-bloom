@@ -2722,7 +2722,8 @@ public class DateSessionManager : MonoBehaviour
         if (_datePhase == DatePhase.Reveal)
         {
             _reactionInProgress = true;
-            ReactionSplitScreen.Instance?.Show();
+            if (_dateCharacterGO != null)
+                ReactionSplitScreen.Instance?.Show(_dateCharacterGO.transform);
             StartCoroutine(ClearReactionFlag(2.5f));
         }
 
