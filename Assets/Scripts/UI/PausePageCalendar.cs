@@ -113,6 +113,7 @@ public class PausePageCalendar : MonoBehaviour
     private void BuildUI()
     {
         _built = true;
+        PauseUIHelper.EnsureFullStretch(gameObject);
         _content = PauseUIHelper.CreateScrollableList(transform, new RectOffset(20, 20, 15, 15));
     }
 }

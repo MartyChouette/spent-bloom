@@ -158,4 +158,19 @@ public static class PauseUIHelper
         for (int i = parent.childCount - 1; i >= 0; i--)
             Object.Destroy(parent.GetChild(i).gameObject);
     }
+
+    /// <summary>
+    /// Ensure a page GameObject has a full-stretch RectTransform.
+    /// Call at the start of BuildUI to fix sizing when pages are
+    /// created manually in the scene without proper anchoring.
+    /// </summary>
+    public static void EnsureFullStretch(GameObject go)
+    {
+        var rt = go.GetComponent<RectTransform>();
+        if (rt == null) rt = go.AddComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
+    }
 }

@@ -217,6 +217,7 @@ public class PausePageNema : MonoBehaviour
     private void BuildUI()
     {
         _built = true;
+        PauseUIHelper.EnsureFullStretch(gameObject);
         var theme = IrisTextTheme.Active;
 
         // Carousel container (takes full page minus margins for dots)

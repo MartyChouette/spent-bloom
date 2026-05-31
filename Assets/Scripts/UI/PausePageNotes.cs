@@ -277,6 +277,7 @@ public class PausePageNotes : MonoBehaviour
     private void BuildUI()
     {
         _built = true;
+        PauseUIHelper.EnsureFullStretch(gameObject);
 
         // Tab bar
         var tabBarGO = new GameObject("TabBar");
