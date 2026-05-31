@@ -159,6 +159,16 @@ public class MailController : MonoBehaviour
 
             mailObj.name = $"Mail_{item.type}_{item.senderName}";
 
+            // Ensure mail has a collider for raycasting
+            if (mailObj.GetComponent<Collider>() == null)
+            {
+                var box = mailObj.AddComponent<BoxCollider>();
+                // Size based on renderer bounds if available
+                var rend = mailObj.GetComponentInChildren<Renderer>();
+                if (rend != null)
+                    box.size = rend.bounds.size;
+            }
+
             // Attach pickup handler
             var pickup = mailObj.AddComponent<MailPickup>();
             pickup.Setup(item, day);

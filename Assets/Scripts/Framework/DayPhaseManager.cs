@@ -436,22 +436,7 @@ public class DayPhaseManager : MonoBehaviour
         bool isDemo = MainMenuManager.ActiveConfig != null;
         int day = GameClock.Instance != null ? GameClock.Instance.CurrentDay : 1;
 
-        // Demo day 2+: skip newspaper, go straight to cleanup exploration
-        if (isDemo && day >= 2)
-        {
-            Debug.Log("[DayPhaseManager] Demo cleanup day — skipping newspaper.");
-            StartCoroutine(TransitionWrapper(DemoCleanupTransition()));
-            return;
-        }
-
-        // Demo day 1: skip newspaper, show info card, auto-select Paris
-        if (isDemo && day == 1)
-        {
-            Debug.Log("[DayPhaseManager] Demo day 1 — showing date info card instead of newspaper.");
-            StartCoroutine(TransitionWrapper(DemoDay1Transition()));
-            return;
-        }
-
+        // Newspaper shows on all days — player selects date from the paper
         SetPhase(DayPhase.Morning);
     }
 

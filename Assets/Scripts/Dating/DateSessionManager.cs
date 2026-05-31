@@ -760,7 +760,10 @@ public class DateSessionManager : MonoBehaviour
 
         StopPhase2Pulse();
         HighlightDrinkGlasses(false);
-        // Phase2EnvironmentDim.Instance?.RestoreEnvironment();
+
+        // Immediately hide kitchen model to prevent flash during transition
+        if (_activeSceneModels != null && _activeSceneModels.kitchenModel != null)
+            _activeSceneModels.kitchenModel.SetActive(false);
 
         // Reset drink minigame — clear all glass contents and state
         // so it's fresh for the next date
@@ -1904,7 +1907,12 @@ public class DateSessionManager : MonoBehaviour
 
     private void SpawnDirtyGlass()
     {
-        if (_dirtyGlassPrefab == null || coffeeTableDeliveryPoint == null) return;
+        if (_dirtyGlassPrefab == null)
+        {
+            Debug.LogWarning("[DateSessionManager] _dirtyGlassPrefab is not assigned. Drink won't persist as prop.");
+            return;
+        }
+        if (coffeeTableDeliveryPoint == null) return;
 
         // Destroy any previously spawned glass (only one served drink per date)
         if (_spawnedDirtyGlass != null)

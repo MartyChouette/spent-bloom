@@ -86,7 +86,10 @@ public class AutoSaveController : MonoBehaviour
             objectPositions = GatherObjectPositions(),
             weatherState = WeatherSystem.Instance != null
                 ? WeatherSystem.Instance.GetStateForSave() : 0,
-            collectedMail = MailInventory.SaveData()
+            collectedMail = MailInventory.SaveData(),
+            livingPlants = LivingFlowerPlantManager.Instance != null
+                ? LivingFlowerPlantManager.Instance.GetRecordsForSave()
+                : new System.Collections.Generic.List<LivingPlantRecord>()
         };
     }
 
@@ -142,6 +145,9 @@ public class AutoSaveController : MonoBehaviour
 
         if (WeatherSystem.Instance != null)
             WeatherSystem.Instance.LoadFromSave(data.weatherState);
+
+        if (LivingFlowerPlantManager.Instance != null && data.livingPlants != null)
+            LivingFlowerPlantManager.Instance.LoadFromRecords(data.livingPlants);
 
         RestoredDayPhase = data.dayPhase;
         RestoredDay = data.currentDay;

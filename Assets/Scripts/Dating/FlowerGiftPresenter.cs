@@ -117,7 +117,8 @@ public class FlowerGiftPresenter : MonoBehaviour
         SetRenderOnTop(flowerClone);
 
         // Apply Zelda-style tilt (lean forward so spin looks dynamic)
-        pivot.transform.localRotation = Quaternion.Euler(_tiltAngle, 0f, 0f);
+        // 180 Y rotation so flower faces the camera, not away from it
+        pivot.transform.localRotation = Quaternion.Euler(_tiltAngle, 180f, 0f);
 
         // Spawn sparkle particle ring around the flower
         var sparkleGO = SpawnSparkleRing(pivot.transform);
@@ -153,16 +154,28 @@ public class FlowerGiftPresenter : MonoBehaviour
         if (_canvasGroup != null)
             _canvasGroup.alpha = 1f;
 
-        // Hold: bob + spin + scroll zoom (in local space since flower is parented to camera)
+        // Hold: bob + spin + scroll zoom — waits for player click to dismiss
         elapsed = 0f;
         float zoomScale = 1f;
         const float zoomMin = 0.5f;
         const float zoomMax = 2.0f;
         const float zoomStep = 0.08f;
+        bool dismissed = false;
 
-        while (elapsed < _holdDuration)
+        // Minimum hold before accepting input (prevents accidental skip)
+        const float minHold = 1.0f;
+
+        while (!dismissed)
         {
             elapsed += Time.deltaTime;
+
+            // Accept click/key after minimum hold
+            if (elapsed > minHold)
+            {
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)
+                    || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape))
+                    dismissed = true;
+            }
 
             // Scroll-wheel zoom
             if (UnityEngine.InputSystem.Mouse.current != null)
@@ -185,7 +198,7 @@ public class FlowerGiftPresenter : MonoBehaviour
 
                 // Spin around tilted Y axis (Zelda-style) — pivot rotates, flower stays centered
                 pivot.transform.localRotation =
-                    Quaternion.Euler(_tiltAngle, 0f, 0f) *
+                    Quaternion.Euler(_tiltAngle, 180f, 0f) *
                     Quaternion.Euler(0f, _spinSpeed * elapsed, 0f);
             }
 
