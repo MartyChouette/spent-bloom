@@ -147,7 +147,16 @@ public class AutoSaveController : MonoBehaviour
             WeatherSystem.Instance.LoadFromSave(data.weatherState);
 
         if (LivingFlowerPlantManager.Instance != null && data.livingPlants != null)
+        {
+            Debug.Log($"[AutoSaveController] Restoring {data.livingPlants.Count} living plants.");
             LivingFlowerPlantManager.Instance.LoadFromRecords(data.livingPlants);
+        }
+        else
+        {
+            Debug.LogWarning($"[AutoSaveController] Cannot restore plants — " +
+                $"Manager={LivingFlowerPlantManager.Instance != null}, " +
+                $"Data={data.livingPlants?.Count ?? -1}");
+        }
 
         RestoredDayPhase = data.dayPhase;
         RestoredDay = data.currentDay;

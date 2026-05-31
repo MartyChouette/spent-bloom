@@ -761,10 +761,6 @@ public class DateSessionManager : MonoBehaviour
         StopPhase2Pulse();
         HighlightDrinkGlasses(false);
 
-        // Immediately hide kitchen model to prevent flash during transition
-        if (_activeSceneModels != null && _activeSceneModels.kitchenModel != null)
-            _activeSceneModels.kitchenModel.SetActive(false);
-
         // Reset drink minigame — clear all glass contents and state
         // so it's fresh for the next date
         ResetDrinkMinigame();
@@ -778,6 +774,10 @@ public class DateSessionManager : MonoBehaviour
         // Fade out (instant if already faded from drink verdict)
         if (ScreenFade.Instance != null)
             yield return ScreenFade.Instance.FadeOut(fadeDuration);
+
+        // Hide kitchen model AFTER fade is opaque so the player doesn't see it vanish
+        if (_activeSceneModels != null && _activeSceneModels.kitchenModel != null)
+            _activeSceneModels.kitchenModel.SetActive(false);
 
         // Phase title shown via PhaseTitleDrop after fade-in (not ScreenFade, to avoid double text)
 
@@ -2272,9 +2272,14 @@ public class DateSessionManager : MonoBehaviour
             yield return new WaitUntil(() => clicked);
         }
 
-        // 11. Fade out, restore apartment, go straight to Phase 3
+        // 11. Fade out, then transition to Phase 3 while still faded
         if (ScreenFade.Instance != null)
             yield return ScreenFade.Instance.FadeOut(0.5f);
+
+        // Restore apartment renderers AFTER hiding the kitchen model
+        // to prevent a flash of the kitchen scene between frames
+        if (_activeSceneModels != null && _activeSceneModels.kitchenModel != null)
+            _activeSceneModels.kitchenModel.SetActive(false);
 
         RestoreApartmentRenderers(hiddenRenderers);
 
