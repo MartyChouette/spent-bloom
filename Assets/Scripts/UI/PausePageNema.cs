@@ -95,8 +95,7 @@ public class PausePageNema : MonoBehaviour
                 $"transparent {Dots(_personality.GetTrait(1))}\n" +
                 $"playful     {Dots(_personality.GetTrait(2))}\n" +
                 $"bold        {Dots(_personality.GetTrait(3))}\n" +
-                $"romantic    {Dots(_personality.GetTrait(4))}\n\n" +
-                $"<color=#666666>points remaining: {_personality.PointsRemaining}</color>";
+                $"romantic    {Dots(_personality.GetTrait(4))}";
         }
         else
         {
