@@ -318,6 +318,8 @@ public class PauseMenuController : MonoBehaviour
     private IEnumerator QuitToMenuSequence(string sceneName)
     {
         TimeScaleManager.ClearAll();
+        if (DayPhaseManager.Instance != null)
+            DayPhaseManager.Instance.IsTransitioning = false;
 
         AudioManager.Instance?.StopAmbience();
         AudioManager.Instance?.StopWeather();

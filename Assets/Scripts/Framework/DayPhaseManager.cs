@@ -162,6 +162,7 @@ public class DayPhaseManager : MonoBehaviour
             return;
         }
         Instance = this;
+        IsTransitioning = false;
 
         if (brain == null)
             brain = FindAnyObjectByType<CinemachineBrain>();
