@@ -95,19 +95,17 @@ into one continuous stage, and make the sweep judgment a clean visual recap.
 
 ---
 
-## Known Bugs to Fix
+## Known Bugs (Status)
 
-1. **Day 2 newspaper missing** -- scheduling/rotation not producing a newspaper
-2. **Kitchen flash** -- Phase 2 model briefly visible during Phase 2-to-3 transition
-   (fade may not be fully opaque when renderers restore)
-3. **Drink not persisting as prop** -- served drink disappears instead of staying
-   on table and becoming dirty dish next day
-4. **Flower rotation wrong** -- facing away from viewer on gift screen
-5. **Flower gift auto-advances** -- should wait for player click
-6. **Baked flower not returning** -- trimmed flower not spawning in apartment on day 2
-7. **Sweep hitch** -- iterating 80+ neutral items to find 3 that matter
-8. **Mail not clickable** -- can see mail items but can't interact
-9. **Hardcoded dialogue** -- Phase 3 lines not from dialogue spreadsheet
+1. ~~**Day 2 newspaper missing**~~ FIXED -- demo mode was skipping newspaper on day 2+
+2. ~~**Kitchen flash**~~ FIXED -- kitchen model hidden immediately on phase transition
+3. **Drink not persisting as prop** -- _dirtyGlassPrefab may not be assigned in Inspector. Code is correct, needs scene wiring check.
+4. ~~**Flower rotation wrong**~~ FIXED -- added 180 Y rotation
+5. ~~**Flower gift auto-advances**~~ FIXED -- now waits for click/space/enter
+6. ~~**Baked flower not returning**~~ FIXED -- wired save/restore in AutoSaveController
+7. ~~**Sweep hitch**~~ FIXED -- SweepAllItems only iterates non-neutral items
+8. ~~**Mail not clickable**~~ FIXED -- ensures collider on spawned mail objects
+9. **Hardcoded dialogue** -- DialogueDatabase built and CSV expanded, but not yet wired into DateSessionManager/DateReactionUI to replace hardcoded arrays
 
 ## Architectural Changes
 
