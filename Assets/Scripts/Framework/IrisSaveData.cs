@@ -40,6 +40,13 @@ public class IrisSaveData
 
     // ── Weather ─────────────────────────────────────────────────────
     public int weatherState;
+
+    // ── Knowledge ─────────────────────────────────────────────────
+    public List<string> discoveredItemIds = new List<string>();
+    public List<string> learnedInfoIds = new List<string>();
+
+    // ── Tutorial ──────────────────────────────────────────────────
+    public List<int> completedMilestones = new List<int>();
 }
 
 /// <summary>Serializable record of an item's display state.</summary>

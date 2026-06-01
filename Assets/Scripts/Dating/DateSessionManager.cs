@@ -613,7 +613,8 @@ public class DateSessionManager : MonoBehaviour
         var reactionUI = _dateCharacterGO?.GetComponent<DateReactionUI>();
 
         // Pre-transition NPC dialogue
-        string preLine = s_prePhase2Lines[UnityEngine.Random.Range(0, s_prePhase2Lines.Length)];
+        string preLine = DialogueDatabase.GetLine(_currentDate?.characterName, _currentDate != null ? DateHistory.Entries?.Count.ToString() : "", "T1-PreKitchen")
+                      ?? s_prePhase2Lines[UnityEngine.Random.Range(0, s_prePhase2Lines.Length)];
         if (reactionUI != null && reactionUI.gameObject.activeInHierarchy) reactionUI.ShowText(preLine, 2.0f);
         yield return s_wait25;
 
@@ -699,7 +700,8 @@ public class DateSessionManager : MonoBehaviour
 
         // Post-transition NPC dialogue
         yield return s_wait05;
-        string postLine = s_postPhase2Lines[UnityEngine.Random.Range(0, s_postPhase2Lines.Length)];
+        string postLine = DialogueDatabase.GetLine(_currentDate?.characterName, _currentDate != null ? DateHistory.Entries?.Count.ToString() : "", "K1-KitchenArrive")
+                       ?? s_postPhase2Lines[UnityEngine.Random.Range(0, s_postPhase2Lines.Length)];
         if (reactionUI != null && reactionUI.gameObject.activeInHierarchy)
             reactionUI.ShowText(postLine, 2.0f);
 
@@ -841,7 +843,8 @@ public class DateSessionManager : MonoBehaviour
 
         // Post-transition NPC dialogue
         yield return s_wait05;
-        string postLine = s_postPhase3Lines[UnityEngine.Random.Range(0, s_postPhase3Lines.Length)];
+        string postLine = DialogueDatabase.GetLine(_currentDate?.characterName, _currentDate != null ? DateHistory.Entries?.Count.ToString() : "", "T2-PostKitchen")
+                       ?? s_postPhase3Lines[UnityEngine.Random.Range(0, s_postPhase3Lines.Length)];
         if (reactionUI != null && reactionUI.gameObject.activeInHierarchy) reactionUI.ShowText(postLine, 2.0f);
         yield return s_wait25;
 

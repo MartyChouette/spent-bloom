@@ -434,6 +434,16 @@ public class DateReactionUI : MonoBehaviour
 
     private static string GetRandomSentiment(ReactionType type)
     {
+        // Try DialogueDatabase first (reads from CSV)
+        string sentiment = type switch
+        {
+            ReactionType.Like => DialogueDatabase.GetLine("_Fallback", "All", "R-ItemReact", "Like"),
+            ReactionType.Dislike => DialogueDatabase.GetLine("_Fallback", "All", "R-ItemReact", "Dislike"),
+            _ => DialogueDatabase.GetLine("_Fallback", "All", "R-ItemReact", "Neutral")
+        };
+        if (sentiment != null) return sentiment;
+
+        // Hardcoded fallback
         var arr = type switch
         {
             ReactionType.Like => s_likeTexts,

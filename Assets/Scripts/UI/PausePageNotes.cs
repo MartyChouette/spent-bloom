@@ -129,9 +129,9 @@ public class PausePageNotes : MonoBehaviour
         var theme = IrisTextTheme.Active;
 
         // Day counter
-        if (GameClock.Instance != null)
+        int currentDay = GameClock.Instance != null ? GameClock.Instance.CurrentDay : 1;
         {
-            PauseUIHelper.CreateLabel(_datesContent, $"<i>day {GameClock.Instance.CurrentDay}</i>", 24f,
+            PauseUIHelper.CreateLabel(_datesContent, $"<i>day {currentDay}</i>", 24f,
                 new Color(0.7f, 0.65f, 0.6f), theme, 35f);
         }
 

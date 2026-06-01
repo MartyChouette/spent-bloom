@@ -89,8 +89,41 @@ public class AutoSaveController : MonoBehaviour
             collectedMail = MailInventory.SaveData(),
             livingPlants = LivingFlowerPlantManager.Instance != null
                 ? LivingFlowerPlantManager.Instance.GetRecordsForSave()
-                : new System.Collections.Generic.List<LivingPlantRecord>()
+                : new System.Collections.Generic.List<LivingPlantRecord>(),
+            discoveredItemIds = GatherKnowledgeItemIds(),
+            learnedInfoIds = GatherKnowledgeInfoIds(),
+            completedMilestones = GatherMilestones()
         };
+    }
+
+    private List<string> GatherKnowledgeItemIds()
+    {
+        var tracker = UnityEngine.Object.FindAnyObjectByType<PlayerKnowledgeTracker>();
+        if (tracker == null) return new List<string>();
+        var ids = new List<string>();
+        foreach (var item in tracker.DiscoveredItems)
+            if (item != null && !string.IsNullOrEmpty(item.itemId)) ids.Add(item.itemId);
+        return ids;
+    }
+
+    private List<string> GatherKnowledgeInfoIds()
+    {
+        var tracker = UnityEngine.Object.FindAnyObjectByType<PlayerKnowledgeTracker>();
+        if (tracker == null) return new List<string>();
+        var ids = new List<string>();
+        foreach (var info in tracker.LearnedInfo)
+            if (info != null && !string.IsNullOrEmpty(info.infoId)) ids.Add(info.infoId);
+        return ids;
+    }
+
+    private List<int> GatherMilestones()
+    {
+        if (TutorialGateTracker.Instance == null) return new List<int>();
+        var milestones = new List<int>();
+        var types = System.Enum.GetValues(typeof(TutorialGateTracker.MilestoneType));
+        foreach (TutorialGateTracker.MilestoneType type in types)
+            if (TutorialGateTracker.Instance.HasCompleted(type)) milestones.Add((int)type);
+        return milestones;
     }
 
     private List<PlaceablePositionRecord> GatherObjectPositions()
@@ -158,6 +191,10 @@ public class AutoSaveController : MonoBehaviour
                 $"Data={data.livingPlants?.Count ?? -1}");
         }
 
+        // Restore knowledge
+        RestoreKnowledge(data.discoveredItemIds, data.learnedInfoIds);
+        RestoreMilestones(data.completedMilestones);
+
         RestoredDayPhase = data.dayPhase;
         RestoredDay = data.currentDay;
 
@@ -165,6 +202,57 @@ public class AutoSaveController : MonoBehaviour
                   $"Day {data.currentDay}, phase {(DayPhaseManager.DayPhase)data.dayPhase}, " +
                   $"{data.dateHistory?.Count ?? 0} date records, " +
                   $"{data.objectPositions?.Count ?? 0} object positions.");
+    }
+
+    private void RestoreKnowledge(List<string> itemIds, List<string> infoIds)
+    {
+        var tracker = UnityEngine.Object.FindAnyObjectByType<PlayerKnowledgeTracker>();
+        if (tracker == null) return;
+
+        // Restore discovered items by ID lookup
+        if (itemIds != null)
+        {
+            var allItems = UnityEngine.Resources.FindObjectsOfTypeAll<GameItemDefinition>();
+            foreach (string id in itemIds)
+            {
+                foreach (var item in allItems)
+                {
+                    if (item != null && item.itemId == id)
+                    {
+                        tracker.MarkItemDiscovered(item);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Restore learned info by ID lookup
+        if (infoIds != null)
+        {
+            var allInfo = UnityEngine.Resources.FindObjectsOfTypeAll<InfoBitDefinition>();
+            foreach (string id in infoIds)
+            {
+                foreach (var info in allInfo)
+                {
+                    if (info != null && info.infoId == id)
+                    {
+                        tracker.MarkInfoLearned(info);
+                        break;
+                    }
+                }
+            }
+        }
+
+        Debug.Log($"[AutoSaveController] Restored knowledge: {itemIds?.Count ?? 0} items, {infoIds?.Count ?? 0} info bits.");
+    }
+
+    private void RestoreMilestones(List<int> milestones)
+    {
+        if (milestones == null || TutorialGateTracker.Instance == null) return;
+        foreach (int m in milestones)
+            TutorialGateTracker.Instance.RecordMilestone((TutorialGateTracker.MilestoneType)m);
+
+        Debug.Log($"[AutoSaveController] Restored {milestones.Count} tutorial milestones.");
     }
 
     private void RestoreObjectPositions(List<PlaceablePositionRecord> records)
