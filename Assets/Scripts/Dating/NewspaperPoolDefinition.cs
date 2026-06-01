@@ -24,8 +24,11 @@ public class NewspaperPoolDefinition : ScriptableObject
     [Tooltip("If set, this character is forced as the only selectable ad on Day 1.")]
     public DatePersonalDefinition tutorialDate;
 
-    [Tooltip("If set, this character is auto-scheduled on Day 2.")]
+    [Tooltip("Legacy single Day 2 date (ignored if day2Dates has entries).")]
     public DatePersonalDefinition day2Date;
+
+    [Tooltip("Characters available on Day 2. All are selectable (not locked).")]
+    public List<DatePersonalDefinition> day2Dates = new List<DatePersonalDefinition>();
 
     [Header("Repeat Rules")]
     [Tooltip("Can the same ad appear on consecutive days?")]

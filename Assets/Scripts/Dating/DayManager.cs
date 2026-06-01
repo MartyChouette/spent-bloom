@@ -101,20 +101,13 @@ public class DayManager : MonoBehaviour
         _todayPersonals.Clear();
         _lockedPersonals.Clear();
 
-        // ── Day 1/2: force scheduled dates, lock the rest ──
-        DatePersonalDefinition forcedDate = null;
+        // ── Day 1: tutorial date (only Paris selectable, others locked) ──
         if (CurrentDay == 1 && pool.tutorialDate != null)
-            forcedDate = pool.tutorialDate;
-        else if (CurrentDay == 2 && pool.day2Date != null)
-            forcedDate = pool.day2Date;
-
-        if (forcedDate != null)
         {
-            _todayPersonals.Add(forcedDate);
+            _todayPersonals.Add(pool.tutorialDate);
 
-            // Fill remaining slots with other pool members (locked)
             var others = new List<DatePersonalDefinition>(pool.personalAds);
-            others.Remove(forcedDate);
+            others.Remove(pool.tutorialDate);
             Shuffle(others);
 
             int remaining = Mathf.Min(pool.personalAdsPerDay - 1, others.Count);
@@ -124,7 +117,20 @@ public class DayManager : MonoBehaviour
                 _lockedPersonals.Add(others[i]);
             }
 
-            Debug.Log($"[DayManager] Day {CurrentDay} — {forcedDate.characterName} is the scheduled date.");
+            Debug.Log($"[DayManager] Day 1 — {pool.tutorialDate.characterName} is the tutorial date.");
+        }
+        // ── Day 2: scheduled dates (all selectable, no locked filler) ──
+        else if (CurrentDay == 2 && (pool.day2Dates.Count > 0 || pool.day2Date != null))
+        {
+            var scheduled = pool.day2Dates.Count > 0
+                ? new List<DatePersonalDefinition>(pool.day2Dates)
+                : new List<DatePersonalDefinition> { pool.day2Date };
+            scheduled.RemoveAll(d => d == null);
+
+            foreach (var date in scheduled)
+                _todayPersonals.Add(date);
+
+            Debug.Log($"[DayManager] Day 2 — {_todayPersonals.Count} scheduled dates.");
         }
         else
         {
