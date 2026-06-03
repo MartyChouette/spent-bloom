@@ -755,86 +755,59 @@ public class DateSessionManager : MonoBehaviour
         if (_state != SessionState.DateInProgress) yield break;
     }
 
+    /// <summary>
+    /// Transition from Phase 2 to Phase 3. Expects screen is ALREADY faded to white
+    /// and kitchen model is ALREADY hidden (done by DrinkVerdictSequence).
+    /// </summary>
     private IEnumerator TransitionToPhase3()
     {
-        // Exit top-down camera if active — phase cameras will fight it
         ApartmentManager.Instance?.ExitTopDown();
-
         StopPhase2Pulse();
         HighlightDrinkGlasses(false);
-
-        // Reset drink minigame — clear all glass contents and state
-        // so it's fresh for the next date
         ResetDrinkMinigame();
-
-        // Restore fridge bottles to their original home (fridge shelf)
         SetBottleHomes(useCounter: false);
 
-        // Block input during transition
         if (DayPhaseManager.Instance != null) DayPhaseManager.Instance.IsTransitioning = true;
 
-        // Fade out (instant if already faded from drink verdict)
-        if (ScreenFade.Instance != null)
-            yield return ScreenFade.Instance.FadeOut(fadeDuration);
+        // Screen is already white from DrinkVerdictSequence — swap models now
+        _datePhase = DatePhase.Reveal;
+        NemaController.Instance?.MoveToDatePhase(DatePhase.Reveal);
 
-        // Hide kitchen model AFTER fade is opaque so the player doesn't see it vanish
-        if (_activeSceneModels != null && _activeSceneModels.kitchenModel != null)
-            _activeSceneModels.kitchenModel.SetActive(false);
-
-        // Phase title shown via PhaseTitleDrop after fade-in (not ScreenFade, to avoid double text)
-
-        yield return new WaitForSecondsRealtime(phaseTitleHold);
-
-        try
+        if (_activeSceneModels != null && _activeSceneModels.couchModel != null)
         {
-            ScreenFade.Instance?.HidePhaseTitle();
-            _datePhase = DatePhase.Reveal;
-            NemaController.Instance?.MoveToDatePhase(DatePhase.Reveal);
-
-            if (_activeSceneModels != null && _activeSceneModels.couchModel != null)
+            if (_dateCharacter != null)
+                _dateCharacter.OnReaction -= HandleCharacterReaction;
+            _activeSceneModels.ShowOnly(_activeSceneModels.couchModel);
+            _dateCharacterGO = _activeSceneModels.couchModel;
+            EnsureDateComponents(_dateCharacterGO);
+            _dateCharacter.SetSitting();
+            _dateCharacter.OnReaction += HandleCharacterReaction;
+        }
+        else
+        {
+            Vector3 couchPos = couchSeatTarget != null ? couchSeatTarget.position : Vector3.zero;
+            if (_dateCharacter != null)
             {
-                if (_dateCharacter != null)
-                    _dateCharacter.OnReaction -= HandleCharacterReaction;
-                _activeSceneModels.ShowOnly(_activeSceneModels.couchModel);
-                _dateCharacterGO = _activeSceneModels.couchModel;
-                EnsureDateComponents(_dateCharacterGO);
+                _dateCharacter.WarpTo(couchPos);
                 _dateCharacter.SetSitting();
-                _dateCharacter.OnReaction += HandleCharacterReaction;
             }
-            else
-            {
-                Vector3 couchPos = couchSeatTarget != null ? couchSeatTarget.position : Vector3.zero;
-                if (_dateCharacter != null)
-                {
-                    _dateCharacter.WarpTo(couchPos);
-                    _dateCharacter.SetSitting();
-                }
-            }
-
-            if (phaseTransitionSFX != null && AudioManager.Instance != null)
-                AudioManager.Instance.PlaySFX(phaseTransitionSFX);
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"[DateSessionManager] TransitionToPhase3 setup failed: {e}");
         }
 
-        // Snap directly to Phase 3 framing — ApplyPhaseCamera overwrites all preset
-        // fields, so clearing first just causes a redundant projection-mode round-trip
-        // (ortho→perspective→ortho) that can hitch the GPU.
+        if (phaseTransitionSFX != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(phaseTransitionSFX);
+
         ApplyPhaseCamera(DatePhase.Reveal);
 
-        // Build reveal cache while still faded — spreads GetComponent calls over frames
+        // Build reveal cache while still faded
         yield return StartCoroutine(BuildRevealCache());
 
-        // Fade in always runs even if setup threw
+        // Fade in
         if (ScreenFade.Instance != null)
             yield return ScreenFade.Instance.FadeIn(fadeDuration);
 
-        // Unblock input now that transition is complete
         if (DayPhaseManager.Instance != null) DayPhaseManager.Instance.IsTransitioning = false;
 
-        // Epic title drop over the live scene
+        // Title drop over the live scene
         if (PhaseTitleDrop.Instance != null)
             yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P3") ?? "Warming Up");
 
