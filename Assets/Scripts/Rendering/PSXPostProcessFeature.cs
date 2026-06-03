@@ -200,6 +200,9 @@ public class PSXPostProcessFeature : ScriptableRendererFeature
             renderGraph.AddBlitPass(source, lowRes, Vector2.one, Vector2.zero,
                 passName: "PSX Downscale");
 
+            // _CameraDepthTexture is bound globally by URP when depth texture
+            // is enabled. The shader uses it for world-space dither positioning.
+
             // ── Step 2: Apply shader + upscale low-res → destination ──
             var destDesc = new TextureDesc(sourceDesc.width, sourceDesc.height)
             {

@@ -34,6 +34,9 @@ Shader "Iris/Fullscreen/PSXPost"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
+            TEXTURE2D_X(_CameraDepthTexture);
+            SAMPLER(sampler_PointClamp);
+
             CBUFFER_START(UnityPerMaterial)
                 float _ColorDepth;
                 half  _DitherIntensity;
@@ -149,10 +152,25 @@ Shader "Iris/Fullscreen/PSXPost"
 
                 float levels = max(_ColorDepth, 2.0);
 
-                // ── Dual-pattern ordered dithering ──
-                float2 ditherRes = _DitherResolution.x > 0 ? _DitherResolution : _ScreenParams.xy;
-                ditherRes *= max(_DitherZoom, 0.01); // scale with camera zoom
-                float2 pixelPos = uv * ditherRes;
+                // ── Dual-pattern ordered dithering (world-space) ──
+                // Reconstruct world position from depth so dither sticks to geometry
+                // instead of swimming with the camera
+                float rawDepth = SAMPLE_TEXTURE2D_X(_CameraDepthTexture, sampler_PointClamp, uv).r;
+                float2 pixelPos;
+
+                // If depth is at far plane or invalid, fall back to screen-space
+                if (rawDepth <= 0.0 || rawDepth >= 1.0)
+                {
+                    float2 ditherRes = _DitherResolution.x > 0 ? _DitherResolution : _ScreenParams.xy;
+                    ditherRes *= max(_DitherZoom, 0.01);
+                    pixelPos = uv * ditherRes;
+                }
+                else
+                {
+                    float3 worldPos = ComputeWorldSpacePosition(uv, rawDepth, UNITY_MATRIX_I_VP);
+                    float ditherScale = max(_DitherZoom, 0.01) * 100.0;
+                    pixelPos = worldPos.xy * ditherScale;
+                }
 
                 float3 c = screen.rgb;
                 float luminance = dot(c, float3(0.299, 0.587, 0.114));
