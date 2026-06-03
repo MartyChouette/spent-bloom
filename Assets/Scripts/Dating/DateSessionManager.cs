@@ -757,10 +757,10 @@ public class DateSessionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Transition from Phase 2 to Phase 3. Expects screen is ALREADY faded to white
-    /// and kitchen model is ALREADY hidden (done by DrinkVerdictSequence).
+    /// Transition from Phase 2 to Phase 3. Expects screen is ALREADY faded to white.
+    /// Handles model swap, camera snap, renderer restore, and fade-in.
     /// </summary>
-    private IEnumerator TransitionToPhase3()
+    private IEnumerator TransitionToPhase3(List<Renderer> hiddenRenderers = null)
     {
         ApartmentManager.Instance?.ExitTopDown();
         StopPhase2Pulse();
@@ -770,7 +770,7 @@ public class DateSessionManager : MonoBehaviour
 
         if (DayPhaseManager.Instance != null) DayPhaseManager.Instance.IsTransitioning = true;
 
-        // Screen is already white from DrinkVerdictSequence — swap models now
+        // 1. Swap to couch model (hides kitchen model via ShowOnly)
         _datePhase = DatePhase.Reveal;
         NemaController.Instance?.MoveToDatePhase(DatePhase.Reveal);
 
@@ -794,10 +794,14 @@ public class DateSessionManager : MonoBehaviour
             }
         }
 
+        // 2. Snap camera to couch framing BEFORE restoring renderers
+        ApplyPhaseCamera(DatePhase.Reveal);
+
+        // 3. Now safe to restore apartment renderers — camera is already on the couch
+        RestoreApartmentRenderers(hiddenRenderers);
+
         if (phaseTransitionSFX != null && AudioManager.Instance != null)
             AudioManager.Instance.PlaySFX(phaseTransitionSFX);
-
-        ApplyPhaseCamera(DatePhase.Reveal);
 
         // Build reveal cache while still faded
         yield return StartCoroutine(BuildRevealCache());
@@ -2255,15 +2259,9 @@ public class DateSessionManager : MonoBehaviour
         if (ScreenFade.Instance != null)
             yield return ScreenFade.Instance.FadeOut(0.5f);
 
-        // Restore apartment renderers AFTER hiding the kitchen model
-        // to prevent a flash of the kitchen scene between frames
-        if (_activeSceneModels != null && _activeSceneModels.kitchenModel != null)
-            _activeSceneModels.kitchenModel.SetActive(false);
-
-        RestoreApartmentRenderers(hiddenRenderers);
-
-        // Transition to Phase 3 while still faded
-        yield return TransitionToPhase3();
+        // Pass hidden renderers to TransitionToPhase3 — it restores them
+        // AFTER the camera has snapped to the couch framing
+        yield return TransitionToPhase3(hiddenRenderers);
         _drinkVerdictRunning = false;
     }
 
