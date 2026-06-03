@@ -46,6 +46,10 @@ public class PSXPostProcessFeature : ScriptableRendererFeature
         [Tooltip("Luminance below which the coarse pattern fully takes over.")]
         [Range(0, 1)] public float deepShadowThreshold = 0.15f;
 
+        [Header("Posterize Mode")]
+        [Tooltip("0=Hard (classic), 1=Soft (watercolor), 2=LumaOnly (posterize brightness only), 3=DitherOnly (no quantization), 4=PS1Channels (5-5-4 bit), 5=Off")]
+        [Range(0, 5)] public int posterizeMode = 0;
+
         [Header("Zoom Scaling")]
         [Tooltip("Camera ortho size at which dither is 1:1. Dither scales with zoom relative to this. 0 = no zoom scaling.")]
         public float ditherZoomReference = 5f;
@@ -110,6 +114,7 @@ public class PSXPostProcessFeature : ScriptableRendererFeature
         private static readonly int CoarsePatternID = Shader.PropertyToID("_CoarsePattern");
         private static readonly int ShadowThresholdID = Shader.PropertyToID("_ShadowThreshold");
         private static readonly int DeepShadowThresholdID = Shader.PropertyToID("_DeepShadowThreshold");
+        private static readonly int PosterizeModeID = Shader.PropertyToID("_PosterizeMode");
         private static readonly int DitherZoomID = Shader.PropertyToID("_DitherZoom");
 
         public PSXPostProcessPass(Material material)
@@ -159,6 +164,7 @@ public class PSXPostProcessFeature : ScriptableRendererFeature
             _material.SetFloat(CoarsePatternID, coarsePattern);
             _material.SetFloat(ShadowThresholdID, shadowThreshold);
             _material.SetFloat(DeepShadowThresholdID, deepShadowThreshold);
+            _material.SetFloat(PosterizeModeID, _settings.posterizeMode);
 
             // Compute zoom factor from camera ortho size
             float ditherZoom = 1f;

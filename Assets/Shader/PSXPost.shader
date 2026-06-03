@@ -8,6 +8,7 @@ Shader "Iris/Fullscreen/PSXPost"
         _CoarsePattern   ("Coarse Pattern (0=2x2, 1=4x4, 2=8x8)", Float) = 0
         _ShadowThreshold ("Shadow Threshold", Range(0, 1)) = 0.5
         _DeepShadowThreshold ("Deep Shadow Threshold", Range(0, 1)) = 0.15
+        _PosterizeMode   ("Posterize Mode (0=Hard, 1=Soft, 2=LumaOnly, 3=DitherOnly, 4=PS1Channels, 5=Off)", Float) = 0
     }
 
     SubShader
@@ -40,8 +41,9 @@ Shader "Iris/Fullscreen/PSXPost"
                 float _CoarsePattern;
                 half  _ShadowThreshold;
                 half  _DeepShadowThreshold;
-                float _DitherZoom; // camera zoom factor for world-space-feel dither
-                float2 _DitherResolution; // low-res pixel grid size for dither alignment
+                float _DitherZoom;
+                float2 _DitherResolution;
+                float _PosterizeMode;
             CBUFFER_END
 
             // Tilt-shift globals (set from C# via Shader.SetGlobalFloat)
@@ -169,7 +171,43 @@ Shader "Iris/Fullscreen/PSXPost"
                 c += ditherSample * (1.0 / levels) * _DitherIntensity * ditherStrength;
 
                 // ── Color depth reduction (posterization) ──
-                c = floor(c * levels + 0.5) / levels;
+                int mode = (int)_PosterizeMode;
+
+                if (mode == 0)
+                {
+                    // Hard: classic floor quantization (current default)
+                    c = floor(c * levels + 0.5) / levels;
+                }
+                else if (mode == 1)
+                {
+                    // Soft: smoothstep between bands for watercolor feel
+                    float3 q = floor(c * levels + 0.5) / levels;
+                    float3 next = (floor(c * levels + 0.5) + 1.0) / levels;
+                    float3 frac_c = frac(c * levels + 0.5);
+                    float3 blend = smoothstep(0.3, 0.7, frac_c);
+                    c = lerp(q, next, blend);
+                }
+                else if (mode == 2)
+                {
+                    // Luma only: posterize brightness, keep hue/saturation smooth
+                    float luma = dot(c, float3(0.299, 0.587, 0.114));
+                    float qLuma = floor(luma * levels + 0.5) / levels;
+                    float ratio = luma > 0.001 ? qLuma / luma : 1.0;
+                    c *= ratio;
+                }
+                else if (mode == 3)
+                {
+                    // Dither only: no floor, just the dither texture (already applied above)
+                    // Skip posterization entirely
+                }
+                else if (mode == 4)
+                {
+                    // PS1 channels: R=32, G=32, B=16 (5-5-4 bit, fewer blues)
+                    c.r = floor(c.r * 32.0 + 0.5) / 32.0;
+                    c.g = floor(c.g * 32.0 + 0.5) / 32.0;
+                    c.b = floor(c.b * 16.0 + 0.5) / 16.0;
+                }
+                // mode 5+: off (no posterization, no dither effect on quantization)
 
                 return half4(saturate(c), 1.0);
             }
