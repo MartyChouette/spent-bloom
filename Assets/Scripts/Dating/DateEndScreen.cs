@@ -83,14 +83,14 @@ public class DateEndScreen : MonoBehaviour
         if (summaryText != null)
         {
             summaryText.text = failed
-                ? "They left early..."
+                ? (DialogueDatabase.GetById("CORE-GRADE-FAIL")?.line ?? "They left early...")
                 : grade switch
                 {
-                    "S" => "A perfect connection! They'll definitely call back.",
-                    "A" => "A wonderful time together. Very promising!",
-                    "B" => "A pleasant evening. Room for improvement.",
-                    "C" => "An awkward date. Better luck next time.",
-                    _ => "That did not go well at all..."
+                    "S" => DialogueDatabase.GetById("CORE-GRADE-S")?.line ?? "A perfect connection! They'll definitely call back.",
+                    "A" => DialogueDatabase.GetById("CORE-GRADE-A")?.line ?? "A wonderful time together. Very promising!",
+                    "B" => DialogueDatabase.GetById("CORE-GRADE-B")?.line ?? "A pleasant evening. Room for improvement.",
+                    "C" => DialogueDatabase.GetById("CORE-GRADE-C")?.line ?? "An awkward date. Better luck next time.",
+                    _ => DialogueDatabase.GetById("CORE-GRADE-DF")?.line ?? "That did not go well at all..."
                 };
         }
 

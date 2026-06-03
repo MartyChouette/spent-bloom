@@ -128,8 +128,10 @@ public class DreamScreen : MonoBehaviour
         _time = 0f;
         _canvasRoot.SetActive(true);
 
-        // Pick dream text
+        // Pick dream text — try DialogueDatabase first, fall back to serialized array
         string text = overrideText;
+        if (string.IsNullOrEmpty(text))
+            text = DialogueDatabase.GetSystemLine("DreamScreen");
         if (string.IsNullOrEmpty(text) && _dreamPhrases != null && _dreamPhrases.Length > 0)
             text = _dreamPhrases[Random.Range(0, _dreamPhrases.Length)];
         if (_dreamText != null)

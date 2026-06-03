@@ -136,7 +136,10 @@ public class FlowerGiftPresenter : MonoBehaviour
         }
 
         if (_itemNameText != null)
-            _itemNameText.text = $"{characterName} gave you a flower!";
+        {
+            string giftLine = DialogueDatabase.GetById("CORE-FLOWER-GIFT")?.line ?? "{characterName} gave you a flower!";
+            _itemNameText.text = giftLine.Replace("{characterName}", characterName);
+        }
 
         // Play SFX
         if (_presentSFX != null && AudioManager.Instance != null)
