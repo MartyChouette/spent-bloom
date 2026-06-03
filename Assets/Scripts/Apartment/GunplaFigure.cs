@@ -159,9 +159,10 @@ public class GunplaFigure : MonoBehaviour
         _isComplete = true;
         TutorialGateTracker.Instance?.RecordMilestone(TutorialGateTracker.MilestoneType.GunplaDone);
 
-        // Smoke poof + celebration
-        SmokePoof.Spawn(transform.position, 0.25f);
-        CelebrationBurst.Spawn(transform.position, 0.15f, 30);
+        // Angelic poof + sparkle burst
+        SmokePoof.Spawn(transform.position, 0.25f, new Color(1f, 1f, 1f, 0.8f));
+        CelebrationBurst.Spawn(transform.position, 0.15f, 30, new Color(1f, 1f, 0.9f, 0.95f));
+        CelebrationBurst.Spawn(transform.position, 0.25f, 15, new Color(0.9f, 0.95f, 1f, 0.7f));
 
         // Completion sound
         if (_completionSFX != null)

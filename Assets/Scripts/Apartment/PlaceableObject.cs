@@ -310,6 +310,13 @@ public class PlaceableObject : MonoBehaviour
         for (int i = 0; i < _instanceMats.Length; i++)
             _preGlitchMats[i] = _instanceMats[i];
 
+        // Instance materials before modifying so we don't corrupt shared assets.
+        // _instanceMats may still point at sharedMaterials from Awake.
+        if (_renderer != null)
+        {
+            _instanceMats = _renderer.materials; // creates per-renderer instances
+        }
+
         for (int i = 0; i < _instanceMats.Length; i++)
         {
             if (_instanceMats[i] == null) continue;
@@ -677,9 +684,11 @@ public class PlaceableObject : MonoBehaviour
         DestroyStinkLines();
     }
 
-    // ── Stink Lines (wavy particles rising from smelly items) ──
+    // ── Stink Lines (cloud puffs rising from smelly items) ──
 
     private GameObject _stinkLinesGO;
+    private static Texture2D s_stinkAtlas;
+    private static int s_stinkFrameCount;
 
     private void EnsureStinkLines(float intensity)
     {
@@ -730,13 +739,45 @@ public class PlaceableObject : MonoBehaviour
             vel.x = new ParticleSystem.MinMaxCurve(-0.05f, 0.05f);
             vel.z = new ParticleSystem.MinMaxCurve(-0.05f, 0.05f);
 
+            // Use the same puff cloud flipbook as SmokePoof
+            if (s_stinkAtlas == null)
+            {
+                var frames = FlipbookAtlas.LoadFrames("Particles", "puff_0", 6);
+                if (frames != null && frames.Length > 0)
+                {
+                    s_stinkAtlas = FlipbookAtlas.Build(frames);
+                    s_stinkFrameCount = frames.Length;
+                }
+            }
+
             var renderer = _stinkLinesGO.GetComponent<ParticleSystemRenderer>();
-            var shader = Shader.Find("Particles/Standard Unlit")
-                      ?? Shader.Find("Universal Render Pipeline/Particles/Unlit");
+            renderer.renderMode = ParticleSystemRenderMode.Billboard;
+            var shader = Shader.Find("Universal Render Pipeline/Particles/Unlit")
+                      ?? Shader.Find("Particles/Standard Unlit");
             if (shader != null)
             {
-                renderer.material = new Material(shader);
-                renderer.material.SetFloat("_Surface", 1f);
+                var mat = new Material(shader);
+                mat.SetFloat("_Surface", 1f);
+                mat.SetFloat("_Blend", 0f);
+                mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                mat.SetInt("_ZWrite", 0);
+                mat.renderQueue = 3000;
+                mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
+                mat.EnableKeyword("_ALPHABLEND_ON");
+                if (s_stinkAtlas != null)
+                {
+                    mat.mainTexture = s_stinkAtlas;
+                    var tsa = ps.textureSheetAnimation;
+                    tsa.enabled = true;
+                    tsa.mode = ParticleSystemAnimationMode.Grid;
+                    tsa.numTilesX = s_stinkFrameCount;
+                    tsa.numTilesY = 1;
+                    tsa.animation = ParticleSystemAnimationType.WholeSheet;
+                    tsa.cycleCount = 1;
+                    tsa.timeMode = ParticleSystemAnimationTimeMode.Lifetime;
+                }
+                renderer.material = mat;
             }
         }
 
