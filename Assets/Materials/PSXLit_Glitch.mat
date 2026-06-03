@@ -30,8 +30,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AffineIntensity: 1
-    - _DepthBias: 0
-    - _GlitchIntensity: 0.729
+    - _DepthBias: 0.66
+    - _GlitchIntensity: 0.84
     - _ShadowDitherIntensity: 1
     - _ZTest: 4
     m_Colors:

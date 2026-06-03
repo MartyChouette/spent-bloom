@@ -47831,3 +47831,2890 @@ Assets/Scripts/UI/PhaseContinueButton.cs
 production/session-logs/session-log.md
 ---
 
+## Session End: 20260528_001233
+### Commits
+40e02dd Rim light on characters, diagonal reaction split, floating prompts, lighting preferences, bug fixes
+---
+
+## Session End: 20260528_011611
+### Commits
+40e02dd Rim light on characters, diagonal reaction split, floating prompts, lighting preferences, bug fixes
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_021559
+### Commits
+40e02dd Rim light on characters, diagonal reaction split, floating prompts, lighting preferences, bug fixes
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_021831
+### Commits
+40e02dd Rim light on characters, diagonal reaction split, floating prompts, lighting preferences, bug fixes
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_022034
+### Commits
+40e02dd Rim light on characters, diagonal reaction split, floating prompts, lighting preferences, bug fixes
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_022700
+### Commits
+4d31b18 Add drape shader and controller for wind-blown curtains
+40e02dd Rim light on characters, diagonal reaction split, floating prompts, lighting preferences, bug fixes
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_162922
+### Commits
+1dec07f Rename LightType to SwitchLightType to avoid collision with UnityEngine.LightType
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_224351
+### Commits
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+1dec07f Rename LightType to SwitchLightType to avoid collision with UnityEngine.LightType
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260528_224458
+### Commits
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+1dec07f Rename LightType to SwitchLightType to avoid collision with UnityEngine.LightType
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_010519
+### Commits
+aa219ad Re-enable name entry screen, add pronoun selection (she/he/they)
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_020030
+### Commits
+a6dae78 Add mail delivery system with inventory, text overlay, and save/restore
+aa219ad Re-enable name entry screen, add pronoun selection (she/he/they)
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_061107
+### Commits
+1863b27 Enable seated excursions in Phase 3 with highlights and ambient particles
+a6dae78 Add mail delivery system with inventory, text overlay, and save/restore
+aa219ad Re-enable name entry screen, add pronoun selection (she/he/they)
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_062422
+### Commits
+1863b27 Enable seated excursions in Phase 3 with highlights and ambient particles
+a6dae78 Add mail delivery system with inventory, text overlay, and save/restore
+aa219ad Re-enable name entry screen, add pronoun selection (she/he/they)
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_063459
+### Commits
+c6f5603 Wire mirror station: wellbeing-driven pimples, camera priority, outfit judgment
+1863b27 Enable seated excursions in Phase 3 with highlights and ambient particles
+a6dae78 Add mail delivery system with inventory, text overlay, and save/restore
+aa219ad Re-enable name entry screen, add pronoun selection (she/he/they)
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_063839
+### Commits
+c6f5603 Wire mirror station: wellbeing-driven pimples, camera priority, outfit judgment
+1863b27 Enable seated excursions in Phase 3 with highlights and ambient particles
+a6dae78 Add mail delivery system with inventory, text overlay, and save/restore
+aa219ad Re-enable name entry screen, add pronoun selection (she/he/they)
+14a178b Fix continue/serve softlock: shrink click target, move text bigger to bottom-right
+### Uncommitted Changes
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_231009
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_231118
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_234943
+### Commits
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260529_235808
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_000742
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_001113
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_001157
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_001243
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_001618
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_002157
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_002206
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_003208
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_003257
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_003457
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_003557
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_003638
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_003952
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_004738
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_004758
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_014228
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_015259
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020111
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020159
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020304
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020312
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020341
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020407
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020455
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020535
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020540
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020545
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020551
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020621
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_020829
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_021216
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_021326
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_021627
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_021741
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_022113
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_022248
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_022455
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_022542
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_022714
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_022929
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023146
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023223
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023354
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023457
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023621
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023631
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_023926
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_024711
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/Scenes/apartment.unity
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_032243
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/AccessibilitySettings.cs
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+Assets/Scripts/UI/SettingsPanel.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_034857
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/AccessibilitySettings.cs
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+Assets/Scripts/UI/SettingsPanel.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_035328
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/AccessibilitySettings.cs
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+Assets/Scripts/UI/SettingsPanel.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_035541
+### Commits
+539b5e7 Fix PausePageNema: NemaPersonality is a ScriptableObject, not a singleton
+d72da99 Add pause menu pages: Nema (wellbeing/personality), Dates (history + learned knowledge), System (quit)
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Framework/AccessibilitySettings.cs
+Assets/Scripts/Framework/GameClock.cs
+Assets/Scripts/GameLogic/PlayerKnowledgeTracker.cs
+Assets/Scripts/UI/PausePageNema.cs
+Assets/Scripts/UI/SettingsPanel.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Archived Session State: 20260530_155926
+# Session State — 2026-05-30
+
+## Current Task
+Pause menu redesign, character arc design, wellbeing render driver, accessibility overrides.
+
+## Completed This Session
+- Pause menu shared components: PauseUIHelper, PauseTabBar, PauseCarousel
+- PausePageNema expanded to 4-section carousel (Wellbeing, Personality, Outfit, Flower)
+- PausePageItems (6 tabs: Plants, Books, Drinks, Decor, Key Items, Mail)
+- PausePageNotes (3 tabs: Tutorial, Dates, Discoveries — absorbs PausePageDates)
+- PausePageCalendar (day-by-day timeline)
+- PlayerKnowledgeTracker: added public DiscoveredItems/LearnedInfo accessors
+- AccessibilitySettings: 5 new visual effect caps (DoubleExposureMax, BloomMax, DitherMax, VignetteMax, DynamicVisualsEnabled)
+- SettingsPanel: 4 sliders + 1 toggle for visual effect caps
+- WellbeingRenderDriver: drives rendering from NemaWellbeing.Overall + accessibility caps
+- Removed time-of-day mood curve from GameClock
+- Character arcs design doc: 9 aesthetic categories, primary/secondary arcs, demo roster (Paris cottage→gamer, Sophie groovy→shredder, Sterling career→nurturer), hated categories
+- Wellbeing render stack design: double exposure, bloom, dither, vignette driven by Nema's state
+- Accessibility overrides design: caps, interaction rules, player-facing labels
+
+## NOT YET COMPLETE (WIP)
+- **Mail system**: meta files exist but system not fully wired in scene
+- **Pause menu pages**: code written but NOT wired in Unity scene (need to create GameObjects, add components, update PauseMenuController.pages[] array, wire carousel input actions)
+- **WellbeingRenderDriver**: code written but NOT wired in scene (needs DoubleExposureFeature and PSXPostProcessFeature serialized references from renderer asset)
+- **PausePageDates**: still exists, should be removed after PausePageNotes is verified
+- **Settings UI**: sliders/toggle code exists but actual UI elements need to be created in the settings panel scene/prefab
+- **Character arcs**: design doc done, no code implementation yet (no DatePersonalDefinition assets for Sophie/Sterling, no secondary preference shifting, no category enum)
+
+## Design Docs Updated
+- `SpentBloom_Docs/design/gdd/character-arcs.md` — aesthetic categories, primary/secondary arcs, hated categories, wellbeing render stack, accessibility overrides
+
+## Key Decisions
+- 9 aesthetic categories: cottage, groovy, shredder, career, nurturer, weeb, gamer, nutural, resonal
+- Each date character has primary (surface) and secondary (hidden) alignment
+- Demo roster: Paris (cottage→gamer), Sophie (groovy→shredder), Sterling (career→nurturer)
+- Nema's wellbeing drives visuals: low = hazy/dissociative, high = sharp/clear
+- Time-of-day no longer affects mood — room vibe is purely player-driven
+- Weather stays random but may be biased by category alignment (future)
+- All dynamic visual effects have accessibility caps in settings
+---
+
+## Session End: 20260530_155926
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_164509
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_172938
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_175048
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_181012
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_182101
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_185728
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_190733
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_191805
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_192736
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_192821
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_193047
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_193315
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_193438
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_204811
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_210938
+### Commits
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateInspectSystem.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260530_211812
+# Session State — 2026-05-30
+
+## Current Task
+Date flow redesign, pause menu pages, wellbeing render driver, character arc design.
+
+## Completed This Session
+
+### Code — Committed (f3fe2cf)
+- Pause menu shared components: PauseUIHelper, PauseTabBar, PauseCarousel
+- PausePageNema: 4-section carousel (Wellbeing, Personality, Outfit, Flower)
+- PausePageItems: 6 tabs (Plants, Books, Drinks, Decor, Key Items, Mail)
+- PausePageNotes: 3 tabs (Tutorial, Dates, Discoveries)
+- PausePageCalendar: day-by-day timeline
+- PlayerKnowledgeTracker: public DiscoveredItems/LearnedInfo accessors
+- AccessibilitySettings: 5 new visual effect caps
+- SettingsPanel: 4 sliders + 1 toggle for visual caps
+- WellbeingRenderDriver: drives rendering from NemaWellbeing.Overall
+- Removed time-of-day mood curve from GameClock
+
+### Code — Staged for Commit
+- DateSessionManager: unified Phase 3 (no continue buttons), reaction queue, split-cam on auto-excursions, bespoke dialogue wiring, SweepAllItems (no double points, no hitch)
+- DateInspectSystem: queue check, TryInspectQueued
+- Date flow redesign design doc in repo
+
+### Design Docs (SpentBloom_Docs on OneDrive)
+- character-arcs.md: 9 aesthetic categories, primary/secondary arcs, demo roster, hated categories, wellbeing render stack, accessibility overrides
+- date-flow-redesign.md: full date sequence beat-by-beat, bug list, architectural changes
+
+## NOT YET WIRED IN UNITY EDITOR
+- Pause pages: code written, need scene GameObjects + PauseMenuController.pages[] array
+- Settings UI: slider/toggle code exists, need scene elements in Visual tab
+- WellbeingRenderDriver: need scene GameObject + DoubleExposureFeature/PSXPostProcessFeature references
+- PausePageDates: still exists, remove after Notes verified
+- PausePageNema: needs carousel input action references wired
+
+## NOT YET BUILT
+- DialogueDatabase / CSV parser for runtime dialogue loading
+- Flower rotation fix (facing away from viewer on gift screen)
+- Flower gift auto-advance fix (should wait for player click)
+- Baked/trimmed flower not returning to apartment on day 2
+- Day 2 newspaper missing
+- Drink prop not persisting after serving / dirty dish next day
+- Mail items not clickable
+- Kitchen flash during Phase 2→3 transition
+
+## Key Design Decisions
+- 9 aesthetic categories: cottage, groovy, shredder, career, nurturer, weeb, gamer, nutural, resonal
+- Demo roster: Paris (cottage→gamer), Sophie (groovy→shredder), Sterling (career→nurturer)
+- Hated categories: Paris hates weeb, Sophie hates career, Sterling hates gamer
+- Nema's wellbeing drives visuals: low=hazy/dissociative, high=sharp/clear
+- Time-of-day no longer affects mood — room vibe is purely player-driven
+- Phase 3 is one continuous stage: date walks + player clicks, interleaved, queued
+- Sweep shows ALL non-neutral items, skips double-scoring for already-seen items
+- All dynamic visual effects have accessibility caps in settings
+- ShaderCollection asset must include all Shader.Find shaders (DiagonalSplit etc.)
+---
+
+## Session End: 20260530_211812
+### Commits
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260530_212641
+### Commits
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_212657
+### Commits
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_212904
+### Commits
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_224825
+### Commits
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_230426
+### Commits
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/UI/SettingsPanel.cs
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_231353
+### Commits
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_231840
+### Commits
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_232307
+### Commits
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_233504
+### Commits
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_233745
+### Commits
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_233938
+### Commits
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_234554
+### Commits
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260530_235508
+### Commits
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+f3fe2cf Add pause menu pages, wellbeing render driver, accessibility visual caps, remove time-of-day mood
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_001309
+### Commits
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+design/dialogue-master.csv
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_001510
+### Commits
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+design/dialogue-master.csv
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_001756
+### Commits
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+design/dialogue-master.csv
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_002050
+### Commits
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+design/dialogue-master.csv
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_003810
+### Commits
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_004135
+### Commits
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260531_004533
+# Session State — 2026-05-31
+
+## Current Task
+Pause menu, wellbeing render, character arcs, date flow redesign, dialogue system.
+
+## Completed This Session
+
+### Commits (all pushed to main)
+- f3fe2cf: Pause menu pages, wellbeing render driver, accessibility caps, remove time-of-day mood
+- ea1b5f6: Unify Phase 3 date flow, reaction queue, sweep redesign
+- c27f045: Fix split-cam transform arg, auto-build settings UI
+- 86a516b: Replace SimplePauseMenu with PauseMenuController (singleton, auto-build pages, settings)
+- b54051c: Fix pause page layout (full-stretch RectTransform)
+- 4949bc8: Fix Nema carousel input (A/D keys), block raycasts through pause menu
+- 69b4c2b: Fix camera control lost after quit+continue (IsTransitioning reset)
+- b39c571: Carousel visual arrows, recessed background, key hint
+- b833c4b: Expand dialogue-master.csv with all game text sections
+- fb2b43c: DialogueDatabase runtime CSV loader + editor auto-sync
+
+### Design Docs (SpentBloom_Docs on OneDrive)
+- character-arcs.md: 9 aesthetic categories, primary/secondary arcs, hated categories, wellbeing render stack, accessibility overrides
+- date-flow-redesign.md: full date sequence, bug list, architectural changes
+
+### New Files Created
+- PauseUIHelper, PauseTabBar, PauseCarousel (shared UI)
+- PausePageItems, PausePageNotes, PausePageCalendar (new pages)
+- WellbeingRenderDriver (rendering from NemaWellbeing.Overall)
+- DialogueDatabase (CSV loader with indexed lookups)
+- DialogueCSVSync (editor auto-copy to StreamingAssets)
+
+### Modified Files
+- PausePageNema: carousel with 4 sections
+- PauseMenuController: singleton, auto-build pages, settings panel, raycast blocker
+- AccessibilitySettings: 5 visual effect caps
+- SettingsPanel: auto-build sliders/toggle, references PauseMenuController
+- DateSessionManager: unified Phase 3, reaction queue, SweepAllItems, bespoke dialogue
+- DateInspectSystem: queue check, TryInspectQueued
+- PlayerKnowledgeTracker: public list accessors
+- GameClock: removed time-of-day mood curve
+- DayPhaseManager: clear IsTransitioning on Awake
+- GlobalCursorManager: reference PauseMenuController instead of SimplePauseMenu
+- dialogue-master.csv: expanded with all game text sections + Tag/Day columns
+
+## NOT YET WIRED IN UNITY EDITOR
+- WellbeingRenderDriver: needs scene GameObject + renderer feature references
+- PausePageNema: needs NemaPersonality ScriptableObject assigned
+- PauseMenuController pages array: can be left empty for auto-build or manually configured
+
+## NOT YET BUILT
+- Wire DialogueDatabase into DateSessionManager/DateReactionUI (replace hardcoded arrays)
+- Flower rotation fix (facing away from viewer)
+- Flower gift auto-advance (should wait for click)
+- Baked flower not returning on day 2
+- Day 2 newspaper missing
+- Drink prop persistence / dirty dish
+- Mail items not clickable
+- Kitchen flash on Phase 2-3 transition
+- Sophie/Sterling DatePersonalDefinition ScriptableObjects
+- Secondary preference shifting for date 3
+- Aesthetic category enum + item tagging
+- New items: goth box, key necklace, perfume, crystal ball orb
+- Pause page content not populating from gameplay (PlayerKnowledgeTracker not called during dates)
+
+## Key Design Decisions
+- 9 aesthetic categories: cottage, groovy, shredder, career, nurturer, weeb, gamer, nutural, resonal
+- Demo roster: Paris (cottage>gamer), Sophie (groovy>shredder), Sterling (career>nurturer)
+- Hated: Paris>weeb, Sophie>career, Sterling>gamer
+- Nema wellbeing drives visuals (hazy to clear)
+- Time-of-day removed from mood, room is player-driven
+- Phase 3 unified: one continuous stage, reaction queue, no continue buttons
+- Sweep shows all non-neutral items, no double scoring
+- All game text goes through dialogue-master.csv
+- CSV workflow: edit in Excel, auto-syncs to StreamingAssets on Play
+---
+
+## Session End: 20260531_004533
+### Commits
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260531_004626
+### Commits
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_005554
+### Commits
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_010038
+### Commits
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_010117
+### Commits
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_010147
+### Commits
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_010356
+### Commits
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_011157
+### Commits
+1e84563 Add scene changes, ShaderCollection update, and meta files
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_012438
+### Commits
+77093cf Update bug list status in date-flow-redesign doc
+1e84563 Add scene changes, ShaderCollection update, and meta files
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_013242
+### Commits
+731651c Fix kitchen flash timing, add plant restore debug logging, simplify mail collider
+77093cf Update bug list status in date-flow-redesign doc
+1e84563 Add scene changes, ShaderCollection update, and meta files
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_013702
+### Commits
+6067549 Plants brown and die in ~3 days if not watered
+731651c Fix kitchen flash timing, add plant restore debug logging, simplify mail collider
+77093cf Update bug list status in date-flow-redesign doc
+1e84563 Add scene changes, ShaderCollection update, and meta files
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_014339
+### Commits
+0a04ac1 Dead plants become trash instead of deactivating, exclude leaves from tint
+6067549 Plants brown and die in ~3 days if not watered
+731651c Fix kitchen flash timing, add plant restore debug logging, simplify mail collider
+77093cf Update bug list status in date-flow-redesign doc
+1e84563 Add scene changes, ShaderCollection update, and meta files
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_015332
+### Commits
+0a04ac1 Dead plants become trash instead of deactivating, exclude leaves from tint
+6067549 Plants brown and die in ~3 days if not watered
+731651c Fix kitchen flash timing, add plant restore debug logging, simplify mail collider
+77093cf Update bug list status in date-flow-redesign doc
+1e84563 Add scene changes, ShaderCollection update, and meta files
+99b6c6a Remove personality section from Nema page, now 3 sections: wellbeing, outfit, flower
+8c24bc2 Remove points remaining from Nema personality display
+77fbf1a Fix 7 bugs: flower rotation, gift wait-for-click, plant persistence, kitchen flash, drink prop, mail click, newspaper
+c38c465 Save session state
+fb2b43c Add DialogueDatabase runtime CSV loader and editor auto-sync
+b833c4b Expand dialogue-master.csv with all game text sections
+b39c571 Add visual arrows, recessed background, and key hint to carousel
+69b4c2b Fix camera control lost after quit+continue
+4949bc8 Fix Nema carousel input (A/D keys), block raycasts through pause menu
+b54051c Fix pause page layout: ensure full-stretch RectTransform on all pages
+86a516b Replace SimplePauseMenu with PauseMenuController: singleton, auto-build pages, settings panel
+c27f045 Fix split-cam missing transform arg, auto-build settings UI for visual effect caps
+ea1b5f6 Unify Phase 3 date flow: remove continue buttons, add reaction queue, redesign sweep
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260531_113246
+# Session State — 2026-05-31
+
+## What Happened Today
+
+### Bug Fixes (all pushed)
+- Flower rotation: 180 Y so it faces the viewer
+- Flower gift: waits for click instead of auto-advancing
+- Baked flower persistence: wired save/restore in AutoSaveController
+- Kitchen flash: kitchen model hidden after fade-out, not before
+- Drink verdict flash: kitchen hidden before restoring apartment renderers
+- Mail collider: ensures BoxCollider on spawned mail objects
+- Day 2 newspaper: removed demo-mode skip that was blocking newspaper on day 2+
+- Camera control after quit+continue: clear IsTransitioning on Awake
+- Pause menu raycast blocking: transparent Image on pause root
+- Nema carousel: A/D keys, removed dead personality section (3 sections now)
+
+### Features (all pushed)
+- Dead plants become trash (glitch shader, smell, stay visible, brown tint)
+- Plants brown and die in ~3 days if not watered (33%/day health loss)
+- Leaf objects excluded from plant tinting
+- PlaceableObject.ConvertToTrash() for runtime trash conversion
+- PauseMenuController replaces SimplePauseMenu (singleton, auto-build pages, settings)
+- Carousel visual arrows + recessed background + A/D key hint
+- DialogueDatabase CSV loader + editor auto-sync
+- Expanded dialogue-master.csv with all game text sections
+
+### Design (SpentBloom_Docs on OneDrive)
+- Character arcs with primary/secondary/hated categories
+- Wellbeing render stack + accessibility overrides
+- Date flow redesign
+
+## Still Open
+- Leaf texture swap at start (unknown object, need screenshot to identify)
+- Drink persistence: _dirtyGlassPrefab may not be assigned in Inspector
+- Wire DialogueDatabase into DateReactionUI (replace hardcoded arrays)
+- Plant restore debug: check console for "[AutoSaveController] Restoring X living plants" to verify flowers return on day 2
+- Mail clicking: collider added but may need layer/interaction testing
+- WellbeingRenderDriver: not wired in scene yet
+- Pause pages: verify Calendar shows up (clear pages array for auto-build)
+---
+
+## Session End: 20260531_113246
+### Commits
+49f8154 Save session state
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+---
+
+## Session End: 20260531_174821
+### Commits
+fdae8ec Stop swapping flower gift materials to PSX shader, keep original URP look
+49f8154 Save session state
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_174908
+### Commits
+fdae8ec Stop swapping flower gift materials to PSX shader, keep original URP look
+49f8154 Save session state
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_185549
+### Commits
+fdae8ec Stop swapping flower gift materials to PSX shader, keep original URP look
+49f8154 Save session state
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260531_215439
+### Commits
+6b441a2 Wire DialogueDatabase, save knowledge/milestones, fix null checks, delete dead code
+fdae8ec Stop swapping flower gift materials to PSX shader, keep original URP look
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260531_233146
+# Session State — 2026-05-31
+
+## Completed Today
+
+### Bug Fixes
+- Flower rotation (180 Y), gift waits for click
+- Baked flower save/restore wired in AutoSaveController
+- Kitchen flash fixed (hide after fade, not before)
+- Drink verdict flash fixed (hide kitchen before restoring renderers)
+- Mail collider ensured on spawned objects
+- Day 2 newspaper (removed demo-mode skip)
+- Camera control after quit+continue (IsTransitioning reset)
+- Pause menu raycast blocking
+- Null checks in PausePageNotes, PauseMenuController
+- Flower gift no longer swaps to PSX shader (keeps URP materials)
+
+### Features
+- Dead plants become trash (glitch shader, smell, stay visible)
+- Plants brown and die in ~3 days if not watered
+- Leaves excluded from plant tinting
+- PlaceableObject.ConvertToTrash()
+- DialogueDatabase wired into DateReactionUI and DateSessionManager
+- PlayerKnowledgeTracker saved/restored (item IDs + info IDs)
+- TutorialGateTracker milestones saved/restored
+- Nema page: cut personality section, now 3 sections (wellbeing, outfit, flower)
+
+### Cleanup
+- Deleted PausePageDates.cs (dead code)
+- Code audit completed
+
+## Remaining Tech Debt
+- 8 runtime shader swaps (PlaceableObject, InteractableHighlight, AuthoredMessSpawner, PSXRenderController)
+- 8 TODO comments (polish)
+- NemaProfilePanel still opens on Nema click (personality system unused)
+- Leaf texture swap at start (unidentified object)
+
+## Still Open
+- WellbeingRenderDriver not wired in scene
+- Calendar page may not show (check pages array or use auto-build)
+- Drink _dirtyGlassPrefab may not be assigned in Inspector
+- Mail clicking needs in-game verification
+- Plant restore needs console log verification
+---
+
+## Session End: 20260531_233146
+### Commits
+54b3bf7 Save session state
+6b441a2 Wire DialogueDatabase, save knowledge/milestones, fix null checks, delete dead code
+fdae8ec Stop swapping flower gift materials to PSX shader, keep original URP look
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+---
+
+## Session End: 20260601_025007
+### Commits
+2b1c66a Support multiple selectable dates on Day 2 (Sophie + Sterling)
+54b3bf7 Save session state
+6b441a2 Wire DialogueDatabase, save knowledge/milestones, fix null checks, delete dead code
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260602_194429
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_000157
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateEndScreen.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/FlowerGiftPresenter.cs
+Assets/Scripts/Dating/NemaWeatherDialogue.cs
+Assets/Scripts/UI/DreamScreen.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_000627
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateEndScreen.cs
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Dating/FlowerGiftPresenter.cs
+Assets/Scripts/Dating/NemaWeatherDialogue.cs
+Assets/Scripts/UI/DreamScreen.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_001645
+### Commits
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_001658
+### Commits
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Archived Session State: 20260603_001949
+# Session State — 2026-06-03
+
+## Completed This Session
+- Wired all remaining hardcoded dialogue through DialogueDatabase with fallbacks
+  - Phase titles, transition lines, reveal commentary, sweep cleanliness
+  - Drink suspense, date end grades, flower gift text
+  - Dream screen phrases, weather dialogue (all 6 states)
+- Day 2 newspaper now supports multiple selectable dates (day2Dates list)
+
+## Still Open
+- Sophie + Sterling DatePersonalDefinition assets (not created yet)
+- Secondary preference shifting for date 3 (design done, no code)
+- Aesthetic category enum + item tagging
+- New items: goth box, key necklace, perfume, crystal ball orb
+- WellbeingRenderDriver not wired in scene
+- NemaProfilePanel still opens on Nema click (dead system)
+- Pause Calendar may not show (check pages array)
+- Drink _dirtyGlassPrefab may not be assigned
+- Leaf texture swap at start (unidentified)
+- 8 runtime shader swaps (tech debt)
+- 8 TODO comments (polish)
+---
+
+## Session End: 20260603_001949
+### Commits
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+---
+
+## Session End: 20260603_003055
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_003257
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_003715
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_003854
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_004147
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_005044
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_005329
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_005417
+### Commits
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Resources/ShaderCollection.asset
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/NemaController.cs
+Assets/Scripts/Framework/ShaderWarmup.cs
+Assets/Scripts/Rendering/PSXPostProcessFeature.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_005648
+### Commits
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_011317
+### Commits
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_011532
+### Commits
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_011600
+### Commits
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_011723
+### Commits
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_012850
+### Commits
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_013029
+### Commits
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_013308
+### Commits
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_022036
+### Commits
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_025447
+### Commits
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_030756
+### Commits
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_030910
+### Commits
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/PlaceableObject.cs
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_030927
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_030949
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_031115
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_031855
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_032034
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/PlaceableObject.cs
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_032257
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/PlaceableObject.cs
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_032400
+### Commits
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/GunplaFigure.cs
+Assets/Scripts/Apartment/PlaceableObject.cs
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_032442
+### Commits
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_032638
+### Commits
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_032834
+### Commits
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Dating/DateSessionManager.cs
+Assets/Scripts/Framework/DayPhaseManager.cs
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_033044
+### Commits
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_034739
+### Commits
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_035420
+### Commits
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_035531
+### Commits
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_035842
+### Commits
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_040218
+### Commits
+5cbe4c9 Deferred plant restore if LivingFlowerPlantManager not ready at load time
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_040720
+### Commits
+5cbe4c9 Deferred plant restore if LivingFlowerPlantManager not ready at load time
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Editor/ApartmentSceneBuilder.cs
+Assets/Editor/DatingLoopSceneBuilder.cs
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Scripts/Apartment/BookItem.cs
+Assets/Scripts/Apartment/DiscoBulbDefinition.cs
+Assets/Scripts/Apartment/FridgeBouquet.cs
+Assets/Scripts/Apartment/LivingFlowerPlantManager.cs
+Assets/Scripts/Apartment/NemaWellbeing.cs
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_040738
+### Commits
+a1f98d8 Remap ReactableTag strings to personality archetypes
+5cbe4c9 Deferred plant restore if LivingFlowerPlantManager not ready at load time
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_041039
+### Commits
+39fc23d Instance materials in Awake to prevent all shared material corruption
+a1f98d8 Remap ReactableTag strings to personality archetypes
+5cbe4c9 Deferred plant restore if LivingFlowerPlantManager not ready at load time
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+
+## Session End: 20260603_041752
+### Commits
+39fc23d Instance materials in Awake to prevent all shared material corruption
+a1f98d8 Remap ReactableTag strings to personality archetypes
+5cbe4c9 Deferred plant restore if LivingFlowerPlantManager not ready at load time
+9e13186 Skip evening when no flower earned: grade screen → dream → next day
+afeea91 Fix shared material corruption in ApplyGlitch, use cloud sprites for stink, angelic gunpla poof
+2275766 Preserve authored GlitchIntensity on materials already using PSXLitGlitch
+ff5a106 Add editor tool to generate fabric normal map for suit material
+1edc82c Clean up Phase 2→3 transition: remove redundant fade, kitchen hide, dead wait
+720640f Add F5 screenshot tool for artist reference captures
+037ae84 Add character overlay camera, occluded outline shader, fix shader warmup gaps
+bf1c2bc Fix DialogueDatabase.GetById returns string not DialogueLine, remove .line calls
+0500040 Save session state
+cda0930 Wire all remaining hardcoded dialogue through DialogueDatabase
+### Uncommitted Changes
+Assets/ArtAssets/3dModels/Nema_Models/black_leather 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/black_leather.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index 1.mat
+Assets/ArtAssets/3dModels/Nema_Models/painted_nema_index.mat
+Assets/Materials/PSXLit_Glitch.mat
+Assets/Materials/aptblockout_detail_3rd_pass_blue/book_cover_2.mat
+Assets/Scenes/apartment.unity
+Assets/Settings/PC_RPAsset.asset
+Assets/Settings/PC_Renderer.asset
+Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+production/session-logs/session-log.md
+production/session-state/active.md
+---
+

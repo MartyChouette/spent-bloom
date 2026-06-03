@@ -2490,20 +2490,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73705924}
   m_Mesh: {fileID: 7414509850709746518, guid: b66edaceda4ec394f827274abbb860c8, type: 3}
---- !u!114 &77749743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Pause_Menu/PauseMenu_Left
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
-  m_Asset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_ActionId: dc37459b-afa8-4928-b32e-82d5785a2183
 --- !u!114 &77909195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6553,21 +6539,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e43f0ba569df18742bfcfae602ce2715, type: 2}
   - {fileID: 11400000, guid: e877fee07bca80549a4a57a458e6a67a, type: 2}
   - {fileID: 11400000, guid: 175b0fd897a879a4f856db9bcbed6f25, type: 2}
-  - {fileID: 11400000, guid: 7a3a96110a49add4cb806aaa86a4c847, type: 2}
-  - {fileID: 11400000, guid: 96742d5abc35e614381b5e793ce18399, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 13d942e989ba86d469b43aa190917041, type: 2}
   - {fileID: 11400000, guid: 271a1505f7cc3a9498847ce1ebdb3b5b, type: 2}
-  - {fileID: 11400000, guid: 29fc3dc61455bc64b9293003e19f38e0, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 73fbd4893871df14ea934effa45551c9, type: 2}
-  - {fileID: 11400000, guid: bfccaf76253dba240b18e4f8c63f49f9, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: cfbc405e572521d4bae86a39125af2f0, type: 2}
-  - {fileID: 11400000, guid: 37a273504e6736e48a85ff8ccc97952e, type: 2}
-  - {fileID: 11400000, guid: 94834b5f8086d7241a1640752e5ecced, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 43e8d9f9617264543b94f1fd6ecbcb2b, type: 2}
   - {fileID: 11400000, guid: 17491936fa08d7a4ebc023db8af62911, type: 2}
   - {fileID: 11400000, guid: 173281fb958f575459440efc31ff3906, type: 2}
-  - {fileID: 11400000, guid: 020727d32979724439466891fc4c10e7, type: 2}
-  - {fileID: 11400000, guid: ca2ca735ca43fcd4e89e377e144e7028, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   _stainSlots:
   - {fileID: 1155029570}
   - {fileID: 663924897}
@@ -7514,7 +7500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &294380040
 Transform:
   m_ObjectHideFlags: 0
@@ -8537,20 +8523,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3733326169713674248, guid: 5292c727fa375a94fbbe8573e7178595, type: 3}
---- !u!114 &326376225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
-  m_Name: Pause_Menu/PauseMenu_Right
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
-  m_Asset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_ActionId: cbe3fe1b-3e2b-4611-8051-a742fc70d826
 --- !u!64 &326926657
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15953,7 +15925,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -23912,7 +23884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &845707210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24029,7 +24001,7 @@ Transform:
   m_GameObject: {fileID: 845707209}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.01, y: 1.8100001, z: 0.78200006}
+  m_LocalPosition: {x: 5.788, y: 1.8100001, z: 4.273}
   m_LocalScale: {x: 0.019999998, y: 0.35, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27397,7 +27369,7 @@ GameObject:
   - component: {fileID: 937516495}
   - component: {fileID: 937516494}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Sink highlight Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27443,7 +27415,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fe6f5352efd41a840b7d53fbb0af9d61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36303,7 +36275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1064093289
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41461,9 +41433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0046e9586034414aa3cc618de2c2782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PausePageNema
-  _personality: {fileID: 11400000, guid: cca274cf548ad684987956a556859d57, type: 2}
-  _carouselLeft: {fileID: 77749743}
-  _carouselRight: {fileID: 326376225}
 --- !u!1 &1259186009
 GameObject:
   m_ObjectHideFlags: 0
@@ -56499,7 +56468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1760013170
 Transform:
   m_ObjectHideFlags: 0
@@ -91523,7 +91492,7 @@ MonoBehaviour:
   _snapOffset: {x: 0, y: 0, z: 0.005}
   _snapSound: {fileID: 0}
   _pairedDescription: 
-  _partnerPulseColor: {r: 0.1254902, g: 0.6980392, b: 0.6666667, a: 1}
+  _partnerPulseColor: {r: 0.5408316, g: 0.69803923, b: 0.12549017, a: 1}
   _partnerPulseSpeed: 2
 --- !u!114 &5721495614026694670
 MonoBehaviour:
@@ -93125,7 +93094,7 @@ MonoBehaviour:
   _snapOffset: {x: 0, y: 0, z: 0.005}
   _snapSound: {fileID: 0}
   _pairedDescription: 
-  _partnerPulseColor: {r: 0.1254902, g: 0.6980392, b: 0.6666667, a: 1}
+  _partnerPulseColor: {r: 0.5408316, g: 0.69803923, b: 0.12549017, a: 1}
   _partnerPulseSpeed: 2
 --- !u!114 &6471421293398095460
 MonoBehaviour:
@@ -100251,7 +100220,7 @@ MonoBehaviour:
   _snapOffset: {x: 0, y: 0, z: 0.005}
   _snapSound: {fileID: 0}
   _pairedDescription: 
-  _partnerPulseColor: {r: 0.1254902, g: 0.6980392, b: 0.6666667, a: 1}
+  _partnerPulseColor: {r: 0.5408316, g: 0.69803923, b: 0.12549017, a: 1}
   _partnerPulseSpeed: 2
 --- !u!114 &9201937199771327028
 MonoBehaviour:

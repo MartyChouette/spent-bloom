@@ -58,7 +58,7 @@ MonoBehaviour:
   settings:
     resolutionDivisor: 1
     colorDepth: 120
-    ditherIntensity: 1
+    ditherIntensity: 0.9
     finePattern: 0
     coarsePattern: 2
     shadowThreshold: 0.028
@@ -94,7 +94,7 @@ MonoBehaviour:
   - {fileID: -3224449619689437488}
   - {fileID: 5742268844292691882}
   - {fileID: -5670967793026460939}
-  m_RendererFeatureMap: ad6b866f10d7b46c33979994d961a2c5d086449e277440d3aad7db0c17a3b04f67bf4b61b56d2066
+  m_RendererFeatureMap: ad6b866f10d7b46cd086449e277440d3aad7db0c17a3b04ff512fa9bd6ac4cb1
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -137,10 +137,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DoubleExposureFeature
   m_Active: 1
   settings:
-    feedbackDecay: 0.296
-    blendIntensity: 0.246
-    blurRadius: 5.49
-    bloomThreshold: 0.993
+    feedbackDecay: 0.02
+    blendIntensity: 0.5
+    blurRadius: 5
+    bloomThreshold: 0.2
     bloomSoftness: 1
     bufferDivisor: 4
   _shader: {fileID: 4800000, guid: f641a616fb963784db965f01caa3b4f2, type: 3}
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_Settings:
-    AOMethod: 1
+    AOMethod: 0
     Downsample: 0
     AfterOpaque: 0
     Source: 1
