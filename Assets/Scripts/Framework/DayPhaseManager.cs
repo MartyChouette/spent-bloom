@@ -453,7 +453,7 @@ public class DayPhaseManager : MonoBehaviour
     }
 
     /// <summary>Called by DateSessionManager.OnDateSessionEnded event.</summary>
-    public void EnterEvening(DatePersonalDefinition _, float __)
+    public void EnterEvening(DatePersonalDefinition _, float affection)
     {
         // If there's a pending flower trim from a successful date, do it first
         if (DateSessionManager.PendingFlowerTrim)
@@ -462,7 +462,37 @@ public class DayPhaseManager : MonoBehaviour
             return;
         }
 
+        // No flower earned: skip evening entirely, go straight to sleep → next day
+        float threshold = DateSessionManager.Instance != null
+            ? DateSessionManager.Instance.FlowerAffectionThreshold : 30f;
+        bool guaranteeFlower = DateSessionManager.Instance?.CurrentDate != null
+            && DateSessionManager.Instance.CurrentDate.guaranteeFlowerSuccess;
+
+        if (!guaranteeFlower && affection < threshold)
+        {
+            Debug.Log("[DayPhaseManager] No flower earned — skipping evening, going to sleep.");
+            StartCoroutine(SkipEveningToSleep());
+            return;
+        }
+
         SetPhase(DayPhase.Evening);
+    }
+
+    private IEnumerator SkipEveningToSleep()
+    {
+        // Fade to white
+        if (ScreenFade.Instance != null)
+            yield return ScreenFade.Instance.FadeOut(0.8f);
+
+        // Dream screen
+        if (DreamScreen.Instance != null)
+            yield return DreamScreen.Instance.Play();
+
+        // Auto-save + advance day
+        AutoSaveController.Instance?.PerformSave("end_of_day");
+
+        if (GameClock.Instance != null)
+            GameClock.Instance.AdvanceDayDirect();
     }
 
     // ─── Save/Load ─────────────────────────────────────────────────

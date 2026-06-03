@@ -341,6 +341,7 @@ public class DateSessionManager : MonoBehaviour
     public SessionState CurrentState => _state;
     public DatePhase CurrentDatePhase => _datePhase;
     public DatePersonalDefinition CurrentDate => _currentDate;
+    public float FlowerAffectionThreshold => _flowerAffectionThreshold;
     public float Affection => _affection;
     public bool IsDateActive => _state == SessionState.DateInProgress;
     public DateCharacterController DateCharacter => _dateCharacter;
@@ -2453,14 +2454,14 @@ public class DateSessionManager : MonoBehaviour
         {
             if (_affection >= _flowerAffectionThreshold)
             {
-                reactionUI.ShowText("I had a wonderful time...", 3f);
+                reactionUI.ShowText(DialogueDatabase.GetById("CORE-F1-A") ?? "I had a wonderful time...", 3f);
                 yield return s_wait35;
-                reactionUI.ShowText("Here... I brought you something.", 3f);
+                reactionUI.ShowText(DialogueDatabase.GetById("CORE-F1-B") ?? "Here... I brought you something.", 3f);
                 yield return s_wait35;
             }
             else
             {
-                reactionUI.ShowText("Well... goodnight.", 3f);
+                reactionUI.ShowText(DialogueDatabase.GetById("CORE-F2") ?? "Well... goodnight.", 3f);
                 yield return s_wait35;
             }
         }
