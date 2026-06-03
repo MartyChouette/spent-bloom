@@ -316,9 +316,12 @@ public class PlaceableObject : MonoBehaviour
 
             if (IsPSXShader(_instanceMats[i].shader))
             {
-                // PSX slot: swap shader in-place (safe, same property set)
+                // If already on PSXLitGlitch, keep authored _GlitchIntensity.
+                // Only zero it when swapping FROM a different PSX shader.
+                bool alreadyGlitch = _instanceMats[i].shader == s_glitchShader;
                 _instanceMats[i].shader = s_glitchShader;
-                _instanceMats[i].SetFloat("_GlitchIntensity", 0f);
+                if (!alreadyGlitch)
+                    _instanceMats[i].SetFloat("_GlitchIntensity", 0f);
             }
             else
             {
