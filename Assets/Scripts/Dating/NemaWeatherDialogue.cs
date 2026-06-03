@@ -57,7 +57,7 @@ public static class NemaWeatherDialogue
         {
             var ids = s_csvIdPrefixes[idx];
             string pickedId = ids[Random.Range(0, ids.Length)];
-            line = DialogueDatabase.GetById(pickedId)?.line;
+            line = DialogueDatabase.GetById(pickedId);
         }
 
         // Fallback to hardcoded

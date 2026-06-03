@@ -567,7 +567,7 @@ public class DateSessionManager : MonoBehaviour
         if (PhaseTitleDrop.Instance != null)
         {
             Debug.Log("[DateSessionManager] P1_DEBUG: PhaseTitleDrop.Show begin");
-            yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P1")?.line ?? "Impressions");
+            yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P1") ?? "Impressions");
             Debug.Log("[DateSessionManager] P1_DEBUG: PhaseTitleDrop.Show done");
         }
 
@@ -693,7 +693,7 @@ public class DateSessionManager : MonoBehaviour
 
         // Epic title drop over the live scene
         if (PhaseTitleDrop.Instance != null)
-            yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P2")?.line ?? "Drinks");
+            yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P2") ?? "Drinks");
 
         // Re-fetch reaction UI from the new model (old one is inactive after swap)
         reactionUI = _dateCharacterGO?.GetComponent<DateReactionUI>();
@@ -836,7 +836,7 @@ public class DateSessionManager : MonoBehaviour
 
         // Epic title drop over the live scene
         if (PhaseTitleDrop.Instance != null)
-            yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P3")?.line ?? "Warming Up");
+            yield return PhaseTitleDrop.Instance.Show(DialogueDatabase.GetById("CORE-TITLE-P3") ?? "Warming Up");
 
         // Re-fetch reaction UI from the new model (old one is inactive after swap)
         var reactionUI = _dateCharacterGO?.GetComponent<DateReactionUI>();
@@ -857,7 +857,7 @@ public class DateSessionManager : MonoBehaviour
         if (_dateCharacter != null)
             _dateCharacter.EnableExcursions();
 
-        DialoguePortraitBox.Instance?.Say(DialogueDatabase.GetById("CORE-SHOWME")?.line ?? "Show me what you've got!", 2.5f);
+        DialoguePortraitBox.Instance?.Say(DialogueDatabase.GetById("CORE-SHOWME") ?? "Show me what you've got!", 2.5f);
         yield return s_wait25;
 
         // Precompute non-neutral count for phase end check
@@ -881,11 +881,11 @@ public class DateSessionManager : MonoBehaviour
         yield return s_wait05;
         string closingLine;
         if (_affection >= 0.7f)
-            closingLine = DialogueDatabase.GetById("CORE-LOVEIT")?.line ?? "I love what you've done here.";
+            closingLine = DialogueDatabase.GetById("CORE-LOVEIT") ?? "I love what you've done here.";
         else if (_affection >= 0.4f)
-            closingLine = DialogueDatabase.GetById("CORE-NOTBAD")?.line ?? "Not bad... there's potential.";
+            closingLine = DialogueDatabase.GetById("CORE-NOTBAD") ?? "Not bad... there's potential.";
         else
-            closingLine = DialogueDatabase.GetById("CORE-WORKABLE")?.line ?? "We can work on this...";
+            closingLine = DialogueDatabase.GetById("CORE-WORKABLE") ?? "We can work on this...";
         DialoguePortraitBox.Instance?.Say(closingLine, 3f);
         yield return s_wait2;
 
@@ -1119,8 +1119,8 @@ public class DateSessionManager : MonoBehaviour
                 if (reactionUI != null)
                 {
                     string cleanText = cleanReaction == ReactionType.Like
-                        ? (DialogueDatabase.GetById("CORE-SWEEP-CLEAN")?.line ?? "So clean and tidy!")
-                        : (DialogueDatabase.GetById("CORE-SWEEP-MESSY")?.line ?? "It's a bit messy...");
+                        ? (DialogueDatabase.GetById("CORE-SWEEP-CLEAN") ?? "So clean and tidy!")
+                        : (DialogueDatabase.GetById("CORE-SWEEP-MESSY") ?? "It's a bit messy...");
                     reactionUI.ShowText(cleanText, 2f);
                 }
                 yield return new WaitForSeconds(1f);
@@ -1336,8 +1336,8 @@ public class DateSessionManager : MonoBehaviour
                 if (reactionUI != null)
                 {
                     string cleanText = cleanReaction == ReactionType.Like
-                        ? (DialogueDatabase.GetById("CORE-SWEEP-CLEAN")?.line ?? "So clean and tidy!")
-                        : (DialogueDatabase.GetById("CORE-SWEEP-MESSY")?.line ?? "It's a bit messy...");
+                        ? (DialogueDatabase.GetById("CORE-SWEEP-CLEAN") ?? "So clean and tidy!")
+                        : (DialogueDatabase.GetById("CORE-SWEEP-MESSY") ?? "It's a bit messy...");
                     reactionUI.ShowText(cleanText, 2f);
                 }
                 yield return s_wait1;
@@ -2233,7 +2233,7 @@ public class DateSessionManager : MonoBehaviour
 
         // 6. Suspense — thinking face
         if (reactionUI != null && reactionUI.gameObject.activeInHierarchy)
-            reactionUI.ShowText(DialogueDatabase.GetById("CORE-K2")?.line ?? "Hmm...", _drinkTastingHold);
+            reactionUI.ShowText(DialogueDatabase.GetById("CORE-K2") ?? "Hmm...", _drinkTastingHold);
         yield return CacheDrinkTastingWait();
 
         // 7. Noted responses — show each note as a sequential beat

@@ -137,7 +137,7 @@ public class FlowerGiftPresenter : MonoBehaviour
 
         if (_itemNameText != null)
         {
-            string giftLine = DialogueDatabase.GetById("CORE-FLOWER-GIFT")?.line ?? "{characterName} gave you a flower!";
+            string giftLine = DialogueDatabase.GetById("CORE-FLOWER-GIFT") ?? "{characterName} gave you a flower!";
             _itemNameText.text = giftLine.Replace("{characterName}", characterName);
         }
 
