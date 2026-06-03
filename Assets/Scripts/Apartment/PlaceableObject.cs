@@ -310,13 +310,6 @@ public class PlaceableObject : MonoBehaviour
         for (int i = 0; i < _instanceMats.Length; i++)
             _preGlitchMats[i] = _instanceMats[i];
 
-        // Instance materials before modifying so we don't corrupt shared assets.
-        // _instanceMats may still point at sharedMaterials from Awake.
-        if (_renderer != null)
-        {
-            _instanceMats = _renderer.materials; // creates per-renderer instances
-        }
-
         for (int i = 0; i < _instanceMats.Length; i++)
         {
             if (_instanceMats[i] == null) continue;
@@ -527,12 +520,12 @@ public class PlaceableObject : MonoBehaviour
     {
         _renderer = GetComponent<Renderer>();
         if (_renderer == null) _renderer = GetComponentInChildren<Renderer>();
-        // Don't clone materials — leave renderer untouched.
-        // All color changes use MaterialPropertyBlock (non-destructive).
+        // Create material instances so shader swaps (glitch, force, override)
+        // never corrupt shared assets on disk.
         if (_renderer != null && _renderer.sharedMaterials.Length > 0)
         {
-            var shared = _renderer.sharedMaterials;
-            _instanceMats = shared;
+            _instanceMats = _renderer.materials; // creates per-renderer instances
+            var shared = _instanceMats;
             _originalColor = shared[0] != null
                 ? (shared[0].HasProperty("_BaseColor") ? shared[0].GetColor("_BaseColor") : shared[0].color)
                 : Color.white;

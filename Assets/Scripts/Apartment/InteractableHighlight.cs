@@ -625,37 +625,6 @@ public class InteractableHighlight : MonoBehaviour
         DestroyOverrideMaterials();
     }
 
-    // ── PSXLit swap ───────────────
-
-    private static readonly HashSet<string> s_swappableShaders = new()
-    {
-        "Universal Render Pipeline/Lit",
-        "Universal Render Pipeline/Simple Lit",
-        "Standard"
-    };
-
-    private static Shader s_cachedPSXLitShader;
-
-    private void SwapToPSXLit()
-    {
-        if (PSXRenderController.Instance == null || !PSXRenderController.Instance.enabled) return;
-
-        if (s_cachedPSXLitShader == null) s_cachedPSXLitShader = Shader.Find("Iris/PSXLit");
-        var psxShader = s_cachedPSXLitShader;
-        if (psxShader == null) return;
-
-        for (int r = 0; r < _renderers.Length; r++)
-        {
-            if (_renderers[r] == null) continue;
-            foreach (var mat in _renderers[r].sharedMaterials)
-            {
-                if (mat == null || mat.shader == null) continue;
-                if (s_swappableShaders.Contains(mat.shader.name))
-                    mat.shader = psxShader;
-            }
-        }
-    }
-
     // ── Material factory ───────────────
 
     private static Material MakeMatForStyle(Color color, float intensityScale, float pulseSpeed, float pulseAmount)
