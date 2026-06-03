@@ -88,7 +88,7 @@ public class FridgeBouquet : MonoBehaviour
         if (reactable == null)
         {
             reactable = gameObject.AddComponent<ReactableTag>();
-            reactable.Setup(new[] { "flower", "bouquet", "gift" }, reactable.DisplayName);
+            reactable.Setup(new[] { "cottage", "personal" }, reactable.DisplayName);
         }
     }
 

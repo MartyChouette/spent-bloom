@@ -54,7 +54,7 @@ public class BookItem : MonoBehaviour
         if (_definition != null)
         {
             _reactable.Setup(
-                _definition.reactionTags.Length > 0 ? _definition.reactionTags : new[] { "book" },
+                _definition.reactionTags.Length > 0 ? _definition.reactionTags : new[] { "personal" },
                 _definition.title);
         }
 

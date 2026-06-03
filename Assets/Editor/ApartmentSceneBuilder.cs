@@ -728,14 +728,14 @@ public static class ApartmentSceneBuilder
             new Vector3(-2.2f, 1.127f, -2.1f), new Vector3(0.09f, 0.15f, 0.03f),
             new Color(0.55f, 0.62f, 0.45f), placeableLayer);
         SetItemDescription(gameKid, "A handheld game console.");
-        AddReactableTag(gameKid, new[] { "video_game", "gadget", "nostalgia" }, true, displayName: "Handheld Game");
+        AddReactableTag(gameKid, new[] { "gamer" }, true, displayName: "Handheld Game");
 
         // Tamagotchi on coffee table
         var tamagotchi = CreatePlaceable("Tamagotchi", parent.transform,
             new Vector3(-0.35f, 0.42f, 1.85f), new Vector3(0.06f, 0.075f, 0.03f),
             new Color(0.85f, 0.55f, 0.70f), placeableLayer);
         SetItemDescription(tamagotchi, "A virtual pet keychain.");
-        AddReactableTag(tamagotchi, new[] { "toy", "pet", "nostalgia" }, true, displayName: "Tamagotchi");
+        AddReactableTag(tamagotchi, new[] { "gamer", "nurturer" }, true, displayName: "Tamagotchi");
 
         // Game cartridges (3) scattered near GameKid on sun ledge
         Color[] cartColors =
@@ -753,7 +753,7 @@ public static class ApartmentSceneBuilder
                 new Vector3(xOff, 1.117f, zOff), new Vector3(0.06f, 0.075f, 0.012f),
                 cartColors[i], placeableLayer);
             SetItemDescription(cart, cartNames[i]);
-            AddReactableTag(cart, new[] { "video_game", "collectible" }, true, displayName: "Game Cartridge");
+            AddReactableTag(cart, new[] { "gamer" }, true, displayName: "Game Cartridge");
         }
     }
 
@@ -1332,7 +1332,7 @@ public static class ApartmentSceneBuilder
         foreach (Transform child in root.GetComponentsInChildren<Transform>(true))
             child.gameObject.layer = placeableLayer;
 
-        AddReactableTag(root, new[] { "figurine", "gunpla", "mecha", "hobby" }, true, displayName: "Model Figure");
+        AddReactableTag(root, new[] { "gamer", "personal" }, true, displayName: "Model Figure");
 
         Debug.Log("[ApartmentSceneBuilder] Built Gunpla figure with poseable joints.");
     }
@@ -2734,7 +2734,7 @@ public static class ApartmentSceneBuilder
         fridgeCtrlSO.ApplyModifiedPropertiesWithoutUndo();
 
         // ── ReactableTag on drink station (toggled when drink is delivered) ──
-        AddReactableTag(groupGO, new[] { "drink", "cocktail" }, false, displayName: "Your Drink");
+        AddReactableTag(groupGO, new[] { "groovy", "career" }, false, displayName: "Your Drink");
 
         Debug.Log("[ApartmentSceneBuilder] Simple Drink Making station group built (with fridge door).");
     }
@@ -2872,7 +2872,7 @@ public static class ApartmentSceneBuilder
             cdSO.ApplyModifiedPropertiesWithoutUndo();
 
             // ReactableTag for date NPC drink reactions (toggled on delivery)
-            AddReactableTag(deliveryGO, new[] { "drink" }, false, displayName: "Your Drink");
+            AddReactableTag(deliveryGO, new[] { "groovy", "career" }, false, displayName: "Your Drink");
         }
 
         // ── DateEndScreen ─────────────────────────────────────────────
@@ -3618,7 +3618,7 @@ public static class ApartmentSceneBuilder
             leafR.layer = plantsLayer;
 
             // ReactableTag for date reactions
-            AddReactableTag(plantRoot, new[] { "plant", "greenery" }, true, displayName: "Houseplant");
+            AddReactableTag(plantRoot, new[] { "cottage", "nurturer" }, true, displayName: "Houseplant");
         }
 
         // ── PotController (hidden simulation) ──────────────────────────
@@ -4578,7 +4578,7 @@ public static class ApartmentSceneBuilder
         sneakersPOSO.FindProperty("_itemDescription").stringValue = "Nema's beat-up sneakers.";
         sneakersPOSO.ApplyModifiedPropertiesWithoutUndo();
         sneakers.AddComponent<InteractableHighlight>();
-        AddReactableTag(sneakers, new[] { "shoes", "mess" }, true, displayName: "Sneakers");
+        AddReactableTag(sneakers, new[] { "groovy", "mess" }, true, displayName: "Sneakers");
 
         // Boots (tall, dark)
         var boots = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -4599,7 +4599,7 @@ public static class ApartmentSceneBuilder
         bootsPOSO.FindProperty("_itemDescription").stringValue = "Heavy black boots.";
         bootsPOSO.ApplyModifiedPropertiesWithoutUndo();
         boots.AddComponent<InteractableHighlight>();
-        AddReactableTag(boots, new[] { "shoes", "mess" }, true, displayName: "Boots");
+        AddReactableTag(boots, new[] { "shredder", "career", "mess" }, true, displayName: "Boots");
 
         // Slippers (soft, light)
         var slippers = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -4620,7 +4620,7 @@ public static class ApartmentSceneBuilder
         slippersPOSO.FindProperty("_itemDescription").stringValue = "Fuzzy house slippers.";
         slippersPOSO.ApplyModifiedPropertiesWithoutUndo();
         slippers.AddComponent<InteractableHighlight>();
-        AddReactableTag(slippers, new[] { "shoes", "mess" }, true, displayName: "Slippers");
+        AddReactableTag(slippers, new[] { "cottage", "nurturer", "mess" }, true, displayName: "Slippers");
 
         // ── Entrance bench / mat for decoration ──
         CreateBox("EntranceMat", parent.transform,

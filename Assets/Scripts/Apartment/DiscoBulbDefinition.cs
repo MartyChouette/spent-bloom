@@ -16,7 +16,7 @@ public class DiscoBulbDefinition : ScriptableObject
     public string bulbName = "Disco Bulb";
 
     [Tooltip("Reaction tags applied to the bulb item's ReactableTag.")]
-    public string[] reactionTags = new[] { "light", "disco" };
+    public string[] reactionTags = new[] { "groovy" };
 
     [Header("Cookie Pattern")]
     [Tooltip("Which procedural cookie pattern to generate.")]

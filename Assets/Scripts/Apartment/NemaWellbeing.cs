@@ -120,7 +120,7 @@ public class NemaWellbeing : MonoBehaviour
             if (allTags[i] == null || !allTags[i].IsActive) continue;
             foreach (string tag in allTags[i].Tags)
             {
-                if (tag == "vinyl" || tag == "art" || tag == "book" || tag == "music")
+                if (tag == "groovy" || tag == "personal")
                 { artItems++; break; }
             }
         }

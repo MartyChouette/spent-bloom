@@ -736,7 +736,7 @@ public static class DatingLoopSceneBuilder
             new Color(0.5f, 0.35f, 0.2f));
         bookshelf.isStatic = false;
         var bookTag = bookshelf.AddComponent<ReactableTag>();
-        WireReactableTag(bookTag, new[] { "books", "cozy" }, true);
+        WireReactableTag(bookTag, new[] { "personal" }, true);
 
         // Plant
         var plant = CreateBox("PottedPlant", parent.transform,
@@ -744,7 +744,7 @@ public static class DatingLoopSceneBuilder
             new Color(0.3f, 0.6f, 0.3f));
         plant.isStatic = false;
         var plantTag = plant.AddComponent<ReactableTag>();
-        WireReactableTag(plantTag, new[] { "plant", "nature" }, true);
+        WireReactableTag(plantTag, new[] { "cottage", "nurturer" }, true);
 
         // Trinket on shelf
         var trinket = CreateBox("Trinket", parent.transform,
@@ -752,7 +752,7 @@ public static class DatingLoopSceneBuilder
             new Color(0.8f, 0.7f, 0.2f));
         trinket.isStatic = false;
         var trinketTag = trinket.AddComponent<ReactableTag>();
-        WireReactableTag(trinketTag, new[] { "trinket", "cute" }, true);
+        WireReactableTag(trinketTag, new[] { "personal", "cottage" }, true);
 
         // Record player (cozy corner)
         var recordPlayer = CreateBox("RecordPlayer", parent.transform,
@@ -760,7 +760,7 @@ public static class DatingLoopSceneBuilder
             new Color(0.25f, 0.2f, 0.2f));
         recordPlayer.isStatic = false;
         var recordTag = recordPlayer.AddComponent<ReactableTag>();
-        WireReactableTag(recordTag, new[] { "vinyl", "music" }, false);
+        WireReactableTag(recordTag, new[] { "groovy" }, false);
 
         // Perfume bottle
         var perfume = CreateBox("PerfumeBottle", parent.transform,
@@ -768,7 +768,7 @@ public static class DatingLoopSceneBuilder
             new Color(0.8f, 0.5f, 0.9f));
         perfume.isStatic = false;
         var perfumeTag = perfume.AddComponent<ReactableTag>();
-        WireReactableTag(perfumeTag, new[] { "perfume_floral" }, false);
+        WireReactableTag(perfumeTag, new[] { "cottage", "career" }, false);
     }
 
     private static void WireReactableTag(ReactableTag tag, string[] tags, bool active)
