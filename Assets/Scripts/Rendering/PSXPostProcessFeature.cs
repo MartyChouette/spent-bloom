@@ -80,6 +80,11 @@ public class PSXPostProcessFeature : ScriptableRendererFeature
         if (_material == null || _pass == null)
             return;
 
+        // Skip overlay cameras — character and held-item overlays render clean
+        var urpCamData = renderingData.cameraData.camera.GetComponent<UniversalAdditionalCameraData>();
+        if (urpCamData != null && urpCamData.renderType == CameraRenderType.Overlay)
+            return;
+
         _pass.UpdateSettings(settings);
         _pass.requiresIntermediateTexture = true;
         renderer.EnqueuePass(_pass);

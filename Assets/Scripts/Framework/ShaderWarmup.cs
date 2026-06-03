@@ -22,6 +22,16 @@ public class ShaderWarmup : MonoBehaviour
     [SerializeField] private Shader psxInteractable;
     [SerializeField] private Shader heldOnTop;
 
+    [Header("Effect Shaders")]
+    [SerializeField] private Shader rimLight;
+    [SerializeField] private Shader volumetricShaft;
+    [SerializeField] private Shader curvedWorld;
+    [SerializeField] private Shader cursorShadow;
+    [SerializeField] private Shader diagonalSplit;
+    [SerializeField] private Shader overlaySprite;
+    [SerializeField] private Shader plantRevealUI;
+    [SerializeField] private Shader occludedOutline;
+
     private void Awake()
     {
         // Warm the shader cache so Shader.Find works reliably in builds.
@@ -38,5 +48,13 @@ public class ShaderWarmup : MonoBehaviour
         if (psxLitGlitch == null) psxLitGlitch = Shader.Find("Iris/PSXLitGlitch");
         if (psxInteractable == null) psxInteractable = Shader.Find("Iris/PSXInteractable");
         if (heldOnTop == null) heldOnTop = Shader.Find("Iris/HeldOnTop");
+        if (rimLight == null) rimLight = Shader.Find("Iris/RimLight");
+        if (volumetricShaft == null) volumetricShaft = Shader.Find("Iris/VolumetricShaft");
+        if (curvedWorld == null) curvedWorld = Shader.Find("Iris/CurvedWorld");
+        if (cursorShadow == null) cursorShadow = Shader.Find("Iris/CursorShadow");
+        if (diagonalSplit == null) diagonalSplit = Shader.Find("Iris/DiagonalSplit");
+        if (overlaySprite == null) overlaySprite = Shader.Find("Iris/OverlaySprite");
+        if (plantRevealUI == null) plantRevealUI = Shader.Find("UI/PlantRevealUI");
+        if (occludedOutline == null) occludedOutline = Shader.Find("Iris/OccludedOutline");
     }
 }

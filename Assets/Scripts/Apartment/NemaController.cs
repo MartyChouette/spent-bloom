@@ -745,6 +745,11 @@ public class NemaController : MonoBehaviour
         target.SetActive(true);
         _activeModelGO = target;
 
+        // Move to character rendering layer so the overlay camera picks her up
+        // and she renders without PSX post-processing.
+        if (CharacterOverlayCamera.CharacterLayer >= 0)
+            SetLayerRecursively(target, CharacterOverlayCamera.CharacterLayer);
+
         // Models that were inactive during PSXRenderController's startup scan
         // still have their original URP/Standard shaders, which may be stripped
         // in builds. Swap them to PSXLit now that they're active.
@@ -812,6 +817,15 @@ public class NemaController : MonoBehaviour
 
             skip:;
         }
+    }
+
+    /// <summary>Set the layer of a GameObject and all its children.</summary>
+    private static void SetLayerRecursively(GameObject go, int layer)
+    {
+        go.layer = layer;
+        var t = go.transform;
+        for (int i = 0; i < t.childCount; i++)
+            SetLayerRecursively(t.GetChild(i).gameObject, layer);
     }
 
     // ── Public API for the secret dancing overlay ───────────────────
