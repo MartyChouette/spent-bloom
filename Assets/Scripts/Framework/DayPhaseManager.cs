@@ -101,14 +101,22 @@ public class DayPhaseManager : MonoBehaviour
 
 #if UNITY_EDITOR
     [Header("Editor Quick-Boot (Editor only — stripped from builds)")]
-    [Tooltip("If true, pressing Play in the editor skips the normal morning→exploration→date flow and boots straight into the chosen phase with the chosen date pre-selected. Completely absent in built players.")]
+    [Tooltip("If true, pressing Play in the editor skips the normal morning flow and boots straight into the chosen phase.")]
     [SerializeField] private bool _editorQuickBoot = true;
 
-    [Tooltip("Which phase to jump to on editor Play. Default is Exploration so you land in the pre-date clean-up phase with Nema already in her lean pose.")]
+    [Tooltip("Which phase to jump to on editor Play.")]
     [SerializeField] private DayPhase _editorBootPhase = DayPhase.Exploration;
 
-    [Tooltip("Which date to pre-select so phase-based systems know who's coming. Drag the DatePersonalDefinition asset (e.g. Date_Paris).")]
+    [Tooltip("Which date to pre-select. Drag a DatePersonalDefinition asset.")]
     [SerializeField] private DatePersonalDefinition _editorBootDate;
+
+    [Tooltip("Which in-game day to simulate (1-7).")]
+    [Range(1, 7)]
+    [SerializeField] private int _editorBootDay = 1;
+
+    [Tooltip("Starting affection for testing sweep/flower paths (0-100).")]
+    [Range(0, 100)]
+    [SerializeField] private float _editorBootAffection = 50f;
 #endif
 
     [Header("Audio")]
@@ -241,20 +249,33 @@ public class DayPhaseManager : MonoBehaviour
     /// </summary>
     private void TryEditorQuickBoot()
     {
+        // Set day
+        if (GameClock.Instance != null)
+            GameClock.Instance.RestoreFromSave(_editorBootDay, 18f);
+        if (DayManager.Instance != null)
+        {
+            var dayProp = typeof(DayManager).GetProperty("CurrentDay",
+                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+            dayProp?.SetValue(DayManager.Instance, _editorBootDay);
+        }
+
+        // Set date character
         if (_editorBootDate != null && DateSessionManager.Instance != null)
         {
-            // Use reflection so we don't need a new public setter on DSM — this
-            // is editor-only so the perf cost is irrelevant.
             var field = typeof(DateSessionManager).GetField("_currentDate",
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             if (field != null)
                 field.SetValue(DateSessionManager.Instance, _editorBootDate);
 
-            Debug.Log($"[DayPhaseManager] Editor quick-boot: date set to '{_editorBootDate.characterName}'.");
+            // Set affection
+            var affField = typeof(DateSessionManager).GetField("_affection",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (affField != null)
+                affField.SetValue(DateSessionManager.Instance, _editorBootAffection);
+
+            Debug.Log($"[DayPhaseManager] Quick-boot: day {_editorBootDay}, date={_editorBootDate.characterName}, affection={_editorBootAffection}");
         }
 
-        // Call the right entry point for the target phase so all side effects
-        // (UI toggles, fade-in, state machine) run normally.
         switch (_editorBootPhase)
         {
             case DayPhase.Morning:
@@ -264,7 +285,7 @@ public class DayPhaseManager : MonoBehaviour
                 EnterExploration();
                 break;
             case DayPhase.Evening:
-                EnterEvening(_editorBootDate, 100f);
+                EnterEvening(_editorBootDate, _editorBootAffection);
                 break;
             case DayPhase.FlowerTrimming:
                 SetPhase(DayPhase.FlowerTrimming);
@@ -274,7 +295,7 @@ public class DayPhaseManager : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"[DayPhaseManager] Editor quick-boot: jumped to {_editorBootPhase}.");
+        Debug.Log($"[DayPhaseManager] Quick-boot: jumped to {_editorBootPhase}.");
     }
 #endif
 
