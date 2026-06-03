@@ -179,16 +179,19 @@ public class AutoSaveController : MonoBehaviour
         if (WeatherSystem.Instance != null)
             WeatherSystem.Instance.LoadFromSave(data.weatherState);
 
-        if (LivingFlowerPlantManager.Instance != null && data.livingPlants != null)
+        if (data.livingPlants != null && data.livingPlants.Count > 0)
         {
-            Debug.Log($"[AutoSaveController] Restoring {data.livingPlants.Count} living plants.");
-            LivingFlowerPlantManager.Instance.LoadFromRecords(data.livingPlants);
-        }
-        else
-        {
-            Debug.LogWarning($"[AutoSaveController] Cannot restore plants — " +
-                $"Manager={LivingFlowerPlantManager.Instance != null}, " +
-                $"Data={data.livingPlants?.Count ?? -1}");
+            if (LivingFlowerPlantManager.Instance != null)
+            {
+                Debug.Log($"[AutoSaveController] Restoring {data.livingPlants.Count} living plants.");
+                LivingFlowerPlantManager.Instance.LoadFromRecords(data.livingPlants);
+            }
+            else
+            {
+                // Manager not ready yet — defer to next frame
+                Debug.Log($"[AutoSaveController] LivingFlowerPlantManager not ready, deferring {data.livingPlants.Count} plants.");
+                StartCoroutine(DeferredPlantRestore(data.livingPlants));
+            }
         }
 
         // Restore knowledge
@@ -202,6 +205,28 @@ public class AutoSaveController : MonoBehaviour
                   $"Day {data.currentDay}, phase {(DayPhaseManager.DayPhase)data.dayPhase}, " +
                   $"{data.dateHistory?.Count ?? 0} date records, " +
                   $"{data.objectPositions?.Count ?? 0} object positions.");
+    }
+
+    private System.Collections.IEnumerator DeferredPlantRestore(List<LivingPlantRecord> records)
+    {
+        // Wait up to 2 seconds for the manager to initialize
+        float timeout = 2f;
+        float elapsed = 0f;
+        while (LivingFlowerPlantManager.Instance == null && elapsed < timeout)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (LivingFlowerPlantManager.Instance != null)
+        {
+            Debug.Log($"[AutoSaveController] Deferred plant restore: {records.Count} plants.");
+            LivingFlowerPlantManager.Instance.LoadFromRecords(records);
+        }
+        else
+        {
+            Debug.LogError("[AutoSaveController] LivingFlowerPlantManager never initialized — plants lost.");
+        }
     }
 
     private void RestoreKnowledge(List<string> itemIds, List<string> infoIds)
