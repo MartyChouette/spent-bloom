@@ -158,22 +158,42 @@ Shader "Iris/Fullscreen/PSXPost"
 
                 float3 c = saturate(screen.rgb); // clamp HDR to 0-1 before posterize
                 float luminance = dot(c, float3(0.299, 0.587, 0.114));
+                int mode = (int)_PosterizeMode;
 
-                // Dither strength ramps up below _ShadowThreshold (bright = clean)
-                float ditherStrength = 1.0 - smoothstep(0.0, _ShadowThreshold, luminance);
+                // Dither strength: shadow-only for hard modes, full-range for soft/luma modes
+                float ditherStrength;
+                if (mode == 2 || mode == 3)
+                {
+                    // Full-range dither for luma modes — helps transition bands everywhere
+                    ditherStrength = _DitherIntensity;
+                }
+                else
+                {
+                    // Shadow-only dither for classic modes — bright = clean
+                    ditherStrength = (1.0 - smoothstep(0.0, _ShadowThreshold, luminance)) * _DitherIntensity;
+                }
 
-                // Blend from fine to coarse pattern below _DeepShadowThreshold
-                float coarseBlend = 1.0 - smoothstep(0.0, _DeepShadowThreshold, luminance);
+                // Blend from fine to coarse pattern based on luminance
+                // Bright areas use fine pattern, dark areas use coarse pattern
+                float coarseBlend;
+                if (mode == 2 || mode == 3)
+                {
+                    // Smooth blend across full range: bright=fine, dark=coarse
+                    coarseBlend = 1.0 - smoothstep(0.0, 0.5, luminance);
+                }
+                else
+                {
+                    coarseBlend = 1.0 - smoothstep(0.0, _DeepShadowThreshold, luminance);
+                }
 
                 // Sample both patterns and blend
                 float fineSample   = SampleBayer(pixelPos, (int)_FinePattern);
                 float coarseSample = SampleBayer(pixelPos, (int)_CoarsePattern);
                 float ditherSample = lerp(fineSample, coarseSample, coarseBlend);
 
-                c += ditherSample * (1.0 / levels) * _DitherIntensity * ditherStrength;
+                c += ditherSample * (1.0 / levels) * ditherStrength;
 
                 // ── Color depth reduction (posterization) ──
-                int mode = (int)_PosterizeMode;
 
                 if (mode == 0)
                 {
