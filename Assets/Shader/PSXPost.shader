@@ -156,7 +156,7 @@ Shader "Iris/Fullscreen/PSXPost"
                 ditherRes *= max(_DitherZoom, 0.01);
                 float2 pixelPos = uv * ditherRes;
 
-                float3 c = screen.rgb;
+                float3 c = saturate(screen.rgb); // clamp HDR to 0-1 before posterize
                 float luminance = dot(c, float3(0.299, 0.587, 0.114));
 
                 // Dither strength ramps up below _ShadowThreshold (bright = clean)
