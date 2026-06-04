@@ -199,17 +199,30 @@ Shader "Iris/Fullscreen/PSXPost"
                 }
                 else if (mode == 3)
                 {
+                    // Soft Luma: luma-only posterization with smoothstep transitions
+                    // Dither activity of mode 2, smooth bands of mode 1
+                    float luma = dot(c, float3(0.299, 0.587, 0.114));
+                    float qLuma = floor(luma * levels + 0.5) / levels;
+                    float nextLuma = (floor(luma * levels + 0.5) + 1.0) / levels;
+                    float fracLuma = frac(luma * levels + 0.5);
+                    float blendLuma = smoothstep(0.3, 0.7, fracLuma);
+                    float softLuma = lerp(qLuma, nextLuma, blendLuma);
+                    float ratio = luma > 0.001 ? softLuma / luma : 1.0;
+                    c *= ratio;
+                }
+                else if (mode == 4)
+                {
                     // Dither only: no floor, just the dither texture (already applied above)
                     // Skip posterization entirely
                 }
-                else if (mode == 4)
+                else if (mode == 5)
                 {
                     // PS1 channels: R=32, G=32, B=16 (5-5-4 bit, fewer blues)
                     c.r = floor(c.r * 32.0 + 0.5) / 32.0;
                     c.g = floor(c.g * 32.0 + 0.5) / 32.0;
                     c.b = floor(c.b * 16.0 + 0.5) / 16.0;
                 }
-                // mode 5+: off (no posterization, no dither effect on quantization)
+                // mode 6+: off (no posterization, no dither effect on quantization)
 
                 return half4(saturate(c), 1.0);
             }

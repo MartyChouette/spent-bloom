@@ -47,8 +47,8 @@ public class PSXPostProcessFeature : ScriptableRendererFeature
         [Range(0, 1)] public float deepShadowThreshold = 0.15f;
 
         [Header("Posterize Mode")]
-        [Tooltip("0=Hard (classic), 1=Soft (watercolor), 2=LumaOnly (posterize brightness only), 3=DitherOnly (no quantization), 4=PS1Channels (5-5-4 bit), 5=Off")]
-        [Range(0, 5)] public int posterizeMode = 0;
+        [Tooltip("0=Hard, 1=Soft, 2=LumaOnly, 3=SoftLuma (recommended), 4=DitherOnly, 5=PS1Channels, 6=Off")]
+        [Range(0, 6)] public int posterizeMode = 3;
 
         [Header("Zoom Scaling")]
         [Tooltip("Camera ortho size at which dither is 1:1. Dither scales with zoom relative to this. 0 = no zoom scaling.")]
